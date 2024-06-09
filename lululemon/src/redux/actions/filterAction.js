@@ -13,9 +13,17 @@ export const fetchFilterApi = () => {
                 console.log(filtersData)
 
                 Object.keys(filtersData).forEach(filterType => {
+                    const filterValues = filtersData[filterType].map((filter, index) => ({
+                        ...filter,
+                        id: filter.id || `${filterType}-${index}`,
+                        name: filter.name || null,
+                        swatch: filter.swatch || null,
+                        isChecked: filter.isChecked || false
+                    }))
+
                     dispatch({
                         type: actionTypes.FETCH_ALL_FILTERS,
-                        payload: {filterType, filterValue: filtersData[filterType]}
+                        payload: {filterType, filterValues}
                     })
                 })
 
