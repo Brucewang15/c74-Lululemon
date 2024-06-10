@@ -8,6 +8,8 @@ import {CheckboxFilter} from "./CheckboxFilter";
 const FilterContainer = () => {
     const dispatch = useDispatch()
     const filters = useSelector(state => state.filterReducer.filters)
+
+    // To fetch all the filters when the page is loaded
     useEffect(() => {
         dispatch(fetchFilterApi())
     }, [dispatch]);

@@ -38,12 +38,14 @@ export const filterReducer = (state = initialState, action) => {
                 ...state,
                 filters: {
                     ...state.filters,
+                    // 动态的生成filterType的名字，比如说选到了gender这个选项，那[action.payload.filterType]就变成了gender
                     [action.payload.filterType]: state.filters[action.payload.filterType].map(item =>
                         // use the unique id to select an individual filter
                         item.id === action.payload.filterValue.id
                             ? {
                                 ...item,
-                                isChecked: action.payload.filterValue.isChecked
+                                // isChecked: action.payload.filterValue.isChecked
+                                isChecked: !item.isChecked   // 这样就可以在reducer中直接出来反选逻辑而非在component中操作
                             } : item
                     )
                 }
