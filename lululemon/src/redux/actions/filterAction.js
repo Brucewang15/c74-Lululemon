@@ -1,13 +1,12 @@
 // Fetch all the filter API
 
 import axios from "axios";
-import {useDispatch} from "react-redux";
-import {APIURL} from "../helper";
+import {filterURL, myKey} from "../helper";
 import {actionTypes} from "./actionTypes";
 
 export const fetchFilterApi = () => {
     return dispatch => {
-        axios.get(APIURL)
+        axios.get(filterURL)
             .then(res => {
                 const filtersData = res.data.rs;
                 console.log(filtersData)

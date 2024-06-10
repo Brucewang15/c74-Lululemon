@@ -3,5 +3,6 @@
 
 export const actionTypes = {
     'FETCH_ALL_FILTERS': 'FETCH_ALL_FILTERS',
-    'TOGGLE_FILTER': "TOGGLE_FILTER"
+    'TOGGLE_FILTER': "TOGGLE_FILTER",
+    'SET_PRODUCTS': 'SET_PRODUCTS',
 }
