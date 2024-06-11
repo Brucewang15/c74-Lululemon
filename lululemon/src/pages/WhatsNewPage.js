@@ -33,7 +33,7 @@ export const WhatsNewPage = () => {
 
 
         {/*<CheckedFilters/>*/}
-        {/*<FilterContainer/>*/}
+        <FilterContainer/>
         {/*<div>Products go here</div>*/}
         <WhatsNewMain/>
     </>

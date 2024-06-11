@@ -23,9 +23,8 @@ const WhatsNewMain = () => {
 
     return (
         <div>
-            <div className="whats-new-container">
-                <h1>What's New</h1>
-                <div className="products-grid">
+            <div className="whatsNewContainer">
+                <div className="productsGrid">
                     {products.map((product) => (
                         <ProductCard key={product.productId} product={product} />
                     ))}
