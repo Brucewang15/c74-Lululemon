@@ -25,12 +25,15 @@ const initialState = {
 export const filterReducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.FETCH_ALL_FILTERS:
-            // console.log(`Fetching filters for type: ${action.payload.filterType}`);
-
+            console.log(`Fetching filters for type: ${action.payload.filterType}`);
             return {
                 ...state,
                 filters: {
                     ...state.filters, [action.payload.filterType]: action.payload.filterValues
+                },
+                // 默认页面刷新的时候expand是true，展示所有商品
+                filterExpand: {
+                    ...state.filterExpand, [action.payload.filterType]: true
                 }
             }
         case actionTypes.TOGGLE_FILTER:
@@ -75,7 +78,7 @@ export const filterReducer = (state = initialState, action) => {
             }
         case actionTypes.FILTER_EXPAND:
             let newFilterExpand = {...state.filterExpand}
-            newFilterExpand[action.payload] =  !state.filterExpand[action.payload]
+            newFilterExpand[action.payload] = !state.filterExpand[action.payload]
             console.log(action.payload)
             console.log('pre filter', state.filterExpand)
             console.log('cur filter', newFilterExpand)
