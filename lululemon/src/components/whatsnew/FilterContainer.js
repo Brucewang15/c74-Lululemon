@@ -8,11 +8,14 @@ import {SizeButtonFilter} from "./SizeButtonFilter";
 import {postFilterRequest} from "../../redux/actions/productActions";
 import './FilterContainer.scss'
 
+import './FilterContainer.scss'
+
 const FilterContainer = () => {
     const dispatch = useDispatch()
     const filters = useSelector(state => state.filterReducer.filters)
     const requestBody = useSelector(state => state.filterReducer.requestBody)
-    const checkedFilters = Object.keys(filters).flatMap(filterType => filters[filterType].filter(filter => filter.isChecked))
+
+    const filterExpand = useSelector(state => state.filterReducer.filterExpand)
 
     // To fetch all the filters when the page is loaded
     useEffect(() => {
@@ -25,16 +28,22 @@ const FilterContainer = () => {
     //     // console.log('sending reqeuest Body', requestBody)
     //     dispatch(postFilterRequest(requestBody))
     // }, [requestBody, dispatch]);
+
+    {/*//All the filters components*/
+    }
+    // useEffect(() => {
+    //     // if (Object.keys(requestBody).length > 0) {
+    //     console.log('sending reqeuest Body', requestBody)
+    //     dispatch(postFilterRequest(requestBody))
+    //     // }
+    // }, [requestBody, dispatch]);
+
+
     return (
         <div className='filterContainer'>
-            {checkedFilters.map((filter, index) => {
-                return filter.name ? <h1 key={index}>{`${filter.name}'s What's New`} </h1> : <h1>What's New</h1>
-            })}
             {/*//All the filters components*/}
-
             {/*All the filters except Color and Size, because they are two separate filters*/}
             {Object.keys(filters).map(filterType => {
-
                 if (filterType === 'Colour')
                     return <ColorFilter key={filterType}
                                         filterType={filterType}

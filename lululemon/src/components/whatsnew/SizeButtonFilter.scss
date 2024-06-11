@@ -1,8 +1,63 @@
-.sizeButtonContainer {
-  display: flex;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-}
-.sizeDivider {
 
+.sizeButtonFilter {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  //align-items: flex-start;
+  border-bottom: 1px solid #d5d5d5;
+
+  .sizeFilterType {
+    width: 300px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 0;
+
+    .sizeFilterTypeName {
+      font-size: 17px;
+    }
+
+    .sizeFilterToggle {
+      font-size: 40px;
+    }
+  }
+
+  .sizeAllButtons {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    button {
+      height: 40px;
+      font-weight: 800;
+      cursor: pointer;
+      border-radius: 5px;
+      margin: 5px 5px;
+      text-wrap: normal;
+    }
+
+    .sizeNumbers {
+      display: flex;
+      flex-wrap: wrap;
+      border-bottom: 1px gray dashed;
+
+      button {
+        width: 40px;
+      }
+
+      padding-bottom: 5px;
+      margin-bottom: 5px;
+    }
+
+    .sizeLetters {
+      display: flex;
+      flex-wrap: wrap;
+      border-bottom: 1px gray dashed;
+      padding-bottom: 5px;
+      margin-bottom: 5px;
+    }
+  }
 }
+
+
+

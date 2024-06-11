@@ -17,6 +17,20 @@ export const WhatsNewPage = () => {
         {/*{JSON.stringify(filters)}*/}
 
 
+        {/*{JSON.stringify(products)}*/}
+
+
+        {/*Render selected filters name*/}
+        {/*<div style={{display: "flex", justifyContent: "center", gap: "20px"}}>*/}
+        {/*    {checkedFilters.length > 0 ? checkedFilters.map((filter, index) => {*/}
+        {/*        return filter.name ?*/}
+        {/*            <div style={{fontSize: "large", fontWeight: "600"}} key={index}>{filter.name} </div>*/}
+        {/*            :*/}
+        {/*            <div style={{fontSize: "large", fontWeight: "600"}} key={index}>{filter.alt} </div>*/}
+        {/*    }) : <p style={{fontSize: "large", fontWeight: "600", color: "red"}}>Choose a filter to see more items</p>}*/}
+        {/*</div>*/}
+
+
         <CheckedFilters/>
         <FilterContainer/>
         <div>Products go here</div>

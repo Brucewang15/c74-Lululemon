@@ -1,43 +1,69 @@
 // this is the filter for the size buttons.
-import {useDispatch} from "react-redux";
-import {setFilter} from "../../redux/actions/filterAction";
+
+import {useDispatch, useSelector} from "react-redux";
+import {expandFilter, setFilter} from "../../redux/actions/filterAction";
 import './SizeButtonFilter.scss'
 
 export const SizeButtonFilter = ({filters, filterType}) => {
     const dispatch = useDispatch()
+    const filterExpand = useSelector(state => state.filterReducer.filterExpand)
     const handleFilterChange = (filter) => {
         dispatch(setFilter(filterType, filter))
     }
+    const sizeNumbers = filters[filterType].filter(item => !isNaN(Number(item.name)) && typeof (Number(item.name)) === 'number')
+    const sizeLetter = filters[filterType].filter(item => isNaN(Number(item.name)) && item.name !== 'ONE SIZE')
+    const sizeOneSize = filters[filterType].filter(item => item.name === 'ONE SIZE')
 
     return (
-        <>
-            <h3>{filterType}</h3>
-            <div className='sizeButtonContainer'>
-                {filters[filterType].map((filter, index) => {
-                        if (filter.name !== 'sizeDivider')
-                            return <button
-                                onClick={() => handleFilterChange(filter)}
-                                key={filter.id || `${filterType}-${index}`}
-                                style={{
-                                    width: '50px',
-                                    height: '40px',
-                                    fontWeight: "600",
-                                    cursor: "pointer",
-                                    border: filter.isChecked ? "red 2px solid" : "grey 1px solid"
-                                }}
-                            >
-                                {filter.name}
-                            </button>
-                        else return (
 
-                            <h3 className='sizeDivider'
-                                key={filter.id || `divider-${index}`}> --------------
-                            </h3>
-
-                        )
-                    }
-                )}
+        <div className='sizeButtonFilter'>
+            <div className='sizeFilterType'>
+                <div className='sizeFilterTYpeName'>{filterType}</div>
+                <div className='sizeFilterToggle' key={filterType} onClick={() => {
+                    dispatch(expandFilter(filterType))
+                }}>
+                    {filterExpand[filterType] ? '-' : '+'}
+                </div>
             </div>
-        </>
+            {filterExpand[filterType]
+                && <div className='sizeAllButtons'>
+                    <div className='sizeNumbers'>
+                        {sizeNumbers.map((filter, index) => filter.name !== 'sizeDivider'
+                            && <button
+                                className='sizeNumberButton'
+                                key={filter.id || `${filterType}-${index}`}
+                                onClick={() => handleFilterChange(filter)}
+                                style={{
+                                    border: filter.isChecked ? "red 2px solid" : "grey 1px solid"
+                                }}>
+                                {filter.name}
+                            </button>)}
+                    </div>
+                    <div className='sizeLetters'>
+                        {sizeLetter.map((filter, index) => filter.name !== 'sizeDivider'
+                            && <button
+                                className='sizeLetterButton'
+                                key={filter.id || `${filterType}-${index}`}
+                                onClick={() => handleFilterChange(filter)}
+                                style={{
+                                    border: filter.isChecked ? "red 2px solid" : "grey 1px solid"
+                                }}>
+                                {filter.name}
+                            </button>)}
+                    </div>
+                    <div className='sizeOneSize'>
+                        {sizeOneSize.map((filter, index) => filter.name !== 'sizeDivider'
+                            && <button
+                                className='sizeLetterButton'
+                                key={filter.id || `${filterType}-${index}`}
+                                onClick={() => handleFilterChange(filter)}
+                                style={{
+                                    border: filter.isChecked ? "black 2px solid" : "grey 1px solid"
+                                }}>
+                                {filter.name}
+                            </button>)}
+                    </div>
+                </div>}
+        </div>
     )
 }

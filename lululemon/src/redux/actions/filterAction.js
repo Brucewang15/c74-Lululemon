@@ -51,3 +51,10 @@ export const handleRemoveFilter = (filterType, filterId) => {
         }
     }
 }
+export const expandFilter = (filterType) => {
+    return {
+        type: actionTypes.FILTER_EXPAND,
+        payload: filterType
+    }
+}
+
