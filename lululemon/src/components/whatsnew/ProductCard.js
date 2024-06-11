@@ -1,42 +1,23 @@
+import React from 'react';
+import './ProductCard.css';
 
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchProducts } from '../../redux/actions/productActions';
-//import Header from '../components/Header';
-//import './WhatsNew.css';
-
-const WhatsNew = () => {
-    const dispatch = useDispatch();
-    const { loading, products, filters, error } = useSelector((state) => state.productReducer);
-
-    useEffect(() => {
-        dispatch(fetchProducts());
-    }, [dispatch]);
-
-    if (loading) {
-        return <div>Loading...</div>;
-    }
-
-    if (error) {
-        return <div>Error: {error}</div>;
-    }
+const ProductCard = ({ product }) => {
+    console.log(product);
+    const mainImage = product.images[0].mainCarousel.media.split('|')[0].trim();
+    const swatches = product.swatches;
 
     return (
-        <div>
-            <div className="whats-new-container">
-                <h1>What's New</h1>
-                <div className="products-grid">
-                    {products.map((product) => (
-                        <div key={product.productId} className="product-card">
-                            <img src={product.images[0].mainCarousel.media.split('|')[0].trim()} alt={product.images[0].colorAlt} />
-                            <h2>{product.productName}</h2>
-                            <p>{product.price}</p>
-                        </div>
-                    ))}
-                </div>
+        <div className="product-card">
+            <img src={mainImage} alt={product.productName} className="product-image" />
+            <div className="swatches">
+                {swatches.map((swatch, index) => (
+                    <img key={index} src={swatch.swatch} alt={swatch.swatchAlt} className="swatch" />
+                ))}
             </div>
+            <h2 className="product-name">{product.productName}</h2>
+            <p className="product-price">{product.price}</p>
         </div>
     );
 };
 
-export default WhatsNew;
+export default ProductCard;

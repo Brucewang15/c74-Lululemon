@@ -3,7 +3,7 @@
 
 import {useDispatch, useSelector} from "react-redux";
 import {expandFilter, setFilter} from "../../redux/actions/filterAction";
-import './CheckboxFilter.scss'
+import './CheckBoxFilter.scss'
 import {actionTypes} from "../../redux/actions/actionTypes";
 
 export const CheckboxFilter = ({filterType, filters}) => {
