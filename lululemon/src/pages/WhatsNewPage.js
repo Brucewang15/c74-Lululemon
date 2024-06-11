@@ -14,7 +14,7 @@ export const WhatsNewPage = () => {
     return <>
         <h1>This is new page</h1>
         {/* 把我们整个API fetch filter 的数据可以打印出来测试*/}
-        {JSON.stringify(filters)}
+        {/*{JSON.stringify(filters)}*/}
 
         {/*{JSON.stringify(products)}*/}
 

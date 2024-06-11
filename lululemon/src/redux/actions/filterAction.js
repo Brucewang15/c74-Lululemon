@@ -39,3 +39,10 @@ export const setFilter = (filterType, filterValue) => {
         payload: {filterType, filterValue}
     }
 }
+
+export const expandFilter = (filterType) => {
+    return {
+        type: actionTypes.FILTER_EXPAND,
+        payload: filterType
+    }
+}

@@ -18,7 +18,8 @@ const initialState = {
         // Climate: [],
         // Fabric: [],
     },
-    requestBody: {}
+    requestBody: {},
+    filterExpand: {}
 }
 
 export const filterReducer = (state = initialState, action) => {
@@ -60,6 +61,13 @@ export const filterReducer = (state = initialState, action) => {
                 filters: updatedFilters,
                 requestBody: newRequestBody
             }
+        case actionTypes.FILTER_EXPAND:
+            let newFilterExpand = {...state.filterExpand}
+            newFilterExpand[action.payload] =  !state.filterExpand[action.payload]
+            console.log(action.payload)
+            console.log('pre filter', state.filterExpand)
+            console.log('cur filter', newFilterExpand)
+            return {...state, filterExpand: newFilterExpand}
         default:
             return state
     }

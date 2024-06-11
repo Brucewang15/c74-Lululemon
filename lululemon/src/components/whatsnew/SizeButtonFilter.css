@@ -1,0 +1,51 @@
+.sizeButtonFilter {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  border-bottom: 1px solid #d5d5d5;
+}
+.sizeButtonFilter .sizeFilterType {
+  width: 300px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+}
+.sizeButtonFilter .sizeFilterType .sizeFilterTypeName {
+  font-size: 17px;
+}
+.sizeButtonFilter .sizeFilterType .sizeFilterToggle {
+  font-size: 40px;
+}
+.sizeButtonFilter .sizeAllButtons {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.sizeButtonFilter .sizeAllButtons button {
+  height: 40px;
+  font-weight: 800;
+  cursor: pointer;
+  border-radius: 5px;
+  margin: 5px 5px;
+  text-wrap: normal;
+}
+.sizeButtonFilter .sizeAllButtons .sizeNumbers {
+  display: flex;
+  flex-wrap: wrap;
+  border-bottom: 1px gray dashed;
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+}
+.sizeButtonFilter .sizeAllButtons .sizeNumbers button {
+  width: 40px;
+}
+.sizeButtonFilter .sizeAllButtons .sizeLetters {
+  display: flex;
+  flex-wrap: wrap;
+  border-bottom: 1px gray dashed;
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+}
+
+/*# sourceMappingURL=SizeButtonFilter.css.map */

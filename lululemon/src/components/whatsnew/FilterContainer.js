@@ -7,10 +7,14 @@ import {ColorFilter} from "./ColorFilter";
 import {SizeButtonFilter} from "./SizeButtonFilter";
 import {postFilterRequest} from "../../redux/actions/productActions";
 
+import './FilterContainer.scss'
+
 const FilterContainer = () => {
     const dispatch = useDispatch()
     const filters = useSelector(state => state.filterReducer.filters)
     const requestBody = useSelector(state => state.filterReducer.requestBody)
+    const filterExpand = useSelector(state => state.filterReducer.filterExpand)
+
     // To fetch all the filters when the page is loaded
     useEffect(() => {
         dispatch(fetchFilterApi())
@@ -24,13 +28,13 @@ const FilterContainer = () => {
         dispatch(postFilterRequest(requestBody))
         // }
     }, [requestBody, dispatch]);
-    return (
-        <div>
-            {/*//All the filters components*/}
 
+
+    return (
+        <div className='filterContainer'>
+            {/*//All the filters components*/}
             {/*All the filters except Color and Size, because they are two separate filters*/}
             {Object.keys(filters).map(filterType => {
-
                 if (filterType === 'Colour')
                     return <ColorFilter key={filterType}
                                         filterType={filterType}
@@ -46,7 +50,6 @@ const FilterContainer = () => {
                                            filterType={filterType}
                                            filters={filters}/>
             })}
-
         </div>
     )
 }
