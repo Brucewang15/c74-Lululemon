@@ -16,39 +16,44 @@ export const CheckboxFilter = ({filterType, filters}) => {
         return null
     }
     return (
-        <>
-            <h3>{filterType}</h3>
-            {/*  Render all the filters with a checkbox next to it.  */}
-            {filters[filterType].map((filter, index) => (
-                <div key={filter.id || index}
-                >
-                    {/*把onChange直接放在label中instead of input，这样子用户不论点击文字还是checkbox都可以选择*/}
-                    <label htmlFor={filter.id || `${filterType}-${index}`} onChange={() => handleFilterChange(filter)}>
-                        <input type='checkbox'
-                               checked={filter.isChecked}
-                               id={filter.id || `${filterType}-${index}`}
-                               onChange={(e) => {
-                                   {
-                                       handleFilterChange(filter)
-                                   }
-                                   // 在这添加一个stopPropagation是因为防止冒泡（点击了input，结果propagate到label又选择一次。等于没选）
-                                   e.stopPropagation()
-                               }}
+        <div>
+            <div>
+                <h2>
+                    <span>
+                        <span>
+                    {filterType}
+                        </span>
+                    </span>
+                </h2>
+                {/*  Render all the filters with a checkbox next to it.  */}
+                <div></div>
+                {filters[filterType].map((filter, index) => (
+                    <div key={filter.id || index}
+                    >
+                        {/*把onChange直接放在label中instead of input，这样子用户不论点击文字还是checkbox都可以选择*/}
+                        <label htmlFor={filter.id || `${filterType}-${index}`}
+                               onChange={() => handleFilterChange(filter)}>
+                            <input type='checkbox'
+                                   checked={filter.isChecked}
+                                   id={filter.id || `${filterType}-${index}`}
+                                   onChange={(e) => {
+                                       {
+                                           handleFilterChange(filter)
+                                       }
+                                       // 在这添加一个stopPropagation是因为防止冒泡（点击了input，结果propagate到label又选择一次。等于没选）
+                                       e.stopPropagation()
+                                   }}
+                            />
 
-
-                        />
-
-                        {
-                            (filter.name || filter.swatch) && (filter.name ? filter.name :
-                                <img src={filter.swatch} alt={filter.alt}/>)
-                        }
-                    </label>
-                </div>
-
-
-            ))}
-
-        </>
+                            {
+                                (filter.name || filter.swatch) && (filter.name ? filter.name :
+                                    <img src={filter.swatch} alt={filter.alt}/>)
+                            }
+                        </label>
+                    </div>
+                ))}
+            </div>
+        </div>
 
     )
 }

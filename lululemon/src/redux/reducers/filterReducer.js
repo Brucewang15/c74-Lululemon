@@ -48,10 +48,22 @@ export const filterReducer = (state = initialState, action) => {
                         } : item
                 )
             }
-            // 定义一个newRequestBody是为了过滤掉用户在前端勾选的filters，然后通过这个newRequestBody向后端服务器发送请求。（比如勾选了men），那么men就存在这里。
+            // 定义一个newRequestBody是为了过滤掉用户在前端勾选的filters，然后通过这个newRequestBody向后端服务器发送请求。（比如勾选了men），那么men的true就存在这里并且和其他都是false的统统打包回去。
             const newRequestBody = Object.keys(updatedFilters).reduce((acc, filterType) => {
-                const checkedFilters = updatedFilters[filterType].filter(filter => filter.isChecked).map(filter => filter.name || filter.id)
-                if (checkedFilters.length > 0) acc[filterType] = checkedFilters
+                acc[filterType] = updatedFilters[filterType].map(filter => {
+                    if (filter.swatch) {
+                        return {
+                            swatch: filter.swatch,
+                            alt: filter.alt,
+                            isChecked: filter.isChecked
+                        }
+                    } else {
+                        return {
+                            name: filter.name,
+                            isChecked: filter.isChecked
+                        }
+                    }
+                })
                 return acc
             }, {})
             console.log('newRequestBody', newRequestBody)

@@ -13,7 +13,7 @@ export const ColorFilter = ({filters, filterType}) => {
     }
     return (
         <>
-            <h3>{filterType}</h3>
+            <span>{filterType}</span>
             {filters[filterType] && filters[filterType].map((filter, index) => (
                 <div key={filter.id || `${filter.name}-${index}`}
                      style={{

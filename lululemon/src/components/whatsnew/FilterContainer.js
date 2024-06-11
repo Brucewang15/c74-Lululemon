@@ -6,26 +6,30 @@ import {CheckboxFilter} from "./CheckboxFilter";
 import {ColorFilter} from "./ColorFilter";
 import {SizeButtonFilter} from "./SizeButtonFilter";
 import {postFilterRequest} from "../../redux/actions/productActions";
+import './FilterContainer.scss'
 
 const FilterContainer = () => {
     const dispatch = useDispatch()
     const filters = useSelector(state => state.filterReducer.filters)
     const requestBody = useSelector(state => state.filterReducer.requestBody)
+    const checkedFilters = Object.keys(filters).flatMap(filterType => filters[filterType].filter(filter => filter.isChecked))
+
     // To fetch all the filters when the page is loaded
     useEffect(() => {
         dispatch(fetchFilterApi())
-        dispatch(postFilterRequest())
+        // dispatch(postFilterRequest())
     }, [dispatch]);
 
     // To post data to server with updated filters
-    useEffect(() => {
-        // if (Object.keys(requestBody).length > 0) {
-        console.log('sending reqeuest Body', requestBody)
-        dispatch(postFilterRequest(requestBody))
-        // }
-    }, [requestBody, dispatch]);
+    // useEffect(() => {
+    //     // console.log('sending reqeuest Body', requestBody)
+    //     dispatch(postFilterRequest(requestBody))
+    // }, [requestBody, dispatch]);
     return (
-        <div>
+        <div className='filterContainer'>
+            {checkedFilters.map(filter => {
+                return filter.name ? <h1>{`${filter.name}'s What's New`} </h1> : <h1>What's New</h1>
+            })}
             {/*//All the filters components*/}
 
             {/*All the filters except Color and Size, because they are two separate filters*/}
@@ -46,7 +50,6 @@ const FilterContainer = () => {
                                            filterType={filterType}
                                            filters={filters}/>
             })}
-
         </div>
     )
 }

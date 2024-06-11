@@ -5,18 +5,22 @@ import {actionTypes} from "./actionTypes";
 export const postFilterRequest = (requestBody) => {
     return dispatch => {
         console.log('Request Body : ', JSON.stringify(requestBody))
-        console.log('Request URL:', productURL)
         axios.post(productURL, requestBody, {
             headers: {
                 'Content-Type': 'application/json'
             }
         })
             .then((res) => {
-                console.log('Products:', res.data.rs.products)
-                dispatch({
-                    type: actionTypes.SET_PRODUCTS,
-                    payload: res.data.rs.products
-                });
+                if (res.data.rs && res.data.rs.products) {
+                    console.log('Products got from Post:', res.data.rs.products)
+                    dispatch({
+                        type: actionTypes.SET_PRODUCTS,
+                        // payload: res.data.rs.products
+                        payload: res.data.rs.product
+                    });
+                } else {
+                    console.log('No products found in the response')
+                }
             })
             .catch((err) => {
                 console.error('Error fetching products', err)
