@@ -1,0 +1,35 @@
+.checkedFiltersContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  font-family: inherit;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.2;
+  box-sizing: border-box;
+  margin-right: .5rem;
+
+
+  .checkedFilter {
+    border: .0625rem solid #8d9196;
+    background-color: #fff;
+    font-size: .875rem;
+    margin-right: 5px;
+    cursor: pointer;
+    border: .0625rem solid #8d9196;
+    border-radius: 5px;
+    padding: .6875rem .75rem;
+    font-weight: bold;
+
+    &:hover {
+      border: 1px solid;
+    }
+  }
+}
+
+.unselectedFilters {
+  display: none;
+  border: none;
+
+}

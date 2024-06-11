@@ -1,6 +1,7 @@
 // this is the filter for Color picker
 import {useDispatch} from "react-redux";
 import {setFilter} from "../../redux/actions/filterAction";
+import './ColorFilter.scss'
 
 export const ColorFilter = ({filters, filterType}) => {
     const dispatch = useDispatch()
@@ -14,43 +15,45 @@ export const ColorFilter = ({filters, filterType}) => {
     return (
         <>
             <span>{filterType}</span>
-            {filters[filterType] && filters[filterType].map((filter, index) => (
-                <div key={filter.id || `${filter.name}-${index}`}
-                     style={{
-                         display: "flex",
-                         flexDirection: "row",
-                         alignItems: "center",
-                         justifyContent: "center",
-                         gap: "5px",
-                         cursor: "pointer"
-                     }}
-                     onClick={() => handleFilterChange(filter)}
-                >
-                    <img src={filter.swatch}
-                         alt={filter.alt}
-                         key={filter.id || `${filter.name}-${index}`}
+            <div className='imgContainerOutside'>
+                {filters[filterType] && filters[filterType].map((filter, index) => (
+                    <div className='imgContainer' key={filter.id || `${filter.name}-${index}`}
                          style={{
-                             width: '24px',
-                             height: '24px',
-                             borderRadius: "50%",
-                             cursor: "pointer",
-                             border: filter.isChecked ? "red 2px solid" : "grey 1px solid"
+                             display: "flex",
+                             flexDirection: "row",
+                             alignItems: "center",
+                             justifyContent: "center",
+                             gap: "5px",
+                             cursor: "pointer"
                          }}
-                    />
-                    <p>{filter.alt}</p>
-                </div>
-                // <button
-                //     key={filter.id || `${filter.name}-${index}`}
-                //     style={{backgroundColor: filter.swatch, borderRadius: '50%', padding: '10px', margin: '5px'}}
-                //
-                // >
-                //     {filter.alt}
-                // </button>
+                         onClick={() => handleFilterChange(filter)}
+                    >
+                        <img src={filter.swatch}
+                             alt={filter.alt}
+                             key={filter.id || `${filter.name}-${index}`}
+                             style={{
+                                 width: '24px',
+                                 height: '24px',
+                                 borderRadius: "50%",
+                                 cursor: "pointer",
+                                 border: filter.isChecked ? "red 2px solid" : "grey 1px solid"
+                             }}
+                        />
+                        <p>{filter.alt}</p>
+                    </div>
+                    // <button
+                    //     key={filter.id || `${filter.name}-${index}`}
+                    //     style={{backgroundColor: filter.swatch, borderRadius: '50%', padding: '10px', margin: '5px'}}
+                    //
+                    // >
+                    //     {filter.alt}
+                    // </button>
 
 
-            ))
+                ))
 
-            }
+                }
+            </div>
         </>
     )
 }

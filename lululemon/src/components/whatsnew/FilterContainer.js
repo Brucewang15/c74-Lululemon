@@ -27,8 +27,8 @@ const FilterContainer = () => {
     // }, [requestBody, dispatch]);
     return (
         <div className='filterContainer'>
-            {checkedFilters.map(filter => {
-                return filter.name ? <h1>{`${filter.name}'s What's New`} </h1> : <h1>What's New</h1>
+            {checkedFilters.map((filter, index) => {
+                return filter.name ? <h1 key={index}>{`${filter.name}'s What's New`} </h1> : <h1>What's New</h1>
             })}
             {/*//All the filters components*/}
 

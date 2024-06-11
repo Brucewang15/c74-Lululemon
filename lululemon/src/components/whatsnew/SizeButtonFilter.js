@@ -1,6 +1,7 @@
 // this is the filter for the size buttons.
 import {useDispatch} from "react-redux";
 import {setFilter} from "../../redux/actions/filterAction";
+import './SizeButtonFilter.scss'
 
 export const SizeButtonFilter = ({filters, filterType}) => {
     const dispatch = useDispatch()
@@ -11,24 +12,32 @@ export const SizeButtonFilter = ({filters, filterType}) => {
     return (
         <>
             <h3>{filterType}</h3>
-            {filters[filterType].map((filter, index) => {
-                    if (filter.name !== 'sizeDivider')
-                        return <button
-                            onClick={() => handleFilterChange(filter)}
-                            key={filter.id || `${filterType}-${index}`}
-                            style={{
-                                width: '50px',
-                                height: '40px',
-                                fontWeight: "600",
-                                cursor: "pointer",
-                                border: filter.isChecked ? "red 2px solid" : "grey 1px solid"
-                            }}
-                        >
-                            {filter.name}
-                        </button>
-                    else return <div key={filter.id || `divider-${index}`}> -------------- </div>
-                }
-            )}
+            <div className='sizeButtonContainer'>
+                {filters[filterType].map((filter, index) => {
+                        if (filter.name !== 'sizeDivider')
+                            return <button
+                                onClick={() => handleFilterChange(filter)}
+                                key={filter.id || `${filterType}-${index}`}
+                                style={{
+                                    width: '50px',
+                                    height: '40px',
+                                    fontWeight: "600",
+                                    cursor: "pointer",
+                                    border: filter.isChecked ? "red 2px solid" : "grey 1px solid"
+                                }}
+                            >
+                                {filter.name}
+                            </button>
+                        else return (
+
+                            <h3 className='sizeDivider'
+                                key={filter.id || `divider-${index}`}> --------------
+                            </h3>
+
+                        )
+                    }
+                )}
+            </div>
         </>
     )
 }

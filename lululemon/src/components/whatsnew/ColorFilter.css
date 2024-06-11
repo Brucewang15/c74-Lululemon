@@ -1,0 +1,14 @@
+.imgContainerOutside {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+.imgContainerOutside .imgContainer {
+  width: 50%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+/*# sourceMappingURL=ColorFilter.css.map */

@@ -39,3 +39,15 @@ export const setFilter = (filterType, filterValue) => {
         payload: {filterType, filterValue}
     }
 }
+
+// 作用是当点击叉叉的时候就可以让它反选这个filter，取消选项
+export const handleRemoveFilter = (filterType, filterId) => {
+
+    return {
+        type: actionTypes.TOGGLE_FILTER,
+        payload: {
+            filterType,
+            filterValue: {id: filterId}
+        }
+    }
+}
