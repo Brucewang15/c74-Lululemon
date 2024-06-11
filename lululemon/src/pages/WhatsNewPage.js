@@ -31,8 +31,9 @@ export const WhatsNewPage = () => {
         {/*</div>*/}
 
 
-        <CheckedFilters/>
-        <FilterContainer/>
-        <div>Products go here</div>
+        {/*<CheckedFilters/>*/}
+        {/*<FilterContainer/>*/}
+        {/*<div>Products go here</div>*/}
+        <ProductCard/>
     </>
 }
