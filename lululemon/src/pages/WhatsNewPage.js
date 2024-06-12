@@ -6,35 +6,23 @@ import {useSelector} from "react-redux";
 import ProductCard from "../components/whatsnew/ProductCard";
 import {CheckedFilters} from "../components/whatsnew/CheckedFilters";
 import WhatsNewMain from "../components/whatsnew/WhatsNewMain";
+import './whatsNewPage.css';
 
 export const WhatsNewPage = () => {
-    const products = useSelector(state => state.productReducer.products) || []
-    const filters = useSelector(state => state.filterReducer.filters)
+    //const products = useSelector(state => state.productReducer.products) || []
+    //const filters = useSelector(state => state.filterReducer.filters)
 
 
-    return <>
-        <h1>This is new page</h1>
-        {/* 把我们整个API fetch filter 的数据可以打印出来测试*/}
-        {/*{JSON.stringify(filters)}*/}
+    return (
+        <>
+            <div className='whatsNewPageLayout'>
+                <FilterContainer/>
+                <div className='whatsNewContainer'>
+                    <WhatsNewMain/>
+                </div>
 
+            </div>
 
-        {/*{JSON.stringify(products)}*/}
-
-
-        {/*Render selected filters name*/}
-        {/*<div style={{display: "flex", justifyContent: "center", gap: "20px"}}>*/}
-        {/*    {checkedFilters.length > 0 ? checkedFilters.map((filter, index) => {*/}
-        {/*        return filter.name ?*/}
-        {/*            <div style={{fontSize: "large", fontWeight: "600"}} key={index}>{filter.name} </div>*/}
-        {/*            :*/}
-        {/*            <div style={{fontSize: "large", fontWeight: "600"}} key={index}>{filter.alt} </div>*/}
-        {/*    }) : <p style={{fontSize: "large", fontWeight: "600", color: "red"}}>Choose a filter to see more items</p>}*/}
-        {/*</div>*/}
-
-
-        {/*<CheckedFilters/>*/}
-        <FilterContainer/>
-        {/*<div>Products go here</div>*/}
-        <WhatsNewMain/>
-    </>
+        </>
+    );
 }

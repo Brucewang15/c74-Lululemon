@@ -7,7 +7,6 @@ import './WhatsNewMain.css';
 const WhatsNewMain = () => {
     const dispatch = useDispatch();
     const { loading, products, error } = useSelector((state) => state.productReducer);
-    console.log("PRODUCTS ======", products);
 
     useEffect(() => {
         dispatch(fetchProducts());
@@ -23,13 +22,13 @@ const WhatsNewMain = () => {
 
     return (
         <div>
-            <div className="whatsNewContainer">
+            {/*<div className="whatsNewContainer">*/}
                 <div className="productsGrid">
                     {products.map((product) => (
                         <ProductCard key={product.productId} product={product} />
                     ))}
                 </div>
-            </div>
+            {/*</div>*/}
         </div>
     );
 };
