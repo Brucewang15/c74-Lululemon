@@ -3,6 +3,7 @@
   flex-direction: row;
   flex-wrap: wrap;
   border-bottom: 1px solid #d5d5d5;
+  padding-bottom: 10px;
 }
 .sizeButtonFilter .sizeFilterType {
   width: 300px;
@@ -13,6 +14,11 @@
 }
 .sizeButtonFilter .sizeFilterType .sizeFilterTypeName {
   font-size: 17px;
+  font-weight: 500;
+}
+.sizeButtonFilter .sizeFilterType .sizeFilterTypeNameBold {
+  font-size: 17px;
+  font-weight: 800;
 }
 .sizeButtonFilter .sizeFilterType .sizeFilterToggle {
   font-size: 40px;

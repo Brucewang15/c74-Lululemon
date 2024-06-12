@@ -18,7 +18,7 @@ export const ColorFilter = ({filters, filterType}) => {
 
         <div className='colorFilter'>
             <div className='colorFilterType'>
-                <div className='colorFilterTypeName'>{filterType}</div>
+                <div className={filterExpand[filterType] ? 'colorFilterTypeNameBold' : 'colorFilterTypeName'}>{filterType}</div>
                 <div className='colorFilterToggle' key={filterType} onClick={() => {
                     dispatch(expandFilter(filterType))
                 }}>

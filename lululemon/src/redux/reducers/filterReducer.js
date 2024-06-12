@@ -19,7 +19,8 @@ const initialState = {
         // Fabric: [],
     },
     requestBody: {},
-    filterExpand: {}
+    filterExpand: {},
+    filterViewMore: {}
 }
 
 export const filterReducer = (state = initialState, action) => {
@@ -79,10 +80,11 @@ export const filterReducer = (state = initialState, action) => {
         case actionTypes.FILTER_EXPAND:
             let newFilterExpand = {...state.filterExpand}
             newFilterExpand[action.payload] = !state.filterExpand[action.payload]
-            console.log(action.payload)
-            console.log('pre filter', state.filterExpand)
-            console.log('cur filter', newFilterExpand)
             return {...state, filterExpand: newFilterExpand}
+        case actionTypes.FILTER_VIEW_MORE:
+            let newFilterViewMore = {...state.filterViewMore}
+            newFilterViewMore[action.payload] = !state.filterViewMore[action.payload]
+            return {...state, filterViewMore: newFilterViewMore}
         default:
             return state
     }

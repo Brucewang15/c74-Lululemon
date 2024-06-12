@@ -2,13 +2,14 @@
 
 
 import {useDispatch, useSelector} from "react-redux";
-import {expandFilter, setFilter} from "../../redux/actions/filterAction";
+import {expandFilter, setFilter, viewMoreFilter} from "../../redux/actions/filterAction";
 import './CheckboxFilter.scss'
 import {actionTypes} from "../../redux/actions/actionTypes";
 
 export const CheckboxFilter = ({filterType, filters}) => {
     const dispatch = useDispatch();
     const filterExpand = useSelector(state => state.filterReducer.filterExpand)
+    const filterViewMore = useSelector(state => state.filterReducer.filterViewMore)
 
     const handleFilterChange = (filter) => {
         console.log(`Toggling filter: ${filter.id}`);
@@ -66,7 +67,7 @@ export const CheckboxFilter = ({filterType, filters}) => {
 // =======
         <div className='checkboxFilter'>
             <div className='filterType'>
-                <div className='filterTypeName'>{filterType}</div>
+                <div className={filterExpand[filterType] ? 'filterTypeNameBold' : 'filterTypeName'}>{filterType}</div>
                 <div className='filterToggle' key={filterType} onClick={() => {
                     dispatch(expandFilter(filterType))
                 }}>
@@ -74,7 +75,9 @@ export const CheckboxFilter = ({filterType, filters}) => {
                 </div>
             </div>
             {/*  Render all the filters with a checkbox next to it.  */}
-            {filters[filterType].map((filter, index) => (
+            {filters[filterType]
+                .slice(0, filterViewMore[filterType] ? filterViewMore[filterType].length : 5)
+                .map((filter, index) => (
                 filterExpand[filterType]
                 && <div className='filterDetailsBox' key={filter.id || index}>
                     {/*把onChange直接放在label中instead of input，这样子用户不论点击文字还是checkbox都可以选择*/}
@@ -89,8 +92,6 @@ export const CheckboxFilter = ({filterType, filters}) => {
                                    // 在这添加一个stopPropagation是因为防止冒泡（点击了input，结果propagate到label又选择一次。等于没选）
                                    e.stopPropagation()
                                }}
-
-
                         />
 
                         {
@@ -100,6 +101,14 @@ export const CheckboxFilter = ({filterType, filters}) => {
                     </label>
                 </div>
             ))}
+
+            {filterExpand[filterType]
+                && filters[filterType].length > 5
+                && <div
+                    className='filterViewMore'
+                    onClick={() => {
+                dispatch(viewMoreFilter(filterType))
+            }}>{filterViewMore[filterType] ? 'View Less -' : 'View More +'}</div>}
         </div>
     )
 }

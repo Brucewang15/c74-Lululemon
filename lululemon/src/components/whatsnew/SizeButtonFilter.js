@@ -18,7 +18,7 @@ export const SizeButtonFilter = ({filters, filterType}) => {
 
         <div className='sizeButtonFilter'>
             <div className='sizeFilterType'>
-                <div className='sizeFilterTYpeName'>{filterType}</div>
+                <div className={filterExpand[filterType] ? 'sizeFilterTypeNameBold' : 'sizeFilterTypeName'}>{filterType}</div>
                 <div className='sizeFilterToggle' key={filterType} onClick={() => {
                     dispatch(expandFilter(filterType))
                 }}>

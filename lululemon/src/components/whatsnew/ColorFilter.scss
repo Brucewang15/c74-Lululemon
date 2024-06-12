@@ -4,6 +4,7 @@
   flex-direction: column;
   align-items: flex-start;
   border-bottom: 1px solid #d5d5d5;
+  padding-bottom: 10px;
 
   .colorFilterType {
     width: 300px;
@@ -14,6 +15,12 @@
 
     .colorFilterTypeName {
       font-size: 17px;
+      font-weight: 500;
+    }
+
+    .colorFilterTypeNameBold {
+      font-size: 17px;
+      font-weight: 800;
     }
 
     .colorFilterToggle {

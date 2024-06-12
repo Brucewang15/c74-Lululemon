@@ -3,6 +3,7 @@
   flex-direction: column;
   align-items: flex-start;
   border-bottom: 1px solid #d5d5d5;
+  padding-bottom: 10px;
 }
 .checkboxFilter .filterType {
   width: 300px;
@@ -13,12 +14,25 @@
 }
 .checkboxFilter .filterType .filterTypeName {
   font-size: 17px;
+  font-weight: 500;
+}
+.checkboxFilter .filterType .filterTypeNameBold {
+  font-size: 17px;
+  font-weight: 800;
 }
 .checkboxFilter .filterType .filterToggle {
   font-size: 40px;
 }
 .checkboxFilter .filterDetailsBox {
   padding: 8px 0;
+  font-size: 15px;
+}
+.checkboxFilter .filterDetailsBox input[type=checkbox]:checked {
+  accent-color: #545454;
+}
+.checkboxFilter .filterViewMore {
+  margin: 10px 0;
+  color: #494949;
   font-size: 15px;
 }
 
