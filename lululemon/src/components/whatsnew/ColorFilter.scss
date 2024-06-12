@@ -24,7 +24,25 @@
     }
 
     .colorFilterToggle {
-      font-size: 40px;
+      font-size: 30px;
+      position: relative;
+      cursor: pointer;
+
+      .colorFilterToggleHorizontal {
+        transform: rotate(90deg);
+        animation: rotateToMinus 1s forwards;
+      }
+
+      .colorFilterToggleVertical {
+        animation: rotateToPlus 1s forwards;
+        transform-origin: center;
+      }
+
+      .colorFilterToggleStatic {
+        position: absolute;
+        transform: rotate(90deg);
+
+      }
     }
   }
 
@@ -68,5 +86,23 @@
   }
   to {
     opacity: 0;
+  }
+}
+
+@keyframes rotateToMinus {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(90deg);
+  }
+}
+
+@keyframes rotateToPlus {
+  0% {
+    transform: rotate(90deg);
+  }
+  100% {
+    transform: rotate(0deg);
   }
 }

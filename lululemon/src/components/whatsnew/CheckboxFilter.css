@@ -23,6 +23,7 @@
 .checkboxFilter .filterType .filterToggle {
   font-size: 30px;
   position: relative;
+  cursor: pointer;
 }
 .checkboxFilter .filterType .filterToggle .filterToggleHorizontal {
   transform: rotate(90deg);

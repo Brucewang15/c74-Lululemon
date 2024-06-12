@@ -25,7 +25,12 @@ export const ColorFilter = ({filters, filterType}) => {
                 <div className='colorFilterToggle' key={filterType} onClick={() => {
                     dispatch(expandFilter(filterType))
                 }}>
-                    {isVisible ? '-' : '+'}
+                    {isVisible
+                        ? <div className='colorFilterToggleHorizontal'>|</div>
+                        : <div>
+                            <div className='colorFilterToggleStatic'>|</div>
+                            <div className='colorFilterToggleVertical'>|</div>
+                        </div>}
                 </div>
             </div>
             <div className={`colorFilterContainer ${isVisible ? 'fadeIn' : 'fadeOut'}`}>

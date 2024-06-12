@@ -23,7 +23,12 @@ export const SizeButtonFilter = ({filters, filterType}) => {
                 <div className='sizeFilterToggle' key={filterType} onClick={() => {
                     dispatch(expandFilter(filterType))
                 }}>
-                    {isVisible ? '-' : '+'}
+                    {isVisible
+                        ? <div className='sizeFilterToggleHorizontal'>|</div>
+                        : <div>
+                            <div className='sizeFilterToggleStatic'>|</div>
+                            <div className='sizeFilterToggleVertical'>|</div>
+                        </div>}
                 </div>
             </div>
             {isVisible

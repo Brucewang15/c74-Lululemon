@@ -21,7 +21,21 @@
   font-weight: 800;
 }
 .colorFilter .colorFilterType .colorFilterToggle {
-  font-size: 40px;
+  font-size: 30px;
+  position: relative;
+  cursor: pointer;
+}
+.colorFilter .colorFilterType .colorFilterToggle .colorFilterToggleHorizontal {
+  transform: rotate(90deg);
+  animation: rotateToMinus 1s forwards;
+}
+.colorFilter .colorFilterType .colorFilterToggle .colorFilterToggleVertical {
+  animation: rotateToPlus 1s forwards;
+  transform-origin: center;
+}
+.colorFilter .colorFilterType .colorFilterToggle .colorFilterToggleStatic {
+  position: absolute;
+  transform: rotate(90deg);
 }
 .colorFilter .colorFilterContainer {
   display: flex;
@@ -60,6 +74,22 @@
   }
   to {
     opacity: 0;
+  }
+}
+@keyframes rotateToMinus {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(90deg);
+  }
+}
+@keyframes rotateToPlus {
+  0% {
+    transform: rotate(90deg);
+  }
+  100% {
+    transform: rotate(0deg);
   }
 }
 
