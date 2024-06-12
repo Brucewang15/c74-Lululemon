@@ -19,7 +19,8 @@ const initialState = {
         // Fabric: [],
     },
     requestBody: {},
-    filterExpand: {}
+    filterExpand: {},
+    filterViewMore: {}
 }
 
 export const filterReducer = (state = initialState, action) => {
@@ -34,7 +35,11 @@ export const filterReducer = (state = initialState, action) => {
                 // 默认页面刷新的时候expand是true，展示所有商品
                 filterExpand: {
                     ...state.filterExpand, [action.payload.filterType]: true
+                },
+                filterViewMore: {
+                    ...state.filterViewMore, [action.payload.filterType]: false
                 }
+
             }
         case actionTypes.TOGGLE_FILTER:
             console.log(`Toggling filter: ${action.payload.filterValue.id || action.payload.filterValue.name}`);
@@ -83,6 +88,11 @@ export const filterReducer = (state = initialState, action) => {
             console.log('pre filter', state.filterExpand)
             console.log('cur filter', newFilterExpand)
             return {...state, filterExpand: newFilterExpand}
+        // case actionTypes.FILTER_VIEW_MORE:
+        //     return {
+        //         ...state,
+        //         filterViewMore: {...state.filterViewMore, [action.payload]: !state.filterViewMore[action.payload]}
+        //     }
         default:
             return state
     }

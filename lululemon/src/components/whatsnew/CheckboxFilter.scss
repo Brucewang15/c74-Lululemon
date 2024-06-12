@@ -19,9 +19,19 @@
       font-size: 40px;
     }
   }
+
   .filterDetailsBox {
     //border: 1px solid red;
     padding: 8px 0;
     font-size: 15px;
   }
+}
+
+.filterMore {
+  align-items: center;
+  color: #53565a;
+  display: flex;
+  padding: .6875rem 0 .5rem;
+  width: 100%;
+  cursor: pointer;
 }

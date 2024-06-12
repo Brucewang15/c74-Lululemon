@@ -22,4 +22,13 @@
   font-size: 15px;
 }
 
+.filterMore {
+  align-items: center;
+  color: #53565a;
+  display: flex;
+  padding: 0.6875rem 0 0.5rem;
+  width: 100%;
+  cursor: pointer;
+}
+
 /*# sourceMappingURL=CheckboxFilter.css.map */
