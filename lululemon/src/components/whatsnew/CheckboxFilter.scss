@@ -22,7 +22,24 @@
     }
 
     .filterToggle {
-      font-size: 40px;
+      font-size: 30px;
+      position: relative;
+
+      .filterToggleHorizontal {
+        transform: rotate(90deg);
+        animation: rotateToMinus 1s forwards;
+      }
+
+      .filterToggleVertical {
+        animation: rotateToPlus 1s forwards;
+        transform-origin: center;
+      }
+
+      .filterToggleStatic {
+        position: absolute;
+        transform: rotate(90deg);
+
+      }
     }
   }
 
@@ -48,4 +65,48 @@
   padding: .6875rem 0 .5rem;
   width: 100%;
   cursor: pointer;
+}
+
+.fadeIn {
+  animation: fadeIn ease-in 0.5s;
+}
+
+.fadeOut {
+  animation: fadeOut ease-out 0.5s;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes rotateToMinus {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(90deg);
+  }
+}
+
+@keyframes rotateToPlus {
+  0% {
+    transform: rotate(90deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
 }

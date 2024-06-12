@@ -14,20 +14,23 @@ export const ColorFilter = ({filters, filterType}) => {
     if (!filters[filterType] || filters[filterType].length === 0) {
         return null
     }
+
+    const isVisible = filterExpand[filterType]
+
     return (
 
         <div className='colorFilter'>
             <div className='colorFilterType'>
-                <div className={filterExpand[filterType] ? 'colorFilterTypeNameBold' : 'colorFilterTypeName'}>{filterType}</div>
+                <div className={isVisible ? 'colorFilterTypeNameBold' : 'colorFilterTypeName'}>{filterType}</div>
                 <div className='colorFilterToggle' key={filterType} onClick={() => {
                     dispatch(expandFilter(filterType))
                 }}>
-                    {filterExpand[filterType] ? '-' : '+'}
+                    {isVisible ? '-' : '+'}
                 </div>
             </div>
-            <div className='colorFilterContainer'>
+            <div className={`colorFilterContainer ${isVisible ? 'fadeIn' : 'fadeOut'}`}>
                 {filters[filterType] && filters[filterType].map((filter, index) => (
-                    filterExpand[filterType]
+                    isVisible
                     && <div
                         className='colorFilterContainerItem'
                         key={filter.id || `${filter.name}-${index}`}
