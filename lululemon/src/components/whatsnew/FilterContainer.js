@@ -41,6 +41,8 @@ const FilterContainer = () => {
 
     return (
         <div className='filterContainer'>
+
+            <div className='filterWhatsNew'>What's New</div>
             {/*//All the filters components*/}
             {/*All the filters except Color and Size, because they are two separate filters*/}
             {Object.keys(filters).map(filterType => {

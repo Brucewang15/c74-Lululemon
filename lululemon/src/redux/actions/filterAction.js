@@ -58,11 +58,11 @@ export const expandFilter = (filterType) => {
     }
 }
 
-//  不用redux来全局设置viewMore state，因为useState内部就可以搞定
-// export const viewMoreFilter = (filterType) => {
-//     return {
-//         type: actionTypes.FILTER_VIEW_MORE,
-//         payload: filterType
-//     }
-// }
+
+export const viewMoreFilter = (filterType) => {
+    return {
+        type: actionTypes.FILTER_VIEW_MORE,
+        payload: filterType
+    }
+}
 
