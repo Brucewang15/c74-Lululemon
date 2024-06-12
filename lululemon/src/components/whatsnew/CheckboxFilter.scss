@@ -11,11 +11,14 @@
     justify-content: space-between;
     align-items: center;
     padding: 16px 0;
+    cursor: pointer;
+
 
     .filterTypeName {
       font-size: 17px;
       font-weight: 500;
-      }
+    }
+
     .filterTypeNameBold {
       font-size: 17px;
       font-weight: 800;
@@ -23,21 +26,46 @@
 
     .filterToggle {
       font-size: 40px;
+      cursor: pointer;
     }
   }
 
   .filterDetailsBox {
     padding: 8px 0;
     font-size: 15px;
+    cursor: pointer;
+
+    .filterDetailsLabel {
+      cursor: pointer;
+    }
 
     input[type=checkbox]:checked {
       accent-color: #545454;
     }
   }
+
   .filterViewMore {
     margin: 10px 0;
     color: #494949;
     font-size: 15px;
+    cursor: pointer;
+
+    .filterViewMoreIcon {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      color: #494949;
+      gap: 2px;
+
+      .filterViewMoreWords {
+
+      }
+
+      .icon {
+        color: #494949;
+
+      }
+    }
   }
 }
 

@@ -17,11 +17,12 @@ export const SizeButtonFilter = ({filters, filterType}) => {
     return (
 
         <div className='sizeButtonFilter'>
-            <div className='sizeFilterType'>
-                <div className={filterExpand[filterType] ? 'sizeFilterTypeNameBold' : 'sizeFilterTypeName'}>{filterType}</div>
-                <div className='sizeFilterToggle' key={filterType} onClick={() => {
-                    dispatch(expandFilter(filterType))
-                }}>
+            <div className='sizeFilterType' onClick={() => {
+                dispatch(expandFilter(filterType))
+            }}>
+                <div
+                    className={filterExpand[filterType] ? 'sizeFilterTypeNameBold' : 'sizeFilterTypeName'}>{filterType}</div>
+                <div className='sizeFilterToggle' key={filterType}>
                     {filterExpand[filterType] ? '-' : '+'}
                 </div>
             </div>
@@ -30,36 +31,31 @@ export const SizeButtonFilter = ({filters, filterType}) => {
                     <div className='sizeNumbers'>
                         {sizeNumbers.map((filter, index) => filter.name !== 'sizeDivider'
                             && <button
-                                className='sizeNumberButton'
+
+                                className={filter.isChecked ? 'sizeNumbersButtonChecked' : 'sizeNumbersButton'}
                                 key={filter.id || `${filterType}-${index}`}
                                 onClick={() => handleFilterChange(filter)}
-                                style={{
-                                    border: filter.isChecked ? "red 2px solid" : "grey 1px solid"
-                                }}>
+                            >
                                 {filter.name}
                             </button>)}
                     </div>
                     <div className='sizeLetters'>
                         {sizeLetter.map((filter, index) => filter.name !== 'sizeDivider'
                             && <button
-                                className='sizeLetterButton'
+                                className={filter.isChecked ? 'sizeLettersButtonChecked' : 'sizeLettersButton'}
                                 key={filter.id || `${filterType}-${index}`}
                                 onClick={() => handleFilterChange(filter)}
-                                style={{
-                                    border: filter.isChecked ? "red 2px solid" : "grey 1px solid"
-                                }}>
+                            >
                                 {filter.name}
                             </button>)}
                     </div>
                     <div className='sizeOneSize'>
                         {sizeOneSize.map((filter, index) => filter.name !== 'sizeDivider'
                             && <button
-                                className='sizeLetterButton'
+                                className={filter.isChecked ? 'sizeLettersButtonChecked' : 'sizeLettersButton'}
                                 key={filter.id || `${filterType}-${index}`}
                                 onClick={() => handleFilterChange(filter)}
-                                style={{
-                                    border: filter.isChecked ? "black 2px solid" : "grey 1px solid"
-                                }}>
+                            >
                                 {filter.name}
                             </button>)}
                     </div>

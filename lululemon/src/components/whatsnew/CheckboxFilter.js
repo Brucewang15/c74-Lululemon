@@ -5,7 +5,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {expandFilter, setFilter, viewMoreFilter} from "../../redux/actions/filterAction";
 import './CheckboxFilter.scss'
 import {actionTypes} from "../../redux/actions/actionTypes";
-import {useState} from "react";
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
 
 export const CheckboxFilter = ({filterType, filters}) => {
     const dispatch = useDispatch();
@@ -26,11 +27,11 @@ export const CheckboxFilter = ({filterType, filters}) => {
 
     return (
         <div className='checkboxFilter'>
-            <div className='filterType'>
+            <div className='filterType' onClick={() => {
+                dispatch(expandFilter(filterType))
+            }}>
                 <div className={filterExpand[filterType] ? 'filterTypeNameBold' : 'filterTypeName'}>{filterType}</div>
-                <div className='filterToggle' key={filterType} onClick={() => {
-                    dispatch(expandFilter(filterType))
-                }}>
+                <div className='filterToggle' key={filterType}>
                     {filterExpand[filterType] ? '-' : '+'}
                 </div>
             </div>
@@ -42,9 +43,11 @@ export const CheckboxFilter = ({filterType, filters}) => {
                     filterExpand[filterType]
                     && <div className='filterDetailsBox' key={filter.id || index}>
                         {/*把onChange直接放在label中instead of input，这样子用户不论点击文字还是checkbox都可以选择*/}
-                        <label htmlFor={filter.id || `${filterType}-${index}`}
+                        <label className='filterDetailsLabel'
+                               htmlFor={filter.id || `${filterType}-${index}`}
                                onChange={() => handleFilterChange(filter)}>
                             <input type='checkbox'
+                                   className='filterDetailsLabel'
                                    checked={filter.isChecked}
                                    id={filter.id || `${filterType}-${index}`}
                                    onChange={(e) => {
@@ -69,7 +72,22 @@ export const CheckboxFilter = ({filterType, filters}) => {
                     className='filterViewMore'
                     onClick={() => {
                         dispatch(viewMoreFilter(filterType))
-                    }}>{filterViewMore[filterType] ? 'View Less -' : 'View More +'}</div>}
+                    }}>{filterViewMore[filterType] ?
+                    <div className='filterViewMoreIcon'>
+                        <span className='filterViewMoreWords'>View Less</span>
+                        <div className='icon'><RemoveIcon/></div>
+                    </div> :
+                    <div className='filterViewMoreIcon'>
+                        <span className='filterViewMoreWords'>View More</span>
+                        <div className='icon'><AddIcon/></div>
+                    </div>}</div>}
+            {/*{filterExpand[filterType]*/}
+            {/*    && filters[filterType].length > 5*/}
+            {/*    && <div*/}
+            {/*        className='filterViewMore'*/}
+            {/*        onClick={() => {*/}
+            {/*            dispatch(viewMoreFilter(filterType))*/}
+            {/*        }}>{filterViewMore[filterType] ? 'View Less -' : 'View More +'}</div>}*/}
         </div>
     )
 }

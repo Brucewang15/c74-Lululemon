@@ -17,11 +17,12 @@ export const ColorFilter = ({filters, filterType}) => {
     return (
 
         <div className='colorFilter'>
-            <div className='colorFilterType'>
-                <div className={filterExpand[filterType] ? 'colorFilterTypeNameBold' : 'colorFilterTypeName'}>{filterType}</div>
-                <div className='colorFilterToggle' key={filterType} onClick={() => {
-                    dispatch(expandFilter(filterType))
-                }}>
+            <div className='colorFilterType' onClick={() => {
+                dispatch(expandFilter(filterType))
+            }}>
+                <div
+                    className={filterExpand[filterType] ? 'colorFilterTypeNameBold' : 'colorFilterTypeName'}>{filterType}</div>
+                <div className='colorFilterToggle' key={filterType}>
                     {filterExpand[filterType] ? '-' : '+'}
                 </div>
             </div>
@@ -31,22 +32,15 @@ export const ColorFilter = ({filters, filterType}) => {
                     && <div
                         className='colorFilterContainerItem'
                         key={filter.id || `${filter.name}-${index}`}
-                        style={{
-                            gap: "5px",
-                            cursor: "pointer"
-                        }}
+
                         onClick={() => handleFilterChange(filter)}
                     >
-                        <img src={filter.swatch}
-                             alt={filter.alt}
-                             key={filter.id || `${filter.name}-${index}`}
-                             style={{
-                                 width: '24px',
-                                 height: '24px',
-                                 borderRadius: "50%",
-                                 cursor: "pointer",
-                                 border: filter.isChecked ? "red 2px solid" : "grey 1px solid"
-                             }}
+                        <img
+                            className={filter.isChecked ? 'colorFilterImgChecked' : 'colorFilterImg'}
+                            src={filter.swatch}
+                            alt={filter.alt}
+                            key={filter.id || `${filter.name}-${index}`}
+
                         />
                         <p>{filter.alt}</p>
                     </div>
