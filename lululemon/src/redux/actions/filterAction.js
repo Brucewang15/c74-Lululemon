@@ -15,9 +15,9 @@ export const fetchFilterApi = () => {
                 Object.keys(filtersData).forEach(filterType => {
                     const filterValues = filtersData[filterType].map((filter, index) => ({
                         ...filter,
-                        //id: filter.id || `${filterType}-${index}`,
-                        //name: filter.name || null,
-                        //swatch: filter.swatch || null,
+                        id: filter.id || `${filterType}-${index}`,
+                        name: filter.name || null,
+                        swatch: filter.swatch || null,
                         isChecked: filter.isChecked || false
                     }))
 
@@ -55,11 +55,13 @@ export const setFilter = (filterType, filterValue) => {
         const { filters } = getState().filterReducer;
         console.log(filters);
         // Construct the request body from the filters state
-        //const requestBody = constructRequestBody(filters);
+        const requestBody = constructRequestBody(filters);
         //console.log('Request Body:', JSON.stringify(requestBody, null, 2));
 
         // Dispatch the action to fetch filtered products
-        dispatch(postFilterRequest(filters));
+        //dispatch(postFilterRequest(filters));
+        dispatch(postFilterRequest(requestBody));
+
     };
 }
 
@@ -87,10 +89,11 @@ export const handleRemoveFilter = (filterType, filterId) => {
         console.log(filters);
 
         // Construct the request body from the filters state
-        //const requestBody = constructRequestBody(filters);
+        const requestBody = constructRequestBody(filters);
 
         // Dispatch the action to fetch filtered products
-        dispatch(postFilterRequest(filters));
+        //dispatch(postFilterRequest(filters));
+        dispatch(postFilterRequest(requestBody));
     };
 }
 export const expandFilter = (filterType) => {
@@ -122,5 +125,33 @@ export const postFilterRequest = (requestBody) => {
                 console.error('error fetching filtered products', err);
             });
     };
+};
+
+export const constructRequestBody = (filters) => {
+    let requestBody = {};
+
+    Object.keys(filters).forEach(key => {
+        requestBody[key] = filters[key].map(filter => {
+            let filterItem = {};
+
+            if (filter.name) {
+                filterItem.name = filter.name;
+            }
+
+            if (filter.swatch) {
+                filterItem.swatch = filter.swatch;
+            }
+            if (filter.alt) {
+                filterItem.alt = filter.alt;
+            }
+
+            filterItem.isChecked = filter.isChecked;
+
+            return filterItem;
+        });
+    });
+
+    return requestBody;
+
 };
 

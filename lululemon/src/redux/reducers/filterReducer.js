@@ -43,7 +43,7 @@ export const filterReducer = (state = initialState, action) => {
 
             }
         case actionTypes.TOGGLE_FILTER:
-            console.log(`Toggling filter: ${action.payload.filterValue.id || action.payload.filterValue.name}`);
+            //console.log(`Toggling filter: ${action.payload.filterValue.id || action.payload.filterValue.name}`);
             // 更新选中的filters
             const updatedFilters = {
                 ...state.filters,
