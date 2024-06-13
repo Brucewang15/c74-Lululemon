@@ -25,8 +25,8 @@ const WhatsNewMain = () => {
         <div>
             {/*<div className="whatsNewContainer">*/}
                 <div className="productsGrid">
-                    {products.map((product) => (
-                        <ProductCard key={product.productId} product={product} />
+                    {products.map((product, index) => (
+                        <ProductCard key={`${product.productId}-${index}`} product={product} />
                     ))}
                 </div>
             {/*</div>*/}
