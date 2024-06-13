@@ -1,22 +1,23 @@
 // Fetch all the filter API
 
 import axios from "axios";
-import {filterURL, myKey} from "../helper";
+import {filterURL, productURL, myKey, apiURL} from "../helper";
 import {actionTypes} from "./actionTypes";
 
 export const fetchFilterApi = () => {
     return dispatch => {
-        axios.get(filterURL)
+        axios.post(apiURL)
             .then(res => {
-                const filtersData = res.data.rs;
-                console.log(filtersData)
+                const filtersData = res.data.rs.filters;
+                const productsData = res.data.rs.products;
+                console.log("FILTERS DATA ======", filtersData)
 
                 Object.keys(filtersData).forEach(filterType => {
                     const filterValues = filtersData[filterType].map((filter, index) => ({
                         ...filter,
-                        id: filter.id || `${filterType}-${index}`,
-                        name: filter.name || null,
-                        swatch: filter.swatch || null,
+                        //id: filter.id || `${filterType}-${index}`,
+                        //name: filter.name || null,
+                        //swatch: filter.swatch || null,
                         isChecked: filter.isChecked || false
                     }))
 
@@ -26,30 +27,71 @@ export const fetchFilterApi = () => {
                     })
                 })
 
+                // Update products
+                dispatch({
+                    type: actionTypes.FETCH_FILTERED_PRODUCTS,
+                    payload: productsData
+                });
+
             })
             .catch(err => {
-                console.error('error fetching filters', err)
+                console.error('error fetching filters and products', err)
             })
     }
 }
 
 export const setFilter = (filterType, filterValue) => {
-    return {
-        type: actionTypes.TOGGLE_FILTER,
-        payload: {filterType, filterValue}
-    }
+    // return {
+    //     type: actionTypes.TOGGLE_FILTER,
+    //     payload: {filterType, filterValue}
+    // }
+    return (dispatch, getState) => {
+        dispatch({
+            type: actionTypes.TOGGLE_FILTER,
+            payload: { filterType, filterValue }
+        });
+
+        // Get the updated filter state
+        const { filters } = getState().filterReducer;
+        console.log(filters);
+        // Construct the request body from the filters state
+        //const requestBody = constructRequestBody(filters);
+        //console.log('Request Body:', JSON.stringify(requestBody, null, 2));
+
+        // Dispatch the action to fetch filtered products
+        dispatch(postFilterRequest(filters));
+    };
 }
 
 // 作用是当点击叉叉的时候就可以让它反选这个filter，取消选项
 export const handleRemoveFilter = (filterType, filterId) => {
 
-    return {
-        type: actionTypes.TOGGLE_FILTER,
-        payload: {
-            filterType,
-            filterValue: {id: filterId}
-        }
-    }
+    // return {
+    //     type: actionTypes.TOGGLE_FILTER,
+    //     payload: {
+    //         filterType,
+    //         filterValue: {id: filterId}
+    //     }
+    // }
+    return (dispatch, getState) => {
+        dispatch({
+            type: actionTypes.TOGGLE_FILTER,
+            payload: {
+                filterType,
+                filterValue: { id: filterId }
+            }
+        });
+
+        // Get the updated filter state
+        const { filters } = getState().filterReducer;
+        console.log(filters);
+
+        // Construct the request body from the filters state
+        //const requestBody = constructRequestBody(filters);
+
+        // Dispatch the action to fetch filtered products
+        dispatch(postFilterRequest(filters));
+    };
 }
 export const expandFilter = (filterType) => {
     return {
@@ -65,4 +107,20 @@ export const viewMoreFilter = (filterType) => {
         payload: filterType
     }
 }
+
+export const postFilterRequest = (requestBody) => {
+    console.log(requestBody);
+    return dispatch => {
+        axios.post(apiURL, requestBody)
+            .then(res => {
+                dispatch({
+                    type: actionTypes.FETCH_FILTERED_PRODUCTS,
+                    payload: res.data.rs.products
+                });
+            })
+            .catch(err => {
+                console.error('error fetching filtered products', err);
+            });
+    };
+};
 

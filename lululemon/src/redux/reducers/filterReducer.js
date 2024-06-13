@@ -20,7 +20,8 @@ const initialState = {
     },
     requestBody: {},
     filterExpand: {},
-    filterViewMore: {}
+    filterViewMore: {},
+    products: []
 }
 
 export const filterReducer = (state = initialState, action) => {
@@ -90,6 +91,11 @@ export const filterReducer = (state = initialState, action) => {
             let newFilterViewMore = {...state.filterViewMore}
             newFilterViewMore[action.payload] = !state.filterViewMore[action.payload]
             return {...state, filterViewMore: newFilterViewMore}
+        case actionTypes.FETCH_FILTERED_PRODUCTS:
+            return {
+                ...state,
+                products: action.payload
+            };
         default:
             return state
     }
