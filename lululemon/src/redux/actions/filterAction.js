@@ -58,3 +58,11 @@ export const expandFilter = (filterType) => {
     }
 }
 
+
+export const viewMoreFilter = (filterType) => {
+    return {
+        type: actionTypes.FILTER_VIEW_MORE,
+        payload: filterType
+    }
+}
+

@@ -3,6 +3,7 @@
   flex-direction: column;
   align-items: flex-start;
   border-bottom: 1px solid #d5d5d5;
+  padding-bottom: 10px;
 }
 .checkboxFilter .filterType {
   width: 300px;
@@ -10,16 +11,109 @@
   justify-content: space-between;
   align-items: center;
   padding: 16px 0;
+  cursor: pointer;
 }
 .checkboxFilter .filterType .filterTypeName {
   font-size: 17px;
+  font-weight: 500;
+}
+.checkboxFilter .filterType .filterTypeNameBold {
+  font-size: 17px;
+  font-weight: 800;
 }
 .checkboxFilter .filterType .filterToggle {
-  font-size: 40px;
+  font-size: 30px;
+  position: relative;
+  cursor: pointer;
+}
+.checkboxFilter .filterType .filterToggle .filterToggleHorizontal {
+  transform: rotate(90deg);
+  animation: rotateToMinus 1s forwards;
+}
+.checkboxFilter .filterType .filterToggle .filterToggleVertical {
+  animation: rotateToPlus 1s forwards;
+  transform-origin: center;
+}
+.checkboxFilter .filterType .filterToggle .filterToggleStatic {
+  position: absolute;
+  transform: rotate(90deg);
 }
 .checkboxFilter .filterDetailsBox {
   padding: 8px 0;
   font-size: 15px;
+  cursor: pointer;
+}
+.checkboxFilter .filterDetailsBox .filterDetailsLabel {
+  cursor: pointer;
+}
+.checkboxFilter .filterDetailsBox input[type=checkbox]:checked {
+  accent-color: #545454;
+}
+.checkboxFilter .filterViewMore {
+  margin: 10px 0;
+  color: #494949;
+  font-size: 15px;
+  cursor: pointer;
+}
+.checkboxFilter .filterViewMore .filterViewMoreIcon {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: #494949;
+  gap: 2px;
+}
+.checkboxFilter .filterViewMore .filterViewMoreIcon .icon {
+  color: #494949;
+}
+
+.filterMore {
+  align-items: center;
+  color: #53565a;
+  display: flex;
+  padding: 0.6875rem 0 0.5rem;
+  width: 100%;
+  cursor: pointer;
+}
+
+.fadeIn {
+  animation: fadeIn ease-in 0.5s;
+}
+
+.fadeOut {
+  animation: fadeOut ease-out 0.5s;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes rotateToMinus {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(90deg);
+  }
+}
+@keyframes rotateToPlus {
+  0% {
+    transform: rotate(90deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
 }
 
 /*# sourceMappingURL=CheckboxFilter.css.map */

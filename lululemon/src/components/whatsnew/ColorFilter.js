@@ -14,39 +14,41 @@ export const ColorFilter = ({filters, filterType}) => {
     if (!filters[filterType] || filters[filterType].length === 0) {
         return null
     }
+
+    const isVisible = filterExpand[filterType]
+
     return (
 
         <div className='colorFilter'>
-            <div className='colorFilterType'>
-                <div className='colorFilterTypeName'>{filterType}</div>
-                <div className='colorFilterToggle' key={filterType} onClick={() => {
-                    dispatch(expandFilter(filterType))
-                }}>
-                    {filterExpand[filterType] ? '-' : '+'}
+
+            <div className='colorFilterType' onClick={() => {
+                dispatch(expandFilter(filterType))
+            }}>
+                <div className={isVisible ? 'colorFilterTypeNameBold' : 'colorFilterTypeName'}>{filterType}</div>
+                <div className='colorFilterToggle' key={filterType}>
+                    {isVisible
+                        ? <div className='colorFilterToggleHorizontal'>|</div>
+                        : <div>
+                            <div className='colorFilterToggleStatic'>|</div>
+                            <div className='colorFilterToggleVertical'>|</div>
+                        </div>}
                 </div>
             </div>
-            <div className='colorFilterContainer'>
+            <div className={`colorFilterContainer ${isVisible ? 'fadeIn' : 'fadeOut'}`}>
                 {filters[filterType] && filters[filterType].map((filter, index) => (
-                    filterExpand[filterType]
+                    isVisible
                     && <div
                         className='colorFilterContainerItem'
                         key={filter.id || `${filter.name}-${index}`}
-                        style={{
-                            gap: "5px",
-                            cursor: "pointer"
-                        }}
+
                         onClick={() => handleFilterChange(filter)}
                     >
-                        <img src={filter.swatch}
-                             alt={filter.alt}
-                             key={filter.id || `${filter.name}-${index}`}
-                             style={{
-                                 width: '24px',
-                                 height: '24px',
-                                 borderRadius: "50%",
-                                 cursor: "pointer",
-                                 border: filter.isChecked ? "red 2px solid" : "grey 1px solid"
-                             }}
+                        <img
+                            className={filter.isChecked ? 'colorFilterImgChecked' : 'colorFilterImg'}
+                            src={filter.swatch}
+                            alt={filter.alt}
+                            key={filter.id || `${filter.name}-${index}`}
+
                         />
                         <p>{filter.alt}</p>
                     </div>
