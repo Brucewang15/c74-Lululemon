@@ -14,20 +14,26 @@ export const SizeButtonFilter = ({filters, filterType}) => {
     const sizeLetter = filters[filterType].filter(item => isNaN(Number(item.name)) && item.name !== 'ONE SIZE')
     const sizeOneSize = filters[filterType].filter(item => item.name === 'ONE SIZE')
 
+    const isVisible = filterExpand[filterType]
     return (
 
         <div className='sizeButtonFilter'>
+
             <div className='sizeFilterType' onClick={() => {
                 dispatch(expandFilter(filterType))
             }}>
-                <div
-                    className={filterExpand[filterType] ? 'sizeFilterTypeNameBold' : 'sizeFilterTypeName'}>{filterType}</div>
+                <div className={isVisible ? 'sizeFilterTypeNameBold' : 'sizeFilterTypeName'}>{filterType}</div>
                 <div className='sizeFilterToggle' key={filterType}>
-                    {filterExpand[filterType] ? '-' : '+'}
+                    {isVisible
+                        ? <div className='sizeFilterToggleHorizontal'>|</div>
+                        : <div>
+                            <div className='sizeFilterToggleStatic'>|</div>
+                            <div className='sizeFilterToggleVertical'>|</div>
+                        </div>}
                 </div>
             </div>
-            {filterExpand[filterType]
-                && <div className='sizeAllButtons'>
+            {isVisible
+                && <div className={`sizeAllButtons ${isVisible ? 'fadeIn' : 'fadeOut'}`}>
                     <div className='sizeNumbers'>
                         {sizeNumbers.map((filter, index) => filter.name !== 'sizeDivider'
                             && <button

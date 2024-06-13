@@ -25,14 +25,22 @@ export const CheckboxFilter = ({filterType, filters}) => {
         return null
     }
 
+    const isVisible = filterExpand[filterType]
+
     return (
         <div className='checkboxFilter'>
+
             <div className='filterType' onClick={() => {
                 dispatch(expandFilter(filterType))
             }}>
-                <div className={filterExpand[filterType] ? 'filterTypeNameBold' : 'filterTypeName'}>{filterType}</div>
+                <div className={isVisible ? 'filterTypeNameBold' : 'filterTypeName'}>{filterType}</div>
                 <div className='filterToggle' key={filterType}>
-                    {filterExpand[filterType] ? '-' : '+'}
+                    {isVisible
+                        ? <div className='filterToggleHorizontal'>|</div>
+                        : <div>
+                            <div className='filterToggleStatic'>|</div>
+                            <div className='filterToggleVertical'>|</div>
+                        </div>}
                 </div>
             </div>
 
@@ -40,8 +48,8 @@ export const CheckboxFilter = ({filterType, filters}) => {
             {filters[filterType]
                 .slice(0, filterViewMore[filterType] ? filterViewMore[filterType].length : 5)
                 .map((filter, index) => (
-                    filterExpand[filterType]
-                    && <div className='filterDetailsBox' key={filter.id || index}>
+                    isVisible
+                    && <div className={`filterDetailsBox ${isVisible ? 'fadeIn' : 'fadeOut'}`} key={filter.id || index}>
                         {/*把onChange直接放在label中instead of input，这样子用户不论点击文字还是checkbox都可以选择*/}
                         <label className='filterDetailsLabel'
                                htmlFor={filter.id || `${filterType}-${index}`}
@@ -66,7 +74,7 @@ export const CheckboxFilter = ({filterType, filters}) => {
                     </div>
                 ))}
 
-            {filterExpand[filterType]
+            {isVisible
                 && filters[filterType].length > 5
                 && <div
                     className='filterViewMore'
@@ -95,7 +103,6 @@ export const CheckboxFilter = ({filterType, filters}) => {
 
 // merge的conflicts 先留着以防merge出错
 
-// <<<<<<< HEAD
 //     {displayedFilters.map((filter, index) => (
 //     =======
 // {filters[filterType].length > 5 && !isViewMore &&

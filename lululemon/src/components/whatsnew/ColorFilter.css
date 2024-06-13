@@ -22,7 +22,21 @@
   font-weight: 800;
 }
 .colorFilter .colorFilterType .colorFilterToggle {
-  font-size: 40px;
+  font-size: 30px;
+  position: relative;
+  cursor: pointer;
+}
+.colorFilter .colorFilterType .colorFilterToggle .colorFilterToggleHorizontal {
+  transform: rotate(90deg);
+  animation: rotateToMinus 1s forwards;
+}
+.colorFilter .colorFilterType .colorFilterToggle .colorFilterToggleVertical {
+  animation: rotateToPlus 1s forwards;
+  transform-origin: center;
+}
+.colorFilter .colorFilterType .colorFilterToggle .colorFilterToggleStatic {
+  position: absolute;
+  transform: rotate(90deg);
 }
 .colorFilter .colorFilterContainer {
   display: flex;
@@ -45,7 +59,7 @@
   height: 24px;
   border-radius: 50%;
   cursor: pointer;
-  box-shadow: 0 0 0 5px black;
+  box-shadow: 0 0 0 3px black;
 }
 .colorFilter .colorFilterContainer .colorFilterContainerItem .colorFilterImg {
   width: 24px;
@@ -57,6 +71,47 @@
 }
 .colorFilter .colorFilterContainer .colorFilterContainerItem .colorFilterImg:hover {
   box-shadow: 0 0 0 4px lightgray;
+}
+
+.fadeIn {
+  animation: fadeIn ease-in 0.5s;
+}
+
+.fadeOut {
+  animation: fadeOut ease-out 0.5s;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes rotateToMinus {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(90deg);
+  }
+}
+@keyframes rotateToPlus {
+  0% {
+    transform: rotate(90deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
 }
 
 /*# sourceMappingURL=ColorFilter.css.map */
