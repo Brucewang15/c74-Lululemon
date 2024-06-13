@@ -1,5 +1,5 @@
 import {useDispatch, useSelector} from "react-redux";
-import {fetchFilterApi, handleRemoveFilter} from "../../redux/actions/filterAction";
+import {fetchFilterApi, handleRemoveFilter, removeFilters} from "../../redux/actions/filterAction";
 import './CheckedFilters.scss'
 
 export const CheckedFilters = () => {
@@ -7,11 +7,15 @@ export const CheckedFilters = () => {
     const filters = useSelector(state => state.filterReducer.filters)
     const checkedFilters = Object.keys(filters).flatMap(filterType => filters[filterType].filter(filter => filter.isChecked))
 
+    const handleRemoveAllFilters = () => {
+        dispatch(fetchFilterApi())
+        dispatch(removeFilters())
+    }
 
     return (
         <div className='checkedFiltersWrapper'>
             {checkedFilters.length > 0 && <div className='clearFilter'
-                                               onClick={() => dispatch(fetchFilterApi())}
+                                               onClick={handleRemoveAllFilters}
             >Clear All Filters X</div>}
             <div className='checkedFiltersContainer'>
 

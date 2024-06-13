@@ -90,6 +90,16 @@ export const filterReducer = (state = initialState, action) => {
             let newFilterViewMore = {...state.filterViewMore}
             newFilterViewMore[action.payload] = !state.filterViewMore[action.payload]
             return {...state, filterViewMore: newFilterViewMore}
+        case actionTypes.REMOVE_FILTERS:
+            const resetFilters = Object.keys(state.filters).reduce((acc, filterType) => {
+                acc[filterType] = state.filters[filterType].map(filter => {
+                    return {
+                        ...filter, isChecked: false
+                    }
+                })
+                return acc
+            }, {})
+            return {...state, requestBody: {}, filters: resetFilters}
         default:
             return state
     }

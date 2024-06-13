@@ -25,7 +25,7 @@ const FilterContainer = () => {
 
     // To post data to server with updated filters
     // useEffect(() => {
-    //     // console.log('sending reqeuest Body', requestBody)
+    //     console.log('sending reqeuest Body', requestBody)
     //     dispatch(postFilterRequest(requestBody))
     // }, [requestBody, dispatch]);
 

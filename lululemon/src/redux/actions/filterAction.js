@@ -66,3 +66,9 @@ export const viewMoreFilter = (filterType) => {
     }
 }
 
+export const removeFilters = () => {
+    return {
+        type: actionTypes.REMOVE_FILTERS,
+
+    }
+}
