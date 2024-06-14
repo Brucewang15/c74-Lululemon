@@ -7,13 +7,15 @@
   align-items: flex-start;
   font-family: Helvetica;
 }
-.filterContainer .filterWhatsNewContainer {
+
+.filterWhatsNewContainer {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   margin-left: 20px;
 }
-.filterContainer .filterWhatsNewContainer .filterWhatsNew {
+
+.filterWhatsNew {
   width: 300px;
   padding: 30px 0;
   font-size: 20px;

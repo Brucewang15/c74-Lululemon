@@ -1,11 +1,10 @@
 .featureTabsContainer {
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: center;
   gap: 15px;
   margin-bottom: 60px;
   width: 100%;
-  padding-left: 100px;
   padding-top: 10px;
   padding-bottom: 10px;
   background-color: #ffffff;

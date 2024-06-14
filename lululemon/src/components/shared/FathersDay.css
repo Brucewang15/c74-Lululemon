@@ -1,6 +1,5 @@
-.fathersDayContainer{
+.fathersDayContainer {
     font-size: 14px;
-    margin-top: 20px;
     width: 100vw;
     max-width: 1440px;
     height: 460px;
@@ -25,20 +24,22 @@
 
 
             }
+
             :nth-child(1).fathersDayList {
                 padding-right: 30px;
                 border-right: 1px solid lightgray;
             }
 
 
-
         }
 
     }
 }
+
 .fathersDayContainerTop > .fathersDayContainerIndividual:nth-child(2) {
     position: relative;
     left: -50px;
+
     .fathersDayList {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -46,25 +47,35 @@
 
     }
 }
+
 .fathersDayContainerTop > .fathersDayContainerIndividual:nth-child(3) {
     position: relative;
     left: -30px;
+
     .fathersDayList {
 
         margin: 0;
     }
 }
+
 .fathersDayContainerImage a {
     text-decoration: none;
     color: black;
     width: 300px;
     display: block;
-    img:nth-child(1) {width: 300px; border-radius: 5px;}
-    h2, p{margin-top: 10px;}
 
+    img:nth-child(1) {
+        width: 300px;
+        border-radius: 5px;
+    }
+
+    h2, p {
+        margin-top: 10px;
+    }
 
 
 }
+
 .fathersDayContainerTitle {
     display: flex;
     flex-direction: row;
@@ -72,10 +83,13 @@
     gap: 20px;
     font-weight: bold;
 
-    img{
+    img {
         height: 20px;
     }
-    p{display: block;}
+
+    p {
+        display: block;
+    }
 
 }
 
@@ -93,10 +107,12 @@
     .fathersDayContainerBottomLeft {
         display: flex;
         flex-direction: row;
+
         p {
             padding-right: 123px;
             border-right: 1px solid lightgray;
         }
+
         .fathersDayListBottom {
             display: flex;
             flex-direction: row;
