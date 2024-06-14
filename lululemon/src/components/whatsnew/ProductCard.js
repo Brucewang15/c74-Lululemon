@@ -24,8 +24,8 @@ const ProductCard = ({ product }) => {
     }
 
     const scrollSwatches = (direction) => {
-        const newIndex = swatchIndex + direction;
-        if (newIndex >= 0 && newIndex <= product.swatches.length - 7) {
+        const newIndex = swatchIndex + direction * 7;
+        if (newIndex >= 0 && newIndex < product.swatches.length) {
             setSwatchIndex(newIndex);
             setVisibleSwatches(product.swatches.slice(newIndex, newIndex + 7));
         }

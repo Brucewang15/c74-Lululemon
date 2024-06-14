@@ -39,7 +39,7 @@
 }
 
 .heart:hover {
-    color: red; /* Change to your desired hover color */
+    color: red;
 }
 .swatchesContainer {
     display: flex;
@@ -55,7 +55,8 @@
     padding-left: 5px;
     padding-right: 5px;
     overflow-x: hidden;
-    flex: 1; /* Allow the swatches row to take up available space */
+    flex: 1;
+
 }
 
 .swatchButton {
@@ -65,6 +66,7 @@
     cursor: pointer;
     position: relative;
     outline: none;
+    transition: transform 1s ease;
 }
 
 .swatchButton:hover .swatch{
