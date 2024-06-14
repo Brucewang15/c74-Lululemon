@@ -7,11 +7,14 @@ import {actionTypes} from "./actionTypes";
 
 export const fetchFilterApi = () => {
     return dispatch => {
-        axios.post(apiURL)
+        axios.post(`${generalURL}&mykey=${myKey}`)
             .then(res => {
                 const filtersData = res.data.rs.filters;
                 const productsData = res.data.rs.products;
-                console.log("FILTERS DATA ======", filtersData)
+                const pageParams = res.data.rs.pageParams;
+                const totalProducts = pageParams.totalProducts;
+                console.log(productsData);
+                //console.log("FILTERS DATA ======", filtersData)
 
                 Object.keys(filtersData).forEach(filterType => {
                     const filterValues = filtersData[filterType].map((filter, index) => ({
@@ -31,7 +34,7 @@ export const fetchFilterApi = () => {
                 // Update products
                 dispatch({
                     type: actionTypes.FETCH_FILTERED_PRODUCTS,
-                    payload: productsData
+                    payload: { products: productsData, pageParams: pageParams }
                 });
 
             })
@@ -40,6 +43,30 @@ export const fetchFilterApi = () => {
             })
     }
 }
+
+export const fetchMoreProducts = () => {
+    return (dispatch, getState) => {
+        const state = getState().filterReducer;
+        const { filters, pageParams } = state;
+        const currentPage = pageParams.curPage || 1;
+        const nextPage = currentPage + 1;
+        console.log(nextPage);
+        const requestBody = constructRequestBody(filters);
+
+        axios.post(`${generalURL}page=${nextPage}&mykey=${myKey}`, requestBody)
+            .then(res => {
+                const productsData = res.data.rs.products;
+                const newPageParams = res.data.rs.pageParams;
+                dispatch({
+                    type: actionTypes.ADD_MORE_PRODUCTS,
+                    payload: { products: productsData, pageParams: newPageParams }
+                });
+            })
+            .catch(err => {
+                console.error('Error fetching more products', err);
+            });
+    };
+};
 
 export const setFilter = (filterType, filterValue) => {
     return (dispatch, getState) => {
@@ -168,28 +195,11 @@ export const setSortingOption = (sortingOption) => {
         // const requestBody = constructRequestBody(sortingOption);
 
         // Fetch sorted products
-        dispatch(fetchSortedProducts(sortingOption, filters));
+        dispatch(fetchSortedProducts(sortingOption, filters, 1));
     };
 };
 
 export const fetchSortedProducts = (sortingOption, filters) => {
-    // return (dispatch) => {
-    //     console.log("enter fetching sorted products", sortingOption);
-    //     const sortingId = getSortingId(sortingOption); // Convert sorting option to sortingId
-    //     console.log(sortingId)
-    //     const requestBody = constructRequestBody(filters);
-    //     axios.post(`${generalURL}sortingId=${sortingId}&mykey=${myKey}`, requestBody)
-    //         .then(res => {
-    //             dispatch({
-    //                 type: actionTypes.FETCH_FILTERED_PRODUCTS,
-    //                 payload: res.data.rs.products
-    //             });
-    //             console.log(res.data.rs.products[0]);
-    //         })
-    //         .catch(err => {
-    //             console.error('Error fetching sorted products', err);
-    //         });
-    // };
     return (dispatch, getState) => {
         const state = getState();
         const products = state.filterReducer.products;
@@ -197,7 +207,7 @@ export const fetchSortedProducts = (sortingOption, filters) => {
         if (sortingOption === 'Price: High to Low' || sortingOption === 'Price: Low to High') {
             let sortedProducts = [...products];
             sortedProducts.sort((a, b) => {
-                const priceA = parseFloat(a.price.replace(/[^0-9.-]+/g,"")); // assuming price is a string with a currency symbol
+                const priceA = parseFloat(a.price.replace(/[^0-9.-]+/g,""));
                 const priceB = parseFloat(b.price.replace(/[^0-9.-]+/g,""));
                 if (sortingOption === 'Price: High to Low') {
                     return priceB - priceA;
@@ -208,16 +218,18 @@ export const fetchSortedProducts = (sortingOption, filters) => {
 
             dispatch({
                 type: actionTypes.FETCH_FILTERED_PRODUCTS,
-                payload: sortedProducts
+                payload: {products: sortedProducts, pageParams: state.filterReducer.pageParams}
             });
         } else {
             const sortingId = getSortingId(sortingOption);
             const requestBody = constructRequestBody(filters);
             axios.post(`${generalURL}sortingId=${sortingId}&mykey=${myKey}`, requestBody)
                 .then(res => {
+                    const productsData = res.data.rs.products;
+                    const pageParams = res.data.rs.pageParams;
                     dispatch({
                         type: actionTypes.FETCH_FILTERED_PRODUCTS,
-                        payload: res.data.rs.products
+                        payload: { products: productsData, pageParams: pageParams }
                     });
                 })
                 .catch(err => {

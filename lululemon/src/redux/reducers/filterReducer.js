@@ -10,9 +10,8 @@ const initialState = {
     filterViewMore: {},
     selectedTab: 'All',
     products: [],
-    totalCount: 0,
-    currentPage: 1,
-    pageSize: 48,
+    // currentPage: 1,
+    pageParams: {},
 }
 
 export const filterReducer = (state = initialState, action) => {
@@ -99,12 +98,21 @@ export const filterReducer = (state = initialState, action) => {
         case actionTypes.FETCH_FILTERED_PRODUCTS:
             return {
                 ...state,
-                products: action.payload
+                products: action.payload.products,
+                pageParams: action.payload.pageParams,
+                // currentPage: 1,
             };
         case actionTypes.UPDATE_SORTING:
             return {
                 ...state,
                 sortingId: action.payload
+            };
+        case actionTypes.ADD_MORE_PRODUCTS:
+            return {
+                ...state,
+                products: [...state.products, ...action.payload.products],
+                pageParams: action.payload.pageParams,
+                currentPage: state.currentPage + 1
             };
         default:
             return state
