@@ -113,11 +113,16 @@ export const viewMoreFilter = (filterType) => {
 
 
 export const removeFilters = () => {
-    return {
-        type: actionTypes.REMOVE_FILTERS,
+    return (dispatch, getState) => {
+        dispatch({
+            type: actionTypes.REMOVE_FILTERS,
+        });
 
+        const { filters } = getState().filterReducer;
+        const requestBody = constructRequestBody(filters);
+        dispatch(postFilterRequest(requestBody));
     }
-}
+};
 
 export const selectTab = (tabName) => {
     return {
