@@ -10,6 +10,9 @@ const initialState = {
     filterViewMore: {},
     selectedTab: 'All',
     products: [],
+    totalCount: 0,
+    currentPage: 1,
+    pageSize: 48,
 }
 
 export const filterReducer = (state = initialState, action) => {
