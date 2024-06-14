@@ -35,8 +35,8 @@ export const WhatsNewPage = () => {
                     </div>
 
                 </div>
+                <Footer/>
             </div>
-            <Footer/>
         </>
 
     );
