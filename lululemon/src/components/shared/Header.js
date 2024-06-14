@@ -3,10 +3,20 @@
 import "./Header.css"
 import Men from "./Men";
 import {useState} from "react";
+import Women from "./Women";
+import Accessories from "./Accessories";
+import Shoes from "./Shoes";
+import FathersDay from "./FathersDay";
 
 export const Header = () => {
-    const [hover, setHover] = useState(false);
-
+    const [hover, setHover] = useState([false, false, false, false, false]);
+    const updateHover = (index, newValue) => {
+        // Create a new array with the updated element
+        const newItems = [...hover]
+        newItems[index] = newValue
+        // Update the state with the new array
+        setHover(newItems);
+    };
 
     return <>
 
@@ -51,24 +61,41 @@ export const Header = () => {
                     src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Lululemon_Athletica_logo.svg/2048px-Lululemon_Athletica_logo.svg.png"
                     alt="lululemonLogo"/>
 
-                <div className="individual">
-                    <a href="" id="animation">WOMEN</a>
 
+                <div className="individual" onMouseEnter={() => updateHover(0, true)}
+                     onMouseLeave={() => updateHover(0, false)}>
+                    <a href="" id="animation">
+                        <p>WOMEN</p>
+                    </a>
                 </div>
 
 
-                <div className="individual" onMouseEnter={() => setHover(true)}
-                     onMouseLeave={() => setHover(false)}>
+                <div className="individual" onMouseEnter={() => updateHover(1, true)}
+                     onMouseLeave={() => updateHover(1, false)}>
                     <a href="" id="animation">
                         <p>MEN</p>
-
-
                     </a>
-
                 </div>
-                <div className="individual"><a href="" id="animation">ACCESSORIES</a></div>
-                <div className="individual"><a href="" id="animation">SHOES</a></div>
-                <div className="individual"><a href="" id="animation">FATHER'S DAY</a></div>
+
+                <div className="individual" onMouseEnter={() => updateHover(2, true)}
+                     onMouseLeave={() => updateHover(2, false)}>
+                    <a href="" id="animation">
+                        <p>ACCESSORIES</p>
+                    </a>
+                </div>
+
+                <div className="individual" onMouseEnter={() => updateHover(3, true)}
+                     onMouseLeave={() => updateHover(3, false)}>
+                    <a href="" id="animation">
+                        <p>SHOES</p>
+                    </a>
+                </div>
+                <div className="individual" onMouseEnter={() => updateHover(4, true)}
+                     onMouseLeave={() => updateHover(4, false)}>
+                    <a href="" id="animation">
+                        <p style={{color: "#c8102e"}}>FATHER'S DAY</p>
+                    </a>
+                </div>
 
 
             </div>
@@ -101,8 +128,12 @@ export const Header = () => {
 
             </div>
         </div>
-
-        {hover && <Men/>}
+        <Men/>
+        {hover[0] && <Women/>}
+        {hover[1] && <Men/>}
+        {hover[2] && <Accessories/>}
+        {hover[3] && <Shoes/>}
+        {hover[4] && <FathersDay/>}
 
 
     </>

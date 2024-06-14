@@ -1,4 +1,4 @@
-.menContainer{
+.accessoriesContainer{
     font-size: 14px;
     margin-top: 20px;
     width: 100vw;
@@ -8,23 +8,23 @@
     background-color: white;
     z-index: 1;
 
-    .menContainerTop {
+    .accessoriesContainerTop {
         display: flex;
         justify-content: space-between;
         padding-left: 133px;
         padding-right: 60px;
 
-        .menContainerIndividual {
+        .accessoriesContainerIndividual {
 
 
-            .menList {
+            .accessoriesList {
                 display: flex;
                 flex-direction: column;
                 gap: 19px;
 
 
             }
-            :nth-child(1).menList {
+            :nth-child(1).accessoriesList {
                 padding-right: 30px;
                 border-right: 1px solid lightgray;
             }
@@ -35,25 +35,25 @@
 
     }
 }
-.menContainerTop > .menContainerIndividual:nth-child(2) {
+.accessoriesContainerTop > .accessoriesContainerIndividual:nth-child(2) {
     position: relative;
     left: -50px;
-    .menList {
+    .accessoriesList {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         margin: 0;
 
     }
 }
-.menContainerTop > .menContainerIndividual:nth-child(3) {
+.accessoriesContainerTop > .accessoriesContainerIndividual:nth-child(3) {
     position: relative;
     left: -30px;
-    .menList {
+    .accessoriesList {
 
         margin: 0;
     }
 }
-.menContainerImage a {
+.accessoriesContainerImage a {
     text-decoration: none;
     color: black;
     width: 300px;
@@ -64,7 +64,7 @@
 
 
 }
-.menContainerTitle {
+.accessoriesContainerTitle {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -78,7 +78,7 @@
 
 }
 
-.menContainerBottom {
+.accessoriesContainerBottom {
     padding-left: 133px;
     padding-right: 60px;
     margin-top: 20px;
@@ -89,14 +89,14 @@
     height: 60px;
     background-color: #f7f7f7;
 
-    .menContainerBottomLeft {
+    .accessoriesContainerBottomLeft {
         display: flex;
         flex-direction: row;
         p {
             padding-right: 123px;
             border-right: 1px solid lightgray;
         }
-        .menListBottom {
+        .accessoriesListBottom {
             display: flex;
             flex-direction: row;
             justify-content: space-between;
