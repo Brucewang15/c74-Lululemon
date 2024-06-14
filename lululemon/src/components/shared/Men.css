@@ -1,0 +1,112 @@
+.menContainer{
+    font-size: 14px;
+    margin-top: 20px;
+    width: 100vw;
+    max-width: 1440px;
+    height: 460px;
+    position: absolute;
+    background-color: white;
+    z-index: 1;
+
+    .menContainerTop {
+        display: flex;
+        justify-content: space-between;
+        padding-left: 133px;
+        padding-right: 60px;
+
+        .menContainerIndividual {
+
+
+            .menList {
+                display: flex;
+                flex-direction: column;
+                gap: 19px;
+
+
+            }
+            :nth-child(1).menList {
+                padding-right: 30px;
+                border-right: 1px solid lightgray;
+            }
+
+
+
+        }
+
+    }
+}
+.menContainerTop > .menContainerIndividual:nth-child(2) {
+    position: relative;
+    left: -50px;
+    .menList {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        margin: 0;
+
+    }
+}
+.menContainerTop > .menContainerIndividual:nth-child(3) {
+    position: relative;
+    left: -30px;
+    .menList {
+
+        margin: 0;
+    }
+}
+.menContainerImage a {
+    text-decoration: none;
+    color: black;
+    width: 300px;
+    display: block;
+    img:nth-child(1) {width: 300px; border-radius: 5px;}
+    h2, p{margin-top: 10px;}
+
+
+
+}
+.menContainerTitle {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    font-weight: bold;
+
+    img{
+        height: 20px;
+    }
+    p{display: block;}
+
+}
+
+.menContainerBottom {
+    padding-left: 133px;
+    padding-right: 60px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+    background-color: #f7f7f7;
+
+    .menContainerBottomLeft {
+        display: flex;
+        flex-direction: row;
+        p {
+            padding-right: 123px;
+            border-right: 1px solid lightgray;
+        }
+        .menListBottom {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            width: 600px;
+            padding-left: 50px;
+        }
+    }
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
