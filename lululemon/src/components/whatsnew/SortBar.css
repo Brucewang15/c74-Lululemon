@@ -43,6 +43,13 @@
     cursor: pointer;
     padding: 10px;
     font-size: 16px;
+    font-weight: normal;
+}
+
+.sortingOption {
+    font-weight: lighter;
+    margin-left: 5px;
+    color: gray;
 }
 
 .dropdownContent {

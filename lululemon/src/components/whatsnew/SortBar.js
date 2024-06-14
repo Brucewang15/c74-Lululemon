@@ -34,7 +34,9 @@ export const SortBar = () => {
                 Available Near You >
             </div>
             <div className="dropdown">
-                <button className="dropbtn">Sort by {sortingOption} &#x25BC;</button>
+                <button className="dropbtn">
+                    Sort by <span className="sortingOption">{sortingOption}</span> &#x25BC;
+                </button>
                 <div className="dropdownContent">
                     <div onClick={() => handleSortChange('Featured')}>Featured</div>
                     <div onClick={() => handleSortChange('New Arrivals')}>New Arrivals</div>

@@ -71,6 +71,9 @@ const ProductCard = ({ product }) => {
                 onMouseEnter={handleMouseEnterImage}
                 onMouseLeave={handleMouseLeaveImage}
             />
+            <button className="heartButton">
+                <div className="heart">&#x2665;</div>
+            </button>
             <div className="swatchesContainer">
                 {product.swatches.length > 7 && (
                     <button className="swatchScrollButton left" onClick={() => scrollSwatches(-1)}>{"<"}</button>
@@ -83,7 +86,7 @@ const ProductCard = ({ product }) => {
                             onMouseEnter={() => handleSwatchHover(swatch.colorId, index)}
                             onClick={() => handleSwatchClick(swatch.colorId, index)}
                         >
-                            <img src={swatch.swatch} alt={swatch.swatchAlt} className="swatch" />
+                            <img src={swatch.swatch} alt={swatch.swatchAlt} className="swatch"/>
                         </button>
                     ))}
                 </div>
@@ -93,6 +96,10 @@ const ProductCard = ({ product }) => {
             </div>
             <h2 className="productName">{product.name}</h2>
             <p className="productPrice">{product.price}</p>
+            <div className="compareContainer">
+                <input type="checkbox" id="compare" name="compare" value="compare"/>
+                <label htmlFor="compare">Compare</label>
+            </div>
         </div>
     );
 };
