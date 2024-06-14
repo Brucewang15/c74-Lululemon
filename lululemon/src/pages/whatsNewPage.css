@@ -1,0 +1,9 @@
+.whatsNewPageLayout {
+    display: flex;
+    justify-content: center;
+}
+
+.whatsNewContainer {
+    flex: 1;
+    padding: 20px;
+}
