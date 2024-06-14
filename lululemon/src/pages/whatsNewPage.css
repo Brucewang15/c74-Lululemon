@@ -1,0 +1,18 @@
+.whatsNewWrapper {
+
+}
+
+
+.whatsNewPageLayout {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+
+
+}
+
+.whatsNewContainer {
+    flex: 1;
+    padding: 20px;
+}

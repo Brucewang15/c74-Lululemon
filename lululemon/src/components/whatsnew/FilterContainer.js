@@ -36,9 +36,10 @@ const FilterContainer = () => {
 
     return (
         <div className='filterContainer'>
-
-            <div
-                className='filterWhatsNew'>{selectedTab && selectedTab !== 'All' ? `${selectedTab}'s What's New` : "What's New"}</div>
+            <div className='filterWhatsNewContainer'>
+                <div
+                    className='filterWhatsNew'>{selectedTab && selectedTab !== 'All' ? `${selectedTab}'s What's New` : "What's New"}</div>
+            </div>
             {/*//All the filters components*/}
             {/*All the filters except Color and Size, because they are two separate filters*/}
             {Object.keys(filters).map(filterType => {

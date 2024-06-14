@@ -1,0 +1,81 @@
+.productCard {
+    border: none;
+    overflow: hidden;
+    text-align: left;
+    transition: transform 0.3s ease;
+    padding: 2px;
+}
+
+/*.productCard:hover {*/
+/*    transform: scale(1.05);*/
+/*}*/
+
+.productImage {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.swatchesContainer {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+    position: relative;
+}
+
+.swatches {
+    display: flex;
+    gap: 5px;
+    padding: 5px 0;
+    overflow-x: hidden;
+    flex: 1; /* Allow the swatches row to take up available space */
+    transition: transform 0.3s ease; /* Smooth transition for the scrolling effect */
+}
+
+.swatchButton {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    position: relative;
+    outline: none;
+}
+
+.swatchButton:hover .swatch{
+    border: 2px solid black;
+}
+
+.swatch {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid #e0e0e0;
+}
+
+.swatchScrollButton {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #333;
+    z-index: 1;
+}
+
+.swatchScrollButton.left {
+    left: 5px;
+}
+
+.swatchScrollButton.right {
+    right: 5px;
+}
+
+.productName {
+    font-size: 1rem;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.productPrice {
+    font-size: 1rem;
+    color: #555;
+}

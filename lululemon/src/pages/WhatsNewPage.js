@@ -18,17 +18,17 @@ export const WhatsNewPage = () => {
 
 
     return (
-        <>
+        <div className='whatsNewWrapper'>
             <div className='whatsNewPageLayout'>
                 <FilterContainer/>
                 <div className='whatsNewContainer'>
-                    <WhatsNewMain/>
                     <FeatureSection/>
                     <CheckedFilters/>
+                    <WhatsNewMain/>
+
                 </div>
 
             </div>
-
 
             {/*{JSON.stringify(products)}*/}
 
@@ -43,8 +43,7 @@ export const WhatsNewPage = () => {
             {/*    }) : <p style={{fontSize: "large", fontWeight: "600", color: "red"}}>Choose a filter to see more items</p>}*/}
             {/*</div>*/}
 
-            <div>Products go here</div>
-        </>
+        </div>
     );
 
 }

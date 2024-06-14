@@ -1,5 +1,5 @@
 .filterContainer {
-background-color: #ffffff;
+  background-color: #ffffff;
 
   width: 310px;
   padding: 0 25px;
@@ -8,11 +8,20 @@ background-color: #ffffff;
   align-items: flex-start;
   font-family: Helvetica;
 
-  .filterWhatsNew {
-    width: 300px;
-    padding: 30px 0;
-    font-size: 20px;
-    font-weight: 700;
-    border-bottom: 1px solid #d5d5d5;
+  .filterWhatsNewContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin-left: 20px;
+
+
+    .filterWhatsNew {
+      width: 300px;
+      padding: 30px 0;
+
+      font-size: 20px;
+      font-weight: 700;
+      border-bottom: 1px solid #d5d5d5;
+    }
   }
 }
