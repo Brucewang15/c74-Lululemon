@@ -143,9 +143,11 @@ export const postFilterRequest = (requestBody) => {
     return dispatch => {
         axios.post(apiURL, requestBody)
             .then(res => {
+                const productsData = res.data.rs.products;
+                const newPageParams = res.data.rs.pageParams;
                 dispatch({
                     type: actionTypes.FETCH_FILTERED_PRODUCTS,
-                    payload: res.data.rs.products
+                    payload: { products: productsData, pageParams: newPageParams }
                 });
             })
             .catch(err => {
