@@ -7,6 +7,7 @@
     position: absolute;
     background-color: white;
     z-index: 2;
+    text-align: left;
 
     .shoesContainerTop {
         display: flex;

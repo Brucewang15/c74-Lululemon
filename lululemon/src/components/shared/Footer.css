@@ -1,7 +1,11 @@
 html {
     color: #262626;
 }
-
+.footer {
+    background-color: white;
+    text-align: left;
+    margin-top: 10px;
+}
 .gridContainer {
     height: 700px;
     display: grid;

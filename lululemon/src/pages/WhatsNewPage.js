@@ -12,6 +12,8 @@ import {SortBar} from '../components/whatsnew/SortBar'
 
 import WhatsNewMain from "../components/whatsnew/WhatsNewMain";
 import './whatsNewPage.css';
+import {Header} from "../components/shared/Header";
+import Footer from "../components/shared/Footer";
 
 export const WhatsNewPage = () => {
     //const products = useSelector(state => state.productReducer.products) || []
@@ -19,20 +21,24 @@ export const WhatsNewPage = () => {
 
 
     return (
-        <div className='whatsNewWrapper'>
-            <div className='whatsNewPageLayout'>
-                <FilterContainer/>
-                <div className='whatsNewContainer'>
-                    <FeatureSection/>
-                    <SortBar/>
-                    <CheckedFilters/>
-                    <WhatsNewMain/>
+        <>
+            <div className='whatsNewWrapper'>
+                <Header/>
+                <div className='whatsNewPageLayout'>
+                    <FilterContainer/>
+                    <div className='whatsNewContainer'>
+                        <FeatureSection/>
+                        <SortBar/>
+                        <CheckedFilters/>
+                        <WhatsNewMain/>
+
+                    </div>
 
                 </div>
-
             </div>
+            <Footer/>
+        </>
 
-        </div>
     );
 
 }
