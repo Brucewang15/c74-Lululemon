@@ -1,10 +1,12 @@
 .checkedFiltersWrapper {
-  display: none;
-  //display: flex;
+  //display: none;
+  display: flex;
   flex-direction: row;
   gap: 10px;
-  justify-content: center;
+  justify-content: left;
   align-items: center;
+  padding: 8px 8px 8px 2px;
+
 
   .clearFilter {
     background-color: black;
@@ -12,11 +14,10 @@
     width: auto;
     height: 20px;
     border: 1px solid #8d9196;
-    
-    font-size: .875rem;
+    font-size: .8rem;
     cursor: pointer;
     border-radius: 5px;
-    padding: 5px;
+    padding: 8px;
     font-weight: bold;
   }
 
@@ -35,18 +36,20 @@
 
 
     .checkedFilter {
-      border: .0625rem solid #8d9196;
+      border: 1px solid #8d9196;
       background-color: #fff;
-      font-size: .875rem;
+      font-size: .8rem;
       margin-right: 5px;
       cursor: pointer;
-      border: .0625rem solid #8d9196;
       border-radius: 5px;
-      padding: .6875rem .75rem;
+      padding: 10px;
       font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
       &:hover {
-        border: 1px solid;
+        border-color: #000;
       }
     }
   }

@@ -15,9 +15,9 @@ export const CheckedFilters = () => {
 
     return (
         <div className='checkedFiltersWrapper'>
-            {checkedFilters.length > 0 && <div className='clearFilter'
-                                               onClick={handleRemoveAllFilters}
-            >Clear All Filters X</div>}
+            {/*{checkedFilters.length > 0 && <div className='clearFilter'*/}
+            {/*                                   onClick={handleRemoveAllFilters}*/}
+            {/*>Clear All Filters X</div>}*/}
 
             <div className='checkedFiltersContainer'>
                 {checkedFilters.length > 0 ? checkedFilters.map((filter, index) => {

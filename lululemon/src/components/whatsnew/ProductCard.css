@@ -4,6 +4,7 @@
     text-align: left;
     transition: transform 0.3s ease;
     padding: 2px;
+    font-family: Helvetica;
 }
 
 /*.productCard:hover {*/
@@ -26,10 +27,11 @@
 .swatches {
     display: flex;
     gap: 5px;
-    padding: 5px 0;
+    padding-top: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
     overflow-x: hidden;
     flex: 1; /* Allow the swatches row to take up available space */
-    transition: transform 0.3s ease; /* Smooth transition for the scrolling effect */
 }
 
 .swatchButton {
@@ -42,12 +44,13 @@
 }
 
 .swatchButton:hover .swatch{
-    border: 2px solid black;
+    border: 3px solid white;
+    outline: 2px solid black;
 }
 
 .swatch {
-    width: 28px;
-    height: 28px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     border: 1px solid #e0e0e0;
 }

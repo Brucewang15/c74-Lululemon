@@ -8,6 +8,7 @@ import {CheckedFilters} from "../components/whatsnew/CheckedFilters";
 import {FeatureTabs} from "../components/whatsnew/FeatureTabs";
 import {FeatureImages} from "../components/whatsnew/FeatureImages";
 import {FeatureSection} from "../components/whatsnew/FeatureSection";
+import {SortBar} from '../components/whatsnew/SortBar'
 
 import WhatsNewMain from "../components/whatsnew/WhatsNewMain";
 import './whatsNewPage.css';
@@ -23,6 +24,7 @@ export const WhatsNewPage = () => {
                 <FilterContainer/>
                 <div className='whatsNewContainer'>
                     <FeatureSection/>
+                    <SortBar/>
                     <CheckedFilters/>
                     <WhatsNewMain/>
 
