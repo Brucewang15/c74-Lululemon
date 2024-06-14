@@ -5,6 +5,9 @@ import FilterContainer from "../components/whatsnew/FilterContainer";
 import {useSelector} from "react-redux";
 import ProductCard from "../components/whatsnew/ProductCard";
 import {CheckedFilters} from "../components/whatsnew/CheckedFilters";
+import {FeatureTabs} from "../components/whatsnew/FeatureTabs";
+import {FeatureImages} from "../components/whatsnew/FeatureImages";
+import {FeatureSection} from "../components/whatsnew/FeatureSection";
 
 export const WhatsNewPage = () => {
     const products = useSelector(state => state.productReducer.products) || []
@@ -31,6 +34,7 @@ export const WhatsNewPage = () => {
         {/*</div>*/}
 
 
+        <FeatureSection/>
         <CheckedFilters/>
         <FilterContainer/>
         <div>Products go here</div>

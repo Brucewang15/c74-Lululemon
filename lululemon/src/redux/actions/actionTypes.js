@@ -8,4 +8,5 @@ export const actionTypes = {
     'FILTER_EXPAND': 'FILTER_EXPAND',
     'FILTER_VIEW_MORE': 'FILTER_VIEW_MORE',
     'REMOVE_FILTERS': 'REMOVE_FILTERS',
+    'SELECT_TAB': 'SELECT_TAB'
 }

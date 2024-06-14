@@ -20,7 +20,8 @@ const initialState = {
     },
     requestBody: {},
     filterExpand: {},
-    filterViewMore: {}
+    filterViewMore: {},
+    selectedTab: 'All'
 }
 
 export const filterReducer = (state = initialState, action) => {
@@ -100,6 +101,8 @@ export const filterReducer = (state = initialState, action) => {
                 return acc
             }, {})
             return {...state, requestBody: {}, filters: resetFilters}
+        case actionTypes.SELECT_TAB:
+            return {...state, selectedTab: action.payload}
         default:
             return state
     }

@@ -2,7 +2,7 @@
 
 
 import {useDispatch, useSelector} from "react-redux";
-import {expandFilter, setFilter, viewMoreFilter} from "../../redux/actions/filterAction";
+import {expandFilter, selectTab, setFilter, viewMoreFilter} from "../../redux/actions/filterAction";
 import './CheckboxFilter.scss'
 import {actionTypes} from "../../redux/actions/actionTypes";
 import AddIcon from '@mui/icons-material/Add';
@@ -18,6 +18,7 @@ export const CheckboxFilter = ({filterType, filters}) => {
         console.log(`Toggling filter: ${filter.id}`);
         // dispatch(setFilter(filterType, {...filter, isChecked: !filter.isChecked}))  // 在component中处理反选逻辑，但是还是让reducer处理好，详情见filterReducer的，toggleFilter case
         dispatch(setFilter(filterType, filter))
+        dispatch(selectTab(filter.name))
     }
     // const displayedFilters = isViewMore ? filters[filterType] : filters[filterType].slice(0, 5)
 
@@ -53,7 +54,10 @@ export const CheckboxFilter = ({filterType, filters}) => {
                         {/*把onChange直接放在label中instead of input，这样子用户不论点击文字还是checkbox都可以选择*/}
                         <label className='filterDetailsLabel'
                                htmlFor={filter.id || `${filterType}-${index}`}
-                               onChange={() => handleFilterChange(filter)}>
+                               onChange={() => {
+                                   handleFilterChange(filter)
+
+                               }}>
                             <input type='checkbox'
                                    className='filterDetailsLabel'
                                    checked={filter.isChecked}

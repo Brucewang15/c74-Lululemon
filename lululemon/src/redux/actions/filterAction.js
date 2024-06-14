@@ -72,3 +72,10 @@ export const removeFilters = () => {
 
     }
 }
+
+export const selectTab = (tabName) => {
+    return {
+        type: actionTypes.SELECT_TAB,
+        payload: tabName
+    }
+}

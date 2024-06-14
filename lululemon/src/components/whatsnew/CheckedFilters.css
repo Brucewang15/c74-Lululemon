@@ -1,6 +1,6 @@
 .checkedFiltersWrapper {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 10px;
   justify-content: center;
   align-items: center;
@@ -9,9 +9,8 @@
   background-color: black;
   color: white;
   width: auto;
-  height: 24px;
+  height: 20px;
   border: 1px solid #8d9196;
-  background-color: #fff;
   font-size: 0.875rem;
   cursor: pointer;
   border-radius: 5px;
@@ -39,7 +38,7 @@
   border: 0.0625rem solid #8d9196;
   border-radius: 5px;
   padding: 0.6875rem 0.75rem;
-  font-weight: bold;
+  font-weight: 500;
 }
 .checkedFiltersWrapper .checkedFiltersContainer .checkedFilter:hover {
   border: 1px solid;

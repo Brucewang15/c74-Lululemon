@@ -16,6 +16,7 @@ const FilterContainer = () => {
     const requestBody = useSelector(state => state.filterReducer.requestBody)
 
     const filterExpand = useSelector(state => state.filterReducer.filterExpand)
+    const selectedTab = useSelector(state => state.filterReducer.selectedTab)
 
     // To fetch all the filters when the page is loaded
     useEffect(() => {
@@ -31,18 +32,13 @@ const FilterContainer = () => {
 
     {/*//All the filters components*/
     }
-    // useEffect(() => {
-    //     // if (Object.keys(requestBody).length > 0) {
-    //     console.log('sending reqeuest Body', requestBody)
-    //     dispatch(postFilterRequest(requestBody))
-    //     // }
-    // }, [requestBody, dispatch]);
 
 
     return (
         <div className='filterContainer'>
 
-            <div className='filterWhatsNew'>What's New</div>
+            <div
+                className='filterWhatsNew'>{selectedTab && selectedTab !== 'All' ? `${selectedTab}'s What's New` : "What's New"}</div>
             {/*//All the filters components*/}
             {/*All the filters except Color and Size, because they are two separate filters*/}
             {Object.keys(filters).map(filterType => {
