@@ -6,17 +6,13 @@ import {useState} from "react";
 
 export const SortBar = () => {
     const dispatch = useDispatch();
-    const sortingOption = useSelector(state => state.filterReducer.sortingOption);
+    const [sortingOption, setSortingOptionState] = useState('Featured');
     const [activeTab, setActiveTab] = useState('All Items');
 
     const handleSortChange = (option) => {
-        //setSortingOption(option);
+        setSortingOptionState(option);
         dispatch(setSortingOption(option));
     };
-
-    // const handleRemoveFilter = (filterType, filterValue) => {
-    //     dispatch(removeFilters(filterType, filterValue));
-    // };
 
     const handleTabClick = (tab) => {
         setActiveTab(tab);

@@ -3,23 +3,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchProducts } from '../../redux/actions/productActions';
 import ProductCard from './ProductCard';
 import './WhatsNewMain.css';
+import {fetchSortedProducts} from "../../redux/actions/filterAction";
 
 const WhatsNewMain = () => {
-    // const dispatch = useDispatch();
-    // const { loading, products, error } = useSelector((state) => state.productReducer);
-    //
-    // useEffect(() => {
-    //     dispatch(fetchProducts());
-    // }, [dispatch]);
-    //
-    // if (loading) {
-    //     return <div>Loading...</div>;
-    // }
-    //
-    // if (error) {
-    //     return <div>Error: {error}</div>;
-    // }
+    //const products = useSelector(state => state.filterReducer.products) || [];
+    const dispatch = useDispatch();
     const products = useSelector(state => state.filterReducer.products) || [];
+    const filters = useSelector(state => state.filterReducer.filters);
+    const sortingOption = useSelector(state => state.filterReducer.sortingOption);
+
+    useEffect(() => {
+        dispatch(fetchSortedProducts(sortingOption, filters));
+    }, [dispatch, sortingOption, filters]);
 
     return (
         <div>

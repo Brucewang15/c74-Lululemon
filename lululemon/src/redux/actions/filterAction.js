@@ -42,10 +42,6 @@ export const fetchFilterApi = () => {
 }
 
 export const setFilter = (filterType, filterValue) => {
-    // return {
-    //     type: actionTypes.TOGGLE_FILTER,
-    //     payload: {filterType, filterValue}
-    // }
     return (dispatch, getState) => {
         dispatch({
             type: actionTypes.TOGGLE_FILTER,
@@ -55,12 +51,7 @@ export const setFilter = (filterType, filterValue) => {
         // Get the updated filter state
         const {filters} = getState().filterReducer;
         console.log(filters);
-        // Construct the request body from the filters state
         const requestBody = constructRequestBody(filters);
-        //console.log('Request Body:', JSON.stringify(requestBody, null, 2));
-
-        // Dispatch the action to fetch filtered products
-        //dispatch(postFilterRequest(filters));
         dispatch(postFilterRequest(requestBody));
 
     };
@@ -69,13 +60,6 @@ export const setFilter = (filterType, filterValue) => {
 // 作用是当点击叉叉的时候就可以让它反选这个filter，取消选项
 export const handleRemoveFilter = (filterType, filterId) => {
 
-    // return {
-    //     type: actionTypes.TOGGLE_FILTER,
-    //     payload: {
-    //         filterType,
-    //         filterValue: {id: filterId}
-    //     }
-    // }
     return (dispatch, getState) => {
         dispatch({
             type: actionTypes.TOGGLE_FILTER,
@@ -85,15 +69,10 @@ export const handleRemoveFilter = (filterType, filterId) => {
             }
         });
 
-        // Get the updated filter state
         const {filters} = getState().filterReducer;
         console.log(filters);
 
-        // Construct the request body from the filters state
         const requestBody = constructRequestBody(filters);
-
-        // Dispatch the action to fetch filtered products
-        //dispatch(postFilterRequest(filters));
         dispatch(postFilterRequest(requestBody));
     };
 }
@@ -178,6 +157,7 @@ export const constructRequestBody = (filters) => {
 
 export const setSortingOption = (sortingOption) => {
     return (dispatch, getState) => {
+        console.log("enter set sorting options", sortingOption);
         dispatch({
             type: actionTypes.UPDATE_SORTING,
             payload: sortingOption
@@ -193,38 +173,70 @@ export const setSortingOption = (sortingOption) => {
 };
 
 export const fetchSortedProducts = (sortingOption, filters) => {
-    return (dispatch) => {
-        //console.log("enter fetching sorted products", sortingOption);
-        const sortingId = getSortingId(sortingOption); // Convert sorting option to sortingId
-        //console.log(sortingId)
-        const requestBody = constructRequestBody(filters);
-        axios.post(`${generalURL}?sortingId=${sortingId}&mykey=${myKey}`, requestBody)
-            .then(res => {
-                dispatch({
-                    type: actionTypes.FETCH_FILTERED_PRODUCTS,
-                    payload: res.data.rs.products
-                });
-            })
-            .catch(err => {
-                console.error('Error fetching sorted products', err);
+    // return (dispatch) => {
+    //     console.log("enter fetching sorted products", sortingOption);
+    //     const sortingId = getSortingId(sortingOption); // Convert sorting option to sortingId
+    //     console.log(sortingId)
+    //     const requestBody = constructRequestBody(filters);
+    //     axios.post(`${generalURL}sortingId=${sortingId}&mykey=${myKey}`, requestBody)
+    //         .then(res => {
+    //             dispatch({
+    //                 type: actionTypes.FETCH_FILTERED_PRODUCTS,
+    //                 payload: res.data.rs.products
+    //             });
+    //             console.log(res.data.rs.products[0]);
+    //         })
+    //         .catch(err => {
+    //             console.error('Error fetching sorted products', err);
+    //         });
+    // };
+    return (dispatch, getState) => {
+        const state = getState();
+        const products = state.filterReducer.products;
+
+        if (sortingOption === 'Price: High to Low' || sortingOption === 'Price: Low to High') {
+            let sortedProducts = [...products];
+            sortedProducts.sort((a, b) => {
+                const priceA = parseFloat(a.price.replace(/[^0-9.-]+/g,"")); // assuming price is a string with a currency symbol
+                const priceB = parseFloat(b.price.replace(/[^0-9.-]+/g,""));
+                if (sortingOption === 'Price: High to Low') {
+                    return priceB - priceA;
+                } else {
+                    return priceA - priceB;
+                }
             });
+
+            dispatch({
+                type: actionTypes.FETCH_FILTERED_PRODUCTS,
+                payload: sortedProducts
+            });
+        } else {
+            const sortingId = getSortingId(sortingOption);
+            const requestBody = constructRequestBody(filters);
+            axios.post(`${generalURL}sortingId=${sortingId}&mykey=${myKey}`, requestBody)
+                .then(res => {
+                    dispatch({
+                        type: actionTypes.FETCH_FILTERED_PRODUCTS,
+                        payload: res.data.rs.products
+                    });
+                })
+                .catch(err => {
+                    console.error('Error fetching sorted products', err);
+                });
+        }
     };
 };
 
 const getSortingId = (sortingOption) => {
     switch (sortingOption) {
         case 'Featured':
-            return 0;
-        case 'New Arrivals':
             return 1;
-        case 'Top Rated':
+        case 'New Arrivals':
             return 2;
-        case 'Price: High to Low':
+        case 'Top Rated':
             return 3;
-        case 'Price: Low to High':
-            return 4;
         default:
-            return 0;
+            return 1;
     }
 };
 
