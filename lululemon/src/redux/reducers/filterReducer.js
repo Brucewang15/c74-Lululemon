@@ -21,7 +21,8 @@ const initialState = {
     requestBody: {},
     filterExpand: {},
     filterViewMore: {},
-    selectedTab: 'All'
+    selectedTab: 'All',
+    products: []
 }
 
 export const filterReducer = (state = initialState, action) => {
@@ -43,7 +44,7 @@ export const filterReducer = (state = initialState, action) => {
 
             }
         case actionTypes.TOGGLE_FILTER:
-            console.log(`Toggling filter: ${action.payload.filterValue.id || action.payload.filterValue.name}`);
+            //console.log(`Toggling filter: ${action.payload.filterValue.id || action.payload.filterValue.name}`);
             // 更新选中的filters
             const updatedFilters = {
                 ...state.filters,
@@ -91,6 +92,7 @@ export const filterReducer = (state = initialState, action) => {
             let newFilterViewMore = {...state.filterViewMore}
             newFilterViewMore[action.payload] = !state.filterViewMore[action.payload]
             return {...state, filterViewMore: newFilterViewMore}
+
         case actionTypes.REMOVE_FILTERS:
             const resetFilters = Object.keys(state.filters).reduce((acc, filterType) => {
                 acc[filterType] = state.filters[filterType].map(filter => {
@@ -103,6 +105,13 @@ export const filterReducer = (state = initialState, action) => {
             return {...state, requestBody: {}, filters: resetFilters}
         case actionTypes.SELECT_TAB:
             return {...state, selectedTab: action.payload}
+
+        case actionTypes.FETCH_FILTERED_PRODUCTS:
+            return {
+                ...state,
+                products: action.payload
+            };
+
         default:
             return state
     }

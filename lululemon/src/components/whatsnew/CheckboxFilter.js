@@ -15,7 +15,7 @@ export const CheckboxFilter = ({filterType, filters}) => {
     const filterViewMore = useSelector(state => state.filterReducer.filterViewMore)
 
     const handleFilterChange = (filter) => {
-        console.log(`Toggling filter: ${filter.id}`);
+        //console.log(`Toggling filter: ${filter.id}`);
         // dispatch(setFilter(filterType, {...filter, isChecked: !filter.isChecked}))  // 在component中处理反选逻辑，但是还是让reducer处理好，详情见filterReducer的，toggleFilter case
         dispatch(setFilter(filterType, filter))
         dispatch(selectTab(filter.name))
