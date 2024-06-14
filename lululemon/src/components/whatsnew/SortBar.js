@@ -1,38 +1,49 @@
 import './SortBar.css';
 import {removeFilters} from "../../redux/actions/filterAction";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import { setSortingOption } from '../../redux/actions/filterAction';
 import {useState} from "react";
 
 export const SortBar = () => {
     const dispatch = useDispatch();
-    const [sortingOption, setSortingOption] = useState('Featured');
+    const sortingOption = useSelector(state => state.filterReducer.sortingOption);
+    const [activeTab, setActiveTab] = useState('All Items');
 
     const handleSortChange = (option) => {
-        setSortingOption(option);
+        //setSortingOption(option);
         dispatch(setSortingOption(option));
     };
 
-    const handleRemoveFilter = (filterType, filterValue) => {
-        dispatch(removeFilters(filterType, filterValue));
+    // const handleRemoveFilter = (filterType, filterValue) => {
+    //     dispatch(removeFilters(filterType, filterValue));
+    // };
+
+    const handleTabClick = (tab) => {
+        setActiveTab(tab);
+        // Handle additional logic for tab click if needed
     };
 
     return (
         <div className="navBar">
-            <div className="navItem" onClick={() => { /* handle click */
-            }}>
-                All Items (232)
+            <div
+                className={`navItem ${activeTab === 'All Items' ? 'active' : ''}`}
+                onClick={() => handleTabClick('All Items')}
+            >
+                All Items
             </div>
-            <div className="navItem" onClick={() => { /* handle click */
-            }}>
-                Available Near You
+            <div
+                className={`navItem ${activeTab === 'Available Near You' ? 'active' : ''}`}
+                onClick={() => handleTabClick('Available Near You')}
+            >
+                Available Near You >
             </div>
-                <div className="dropdown">
-                    <button className="dropbtn">Sort by {sortingOption} &#x25BC;</button>
-                    <div className="dropdownContent">
-                        <div onClick={() => handleSortChange('Featured')}>Featured</div>
-                        <div onClick={() => handleSortChange('New Arrivals')}>New Arrivals</div>
-                        <div onClick={() => handleSortChange('Top Rated')}>Top Rated</div>
-                        <div onClick={() => handleSortChange('Price: High to Low')}>Price: High to Low</div>
+            <div className="dropdown">
+                <button className="dropbtn">Sort by {sortingOption} &#x25BC;</button>
+                <div className="dropdownContent">
+                    <div onClick={() => handleSortChange('Featured')}>Featured</div>
+                    <div onClick={() => handleSortChange('New Arrivals')}>New Arrivals</div>
+                    <div onClick={() => handleSortChange('Top Rated')}>Top Rated</div>
+                    <div onClick={() => handleSortChange('Price: High to Low')}>Price: High to Low</div>
                         <div onClick={() => handleSortChange('Price: Low to High')}>Price: Low to High</div>
                     </div>
                 </div>

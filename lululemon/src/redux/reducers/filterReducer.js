@@ -22,13 +22,13 @@ const initialState = {
     filterExpand: {},
     filterViewMore: {},
     selectedTab: 'All',
-    products: []
+    products: [],
 }
 
 export const filterReducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.FETCH_ALL_FILTERS:
-            console.log(`Fetching filters for type: ${action.payload.filterType}`);
+            //console.log(`Fetching filters for type: ${action.payload.filterType}`);
             return {
                 ...state,
                 filters: {
@@ -111,7 +111,11 @@ export const filterReducer = (state = initialState, action) => {
                 ...state,
                 products: action.payload
             };
-
+        case actionTypes.UPDATE_SORTING:
+            return {
+                ...state,
+                sortingId: action.payload
+            };
         default:
             return state
     }

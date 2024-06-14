@@ -1,7 +1,8 @@
 // Fetch all the filter API
 
 import axios from "axios";
-import {filterURL, productURL, myKey, apiURL} from "../helper";
+import {apiURL, generalURL, myKey} from "../helper";
+
 import {actionTypes} from "./actionTypes";
 
 export const fetchFilterApi = () => {
@@ -173,6 +174,58 @@ export const constructRequestBody = (filters) => {
 
     return requestBody;
 
+};
+
+export const setSortingOption = (sortingOption) => {
+    return (dispatch, getState) => {
+        dispatch({
+            type: actionTypes.UPDATE_SORTING,
+            payload: sortingOption
+        });
+
+        // Get the updated filters state
+        const { filters } = getState().filterReducer;
+        // const requestBody = constructRequestBody(sortingOption);
+
+        // Fetch sorted products
+        dispatch(fetchSortedProducts(sortingOption, filters));
+    };
+};
+
+export const fetchSortedProducts = (sortingOption, filters) => {
+    return (dispatch) => {
+        //console.log("enter fetching sorted products", sortingOption);
+        const sortingId = getSortingId(sortingOption); // Convert sorting option to sortingId
+        //console.log(sortingId)
+        const requestBody = constructRequestBody(filters);
+        axios.post(`${generalURL}?sortingId=${sortingId}&mykey=${myKey}`, requestBody)
+            .then(res => {
+                dispatch({
+                    type: actionTypes.FETCH_FILTERED_PRODUCTS,
+                    payload: res.data.rs.products
+                });
+            })
+            .catch(err => {
+                console.error('Error fetching sorted products', err);
+            });
+    };
+};
+
+const getSortingId = (sortingOption) => {
+    switch (sortingOption) {
+        case 'Featured':
+            return 0;
+        case 'New Arrivals':
+            return 1;
+        case 'Top Rated':
+            return 2;
+        case 'Price: High to Low':
+            return 3;
+        case 'Price: Low to High':
+            return 4;
+        default:
+            return 0;
+    }
 };
 
 
