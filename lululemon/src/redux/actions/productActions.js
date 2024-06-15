@@ -59,15 +59,15 @@ export const fetchFiltersSuccess = (filters) => ({
     payload: filters,
 });
 
-export const fetchProducts = () => {
-    return async (dispatch) => {
-        dispatch(fetchProductsRequest());
-        try {
-            const response = await axios.post(productURL);
-            dispatch(fetchProductsSuccess(response.data.rs.products));
-            dispatch(fetchFiltersSuccess(response.data.rs.filters));
-        } catch (error) {
-            dispatch(fetchProductsFailure(error.message));
-        }
-    };
-};
+// export const fetchProducts = () => {
+//     return async (dispatch) => {
+//         dispatch(fetchProductsRequest());
+//         try {
+//             const response = await axios.post(productURL);
+//             dispatch(fetchProductsSuccess(response.data.rs.products));
+//             dispatch(fetchFiltersSuccess(response.data.rs.filters));
+//         } catch (error) {
+//             dispatch(fetchProductsFailure(error.message));
+//         }
+//     };
+// };

@@ -8,6 +8,7 @@ export const SortBar = () => {
     const dispatch = useDispatch();
     const [sortingOption, setSortingOptionState] = useState('Featured');
     const [activeTab, setActiveTab] = useState('All Items');
+    const pageParams = useSelector(state => state.filterReducer.pageParams);
 
     const handleSortChange = (option) => {
         setSortingOptionState(option);
@@ -25,7 +26,7 @@ export const SortBar = () => {
                 className={`navItem ${activeTab === 'All Items' ? 'active' : ''}`}
                 onClick={() => handleTabClick('All Items')}
             >
-                All Items
+                All Items ({pageParams.totalProducts})
             </div>
             <div
                 className={`navItem ${activeTab === 'Available Near You' ? 'active' : ''}`}

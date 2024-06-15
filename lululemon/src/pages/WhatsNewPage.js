@@ -14,16 +14,41 @@ import WhatsNewMain from "../components/whatsnew/WhatsNewMain";
 import './whatsNewPage.css';
 import {Header} from "../components/shared/Header";
 import Footer from "../components/shared/Footer";
+import {useEffect, useRef, useState} from "react";
 
 export const WhatsNewPage = () => {
-    //const products = useSelector(state => state.productReducer.products) || []
-    //const filters = useSelector(state => state.filterReducer.filters)
+    const [isSticky, setIsSticky] = useState(false);
+    const sentinelRef = useRef(null);
+
+    useEffect(() => {
+        const sentinel = sentinelRef.current;
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                setIsSticky(!entry.isIntersecting);
+            },
+            {
+                root: null,
+                threshold: 0,
+            }
+        );
+
+        if (sentinel) {
+            observer.observe(sentinel);
+        }
+
+        return () => {
+            if (sentinel) {
+                observer.unobserve(sentinel);
+            }
+        };
+    }, []);
 
 
     return (
         <>
             <div className='whatsNewWrapper'>
-                <Header/>
+                <div ref={sentinelRef}></div>
+                <Header isSticky={isSticky}/>
                 <div className='whatsNewPageLayout'>
                     <FilterContainer/>
                     <div className='whatsNewContainer'>
@@ -35,8 +60,8 @@ export const WhatsNewPage = () => {
                     </div>
 
                 </div>
+                <Footer/>
             </div>
-            <Footer/>
         </>
 
     );
