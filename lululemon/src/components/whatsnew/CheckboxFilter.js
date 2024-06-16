@@ -3,7 +3,7 @@
 
 import {useDispatch, useSelector} from "react-redux";
 import {expandFilter, selectTab, setFilter, viewMoreFilter} from "../../redux/actions/filterAction";
-import './CheckboxFilter.scss'
+import './CheckBoxFilter.scss'
 import {actionTypes} from "../../redux/actions/actionTypes";
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';

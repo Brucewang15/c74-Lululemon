@@ -15,6 +15,7 @@ import './whatsNewPage.css';
 import {Header} from "../components/shared/Header";
 import Footer from "../components/shared/Footer";
 import {useEffect, useRef, useState} from "react";
+import {Outlet} from "react-router-dom";
 
 export const WhatsNewPage = () => {
     const [isSticky, setIsSticky] = useState(false);
@@ -56,7 +57,7 @@ export const WhatsNewPage = () => {
                         <SortBar/>
                         <CheckedFilters/>
                         <WhatsNewMain/>
-
+                        <Outlet/>
                     </div>
 
                 </div>

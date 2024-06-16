@@ -1,13 +1,18 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import './ProductCard.css';
+import {useNavigate} from "react-router-dom";
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({product}) => {
     const [currentImage, setCurrentImage] = useState(null);
     const [originalImage, setOriginalImage] = useState(null);
     const [secondImage, setSecondImage] = useState(null);
     const [visibleSwatches, setVisibleSwatches] = useState([]);
     const [swatchIndex, setSwatchIndex] = useState(0);
     const [selectedSwatchIndex, setSelectedSwatchIndex] = useState(null);
+    const navigate = useNavigate()
+    const handleNavigate = () => {
+        navigate(`/product/${product.productId}`)
+    }
 
     // Initialize state
     if (!currentImage && product && product.images && product.swatches) {
@@ -63,7 +68,7 @@ const ProductCard = ({ product }) => {
     };
 
     return (
-        <div className="productCard">
+        <div className="productCard" onClick={handleNavigate}>
             <img
                 src={currentImage}
                 alt={product.name}
