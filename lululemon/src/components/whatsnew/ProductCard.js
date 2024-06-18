@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './ProductCard.css';
 import {useNavigate} from "react-router-dom";
 
@@ -9,20 +9,31 @@ const ProductCard = ({product}) => {
     const [visibleSwatches, setVisibleSwatches] = useState([]);
     const [swatchIndex, setSwatchIndex] = useState(0);
     const [selectedSwatchIndex, setSelectedSwatchIndex] = useState(null);
+    const [selectedColorId, setSelectedColorId] = useState(null)
     const navigate = useNavigate()
-    const handleNavigate = () => {
-        navigate(`/product/${product.productId}`)
-    }
+
 
     // Initialize state
-    if (!currentImage && product && product.images && product.swatches) {
-        const initialImage = product.images[0].mainCarousel.media.split('|').map(img => img.trim())[0];
-        const initialSecondImage = product.images[0].mainCarousel.media.split('|').map(img => img.trim())[1];
-        setCurrentImage(initialImage);
-        setOriginalImage(initialImage);
-        setSecondImage(initialSecondImage);
-        setVisibleSwatches(product.swatches.slice(0, 7));
-    }
+    // if (!currentImage && product && product.images && product.swatches) {
+    //     const initialImage = product.images[0].mainCarousel.media.split('|').map(img => img.trim())[0];
+    //     const initialSecondImage = product.images[0].mainCarousel.media.split('|').map(img => img.trim())[1];
+    //     setCurrentImage(initialImage);
+    //     setOriginalImage(initialImage);
+    //     setSecondImage(initialSecondImage);
+    //     setVisibleSwatches(product.swatches.slice(0, 7));
+    // }
+
+    useEffect(() => {
+        if (product && product.images && product.swatches) {
+            const initialImage = product.images[0].mainCarousel.media.split('|').map(img => img.trim())[0];
+            const initialSecondImage = product.images[0].mainCarousel.media.split('|').map(img => img.trim())[1];
+            setCurrentImage(initialImage);
+            setOriginalImage(initialImage);
+            setSecondImage(initialSecondImage);
+            setVisibleSwatches(product.swatches.slice(0, 7));
+            setSelectedColorId(product.swatches[0].colorId);
+        }
+    }, [product]);
 
     if (!product || !product.images || !product.swatches) {
         return <div>Something went wrong, please check the API.</div>;
@@ -44,6 +55,7 @@ const ProductCard = ({product}) => {
             setCurrentImage(firstImageInMedia);
             setOriginalImage(firstImageInMedia);
             setSecondImage(secondImageInMedia);
+            setSelectedColorId(colorId)
         }
     };
 
@@ -56,6 +68,8 @@ const ProductCard = ({product}) => {
             setCurrentImage(firstImageInMedia);
             setSecondImage(secondImageInMedia);
             setSelectedSwatchIndex(index);
+            setSelectedColorId(colorId)
+            navigate(`/product/${product.productId}?colorId=${colorId}`)
         }
     };
 
@@ -67,9 +81,14 @@ const ProductCard = ({product}) => {
         setCurrentImage(originalImage);
     };
 
+    const handleNavigate = () => {
+        // navigate(`/product/${product.productId}/colorId:${product.swatches[0].colorId}`)
+        navigate(`/product/${product.productId}?colorId=${selectedColorId}`)
+    }
     return (
-        <div className="productCard" onClick={handleNavigate}>
+        <div className="productCard">
             <img
+                onClick={handleNavigate}
                 src={currentImage}
                 alt={product.name}
                 className="productImage"
@@ -89,7 +108,10 @@ const ProductCard = ({product}) => {
                             key={index}
                             className={`swatchButton ${selectedSwatchIndex === index ? 'selected' : ''}`}
                             onMouseEnter={() => handleSwatchHover(swatch.colorId, index)}
-                            onClick={() => handleSwatchClick(swatch.colorId, index)}
+                            onClick={() => {
+                                handleSwatchClick(swatch.colorId, index)
+
+                            }}
                         >
                             <img src={swatch.swatch} alt={swatch.swatchAlt} className="swatch"/>
                         </button>

@@ -31,6 +31,7 @@
 
 
 }
+
 .heart {
     color: #ccc;
     font-size: 30px;
@@ -41,6 +42,7 @@
 .heart:hover {
     color: red;
 }
+
 .swatchesContainer {
     display: flex;
     align-items: center;
@@ -62,23 +64,27 @@
 .swatchButton {
     background: none;
     border: none;
-    padding: 0;
+    /*padding: 0;*/
     cursor: pointer;
     position: relative;
     outline: none;
     transition: transform 1s ease;
+    /*padding-top: 5px;*/
+    /*padding-left: 5px;*/
+    /*padding-right: 5px;*/
 }
 
-.swatchButton:hover .swatch{
-    border: 3px solid white;
-    outline: 2px solid black;
+.swatchButton:hover .swatch {
+    /*border: 3px solid white;*/
+    outline: 3px solid black;
+
 }
 
 .swatch {
     width: 30px;
     height: 30px;
     border-radius: 50%;
-    border: 1px solid #e0e0e0;
+    outline: 1px solid #e0e0e0;
 }
 
 .swatchScrollButton {
