@@ -1,20 +1,25 @@
-.productPageContainer {
+.productPageWrapperHidden {
+  display: none;
+}
+
+.productPageWrapperActive .productPageContainer {
   width: 80%;
   margin: 0 auto;
 }
-.productPageContainer .productInfoContainer {
+.productPageWrapperActive .productPageContainer .productInfoContainer {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
-.productPageContainer .productInfoContainer .productImagesContainer {
+.productPageWrapperActive .productPageContainer .productInfoContainer .productImagesContainer {
   width: 50%;
 }
-.productPageContainer .productInfoContainer .productImagesContainer .images {
+.productPageWrapperActive .productPageContainer .productInfoContainer .productImagesContainer .images {
   width: 400px;
   height: 400px;
+  cursor: zoom-in;
 }
-.productPageContainer .productInfoContainer .productInfo {
+.productPageWrapperActive .productPageContainer .productInfoContainer .productInfo {
   width: 50%;
   display: flex;
   flex-direction: column;
@@ -22,7 +27,7 @@
   align-items: flex-start;
   margin-left: 10px;
 }
-.productPageContainer .productInfoContainer .productInfo .productName {
+.productPageWrapperActive .productPageContainer .productInfoContainer .productInfo .productName {
   font-size: 2.05rem;
   font-weight: 700;
   font-style: normal;
@@ -31,11 +36,11 @@
   text-align: left;
   width: 50%;
 }
-.productPageContainer .productInfoContainer .productInfo .productPrice {
+.productPageWrapperActive .productPageContainer .productInfoContainer .productInfo .productPrice {
   font-weight: 300;
   text-align: left;
 }
-.productPageContainer .productInfoContainer .productInfo .colorWord {
+.productPageWrapperActive .productPageContainer .productInfoContainer .productInfo .colorWord {
   display: flex;
   flex-direction: row;
   text-align: left;
@@ -43,31 +48,41 @@
   font-weight: 600;
   font-size: 15px;
 }
-.productPageContainer .productInfoContainer .productInfo .colorWord .colorName {
+.productPageWrapperActive .productPageContainer .productInfoContainer .productInfo .colorWord .colorName {
   margin-left: 5px;
   font-weight: 300;
 }
-.productPageContainer .productInfoContainer .productInfo .colorWord .wordStyle {
+.productPageWrapperActive .productPageContainer .productInfoContainer .productInfo .colorWord .wordStyle {
   margin-left: 5px;
   font-weight: 300;
 }
-.productPageContainer .productInfoContainer .productInfo .swatchesContainer {
+.productPageWrapperActive .productPageContainer .productInfoContainer .productInfo .swatchesContainer {
   display: flex;
   flex-direction: row;
   justify-content: center;
 }
-.productPageContainer .productInfoContainer .productInfo .swatchesContainer .swatch {
+.productPageWrapperActive .productPageContainer .productInfoContainer .productInfo .swatchesContainer .swatch {
   outline: 1px solid #e0e0e0;
   border: 2px solid white;
 }
-.productPageContainer .productInfoContainer .productInfo .swatchesContainer .selected {
+.productPageWrapperActive .productPageContainer .productInfoContainer .productInfo .swatchesContainer .selected {
   outline: 2px black solid;
 }
-.productPageContainer .productInfoContainer .productInfo .swatchesContainer .swatchButton:hover .swatch {
+.productPageWrapperActive .productPageContainer .productInfoContainer .productInfo .swatchesContainer .swatchButton:hover .swatch {
   /*border: 3px solid white;*/
   outline: 3px solid grey;
 }
-.productPageContainer .productInfoContainer .productInfo .sizeContainer .selectSizeWord {
+.productPageWrapperActive .productPageContainer .productInfoContainer .productInfo .sizeContainer .soldoutWord {
+  text-align: left;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  font-weight: 600;
+  font-size: 15px;
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+}
+.productPageWrapperActive .productPageContainer .productInfoContainer .productInfo .sizeContainer .selectSizeWord {
   text-align: left;
   margin-top: 30px;
   margin-bottom: 10px;
@@ -77,40 +92,41 @@
   flex-direction: row;
   gap: 4px;
 }
-.productPageContainer .productInfoContainer .productInfo .sizeContainer .selectSizeWord .wordStyle {
+.productPageWrapperActive .productPageContainer .productInfoContainer .productInfo .sizeContainer .selectSizeWord .wordStyle {
   margin-left: 5px;
   font-weight: 300;
 }
-.productPageContainer .productInfoContainer .productInfo .sizeContainer .sizeButtonsContainer {
+.productPageWrapperActive .productPageContainer .productInfoContainer .productInfo .sizeContainer .sizeButtonsContainer {
   text-align: left;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+  width: 40%;
 }
-.productPageContainer .productInfoContainer .productInfo .sizeContainer .sizeButtonsContainer .sizeLettersButton {
+.productPageWrapperActive .productPageContainer .productInfoContainer .productInfo .sizeContainer .sizeButtonsContainer .sizeLettersButton {
   background-color: #fff;
   border: 0.02px solid #c7c4c4;
-  width: auto;
   flex: 0 0 18%; /* Ensures that each button takes up 20% of the row */
   margin: 5px;
-  height: 40px;
+  height: 2.25rem;
+  width: auto;
   font-weight: 800;
   cursor: pointer;
   border-radius: 5px;
   text-wrap: normal;
   box-sizing: border-box;
 }
-.productPageContainer .productInfoContainer .productInfo .sizeContainer .sizeButtonsContainer .sizeLettersButton:hover {
+.productPageWrapperActive .productPageContainer .productInfoContainer .productInfo .sizeContainer .sizeButtonsContainer .sizeLettersButton:hover {
   border: 1px solid black;
 }
-.productPageContainer .productInfoContainer .productInfo .sizeContainer .sizeButtonsContainer .sizeLettersButtonChecked {
+.productPageWrapperActive .productPageContainer .productInfoContainer .productInfo .sizeContainer .sizeButtonsContainer .sizeLettersButtonChecked {
   background-color: black;
   color: white;
   border: none;
   flex: 0 0 18%; /* Ensures that each button takes up 20% of the row */
-  max-width: 18%; /* Ensures that each button does not exceed 20% of the row width */
   margin: 5px;
-  height: 40px;
+  height: 2.25rem;
+  width: auto;
   font-weight: 800;
   cursor: pointer;
   border-radius: 5px;
