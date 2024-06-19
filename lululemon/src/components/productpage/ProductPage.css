@@ -183,13 +183,30 @@
   align-items: center;
   gap: 3px;
 }
+.productPageWrapperActive .productPageContainer .productInfoContainer .addToBagContainer .pickupContainer .expand {
+  text-align: end;
+  padding-left: 250px;
+  font-weight: 800;
+  font-size: larger;
+}
+.productPageWrapperActive .productPageContainer .productInfoContainer .addToBagContainer .pickupContainer .expand .horizontal {
+  transition: 0.5s ease-in-out;
+  transform: rotate(90deg);
+  text-align: right;
+}
+.productPageWrapperActive .productPageContainer .productInfoContainer .addToBagContainer .pickupContainer .expand .vertical {
+  text-align: right;
+}
 .productPageWrapperActive .productPageContainer .productInfoContainer .addToBagContainer .pickupContainer .pickupIcon {
   margin-left: 8px;
 }
 .productPageWrapperActive .productPageContainer .productInfoContainer .addToBagContainer .pickupContainer h3 {
   font-weight: 500;
 }
-.productPageWrapperActive .productPageContainer .productInfoContainer .addToBagContainer .buttonContainer button {
+.productPageWrapperActive .productPageContainer .productInfoContainer .addToBagContainer .buttonContainer {
+  margin-bottom: 5px;
+}
+.productPageWrapperActive .productPageContainer .productInfoContainer .addToBagContainer .buttonContainer .button1 {
   width: 95%;
   height: 50px;
   background-color: #c8102e;
@@ -199,7 +216,7 @@
   font-weight: 700;
   cursor: pointer;
 }
-.productPageWrapperActive .productPageContainer .productInfoContainer .addToBagContainer .otherStoreContainer button {
+.productPageWrapperActive .productPageContainer .productInfoContainer .addToBagContainer .otherStoreContainer .button2 {
   width: 95%;
   height: 50px;
   background-color: #fff;
@@ -208,6 +225,15 @@
   text-decoration: underline;
   font-weight: 700;
   cursor: pointer;
+  border: none;
+}
+.productPageWrapperActive .productPageContainer .productInfoContainer .addToBagContainer .pickupInfoContainer .pickUpInfo {
+  margin: 10px;
+}
+.productPageWrapperActive .productPageContainer .productInfoContainer .addToBagContainer .pickupInfoContainer input {
+  margin-top: 10px;
+  text-align: left;
+  background-color: red;
 }
 
 /*# sourceMappingURL=ProductPage.css.map */

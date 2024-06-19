@@ -7,6 +7,7 @@ import {myKey, productURL, singleProductURL} from "../../redux/helper";
 import './ProductPage.scss'
 import {Modal} from "./Modal";
 import StorefrontOutlinedIcon from '@mui/icons-material/StorefrontOutlined';
+import RemoveIcon from '@mui/icons-material/Remove';
 
 export const ProductPage = () => {
     // Router
@@ -23,6 +24,7 @@ export const ProductPage = () => {
     const [selectedSize, setSelectedSize] = useState('')
     const [isSizeSelected, setIsSizeSelected] = useState(false)
     const [isModalVisible, setIsModalVisible] = useState(false)
+    const [isExpanded, setIsExpanded] = useState(false)
 
     useEffect(() => {
         const params = new URLSearchParams(location.search)
@@ -95,6 +97,9 @@ export const ProductPage = () => {
 
     const handleModalClose = () => {
         setIsModalVisible(false)
+    }
+    const handleExpand = () => {
+        setIsExpanded(!isExpanded)
     }
 
     if (!product) {
@@ -171,13 +176,31 @@ export const ProductPage = () => {
                                 </div>
                                 <div className='pickupContainer'>
                                     <StorefrontOutlinedIcon className='pickupIcon'/>
+
                                     <h3>Pick up in store</h3>
+                                    <div className='expand'>
+                                        {isExpanded === false ?
+                                            <div className='horizontal' onClick={handleExpand}>+</div> :
+                                            <div className='vertical' onClick={handleExpand}><RemoveIcon/></div>}
+                                    </div>
                                 </div>
+                                {isExpanded === true && (
+                                    <div className='pickUpInfoContainer'>
+                                        <div className='pickUpInfo'>
+                                            Available for Buy & Pick-Up at these locations in Toronto, Ontario Change
+                                            Locations
+                                            Pick up in-store within 2 hours.
+                                        </div>
+                                        <label htmlFor="locationInput">
+                                            <input type="radio" id='locationInput' className='locationInput'/> Sherway
+                                            Gardens (15.2 km)
+                                        </label>
+                                    </div>)}
                                 <div className='buttonContainer'>
-                                    <button>ADD TO BAG</button>
+                                    <button className='button1'>ADD TO BAG</button>
                                 </div>
                                 <div className='otherStoreContainer'>
-                                    <button>Check All Store Inventory</button>
+                                    <button className='button2'>Check All Store Inventory</button>
                                 </div>
                             </div>
                         </div>

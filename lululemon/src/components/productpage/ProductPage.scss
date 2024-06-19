@@ -222,6 +222,26 @@
           align-items: center;
           gap: 3px;
 
+          .expand {
+            text-align: end;
+            padding-left: 250px;
+            font-weight: 800;
+            font-size: larger;
+
+            .horizontal {
+
+              transition: 0.5s ease-in-out;
+              transform: rotate(90deg);
+              text-align: right;
+
+            }
+
+            .vertical {
+              text-align: right;
+
+            }
+          }
+
           .pickupIcon {
             margin-left: 8px;
           }
@@ -229,10 +249,14 @@
           h3 {
             font-weight: 500;
           }
+
+
         }
 
         .buttonContainer {
-          button {
+          margin-bottom: 5px;
+
+          .button1 {
             width: 95%;
             height: 50px;
             background-color: #c8102e;
@@ -246,15 +270,28 @@
         }
 
         .otherStoreContainer {
-          button {
+          .button2 {
             width: 95%;
             height: 50px;
             background-color: #fff;
-            color: black  ;
+            color: black;
             border-radius: .25rem;
             text-decoration: underline;
             font-weight: 700;
             cursor: pointer;
+            border: none;
+          }
+        }
+
+        .pickupInfoContainer {
+          .pickUpInfo {
+            margin: 10px;
+          }
+
+          input {
+            margin-top: 10px;
+            text-align: left;
+            background-color: red;
           }
         }
       }
