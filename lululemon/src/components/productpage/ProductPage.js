@@ -8,6 +8,8 @@ import './ProductPage.scss'
 import {Modal} from "./Modal";
 import StorefrontOutlinedIcon from '@mui/icons-material/StorefrontOutlined';
 import RemoveIcon from '@mui/icons-material/Remove';
+import { Carousel } from 'react-responsive-carousel';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 export const ProductPage = () => {
     // Router
@@ -115,13 +117,16 @@ export const ProductPage = () => {
                     <div className='productInfoContainer'>
 
                         <div className='productImagesContainer'>
-                            {images.map((image, index) => {
-                                    return <img className='images' key={index} src={image}
-                                                alt={alt}
-                                                onClick={handleModalOpen}
-                                    />
-                                }
-                            )}
+                            <Carousel showThumbs={true} showArrows={true} dynamicHeight={true} infiniteLoop={true}>
+                                {images.map((image, index) => (
+                                    <div key={index} onClick={handleModalOpen}>
+                                        <img className='images' src={image} alt={alt} />
+                                    </div>
+                                ))}
+                            </Carousel>
+                            {/*<button className="heartButton">*/}
+                            {/*    <div className="heart">&#x2665;</div>*/}
+                            {/*</button>*/}
                         </div>
                         <div className='productInfo'>
                             <div className='productName'>{product.name}</div>

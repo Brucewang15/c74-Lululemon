@@ -3,7 +3,6 @@
 }
 
 .productPageWrapperActive {
-
   .productPageContainer {
     width: 80%;
     margin: 0 auto;
@@ -14,12 +13,43 @@
       justify-content: space-between;
 
       .productImagesContainer {
+        position: relative;
         width: 50%;
 
-        .images {
-          width: 400px;
-          height: 400px;
+        .carousel .slide img {
+          width: 100%;
+          height: auto;
           cursor: zoom-in;
+        }
+
+        .carousel .control-arrow {
+          background: none;
+          border: none;
+          font-size: 2rem;
+          cursor: pointer;
+        }
+
+        .carousel .control-prev {
+          left: 10px;
+        }
+
+        .carousel .control-next {
+          right: 10px;
+        }
+
+        .heartButton {
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          background: none;
+          border: none;
+          font-size: 2rem;
+          cursor: pointer;
+          z-index: 10;
+
+          .heart {
+            color: red;
+          }
         }
       }
 
@@ -38,7 +68,7 @@
           word-break: break-word;
           white-space: normal;
           text-align: left;
-          width: 50%;
+          width: 100%;
         }
 
         .productPrice {
@@ -63,31 +93,34 @@
             margin-left: 5px;
             font-weight: 300;
           }
-
         }
 
         .swatchesContainer {
           display: flex;
           flex-direction: row;
+          justify-content: flex-start;
+          flex-wrap: wrap;
+          margin-top: 10px;
 
-          justify-content: center;
+          .swatchButton {
+            border: none;
+            background: none;
+            margin: 5px;
 
+            .swatch {
+              outline: 1px solid #e0e0e0;
+              border: 2px solid white;
+              width: 50px;
+              height: 50px;
+            }
 
-          .swatch {
-            outline: 1px solid #e0e0e0;
-            border: 2px solid white;
-          }
+            .selected {
+              outline: 2px solid black;
+            }
 
-          .selected {
-            outline: 2px black solid;
-
-
-          }
-
-          .swatchButton:hover .swatch {
-            /*border: 3px solid white;*/
-            outline: 3px solid grey;
-
+            &:hover .swatch {
+              outline: 3px solid grey;
+            }
           }
         }
 
@@ -124,42 +157,34 @@
             display: flex;
             flex-direction: row;
             justify-content: flex-start;
-            width: 40%;
-
+            width: 100%;
+            flex-wrap: wrap;
 
             .sizeLettersButton {
               background-color: #fff;
               border: 0.02px solid #c7c4c4;
-              flex: 0 0 18%; /* Ensures that each button takes up 20% of the row */
               margin: 5px;
               height: 2.25rem;
-              width: auto;
+              width: 18%;
               font-weight: 800;
               cursor: pointer;
               border-radius: 5px;
-              text-wrap: normal;
-              box-sizing: border-box;
 
               &:hover {
                 border: 1px solid black;
               }
             }
 
-
             .sizeLettersButtonChecked {
               background-color: black;
               color: white;
               border: none;
-              flex: 0 0 18%; /* Ensures that each button takes up 20% of the row */
-              //max-width: 18%; /* Ensures that each button does not exceed 20% of the row width */
               margin: 5px;
               height: 2.25rem;
-              width: auto;
+              width: 18%;
               font-weight: 800;
               cursor: pointer;
               border-radius: 5px;
-              text-wrap: normal;
-              box-sizing: border-box; /* Ensures padding and border are included in the width and height */
             }
           }
         }
@@ -184,7 +209,6 @@
           background-color: #ffffff;
           border-bottom: .0625rem solid #e6e6e6;
           padding-bottom: 15px;
-
 
           .shipLabel {
             text-align: left;
@@ -229,16 +253,13 @@
             font-size: larger;
 
             .horizontal {
-
               transition: 0.5s ease-in-out;
               transform: rotate(90deg);
               text-align: right;
-
             }
 
             .vertical {
               text-align: right;
-
             }
           }
 
@@ -249,8 +270,6 @@
           h3 {
             font-weight: 500;
           }
-
-
         }
 
         .buttonContainer {
@@ -265,7 +284,6 @@
             border-color: #c8102e;
             font-weight: 700;
             cursor: pointer;
-
           }
         }
 
