@@ -6,6 +6,7 @@ import axios from "axios";
 import {myKey, productURL, singleProductURL} from "../../redux/helper";
 import './ProductPage.scss'
 import {Modal} from "./Modal";
+import StorefrontOutlinedIcon from '@mui/icons-material/StorefrontOutlined';
 
 export const ProductPage = () => {
     // Router
@@ -30,6 +31,9 @@ export const ProductPage = () => {
             .then(res => {
                 const productData = res.data.rs
                 console.log('productData ===>', productData)
+                if (!productData || !productData.images || productData.images.length === 0) {
+                    navigate('/wrong-product')
+                }
                 setProduct(productData)
                 // 默认选中第一个颜色的图片
                 if (colorId) {
@@ -47,6 +51,7 @@ export const ProductPage = () => {
             })
             .catch(error => {
                 console.log('error fetching product', error)
+                navigate('/wrong-product')
             })
 
     }, [productID]);
@@ -117,7 +122,6 @@ export const ProductPage = () => {
                             <div className='productName'>{product.name}</div>
                             <div className='productPrice'>{product.price}</div>
 
-
                             <div className='colorWord'>Colour
                                 <div className='colorName wordStyle'>{swatchName}</div>
                             </div>
@@ -158,7 +162,24 @@ export const ProductPage = () => {
                                 })}
                                 <div className='soldoutWord'>Size sold out? Select size to get notified</div>
                             </div>
-
+                            <div className='addToBagContainer'>
+                                <div className='ship'>
+                                    <label className='shipLabel' htmlFor="ship1">
+                                        <input id='ship1' className='ship1' type="radio"/> <h3>Ship it to me</h3>
+                                    </label>
+                                    <span>Free shipping and returns</span>
+                                </div>
+                                <div className='pickupContainer'>
+                                    <StorefrontOutlinedIcon className='pickupIcon'/>
+                                    <h3>Pick up in store</h3>
+                                </div>
+                                <div className='buttonContainer'>
+                                    <button>ADD TO BAG</button>
+                                </div>
+                                <div className='otherStoreContainer'>
+                                    <button>Check All Store Inventory</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -174,6 +195,7 @@ export const ProductPage = () => {
                 </div>
                 <Footer/>
             </div>
+            {/*Here is the modal, you can close and open it*/}
             {isModalVisible && <Modal images={images} close={handleModalClose} alt={alt} name={product.name}/>}
         </>
     )
