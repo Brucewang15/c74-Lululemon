@@ -1,0 +1,32 @@
+.imagesContainer {
+  cursor: zoom-in;
+}
+
+.imagesContainer:hover {
+  cursor: zoom-in;
+}
+
+.carousel .slide img {
+  width: 100%;
+  height: auto;
+  cursor: zoom-in;
+}
+
+.carousel .slide img:hover {
+  cursor: zoom-in;
+}
+
+.carousel .control-arrow {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.carousel .control-prev {
+  left: 10px;
+}
+
+.carousel .control-next {
+  right: 10px;
+}

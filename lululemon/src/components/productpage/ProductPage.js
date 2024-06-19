@@ -8,8 +8,13 @@ import './ProductPage.scss'
 import {Modal} from "./Modal";
 import StorefrontOutlinedIcon from '@mui/icons-material/StorefrontOutlined';
 import RemoveIcon from '@mui/icons-material/Remove';
-import { Carousel } from 'react-responsive-carousel';
+import AddIcon from '@mui/icons-material/Add';
+import {Carousel} from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import {ImageCarousel} from "./ImageCarousel";
+import {Swatches} from "./Swatches";
+import {SizeButtons} from "./SizeButtons";
+import {AddToBag} from "./AddToBag";
 
 export const ProductPage = () => {
     // Router
@@ -74,8 +79,7 @@ export const ProductPage = () => {
             alt: 'No Alt'
         }
     }
-    // Define a function to get
-    // the images's alt based on selected swatch
+
 
     const {images, alt} = getCurrentImagesAndAlts()
 
@@ -117,13 +121,7 @@ export const ProductPage = () => {
                     <div className='productInfoContainer'>
 
                         <div className='productImagesContainer'>
-                            <Carousel showThumbs={true} showArrows={true} dynamicHeight={true} infiniteLoop={true}>
-                                {images.map((image, index) => (
-                                    <div key={index} onClick={handleModalOpen}>
-                                        <img className='images' src={image} alt={alt} />
-                                    </div>
-                                ))}
-                            </Carousel>
+                            <ImageCarousel images={images} handleModalOpen={handleModalOpen} alt={alt}/>
                             {/*<button className="heartButton">*/}
                             {/*    <div className="heart">&#x2665;</div>*/}
                             {/*</button>*/}
@@ -135,79 +133,12 @@ export const ProductPage = () => {
                             <div className='colorWord'>Colour
                                 <div className='colorName wordStyle'>{swatchName}</div>
                             </div>
-                            <div className='swatchesContainer'>
-                                {product.swatches && product.swatches.map((swatch, index) => {
-                                    return (
-
-                                        <button key={index}
-                                                className='swatchButton'
-                                                onClick={() => handleSwatchClick(swatch.colorId, index, swatch.swatchAlt)}>
-                                            <img className={`swatch ${selectedSwatchIndex === index ? 'selected' : ''}`}
-                                                 src={swatch.swatch}
-                                                 alt={swatch.swatchAlt}
-                                            />
-                                        </button>
-
-                                    )
-                                })}
-                            </div>
-                            <div className='sizeContainer'>
-                                {product.sizes && product.sizes.map((sizeGroup, index) => {
-                                    return (
-                                        <div key={index}>
-                                            <div className='selectSizeWord'>{isSizeSelected ? 'Size' : sizeGroup.title}
-                                                <div className='wordStyle'> {selectedSize}</div>
-                                            </div>
-                                            <div className='sizeButtonsContainer'>
-                                                {sizeGroup.details.map((size, i) =>
-                                                    <button
-                                                        className={`${selectedSizeIndex === i ? 'sizeLettersButtonChecked' : 'sizeLettersButton'} `}
-                                                        key={i}
-                                                        onClick={() => handleSizeButtonClick(size, i)}
-                                                    >{size ? size : 'nosize'}</button>
-                                                )}
-                                            </div>
-                                        </div>
-                                    )
-                                })}
-                                <div className='soldoutWord'>Size sold out? Select size to get notified</div>
-                            </div>
-                            <div className='addToBagContainer'>
-                                <div className='ship'>
-                                    <label className='shipLabel' htmlFor="ship1">
-                                        <input id='ship1' className='ship1' type="radio"/> <h3>Ship it to me</h3>
-                                    </label>
-                                    <span>Free shipping and returns</span>
-                                </div>
-                                <div className='pickupContainer'>
-                                    <StorefrontOutlinedIcon className='pickupIcon'/>
-
-                                    <h3>Pick up in store</h3>
-                                    <div className='expand'>
-                                        {isExpanded === false ?
-                                            <div className='horizontal' onClick={handleExpand}>+</div> :
-                                            <div className='vertical' onClick={handleExpand}><RemoveIcon/></div>}
-                                    </div>
-                                </div>
-                                {isExpanded === true && (
-                                    <div className='pickUpInfoContainer'>
-                                        <div className='pickUpInfo'>
-                                            Available for Buy & Pick-Up at these locations in Toronto, Ontario Change
-                                            Locations
-                                            Pick up in-store within 2 hours.
-                                        </div>
-                                        <label htmlFor="locationInput">
-                                            <input type="radio" id='locationInput' className='locationInput'/> Sherway
-                                            Gardens (15.2 km)
-                                        </label>
-                                    </div>)}
-                                <div className='buttonContainer'>
-                                    <button className='button1'>ADD TO BAG</button>
-                                </div>
-                                <div className='otherStoreContainer'>
-                                    <button className='button2'>Check All Store Inventory</button>
-                                </div>
-                            </div>
+                            <Swatches product={product} handleSwatchClick={handleSwatchClick}
+                                      selectedSwatchIndex={selectedSwatchIndex}/>
+                            <SizeButtons product={product} isSizeSelected={isSizeSelected} selectedSize={selectedSize}
+                                         selectedSizeIndex={selectedSizeIndex}
+                                         handleSizeButtonClick={handleSizeButtonClick}/>
+                            <AddToBag isExpanded={isExpanded} handleExpand={handleExpand}/>
                         </div>
                     </div>
                 </div>

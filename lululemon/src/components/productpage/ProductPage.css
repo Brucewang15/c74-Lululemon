@@ -2,6 +2,11 @@
   display: none;
 }
 
+.productPageWrapperActive {
+  min-width: 1440px;
+  max-width: 1440px;
+  margin: 0 auto;
+}
 .productPageWrapperActive .productPageContainer {
   width: 80%;
   margin: 0 auto;
@@ -10,14 +15,11 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  gap: 50px;
 }
 .productPageWrapperActive .productPageContainer .productInfoContainer .productImagesContainer {
+  position: relative;
   width: 50%;
-}
-.productPageWrapperActive .productPageContainer .productInfoContainer .productImagesContainer .images {
-  width: 400px;
-  height: 400px;
-  cursor: zoom-in;
 }
 .productPageWrapperActive .productPageContainer .productInfoContainer .productInfo {
   width: 50%;
@@ -34,7 +36,7 @@
   word-break: break-word;
   white-space: normal;
   text-align: left;
-  width: 50%;
+  width: 100%;
 }
 .productPageWrapperActive .productPageContainer .productInfoContainer .productInfo .productPrice {
   font-weight: 300;
@@ -55,185 +57,6 @@
 .productPageWrapperActive .productPageContainer .productInfoContainer .productInfo .colorWord .wordStyle {
   margin-left: 5px;
   font-weight: 300;
-}
-.productPageWrapperActive .productPageContainer .productInfoContainer .productInfo .swatchesContainer {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-}
-.productPageWrapperActive .productPageContainer .productInfoContainer .productInfo .swatchesContainer .swatch {
-  outline: 1px solid #e0e0e0;
-  border: 2px solid white;
-}
-.productPageWrapperActive .productPageContainer .productInfoContainer .productInfo .swatchesContainer .selected {
-  outline: 2px black solid;
-}
-.productPageWrapperActive .productPageContainer .productInfoContainer .productInfo .swatchesContainer .swatchButton:hover .swatch {
-  /*border: 3px solid white;*/
-  outline: 3px solid grey;
-}
-.productPageWrapperActive .productPageContainer .productInfoContainer .productInfo .sizeContainer .soldoutWord {
-  text-align: left;
-  margin-top: 5px;
-  margin-bottom: 10px;
-  font-weight: 600;
-  font-size: 15px;
-  display: flex;
-  flex-direction: row;
-  gap: 4px;
-}
-.productPageWrapperActive .productPageContainer .productInfoContainer .productInfo .sizeContainer .selectSizeWord {
-  text-align: left;
-  margin-top: 30px;
-  margin-bottom: 10px;
-  font-weight: 600;
-  font-size: 15px;
-  display: flex;
-  flex-direction: row;
-  gap: 4px;
-}
-.productPageWrapperActive .productPageContainer .productInfoContainer .productInfo .sizeContainer .selectSizeWord .wordStyle {
-  margin-left: 5px;
-  font-weight: 300;
-}
-.productPageWrapperActive .productPageContainer .productInfoContainer .productInfo .sizeContainer .sizeButtonsContainer {
-  text-align: left;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  width: 40%;
-}
-.productPageWrapperActive .productPageContainer .productInfoContainer .productInfo .sizeContainer .sizeButtonsContainer .sizeLettersButton {
-  background-color: #fff;
-  border: 0.02px solid #c7c4c4;
-  flex: 0 0 18%; /* Ensures that each button takes up 20% of the row */
-  margin: 5px;
-  height: 2.25rem;
-  width: auto;
-  font-weight: 800;
-  cursor: pointer;
-  border-radius: 5px;
-  text-wrap: normal;
-  box-sizing: border-box;
-}
-.productPageWrapperActive .productPageContainer .productInfoContainer .productInfo .sizeContainer .sizeButtonsContainer .sizeLettersButton:hover {
-  border: 1px solid black;
-}
-.productPageWrapperActive .productPageContainer .productInfoContainer .productInfo .sizeContainer .sizeButtonsContainer .sizeLettersButtonChecked {
-  background-color: black;
-  color: white;
-  border: none;
-  flex: 0 0 18%; /* Ensures that each button takes up 20% of the row */
-  margin: 5px;
-  height: 2.25rem;
-  width: auto;
-  font-weight: 800;
-  cursor: pointer;
-  border-radius: 5px;
-  text-wrap: normal;
-  box-sizing: border-box; /* Ensures padding and border are included in the width and height */
-}
-.productPageWrapperActive .productPageContainer .productInfoContainer .addToBagContainer {
-  background: #fff;
-  border: 0.0625rem solid #e6e6e6;
-  border-radius: 0.25rem;
-  color: #000;
-  display: flex;
-  flex-direction: column;
-  margin-top: 0;
-  overflow: hidden;
-  padding: 0;
-  width: 60%;
-}
-.productPageWrapperActive .productPageContainer .productInfoContainer .addToBagContainer .ship {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  background-color: #ffffff;
-  border-bottom: 0.0625rem solid #e6e6e6;
-  padding-bottom: 15px;
-}
-.productPageWrapperActive .productPageContainer .productInfoContainer .addToBagContainer .ship .shipLabel {
-  text-align: left;
-  display: flex;
-  flex-direction: row;
-  gap: 3px;
-  margin-bottom: 0;
-}
-.productPageWrapperActive .productPageContainer .productInfoContainer .addToBagContainer .ship .shipLabel input[type=radio] {
-  accent-color: #d93535;
-}
-.productPageWrapperActive .productPageContainer .productInfoContainer .addToBagContainer .ship .shipLabel .ship1 {
-  margin-left: 10px;
-}
-.productPageWrapperActive .productPageContainer .productInfoContainer .addToBagContainer .ship .shipLabel .ship1 h3 {
-  font-weight: 200;
-}
-.productPageWrapperActive .productPageContainer .productInfoContainer .addToBagContainer .ship span {
-  margin-left: 25px;
-  margin-top: -10px;
-  color: #53565a;
-  line-height: 1.25rem;
-  font-size: 0.9rem;
-  text-align: left;
-}
-.productPageWrapperActive .productPageContainer .productInfoContainer .addToBagContainer .pickupContainer {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 3px;
-}
-.productPageWrapperActive .productPageContainer .productInfoContainer .addToBagContainer .pickupContainer .expand {
-  text-align: end;
-  padding-left: 250px;
-  font-weight: 800;
-  font-size: larger;
-}
-.productPageWrapperActive .productPageContainer .productInfoContainer .addToBagContainer .pickupContainer .expand .horizontal {
-  transition: 0.5s ease-in-out;
-  transform: rotate(90deg);
-  text-align: right;
-}
-.productPageWrapperActive .productPageContainer .productInfoContainer .addToBagContainer .pickupContainer .expand .vertical {
-  text-align: right;
-}
-.productPageWrapperActive .productPageContainer .productInfoContainer .addToBagContainer .pickupContainer .pickupIcon {
-  margin-left: 8px;
-}
-.productPageWrapperActive .productPageContainer .productInfoContainer .addToBagContainer .pickupContainer h3 {
-  font-weight: 500;
-}
-.productPageWrapperActive .productPageContainer .productInfoContainer .addToBagContainer .buttonContainer {
-  margin-bottom: 5px;
-}
-.productPageWrapperActive .productPageContainer .productInfoContainer .addToBagContainer .buttonContainer .button1 {
-  width: 95%;
-  height: 50px;
-  background-color: #c8102e;
-  color: white;
-  border-radius: 0.25rem;
-  border-color: #c8102e;
-  font-weight: 700;
-  cursor: pointer;
-}
-.productPageWrapperActive .productPageContainer .productInfoContainer .addToBagContainer .otherStoreContainer .button2 {
-  width: 95%;
-  height: 50px;
-  background-color: #fff;
-  color: black;
-  border-radius: 0.25rem;
-  text-decoration: underline;
-  font-weight: 700;
-  cursor: pointer;
-  border: none;
-}
-.productPageWrapperActive .productPageContainer .productInfoContainer .addToBagContainer .pickupInfoContainer .pickUpInfo {
-  margin: 10px;
-}
-.productPageWrapperActive .productPageContainer .productInfoContainer .addToBagContainer .pickupInfoContainer input {
-  margin-top: 10px;
-  text-align: left;
-  background-color: red;
 }
 
 /*# sourceMappingURL=ProductPage.css.map */
