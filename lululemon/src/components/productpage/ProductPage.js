@@ -1,7 +1,7 @@
 import {Link, useLocation, useNavigate, useParams} from "react-router-dom";
 import {Header} from "../shared/Header";
 import Footer from "../shared/Footer";
-import {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import axios from "axios";
 import {myKey, productURL, singleProductURL} from "../../redux/helper";
 import './ProductPage.scss'
@@ -34,6 +34,10 @@ export const ProductPage = () => {
     const [isSizeSelected, setIsSizeSelected] = useState(false)
     const [isModalVisible, setIsModalVisible] = useState(false)
     const [isExpanded, setIsExpanded] = useState(false)
+    const [expandedIndex, setExpendedIndex] = useState(null);
+
+    const refs = useRef([])
+
 
     useEffect(() => {
         const params = new URLSearchParams(location.search)
@@ -46,6 +50,7 @@ export const ProductPage = () => {
                     navigate('/wrong-product')
                 }
                 setProduct(productData)
+                refs.current = productData.featurePanels?.map(() => React.createRef());
                 // 默认选中第一个颜色的图片
                 if (colorId) {
                     setSelectedColorId(colorId)
@@ -66,6 +71,10 @@ export const ProductPage = () => {
             })
 
     }, [productID]);
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     // Define a function to get the images based on selected swatch
     const getCurrentImagesAndAlts = () => {
@@ -110,6 +119,12 @@ export const ProductPage = () => {
         setIsExpanded(!isExpanded)
     }
 
+    const handleScrollAndExpand = (index) => {
+        setExpendedIndex(index); // 设置展开的面板索引
+        if (refs.current && refs.current.length > 0 && index < refs.current.length) {
+            refs.current[index].current.scrollIntoView({behavior: 'smooth'});
+        }
+    };
     if (!product) {
         return <div>loading</div>
     }
@@ -141,11 +156,13 @@ export const ProductPage = () => {
                                          selectedSizeIndex={selectedSizeIndex}
                                          handleSizeButtonClick={handleSizeButtonClick}/>
                             <AddToBag isExpanded={isExpanded} handleExpand={handleExpand}/>
-                            <ProductDetails product={product}/>
+                            <ProductDetails product={product} refs={refs} handleScroll={handleScrollAndExpand}/>
                         </div>
 
                     </div>
-                    {product.whyWeMadeThis && <WhyWeMadeThis product={product} images={images} alt={alt}/>}
+                    {product.whyWeMadeThis &&
+                        <WhyWeMadeThis product={product} images={images} alt={alt} refs={refs}
+                                       expandedIndex={expandedIndex} setExpendedIndex={setExpendedIndex}/>}
                 </div>
                 {/*Details go here*/}
 
