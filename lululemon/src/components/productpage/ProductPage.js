@@ -15,6 +15,8 @@ import {ImageCarousel} from "./ImageCarousel";
 import {Swatches} from "./Swatches";
 import {SizeButtons} from "./SizeButtons";
 import {AddToBag} from "./AddToBag";
+import {ProductDetails} from "./ProductDetails";
+import {WhyWeMadeThis} from "./WhyWeMadeThis";
 
 export const ProductPage = () => {
     // Router
@@ -139,13 +141,13 @@ export const ProductPage = () => {
                                          selectedSizeIndex={selectedSizeIndex}
                                          handleSizeButtonClick={handleSizeButtonClick}/>
                             <AddToBag isExpanded={isExpanded} handleExpand={handleExpand}/>
+                            <ProductDetails product={product}/>
                         </div>
                     </div>
                 </div>
                 {/*Details go here*/}
-                <div>Why We Made This
-                    <div>{product.whyWeMadeThis}</div>
-                </div>
+                {product.whyWeMadeThis && <WhyWeMadeThis product={product} images={images} alt={alt}/>}
+                <br/>
                 <div>
                     {/*底下这俩都是返回Whats New Page。看你们爱用哪个都行*/}
                     <Link to='/'>To What's New Page </Link>
