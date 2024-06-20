@@ -53,6 +53,7 @@
   padding-left: 250px;
   font-weight: 800;
   font-size: larger;
+  margin-right: 20px;
 }
 .addToBagContainer .pickupContainer .expand .addIcon {
   transition: 0.5s ease-in-out;
@@ -85,6 +86,8 @@
   border-color: #c8102e;
   font-weight: 700;
   cursor: pointer;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 .addToBagContainer .otherStoreContainer .button2 {
   width: 95%;
