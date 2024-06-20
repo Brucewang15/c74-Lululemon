@@ -26,6 +26,10 @@
   text-underline-offset: 5px;
   margin-bottom: 10px;
   font-weight: 600;
+  cursor: pointer;
+}
+.detailsContainer .featureTitleContainer .featureTitle:hover {
+  text-decoration-color: #c8102e;
 }
 
 /*# sourceMappingURL=ProductDetails.css.map */

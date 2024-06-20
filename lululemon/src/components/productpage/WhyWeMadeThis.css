@@ -1,0 +1,27 @@
+.whyWeMadeThisContainer {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  justify-content: start;
+}
+.whyWeMadeThisContainer .whyWeMadeThisText {
+  display: flex;
+  flex-direction: column;
+}
+.whyWeMadeThisContainer .whyWeMadeThisImages {
+  width: 70%;
+}
+.whyWeMadeThisContainer .whyWeMadeThisImages .imagesContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+.whyWeMadeThisContainer .whyWeMadeThisImages .imagesContainer img {
+  height: 450px;
+  border-radius: 8px;
+  cursor: auto;
+}
+
+/*# sourceMappingURL=WhyWeMadeThis.css.map */

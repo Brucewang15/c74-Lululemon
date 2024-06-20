@@ -1,3 +1,5 @@
+import './WhyWeMadeThis.scss'
+
 export const WhyWeMadeThis = ({product, images, alt}) => {
 
     return (
@@ -12,7 +14,7 @@ export const WhyWeMadeThis = ({product, images, alt}) => {
             </div>
             <div className='whyWeMadeThisImages'>
                 {images && images.length > 2 &&
-                    <div>
+                    <div className='imagesContainer'>
                         <img src={images[0]} alt={alt[0]}/>
                         <img src={images[1]} alt={alt[1]}/>
                     </div>

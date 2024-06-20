@@ -1,0 +1,29 @@
+.whyWeMadeThisContainer {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  justify-content: start;
+
+  .whyWeMadeThisText {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .whyWeMadeThisImages {
+    width: 70%;
+
+    .imagesContainer {
+      display: flex;
+      flex-direction: row;
+      gap: 20px;
+
+      img {
+        height: 450px;
+        border-radius: 8px;
+        cursor: auto;
+      }
+    }
+  }
+}

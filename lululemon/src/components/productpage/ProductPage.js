@@ -143,10 +143,12 @@ export const ProductPage = () => {
                             <AddToBag isExpanded={isExpanded} handleExpand={handleExpand}/>
                             <ProductDetails product={product}/>
                         </div>
+
                     </div>
+                    {product.whyWeMadeThis && <WhyWeMadeThis product={product} images={images} alt={alt}/>}
                 </div>
                 {/*Details go here*/}
-                {product.whyWeMadeThis && <WhyWeMadeThis product={product} images={images} alt={alt}/>}
+
                 <br/>
                 <div>
                     {/*底下这俩都是返回Whats New Page。看你们爱用哪个都行*/}
