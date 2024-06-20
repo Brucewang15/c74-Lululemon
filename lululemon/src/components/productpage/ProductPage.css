@@ -2,6 +2,11 @@
   display: none;
 }
 
+.productPageWrapperActive {
+  min-width: 1440px;
+  max-width: 1440px;
+  margin: 0 auto;
+}
 .productPageWrapperActive .productPageContainer {
   width: 80%;
   margin: 0 auto;
@@ -12,12 +17,38 @@
   justify-content: space-between;
 }
 .productPageWrapperActive .productPageContainer .productInfoContainer .productImagesContainer {
+  position: relative;
   width: 50%;
 }
-.productPageWrapperActive .productPageContainer .productInfoContainer .productImagesContainer .images {
-  width: 400px;
-  height: 400px;
+.productPageWrapperActive .productPageContainer .productInfoContainer .productImagesContainer .carousel .slide img {
+  width: 100%;
+  height: auto;
   cursor: zoom-in;
+}
+.productPageWrapperActive .productPageContainer .productInfoContainer .productImagesContainer .carousel .control-arrow {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+}
+.productPageWrapperActive .productPageContainer .productInfoContainer .productImagesContainer .carousel .control-prev {
+  left: 10px;
+}
+.productPageWrapperActive .productPageContainer .productInfoContainer .productImagesContainer .carousel .control-next {
+  right: 10px;
+}
+.productPageWrapperActive .productPageContainer .productInfoContainer .productImagesContainer .heartButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  z-index: 10;
+}
+.productPageWrapperActive .productPageContainer .productInfoContainer .productImagesContainer .heartButton .heart {
+  color: red;
 }
 .productPageWrapperActive .productPageContainer .productInfoContainer .productInfo {
   width: 50%;
@@ -34,7 +65,7 @@
   word-break: break-word;
   white-space: normal;
   text-align: left;
-  width: 50%;
+  width: 100%;
 }
 .productPageWrapperActive .productPageContainer .productInfoContainer .productInfo .productPrice {
   font-weight: 300;
@@ -59,17 +90,25 @@
 .productPageWrapperActive .productPageContainer .productInfoContainer .productInfo .swatchesContainer {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  margin-top: 10px;
 }
-.productPageWrapperActive .productPageContainer .productInfoContainer .productInfo .swatchesContainer .swatch {
+.productPageWrapperActive .productPageContainer .productInfoContainer .productInfo .swatchesContainer .swatchButton {
+  border: none;
+  background: none;
+  margin: 5px;
+}
+.productPageWrapperActive .productPageContainer .productInfoContainer .productInfo .swatchesContainer .swatchButton .swatch {
   outline: 1px solid #e0e0e0;
   border: 2px solid white;
+  width: 50px;
+  height: 50px;
 }
-.productPageWrapperActive .productPageContainer .productInfoContainer .productInfo .swatchesContainer .selected {
-  outline: 2px black solid;
+.productPageWrapperActive .productPageContainer .productInfoContainer .productInfo .swatchesContainer .swatchButton .selected {
+  outline: 2px solid black;
 }
 .productPageWrapperActive .productPageContainer .productInfoContainer .productInfo .swatchesContainer .swatchButton:hover .swatch {
-  /*border: 3px solid white;*/
   outline: 3px solid grey;
 }
 .productPageWrapperActive .productPageContainer .productInfoContainer .productInfo .sizeContainer .soldoutWord {
@@ -101,20 +140,18 @@
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  width: 40%;
+  width: 100%;
+  flex-wrap: wrap;
 }
 .productPageWrapperActive .productPageContainer .productInfoContainer .productInfo .sizeContainer .sizeButtonsContainer .sizeLettersButton {
   background-color: #fff;
   border: 0.02px solid #c7c4c4;
-  flex: 0 0 18%; /* Ensures that each button takes up 20% of the row */
   margin: 5px;
   height: 2.25rem;
-  width: auto;
+  width: 18%;
   font-weight: 800;
   cursor: pointer;
   border-radius: 5px;
-  text-wrap: normal;
-  box-sizing: border-box;
 }
 .productPageWrapperActive .productPageContainer .productInfoContainer .productInfo .sizeContainer .sizeButtonsContainer .sizeLettersButton:hover {
   border: 1px solid black;
@@ -123,15 +160,12 @@
   background-color: black;
   color: white;
   border: none;
-  flex: 0 0 18%; /* Ensures that each button takes up 20% of the row */
   margin: 5px;
   height: 2.25rem;
-  width: auto;
+  width: 18%;
   font-weight: 800;
   cursor: pointer;
   border-radius: 5px;
-  text-wrap: normal;
-  box-sizing: border-box; /* Ensures padding and border are included in the width and height */
 }
 .productPageWrapperActive .productPageContainer .productInfoContainer .addToBagContainer {
   background: #fff;

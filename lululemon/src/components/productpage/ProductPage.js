@@ -10,6 +10,7 @@ import StorefrontOutlinedIcon from '@mui/icons-material/StorefrontOutlined';
 import RemoveIcon from '@mui/icons-material/Remove';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import {Reviews} from "./Reviews";
 
 export const ProductPage = () => {
     // Router
@@ -221,6 +222,7 @@ export const ProductPage = () => {
                     <br/>
                     <button onClick={() => navigate('/')}>Go Back to What's New Page</button>
                 </div>
+                <Reviews/>
                 <Footer/>
             </div>
             {/*Here is the modal, you can close and open it*/}
