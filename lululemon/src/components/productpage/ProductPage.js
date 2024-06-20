@@ -35,6 +35,7 @@ export const ProductPage = () => {
     const [isModalVisible, setIsModalVisible] = useState(false)
     const [isExpanded, setIsExpanded] = useState(false)
     const [expandedIndex, setExpendedIndex] = useState(null);
+    const [scrollPosition, setScrollPosition] = useState(0)
 
     const refs = useRef([])
 
@@ -110,10 +111,12 @@ export const ProductPage = () => {
 
     const handleModalOpen = () => {
         setIsModalVisible(true)
+        setScrollPosition(window.scrollY)
     }
 
     const handleModalClose = () => {
         setIsModalVisible(false)
+        window.scrollTo(0, scrollPosition)
     }
     const handleExpand = () => {
         setIsExpanded(!isExpanded)
