@@ -12,6 +12,7 @@ function App() {
                 <Routes>
                     <Route path='/' element={<WhatsNewPage/>}/>
                     <Route path='/product/:productID' element={<ProductPage/>}/>
+
                     <Route path='/wrong-product' element={<WrongProductPage/>}/>
                     <Route path='*' element={<WrongPage/>}/>
                 </Routes>

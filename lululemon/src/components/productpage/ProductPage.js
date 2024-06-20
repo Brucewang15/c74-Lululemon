@@ -7,6 +7,7 @@ import {myKey, productURL, singleProductURL} from "../../redux/helper";
 import './ProductPage.scss'
 import {Modal} from "./Modal";
 import StorefrontOutlinedIcon from '@mui/icons-material/StorefrontOutlined';
+import ProductDetails from "./ProductDetails";
 
 export const ProductPage = () => {
     // Router
@@ -183,7 +184,7 @@ export const ProductPage = () => {
                         </div>
                     </div>
                 </div>
-                {/*Details go here*/}
+                {/*ProductDetails go here*/}
                 <div>Why We Made This
                     <div>{product.whyWeMadeThis}</div>
                 </div>
@@ -193,6 +194,8 @@ export const ProductPage = () => {
                     <br/>
                     <button onClick={() => navigate('/')}>Go Back to What's New Page</button>
                 </div>
+
+                <ProductDetails/>
                 <Footer/>
             </div>
             {/*Here is the modal, you can close and open it*/}
