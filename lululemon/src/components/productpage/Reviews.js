@@ -21,7 +21,7 @@ export const Reviews = () => {
     }, []);
 
     return (<div className='reviewsWrapper'>
-        <hr/>
+
         <div className='reviews'>
 
             <div className="reviewsHeader">

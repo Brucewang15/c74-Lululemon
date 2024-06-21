@@ -19,16 +19,16 @@ export const SizeButtons = ({
                 return (
                     <div key={index}>
                         <div
-                            className='selectSizeWord'>{isSizeSelected ? (isSize ? 'Size' : 'Length') : sizeGroup.title}
+                            className='selectSizeWord'>{sizeGroup.details.length !== 0 && sizeGroup.details.length > 1 ? (isSizeSelected ? (isSize ? 'Size' : 'Length') : sizeGroup.title) : 'Uni-Size'}
                             <div className='wordStyle'> {isSize ? selectedSize : selectedLength}</div>
                         </div>
                         <div className='sizeButtonsContainer'>
-                            {sizeGroup.details.map((size, i) =>
+                            {sizeGroup.details.length !== 0 && sizeGroup.details.length > 1 && sizeGroup.details.map((size, i) =>
                                 <button
                                     className={`${isSize ? (selectedSizeIndex === i ? 'sizeLettersButtonChecked' : 'sizeLettersButton') : (selectedLengthIndex === i ? 'sizeLettersButtonChecked' : 'sizeLettersButton')} `}
                                     key={i}
                                     onClick={() => isSize ? handleSizeButtonClick(size, i) : handleLengthButtonClick(size, i)}
-                                >{size ? size : 'nosize'}</button>
+                                >{(size) ? size : 'nosize'}</button>
                             )}
                         </div>
                     </div>
