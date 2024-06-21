@@ -1,84 +1,94 @@
-hr {
+.reviewsWrapper {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.reviewsWrapper hr {
   width: 100%;
   border: none;
   border-top: 1px solid #c2c2c2;
+  margin: 3px auto;
 }
-
-.reviews {
+.reviewsWrapper .reviews {
   font-family: Roboto;
+  margin: 0 auto;
+  width: 100%;
 }
-.reviews .reviewsHeader {
+.reviewsWrapper .reviews .reviewsHeader {
   width: 100%;
   display: flex;
   flex-direction: row;
 }
-.reviews .reviewsHeader .reviewsHeaderTitle {
+.reviewsWrapper .reviews .reviewsHeader .reviewsHeaderTitle {
   width: 25%;
   font-size: 45px;
   font-weight: 600;
   text-align: left;
   margin: 30px 0;
 }
-.reviews .reviewsHeader .reviewsHeaderDetails {
+.reviewsWrapper .reviews .reviewsHeader .reviewsHeaderDetails {
   display: flex;
   width: 75%;
   flex-direction: row;
   justify-content: space-between;
   margin: 30px 0;
 }
-.reviews .reviewsHeader .reviewsHeaderDetails .reviewsHeaderDetailsRating {
+.reviewsWrapper .reviews .reviewsHeader .reviewsHeaderDetails .reviewsHeaderDetailsRating {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
   gap: 10px;
 }
-.reviews .reviewsHeader .reviewsHeaderDetails .reviewsHeaderDetailsRating .stars {
+.reviewsWrapper .reviews .reviewsHeader .reviewsHeaderDetails .reviewsHeaderDetailsRating .stars {
   display: flex;
   font-size: 20px;
   font-weight: 600;
 }
-.reviews .reviewsHeader .reviewsHeaderDetails .reviewsHeaderDetailsRating .stars .starsAll {
+.reviewsWrapper .reviews .reviewsHeader .reviewsHeaderDetails .reviewsHeaderDetailsRating .stars .starsAll {
   display: flex;
 }
-.reviews .reviewsHeader .reviewsHeaderDetails .reviewsHeaderDetailsRating .stars .starsAll img {
+.reviewsWrapper .reviews .reviewsHeader .reviewsHeaderDetails .reviewsHeaderDetailsRating .stars .starsAll img {
   width: 15px;
   margin: 0 2px;
 }
-.reviews .reviewsHeader .reviewsHeaderDetails .reviewsHeaderDetailsRating .count {
+.reviewsWrapper .reviews .reviewsHeader .reviewsHeaderDetails .reviewsHeaderDetailsRating .count {
   font-size: 10px;
 }
-.reviews .reviewsHeader .reviewsHeaderDetails .reviewsHeaderDetailsSize {
+.reviewsWrapper .reviews .reviewsHeader .reviewsHeaderDetails .reviewsHeaderDetailsSize {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
   gap: 10px;
 }
-.reviews .reviewsHeader .reviewsHeaderDetails .reviewsHeaderDetailsSize .reivewsHeaderDetailSizeSum {
+.reviewsWrapper .reviews .reviewsHeader .reviewsHeaderDetails .reviewsHeaderDetailsSize .reivewsHeaderDetailSizeSum {
   font-size: 20px;
   font-weight: 600;
 }
-.reviews .reviewsHeader .reviewsHeaderDetails .reviewsHeaderDetailsSize .reviewsHeaderDetailsSizeRange {
+.reviewsWrapper .reviews .reviewsHeader .reviewsHeaderDetails .reviewsHeaderDetailsSize .reviewsHeaderDetailsSizeRange {
   display: flex;
   flex-direction: row;
   align-items: center;
   font-size: 10px;
 }
-.reviews .reviewsHeader .reviewsHeaderDetails .reviewsHeaderDetailsSize .reviewsHeaderDetailsSizeRange .rangeBars {
+.reviewsWrapper .reviews .reviewsHeader .reviewsHeaderDetails .reviewsHeaderDetailsSize .reviewsHeaderDetailsSizeRange .rangeBars {
   display: flex;
   margin: 0 10px;
 }
-.reviews .reviewsHeader .reviewsHeaderDetails .reviewsHeaderDetailsSize .reviewsHeaderDetailsSizeRange .rangeBars .range {
+.reviewsWrapper .reviews .reviewsHeader .reviewsHeaderDetails .reviewsHeaderDetailsSize .reviewsHeaderDetailsSizeRange .rangeBars .range {
   width: 20px;
   height: 6px;
   background-color: #d2d2d2;
   margin-right: 2px;
 }
-.reviews .reviewsHeader .reviewsHeaderDetails .reviewsHeaderDetailsSize .reviewsHeaderDetailsSizeRange .rangeBars .black {
+.reviewsWrapper .reviews .reviewsHeader .reviewsHeaderDetails .reviewsHeaderDetailsSize .reviewsHeaderDetailsSizeRange .rangeBars .black {
   background-color: black;
 }
-.reviews .reviewsHeader .reviewsHeaderDetails button {
+.reviewsWrapper .reviews .reviewsHeader .reviewsHeaderDetails button {
   width: 200px;
   height: 40px;
   border-radius: 5px;
@@ -89,30 +99,34 @@ hr {
   font-weight: 700;
   margin-top: 8px;
 }
-.reviews .reviewsHeader .reviewsHeaderDetails button:hover {
+.reviewsWrapper .reviews .reviewsHeader .reviewsHeaderDetails button:hover {
   background-color: #4f4f4f;
 }
-.reviews .reviewsSection {
+.reviewsWrapper .reviews .reviewsSection {
   display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: start;
+  gap: 20px;
 }
-.reviews .reviewsSection .reviewsFilter {
+.reviewsWrapper .reviews .reviewsSection .reviewsFilter {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   border: none;
   width: 25%;
 }
-.reviews .reviewsSection .reviewsFilter .filterTitle {
+.reviewsWrapper .reviews .reviewsSection .reviewsFilter .filterTitle {
   font-weight: 600;
   margin-bottom: 15px;
 }
-.reviews .reviewsSection .reviewsFilter .search {
+.reviewsWrapper .reviews .reviewsSection .reviewsFilter .search {
   width: 100%;
   height: 30px;
   border-radius: 5px;
   margin-bottom: 10px;
 }
-.reviews .reviewsSection .reviewsFilter .filterRating {
+.reviewsWrapper .reviews .reviewsSection .reviewsFilter .filterRating {
   background-color: white;
   width: 100%;
   display: flex;
@@ -121,28 +135,28 @@ hr {
   margin-right: 10px;
   padding-left: 10px;
 }
-.reviews .reviewsSection .reviewsFilter .filterRating p {
+.reviewsWrapper .reviews .reviewsSection .reviewsFilter .filterRating p {
   font-weight: 500;
   margin-top: 10px;
   margin-bottom: -10px;
 }
-.reviews .reviewsSection .reviewsFilter .filterRating label {
+.reviewsWrapper .reviews .reviewsSection .reviewsFilter .filterRating label {
   font-size: 15px;
 }
-.reviews .reviewsSection .reviewsContent {
+.reviewsWrapper .reviews .reviewsSection .reviewsContent {
   width: 75%;
   margin-left: 20px;
 }
-.reviews .reviewsSection .reviewsContent .reviewsSum {
+.reviewsWrapper .reviews .reviewsSection .reviewsContent .reviewsSum {
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
 }
-.reviews .reviewsSection .reviewsContent .reviewsSum .reviewsSumCount {
+.reviewsWrapper .reviews .reviewsSection .reviewsContent .reviewsSum .reviewsSumCount {
   font-size: 12px;
   font-weight: 500;
 }
-.reviews .reviewsSection .reviewsContent .reviewsSum .reviewsSumSort select {
+.reviewsWrapper .reviews .reviewsSection .reviewsContent .reviewsSum .reviewsSumSort select {
   height: 30px;
   border: none;
   background-color: white;
