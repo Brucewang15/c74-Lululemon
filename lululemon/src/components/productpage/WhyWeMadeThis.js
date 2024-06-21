@@ -15,16 +15,7 @@ export const WhyWeMadeThis = ({product, images, alt, refs, expandedIndex, setExp
         const titleTrim = title.trim()
         return titleTrim.replace('(Click to Expand)', '')
     }
-    const renderContent = (content, contentIndex, featurePanel) => {
-        if (typeof content === 'object' && content.mediaUrl) {
-            return <video src={content.mediaUrl} controls></video>
-        }
-        return (
-            <div key={contentIndex} className='contentDetailContainer'>
-                {content}
-            </div>
-        )
-    }
+
 
     return (
         <div className='wrapper'>
@@ -61,6 +52,7 @@ export const WhyWeMadeThis = ({product, images, alt, refs, expandedIndex, setExp
             </div>
             <div className='featurePanelsContainer'>
                 {product.featurePanels && product.featurePanels.length > 1 && (product.featurePanels.map((featurePanel, index) => {
+                    const isMaterialAndCare = featurePanel.title.includes('Material and care');
                     return (
                         <div className='featurePanelContainer' ref={refs.current[index]} key={index}>
                             <div className='featurePanel' onClick={() => handleExpand(featurePanel.isPanel, index)}>
@@ -75,7 +67,40 @@ export const WhyWeMadeThis = ({product, images, alt, refs, expandedIndex, setExp
                                 </div>
                             </div>
                             {expandedIndex === index && <div className='contentContainer'>
-                                {featurePanel.content && featurePanel.content.map((content, contentIndex) => renderContent(content, contentIndex, featurePanel)
+                                {isMaterialAndCare ? (
+
+                                    <React.Fragment key={index}>
+                                        <div className='contentBox'>
+                                            <h4>Materials</h4>
+                                            <div className='flexRow'>
+                                                {featurePanel.content.filter(content => content.includes('%')).map((content, contentIndex) => (
+                                                    <div key={contentIndex}
+                                                         className='contentDetailContainer'>{content}</div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                        <div className='contentBox'>
+                                            <h4>Care</h4>
+                                            <div className='flexRow'>
+                                                {featurePanel.content.filter(content => !content.includes('%')).map((content, contentIndex) => (
+                                                    <div key={contentIndex}
+                                                         className='contentDetailContainer'>{content}</div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    </React.Fragment>
+
+                                ) : (
+                                    featurePanel.content && featurePanel.content.length !== 0 && featurePanel.content.map((content, contentIndex) => {
+                                        if (typeof content === 'object' && content.mediaUrl) {
+                                            return <video key={contentIndex} src={content.mediaUrl} controls></video>
+                                        }
+                                        return (
+                                            <div key={contentIndex} className='contentDetailContainer'>
+                                                {content}
+                                            </div>
+                                        )
+                                    })
                                 )}
                             </div>}
                         </div>
@@ -85,6 +110,39 @@ export const WhyWeMadeThis = ({product, images, alt, refs, expandedIndex, setExp
         </div>
     )
 }
+
+
+// {featurePanel.content && featurePanel.content.map((content, contentIndex) => {
+//         if (typeof content === 'object' && content.mediaUrl) {
+//             return <video src={content.mediaUrl} controls></video>
+//         }
+//         if (featurePanel.title.includes('Material and care')) {
+//             return (
+//                 <React.Fragment key={contentIndex}>
+//                     {content.includes('%') ? (
+//                         <div>
+//                             <h4>Materials</h4>
+//                             <div className='contentDetailContainer'>{content}</div>
+//                         </div>
+//                     ) : (
+//                         <div>
+//                             <h4>Care</h4>
+//                             <div className='contentDetailContainer'>{content}</div>
+//                         </div>
+//                     )}
+//                 </React.Fragment>
+//             )
+//         }
+//         return (
+//             <div key={contentIndex} className='contentDetailContainer'>
+//                 {content}
+//             </div>
+//         )
+//     }
+// )}
+
+
+// ----------------------------
 
 
 // {

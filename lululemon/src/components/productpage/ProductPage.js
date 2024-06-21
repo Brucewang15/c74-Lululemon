@@ -161,6 +161,7 @@ export const ProductPage = () => {
                             {/*</button>*/}
                         </div>
                         <div className='productInfo'>
+                            <Link to='/'><h4>What's New Page</h4></Link>
                             <div className='productName'>{product.name}</div>
                             <div className='productPrice'>{product.price}</div>
 
@@ -191,12 +192,12 @@ export const ProductPage = () => {
                 {/*Details go here*/}
 
                 <br/>
-                <div>
-                    {/*底下这俩都是返回Whats New Page。看你们爱用哪个都行*/}
-                    <Link to='/'>To What's New Page </Link>
-                    <br/>
-                    <button onClick={() => navigate('/')}>Go Back to What's New Page</button>
-                </div>
+                {/*<div>*/}
+                {/*    /!*底下这俩都是返回Whats New Page。看你们爱用哪个都行*!/*/}
+                {/*    <Link to='/'>To What's New Page </Link>*/}
+                {/*    <br/>*/}
+                {/*    <button onClick={() => navigate('/')}>Go Back to What's New Page</button>*/}
+                {/*</div>*/}
                 <Reviews/>
                 <Footer/>
             </div>
