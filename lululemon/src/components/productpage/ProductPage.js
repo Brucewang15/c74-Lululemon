@@ -22,6 +22,7 @@ import {WhyWeMadeThis} from "./WhyWeMadeThis";
 import {Reviews} from "./Reviews";
 import {useSelector} from "react-redux";
 import YouMayLikeSide from "./YouMayLikeSide";
+import YouMayLike from "./YouMayLike";
 
 export const ProductPage = () => {
     // Router
@@ -179,12 +180,13 @@ export const ProductPage = () => {
                 {/*Details go here*/}
 
                 <br/>
-                <div>
-                    {/*底下这俩都是返回Whats New Page。看你们爱用哪个都行*/}
-                    <Link to='/'>To What's New Page </Link>
-                    <br/>
-                    <button onClick={() => navigate('/')}>Go Back to What's New Page</button>
-                </div>
+                {/*<div>*/}
+                {/*    /!*底下这俩都是返回Whats New Page。看你们爱用哪个都行*!/*/}
+                {/*    <Link to='/'>To What's New Page </Link>*/}
+                {/*    <br/>*/}
+                {/*    <button onClick={() => navigate('/')}>Go Back to What's New Page</button>*/}
+                {/*</div>*/}
+                <YouMayLike products={youMayLikeProducts} />
                 <Reviews/>
                 <Footer/>
             </div>
