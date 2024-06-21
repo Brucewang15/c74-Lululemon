@@ -1,0 +1,45 @@
+.imagesContainer {
+  cursor: zoom-in;
+}
+
+.imagesContainer:hover {
+  cursor: zoom-in;
+}
+
+.carousel .slide img {
+  width: 100%;
+  height: auto;
+  cursor: zoom-in;
+}
+
+.carousel .slide img:hover {
+  cursor: zoom-in;
+}
+
+.carousel .control-arrow {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+}
+.carousel .control-arrow:hover {
+  background-color: black !important;
+}
+
+.carousel .control-prev {
+  left: 10px;
+  width: 10%;
+  top: 50% !important;
+  height: 8%;
+  transform: translateY(-50%);
+}
+
+.carousel .control-next {
+  right: 10px;
+  width: 10%;
+  top: 50% !important;
+  height: 8%;
+  transform: translateY(-50%);
+}
+
+/*# sourceMappingURL=ImageCarousel.css.map */

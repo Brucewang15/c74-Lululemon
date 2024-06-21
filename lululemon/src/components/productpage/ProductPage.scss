@@ -3,6 +3,9 @@
 }
 
 .productPageWrapperActive {
+  min-width: 1440px;
+  max-width: 1440px;
+  margin: 0 auto;
 
   .productPageContainer {
     width: 80%;
@@ -12,15 +15,11 @@
       display: flex;
       flex-direction: row;
       justify-content: space-between;
+      gap: 50px;
 
       .productImagesContainer {
+        position: relative;
         width: 50%;
-
-        .images {
-          width: 400px;
-          height: 400px;
-          cursor: zoom-in;
-        }
       }
 
       .productInfo {
@@ -38,7 +37,7 @@
           word-break: break-word;
           white-space: normal;
           text-align: left;
-          width: 50%;
+          width: 100%;
         }
 
         .productPrice {
@@ -63,201 +62,382 @@
             margin-left: 5px;
             font-weight: 300;
           }
-
-        }
-
-        .swatchesContainer {
-          display: flex;
-          flex-direction: row;
-
-          justify-content: center;
-
-
-          .swatch {
-            outline: 1px solid #e0e0e0;
-            border: 2px solid white;
-          }
-
-          .selected {
-            outline: 2px black solid;
-
-
-          }
-
-          .swatchButton:hover .swatch {
-            /*border: 3px solid white;*/
-            outline: 3px solid grey;
-
-          }
-        }
-
-        .sizeContainer {
-          .soldoutWord {
-            text-align: left;
-            margin-top: 5px;
-            margin-bottom: 10px;
-            font-weight: 600;
-            font-size: 15px;
-            display: flex;
-            flex-direction: row;
-            gap: 4px;
-          }
-
-          .selectSizeWord {
-            text-align: left;
-            margin-top: 30px;
-            margin-bottom: 10px;
-            font-weight: 600;
-            font-size: 15px;
-            display: flex;
-            flex-direction: row;
-            gap: 4px;
-
-            .wordStyle {
-              margin-left: 5px;
-              font-weight: 300;
-            }
-          }
-
-          .sizeButtonsContainer {
-            text-align: left;
-            display: flex;
-            flex-direction: row;
-            justify-content: flex-start;
-            width: 40%;
-
-
-            .sizeLettersButton {
-              background-color: #fff;
-              border: 0.02px solid #c7c4c4;
-              flex: 0 0 18%; /* Ensures that each button takes up 20% of the row */
-              margin: 5px;
-              height: 2.25rem;
-              width: auto;
-              font-weight: 800;
-              cursor: pointer;
-              border-radius: 5px;
-              text-wrap: normal;
-              box-sizing: border-box;
-
-              &:hover {
-                border: 1px solid black;
-              }
-            }
-
-
-            .sizeLettersButtonChecked {
-              background-color: black;
-              color: white;
-              border: none;
-              flex: 0 0 18%; /* Ensures that each button takes up 20% of the row */
-              //max-width: 18%; /* Ensures that each button does not exceed 20% of the row width */
-              margin: 5px;
-              height: 2.25rem;
-              width: auto;
-              font-weight: 800;
-              cursor: pointer;
-              border-radius: 5px;
-              text-wrap: normal;
-              box-sizing: border-box; /* Ensures padding and border are included in the width and height */
-            }
-          }
-        }
-      }
-
-      .addToBagContainer {
-        background: #fff;
-        border: .0625rem solid #e6e6e6;
-        border-radius: .25rem;
-        color: #000;
-        display: flex;
-        flex-direction: column;
-        margin-top: 0;
-        overflow: hidden;
-        padding: 0;
-        width: 60%;
-
-        .ship {
-          display: flex;
-          flex-direction: column;
-          justify-content: flex-start;
-          background-color: #ffffff;
-          border-bottom: .0625rem solid #e6e6e6;
-          padding-bottom: 15px;
-
-
-          .shipLabel {
-            text-align: left;
-            display: flex;
-            flex-direction: row;
-            gap: 3px;
-            margin-bottom: 0;
-
-            input[type='radio'] {
-              accent-color: #d93535;
-            }
-
-            .ship1 {
-              margin-left: 10px;
-
-              h3 {
-                font-weight: 200;
-              }
-            }
-          }
-
-          span {
-            margin-left: 25px;
-            margin-top: -10px;
-            color: #53565a;
-            line-height: 1.25rem;
-            font-size: 0.9rem;
-            text-align: left;
-          }
-        }
-
-        .pickupContainer {
-          display: flex;
-          flex-direction: row;
-          align-items: center;
-          gap: 3px;
-
-          .pickupIcon {
-            margin-left: 8px;
-          }
-
-          h3 {
-            font-weight: 500;
-          }
-        }
-
-        .buttonContainer {
-          button {
-            width: 95%;
-            height: 50px;
-            background-color: #c8102e;
-            color: white;
-            border-radius: .25rem;
-            border-color: #c8102e;
-            font-weight: 700;
-            cursor: pointer;
-
-          }
-        }
-
-        .otherStoreContainer {
-          button {
-            width: 95%;
-            height: 50px;
-            background-color: #fff;
-            color: black  ;
-            border-radius: .25rem;
-            text-decoration: underline;
-            font-weight: 700;
-            cursor: pointer;
-          }
         }
       }
     }
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//.productPageWrapperHidden {
+//  display: none;
+//}
+//
+//.productPageWrapperActive {
+//  min-width: 1440px;
+//  max-width: 1440px;
+//  margin: 0 auto;
+//
+//  .productPageContainer {
+//    width: 80%;
+//    margin: 0 auto;
+//
+//    .productInfoContainer {
+//      display: flex;
+//      flex-direction: row;
+//      justify-content: space-between;
+//      gap: 50px;
+//
+//      .productImagesContainer {
+//        position: relative;
+//        width: 50%;
+//
+//        .imagesContainer {
+//          cursor: zoom-in;
+//
+//          &:hover {
+//            cursor: zoom-in;
+//          }
+//        }
+//
+//        .carousel .slide img {
+//          width: 100%;
+//          height: auto;
+//          cursor: zoom-in;
+//
+//          &:hover {
+//            cursor: zoom-in;
+//          }
+//        }
+//
+//        .carousel .control-arrow {
+//          background: none;
+//          border: none;
+//          font-size: 2rem;
+//          cursor: pointer;
+//        }
+//
+//        .carousel .control-prev {
+//          left: 10px;
+//        }
+//
+//        .carousel .control-next {
+//          right: 10px;
+//        }
+//
+//        .heartButton {
+//          position: absolute;
+//          top: 10px;
+//          right: 10px;
+//          background: none;
+//          border: none;
+//          font-size: 2rem;
+//          cursor: pointer;
+//          z-index: 10;
+//
+//          .heart {
+//            color: red;
+//          }
+//        }
+//      }
+//
+//      .productInfo {
+//        width: 50%;
+//        display: flex;
+//        flex-direction: column;
+//        justify-content: flex-start;
+//        align-items: flex-start;
+//        margin-left: 10px;
+//
+//        .productName {
+//          font-size: 2.05rem;
+//          font-weight: 700;
+//          font-style: normal;
+//          word-break: break-word;
+//          white-space: normal;
+//          text-align: left;
+//          width: 100%;
+//        }
+//
+//        .productPrice {
+//          font-weight: 300;
+//          text-align: left;
+//        }
+//
+//        .colorWord {
+//          display: flex;
+//          flex-direction: row;
+//          text-align: left;
+//          margin-top: 30px;
+//          font-weight: 600;
+//          font-size: 15px;
+//
+//          .colorName {
+//            margin-left: 5px;
+//            font-weight: 300;
+//          }
+//
+//          .wordStyle {
+//            margin-left: 5px;
+//            font-weight: 300;
+//          }
+//        }
+//
+//        .swatchesContainer {
+//          display: flex;
+//          flex-direction: row;
+//          justify-content: flex-start;
+//          flex-wrap: wrap;
+//          margin-top: 10px;
+//
+//          .swatchButton {
+//            border: none;
+//            background: none;
+//            margin: 5px;
+//
+//            .swatch {
+//              outline: 1px solid #e0e0e0;
+//              border: 2px solid white;
+//              width: 35px;
+//              height: 35px;
+//            }
+//
+//            .selected {
+//              outline: 2px solid black;
+//            }
+//
+//            &:hover .swatch {
+//              outline: 3px solid grey;
+//            }
+//          }
+//        }
+//
+//        .sizeContainer {
+//          .soldoutWord {
+//            text-align: left;
+//            margin-top: 5px;
+//            margin-bottom: 10px;
+//            font-weight: 600;
+//            font-size: 15px;
+//            display: flex;
+//            flex-direction: row;
+//            gap: 4px;
+//          }
+//
+//          .selectSizeWord {
+//            text-align: left;
+//            margin-top: 30px;
+//            margin-bottom: 10px;
+//            font-weight: 600;
+//            font-size: 15px;
+//            display: flex;
+//            flex-direction: row;
+//            gap: 4px;
+//
+//            .wordStyle {
+//              margin-left: 5px;
+//              font-weight: 300;
+//            }
+//          }
+//
+//          .sizeButtonsContainer {
+//            text-align: left;
+//            display: flex;
+//            flex-direction: row;
+//            justify-content: flex-start;
+//            width: 100%;
+//
+//            .sizeLettersButton {
+//              background-color: #fff;
+//              border: 0.02px solid #c7c4c4;
+//              margin: 5px;
+//              height: 2.25rem;
+//              width: 18%;
+//              font-weight: 800;
+//              cursor: pointer;
+//              border-radius: 5px;
+//
+//              &:hover {
+//                border: 1px solid black;
+//              }
+//            }
+//
+//            .sizeLettersButtonChecked {
+//              background-color: black;
+//              color: white;
+//              border: none;
+//              margin: 5px;
+//              height: 2.25rem;
+//              width: 18%;
+//              font-weight: 800;
+//              cursor: pointer;
+//              border-radius: 5px;
+//            }
+//          }
+//        }
+//      }
+//
+//      .addToBagContainer {
+//        background: #fff;
+//        border: .0625rem solid #e6e6e6;
+//        border-radius: .25rem;
+//        color: #000;
+//        display: flex;
+//        flex-direction: column;
+//        margin-top: 0;
+//        overflow: hidden;
+//        padding: 0;
+//        width: 100%;
+//
+//        .ship {
+//          display: flex;
+//          flex-direction: column;
+//          justify-content: flex-start;
+//          background-color: #ffffff;
+//          border-bottom: .0625rem solid #e6e6e6;
+//          padding-bottom: 15px;
+//
+//          .shipLabel {
+//            text-align: left;
+//            display: flex;
+//            flex-direction: row;
+//            gap: 3px;
+//            margin-bottom: 0;
+//
+//            input[type='radio'] {
+//              accent-color: #d93535;
+//            }
+//
+//            .ship1 {
+//              margin-left: 10px;
+//
+//              h3 {
+//                font-weight: 200;
+//              }
+//            }
+//          }
+//
+//          span {
+//            margin-left: 25px;
+//            margin-top: -10px;
+//            color: #53565a;
+//            line-height: 1.25rem;
+//            font-size: 0.9rem;
+//            text-align: left;
+//          }
+//        }
+//
+//        .pickupContainer {
+//          display: flex;
+//          flex-direction: row;
+//          align-items: center;
+//          justify-content: space-between;
+//
+//          .expand {
+//            text-align: end;
+//            padding-left: 250px;
+//            font-weight: 800;
+//            font-size: larger;
+//
+//            .addIcon {
+//              transition: 0.5s ease-in-out;
+//              transform: rotate(90deg);
+//              text-align: right;
+//            }
+//
+//            .removeIcon {
+//              text-align: right;
+//            }
+//          }
+//
+//          .iconContainer {
+//            display: flex;
+//            flex-direction: row;
+//            align-items: center;
+//
+//            .pickupIcon {
+//              margin-left: 8px;
+//            }
+//
+//            h3 {
+//              font-weight: 500;
+//            }
+//          }
+//
+//        }
+//
+//        .buttonContainer {
+//          margin-bottom: 5px;
+//
+//          .button1 {
+//            width: 95%;
+//            height: 50px;
+//            background-color: #c8102e;
+//            color: white;
+//            border-radius: .25rem;
+//            border-color: #c8102e;
+//            font-weight: 700;
+//            cursor: pointer;
+//          }
+//        }
+//
+//        .otherStoreContainer {
+//          .button2 {
+//            width: 95%;
+//            height: 50px;
+//            background-color: #fff;
+//            color: black;
+//            border-radius: .25rem;
+//            text-decoration: underline;
+//            font-weight: 700;
+//            cursor: pointer;
+//            border: none;
+//          }
+//        }
+//
+//        .pickupInfoContainer {
+//          .pickUpInfo {
+//            margin: 10px;
+//          }
+//
+//          input {
+//            margin-top: 10px;
+//            text-align: left;
+//            background-color: red;
+//          }
+//        }
+//      }
+//    }
+//  }
+//}

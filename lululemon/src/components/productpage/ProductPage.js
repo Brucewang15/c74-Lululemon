@@ -1,13 +1,25 @@
 import {Link, useLocation, useNavigate, useParams} from "react-router-dom";
 import {Header} from "../shared/Header";
 import Footer from "../shared/Footer";
-import {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import axios from "axios";
 import {myKey, productURL, singleProductURL} from "../../redux/helper";
 import './ProductPage.scss'
 import {Modal} from "./Modal";
 import StorefrontOutlinedIcon from '@mui/icons-material/StorefrontOutlined';
-import ProductDetails from "./ProductDetails";
+import RemoveIcon from '@mui/icons-material/Remove';
+import AddIcon from '@mui/icons-material/Add';
+import {Carousel} from 'react-responsive-carousel';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
+
+import {ImageCarousel} from "./ImageCarousel";
+import {Swatches} from "./Swatches";
+import {SizeButtons} from "./SizeButtons";
+import {AddToBag} from "./AddToBag";
+import {ProductDetails} from "./ProductDetails";
+import {WhyWeMadeThis} from "./WhyWeMadeThis";
+
+import {Reviews} from "./Reviews";
 
 export const ProductPage = () => {
     // Router
@@ -20,10 +32,19 @@ export const ProductPage = () => {
     const [selectedSwatchIndex, setSelectedSwatchIndex] = useState(null)
     // const [selectedSize, setSelectedSize] = useState(false)
     const [selectedSizeIndex, setSelectedSizeIndex] = useState(null)
+    const [selectedLengthIndex, setSelectedLengthIndex] = useState(null);
     const [swatchName, setSwatchName] = useState('')
     const [selectedSize, setSelectedSize] = useState('')
+    const [selectedLength, setSelectedLength] = useState('');
     const [isSizeSelected, setIsSizeSelected] = useState(false)
+    const [isSizeGroup, setIsSizeGroup] = useState(false)
     const [isModalVisible, setIsModalVisible] = useState(false)
+    const [isExpanded, setIsExpanded] = useState(false)
+    const [expandedIndex, setExpendedIndex] = useState(null);
+    const [scrollPosition, setScrollPosition] = useState(0)
+
+    const refs = useRef([])
+
 
     useEffect(() => {
         const params = new URLSearchParams(location.search)
@@ -36,6 +57,7 @@ export const ProductPage = () => {
                     navigate('/wrong-product')
                 }
                 setProduct(productData)
+                refs.current = productData.featurePanels?.map(() => React.createRef());
                 // 默认选中第一个颜色的图片
                 if (colorId) {
                     setSelectedColorId(colorId)
@@ -57,6 +79,10 @@ export const ProductPage = () => {
 
     }, [productID]);
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     // Define a function to get the images based on selected swatch
     const getCurrentImagesAndAlts = () => {
         const currentImages = product.images?.find(image => image.colorId === selectedColorId)
@@ -71,8 +97,7 @@ export const ProductPage = () => {
             alt: 'No Alt'
         }
     }
-    // Define a function to get
-    // the images's alt based on selected swatch
+
 
     const {images, alt} = getCurrentImagesAndAlts()
 
@@ -83,21 +108,40 @@ export const ProductPage = () => {
         setSwatchName(swatchName)
         navigate(`/product/${productID}?colorId=${colorID}`);
     }
-    const handleSizeButtonClick = (size, index) => {
+    const handleSizeButtonClick = (size, index, groupTitle) => {
         // setSelectedSize(!selectedSize)
         setSelectedSizeIndex(index)
         setSelectedSize(size)
+
         setIsSizeSelected(true)
+        setIsSizeGroup(true)
+    }
+    const handleLengthButtonClick = (length, index) => {
+        setSelectedLengthIndex(index);
+        setSelectedLength(length);
+        setIsSizeSelected(true);
+        setIsSizeGroup(false)
     }
 
     const handleModalOpen = () => {
         setIsModalVisible(true)
+        setScrollPosition(window.scrollY)
     }
 
     const handleModalClose = () => {
         setIsModalVisible(false)
+        window.scrollTo(0, scrollPosition)
+    }
+    const handleExpand = () => {
+        setIsExpanded(!isExpanded)
     }
 
+    const handleScrollAndExpand = (index) => {
+        setExpendedIndex(index); // 设置展开的面板索引
+        if (refs.current && refs.current.length > 0 && index < refs.current.length) {
+            refs.current[index].current.scrollIntoView({behavior: 'smooth'});
+        }
+    };
     if (!product) {
         return <div>loading</div>
     }
@@ -111,13 +155,10 @@ export const ProductPage = () => {
                     <div className='productInfoContainer'>
 
                         <div className='productImagesContainer'>
-                            {images.map((image, index) => {
-                                    return <img className='images' key={index} src={image}
-                                                alt={alt}
-                                                onClick={handleModalOpen}
-                                    />
-                                }
-                            )}
+                            <ImageCarousel images={images} handleModalOpen={handleModalOpen} alt={alt}/>
+                            {/*<button className="heartButton">*/}
+                            {/*    <div className="heart">&#x2665;</div>*/}
+                            {/*</button>*/}
                         </div>
                         <div className='productInfo'>
                             <div className='productName'>{product.name}</div>
@@ -126,76 +167,37 @@ export const ProductPage = () => {
                             <div className='colorWord'>Colour
                                 <div className='colorName wordStyle'>{swatchName}</div>
                             </div>
-                            <div className='swatchesContainer'>
-                                {product.swatches && product.swatches.map((swatch, index) => {
-                                    return (
+                            <Swatches product={product} handleSwatchClick={handleSwatchClick}
+                                      selectedSwatchIndex={selectedSwatchIndex}/>
+                            <SizeButtons product={product} isSizeSelected={isSizeSelected}
+                                         selectedSize={selectedSize}
+                                         selectedSizeIndex={selectedSizeIndex}
+                                         handleSizeButtonClick={handleSizeButtonClick}
+                                         handleLengthButtonClick={handleLengthButtonClick}
+                                         isSizeGroup={isSizeGroup}
+                                         selectedLength={selectedLength}
+                                         selectedLengthIndex={selectedLengthIndex}
+                            />
 
-                                        <button key={index}
-                                                className='swatchButton'
-                                                onClick={() => handleSwatchClick(swatch.colorId, index, swatch.swatchAlt)}>
-                                            <img className={`swatch ${selectedSwatchIndex === index ? 'selected' : ''}`}
-                                                 src={swatch.swatch}
-                                                 alt={swatch.swatchAlt}
-                                            />
-                                        </button>
-
-                                    )
-                                })}
-                            </div>
-                            <div className='sizeContainer'>
-                                {product.sizes && product.sizes.map((sizeGroup, index) => {
-                                    return (
-                                        <div key={index}>
-                                            <div className='selectSizeWord'>{isSizeSelected ? 'Size' : sizeGroup.title}
-                                                <div className='wordStyle'> {selectedSize}</div>
-                                            </div>
-                                            <div className='sizeButtonsContainer'>
-                                                {sizeGroup.details.map((size, i) =>
-                                                    <button
-                                                        className={`${selectedSizeIndex === i ? 'sizeLettersButtonChecked' : 'sizeLettersButton'} `}
-                                                        key={i}
-                                                        onClick={() => handleSizeButtonClick(size, i)}
-                                                    >{size ? size : 'nosize'}</button>
-                                                )}
-                                            </div>
-                                        </div>
-                                    )
-                                })}
-                                <div className='soldoutWord'>Size sold out? Select size to get notified</div>
-                            </div>
-                            <div className='addToBagContainer'>
-                                <div className='ship'>
-                                    <label className='shipLabel' htmlFor="ship1">
-                                        <input id='ship1' className='ship1' type="radio"/> <h3>Ship it to me</h3>
-                                    </label>
-                                    <span>Free shipping and returns</span>
-                                </div>
-                                <div className='pickupContainer'>
-                                    <StorefrontOutlinedIcon className='pickupIcon'/>
-                                    <h3>Pick up in store</h3>
-                                </div>
-                                <div className='buttonContainer'>
-                                    <button>ADD TO BAG</button>
-                                </div>
-                                <div className='otherStoreContainer'>
-                                    <button>Check All Store Inventory</button>
-                                </div>
-                            </div>
+                            <AddToBag isExpanded={isExpanded} handleExpand={handleExpand}/>
+                            <ProductDetails product={product} refs={refs} handleScroll={handleScrollAndExpand}/>
                         </div>
+
                     </div>
+                    {product.whyWeMadeThis &&
+                        <WhyWeMadeThis product={product} images={images} alt={alt} refs={refs}
+                                       expandedIndex={expandedIndex} setExpendedIndex={setExpendedIndex}/>}
                 </div>
-                {/*ProductDetails go here*/}
-                <div>Why We Made This
-                    <div>{product.whyWeMadeThis}</div>
-                </div>
+                {/*Details go here*/}
+
+                <br/>
                 <div>
                     {/*底下这俩都是返回Whats New Page。看你们爱用哪个都行*/}
                     <Link to='/'>To What's New Page </Link>
                     <br/>
                     <button onClick={() => navigate('/')}>Go Back to What's New Page</button>
                 </div>
-
-                <ProductDetails/>
+                <Reviews/>
                 <Footer/>
             </div>
             {/*Here is the modal, you can close and open it*/}
