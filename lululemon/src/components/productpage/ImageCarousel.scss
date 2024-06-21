@@ -31,11 +31,13 @@
   filter: alpha(opacity=40);
   position: absolute;
   z-index: 2;
-  top: 20px;
+  top: 5px;
   background: #fafafa;
   border: 0;
-  font-size: 32px;
-  cursor: pointer; }
+  font-size: 28px;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;}
 .carousel .control-arrow:focus, .carousel .control-arrow:hover {
   opacity: 1;
   filter: alpha(opacity=100); }
@@ -99,6 +101,7 @@
   top: 10px;
   right: 10px;
   background-color: #fafafa;
+  //opacity: 0.5;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -112,7 +115,7 @@
 .carousel .heartButton {
   background: none;
   border: none;
-  font-size: 30px;
+  font-size: 35px;
   color: grey;
   cursor: pointer;
   transition: color 0.3s ease;
@@ -122,10 +125,12 @@
   align-items: center;
   justify-content: center;
   top: 2px;
+  opacity: 1;
 }
 
 .carousel .heartButton.active {
   color: red;
+  opacity: 1;
 }
 
 .carousel .heartButton:focus {
