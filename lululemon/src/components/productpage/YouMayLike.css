@@ -43,7 +43,7 @@
 
 .youMayLikeBottom .swatchesContainer {
     position: absolute;
-    bottom: 90px;
+    bottom: -10px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -76,6 +76,3 @@
     border-color: black;
 }
 
-.youMayLikeBottom .swatchButton.selected .swatch {
-    border-color: black;
-}

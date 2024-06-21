@@ -1,12 +1,13 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import './YouMayLike.css';
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const YouMayLike = ({ products }) => {
     const [currentImages, setCurrentImages] = useState({});
     const [hoverIndex, setHoverIndex] = useState(null);
+    const [selectedSwatch, setSelectedSwatch] = useState({});
     const navigate = useNavigate();
-    //console.log(products[0]);
+
     useEffect(() => {
         const initialImages = {};
         products.forEach((product, index) => {
@@ -43,7 +44,8 @@ const YouMayLike = ({ products }) => {
         setHoverIndex(null);
     };
 
-    const handleSwatchHover = (productIndex, colorId) => {
+    const handleSwatchHover = (e, productIndex, colorId) => {
+        e.stopPropagation();
         const product = products[productIndex];
         const matchingImage = product.images.find(image => image.colorId === colorId);
         if (matchingImage) {
@@ -58,13 +60,13 @@ const YouMayLike = ({ products }) => {
         }
     };
 
-    const handleSwatchClick = (productIndex, colorId) => {
-        navigate(`/product/${products[productIndex].productId}?colorId=${colorId}`);
-    };
-
-    const handleSwatchContainer = (e) => {
+    const handleSwatchClick = (e, productIndex, swatchIndex, colorId) => {
         e.stopPropagation();
-    }
+        console.log("swatch clicked");
+        setSelectedSwatch({ productIndex, swatchIndex });
+        navigate(`/product/${products[productIndex].productId}?colorId=${colorId}`);
+
+    };
 
     return (
         <div className="youMayLikeBottom">
@@ -82,23 +84,25 @@ const YouMayLike = ({ products }) => {
                                 alt={product.name}
                                 className="productImage"
                             />
-                        </div>
-                        {hoverIndex === productIndex && (
-                            <div className="swatchesContainer" onMouseLeave={handleMouseLeaveImage}>
-                                <div className="swatches">
+                            {hoverIndex === productIndex && (
+                                <div
+                                    className="swatchesContainer"
+                                    onMouseEnter={(e) => e.stopPropagation()}
+                                    onMouseLeave={(e) => e.stopPropagation()}
+                                >
                                     {product.swatches.slice(0, 7).map((swatch, swatchIndex) => (
                                         <button
                                             key={swatchIndex}
-                                            className="swatchButton"
-                                            onMouseEnter={() => handleSwatchHover(productIndex, swatch.colorId)}
-                                            onClick={() => handleSwatchClick(productIndex, swatch.colorId)}
+                                            className={`swatchButton ${selectedSwatch.productIndex === productIndex && selectedSwatch.swatchIndex === swatchIndex ? 'selected' : ''}`}
+                                            onMouseEnter={(e) => handleSwatchHover(e, productIndex, swatch.colorId)}
+                                            onClick={(e) => handleSwatchClick(e, productIndex, swatchIndex, swatch.colorId)}
                                         >
-                                            <img src={swatch.swatch} alt={swatch.swatchAlt} className="swatch"/>
+                                            <img src={swatch.swatch} alt={swatch.swatchAlt} className="swatch" />
                                         </button>
                                     ))}
                                 </div>
-                            </div>
-                        )}
+                            )}
+                        </div>
                         <p>{product.name}</p>
                         <p>{product.price}</p>
                     </div>
