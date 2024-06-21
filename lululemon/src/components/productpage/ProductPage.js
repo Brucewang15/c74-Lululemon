@@ -20,6 +20,9 @@ import {ProductDetails} from "./ProductDetails";
 import {WhyWeMadeThis} from "./WhyWeMadeThis";
 
 import {Reviews} from "./Reviews";
+import {useSelector} from "react-redux";
+import YouMayLikeSide from "./YouMayLikeSide";
+import YouMayLike from "./YouMayLike";
 
 export const ProductPage = () => {
     // Router
@@ -45,6 +48,9 @@ export const ProductPage = () => {
 
     const refs = useRef([])
 
+    const products = useSelector(state => state.filterReducer.products) || [];
+    const youMayLikeProducts = products.slice(0, 4);
+
 
     useEffect(() => {
         const params = new URLSearchParams(location.search)
@@ -52,7 +58,7 @@ export const ProductPage = () => {
         axios.get(`${singleProductURL}/${productID}?mykey=${myKey}`)
             .then(res => {
                 const productData = res.data.rs
-                console.log('productData ===>', productData)
+                //console.log('productData ===>', productData)
                 if (!productData || !productData.images || productData.images.length === 0) {
                     navigate('/wrong-product')
                 }
@@ -77,11 +83,11 @@ export const ProductPage = () => {
                 navigate('/wrong-product')
             })
 
-    }, [productID]);
+    }, [productID, colorID]);
 
     useEffect(() => {
         window.scrollTo(0, 0);
-    }, []);
+    }, [productID, colorID]);
 
     // Define a function to get the images based on selected swatch
     const getCurrentImagesAndAlts = () => {
@@ -183,6 +189,7 @@ export const ProductPage = () => {
                             <AddToBag isExpanded={isExpanded} handleExpand={handleExpand}/>
                             <ProductDetails product={product} refs={refs} handleScroll={handleScrollAndExpand}/>
                         </div>
+                        <YouMayLikeSide products={youMayLikeProducts}/>
 
                     </div>
                     {product.whyWeMadeThis &&
@@ -198,6 +205,9 @@ export const ProductPage = () => {
                 {/*    <br/>*/}
                 {/*    <button onClick={() => navigate('/')}>Go Back to What's New Page</button>*/}
                 {/*</div>*/}
+
+                <YouMayLike products={youMayLikeProducts}/>
+
                 <Reviews/>
                 <Footer/>
             </div>
