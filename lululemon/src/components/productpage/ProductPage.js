@@ -11,12 +11,15 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
 import {Carousel} from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
+
 import {ImageCarousel} from "./ImageCarousel";
 import {Swatches} from "./Swatches";
 import {SizeButtons} from "./SizeButtons";
 import {AddToBag} from "./AddToBag";
 import {ProductDetails} from "./ProductDetails";
 import {WhyWeMadeThis} from "./WhyWeMadeThis";
+
+import {Reviews} from "./Reviews";
 
 export const ProductPage = () => {
     // Router
@@ -176,6 +179,7 @@ export const ProductPage = () => {
                     <br/>
                     <button onClick={() => navigate('/')}>Go Back to What's New Page</button>
                 </div>
+                <Reviews/>
                 <Footer/>
             </div>
             {/*Here is the modal, you can close and open it*/}
