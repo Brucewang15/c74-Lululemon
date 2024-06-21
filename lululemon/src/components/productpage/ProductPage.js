@@ -20,6 +20,8 @@ import {ProductDetails} from "./ProductDetails";
 import {WhyWeMadeThis} from "./WhyWeMadeThis";
 
 import {Reviews} from "./Reviews";
+import {useSelector} from "react-redux";
+import YouMayLikeSide from "./YouMayLikeSide";
 
 export const ProductPage = () => {
     // Router
@@ -41,6 +43,9 @@ export const ProductPage = () => {
     const [scrollPosition, setScrollPosition] = useState(0)
 
     const refs = useRef([])
+
+    const products = useSelector(state => state.filterReducer.products) || [];
+    const youMayLikeProducts = products.slice(0, 4);
 
 
     useEffect(() => {
@@ -164,6 +169,7 @@ export const ProductPage = () => {
                             <AddToBag isExpanded={isExpanded} handleExpand={handleExpand}/>
                             <ProductDetails product={product} refs={refs} handleScroll={handleScrollAndExpand}/>
                         </div>
+                        <YouMayLikeSide products={youMayLikeProducts} />
 
                     </div>
                     {product.whyWeMadeThis &&
