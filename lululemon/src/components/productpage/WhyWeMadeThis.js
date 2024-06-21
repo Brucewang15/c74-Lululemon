@@ -65,10 +65,16 @@ export const WhyWeMadeThis = ({product, images, alt, refs, expandedIndex, setExp
                                 </div>
                             </div>
                             {expandedIndex === index && <div className='contentContainer'>
-                                {featurePanel.content && featurePanel.content.map((content, contentIndex) => <div
-                                        key={contentIndex} className='contentDetailContainer'>
-                                        {content}
-                                    </div>
+                                {featurePanel.content && featurePanel.content.map((content, contentIndex) => {
+                                        if (typeof content === 'object' && content.mediaUrl) {
+                                            return <video src={content.mediaUrl} controls></video>
+                                        }
+                                        return (
+                                            <div
+                                                key={contentIndex} className='contentDetailContainer'>
+                                                {content}
+                                            </div>)
+                                    }
                                 )}
                             </div>}
                         </div>

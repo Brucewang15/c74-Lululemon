@@ -32,9 +32,12 @@ export const ProductPage = () => {
     const [selectedSwatchIndex, setSelectedSwatchIndex] = useState(null)
     // const [selectedSize, setSelectedSize] = useState(false)
     const [selectedSizeIndex, setSelectedSizeIndex] = useState(null)
+    const [selectedLengthIndex, setSelectedLengthIndex] = useState(null);
     const [swatchName, setSwatchName] = useState('')
     const [selectedSize, setSelectedSize] = useState('')
+    const [selectedLength, setSelectedLength] = useState('');
     const [isSizeSelected, setIsSizeSelected] = useState(false)
+    const [isSizeGroup, setIsSizeGroup] = useState(false)
     const [isModalVisible, setIsModalVisible] = useState(false)
     const [isExpanded, setIsExpanded] = useState(false)
     const [expandedIndex, setExpendedIndex] = useState(null);
@@ -105,11 +108,19 @@ export const ProductPage = () => {
         setSwatchName(swatchName)
         navigate(`/product/${productID}?colorId=${colorID}`);
     }
-    const handleSizeButtonClick = (size, index) => {
+    const handleSizeButtonClick = (size, index, groupTitle) => {
         // setSelectedSize(!selectedSize)
         setSelectedSizeIndex(index)
         setSelectedSize(size)
+
         setIsSizeSelected(true)
+        setIsSizeGroup(true)
+    }
+    const handleLengthButtonClick = (length, index) => {
+        setSelectedLengthIndex(index);
+        setSelectedLength(length);
+        setIsSizeSelected(true);
+        setIsSizeGroup(false)
     }
 
     const handleModalOpen = () => {
@@ -158,9 +169,16 @@ export const ProductPage = () => {
                             </div>
                             <Swatches product={product} handleSwatchClick={handleSwatchClick}
                                       selectedSwatchIndex={selectedSwatchIndex}/>
-                            <SizeButtons product={product} isSizeSelected={isSizeSelected} selectedSize={selectedSize}
+                            <SizeButtons product={product} isSizeSelected={isSizeSelected}
+                                         selectedSize={selectedSize}
                                          selectedSizeIndex={selectedSizeIndex}
-                                         handleSizeButtonClick={handleSizeButtonClick}/>
+                                         handleSizeButtonClick={handleSizeButtonClick}
+                                         handleLengthButtonClick={handleLengthButtonClick}
+                                         isSizeGroup={isSizeGroup}
+                                         selectedLength={selectedLength}
+                                         selectedLengthIndex={selectedLengthIndex}
+                            />
+
                             <AddToBag isExpanded={isExpanded} handleExpand={handleExpand}/>
                             <ProductDetails product={product} refs={refs} handleScroll={handleScrollAndExpand}/>
                         </div>
@@ -187,3 +205,4 @@ export const ProductPage = () => {
         </>
     )
 }
+

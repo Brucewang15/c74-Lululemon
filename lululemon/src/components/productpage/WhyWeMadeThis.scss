@@ -114,6 +114,10 @@
         gap: 5px;
         flex-wrap: wrap;
 
+        video {
+          width: 600px;
+        }
+
         .contentDetailContainer {
           background-color: #f8f8f8;
           border-radius: .25rem;

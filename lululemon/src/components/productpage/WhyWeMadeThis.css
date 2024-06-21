@@ -92,6 +92,9 @@
   gap: 5px;
   flex-wrap: wrap;
 }
+.wrapper .featurePanelsContainer .featurePanelContainer .contentContainer video {
+  width: 600px;
+}
 .wrapper .featurePanelsContainer .featurePanelContainer .contentContainer .contentDetailContainer {
   background-color: #f8f8f8;
   border-radius: 0.25rem;
