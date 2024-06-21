@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import './YouMayLike.css';
-import { useNavigate } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
-const YouMayLike = ({ products }) => {
+const YouMayLike = ({products}) => {
     const [currentImages, setCurrentImages] = useState({});
     const [hoverIndex, setHoverIndex] = useState(null);
     const [selectedSwatch, setSelectedSwatch] = useState({});
@@ -63,11 +63,17 @@ const YouMayLike = ({ products }) => {
     const handleSwatchClick = (e, productIndex, swatchIndex, colorId) => {
         e.stopPropagation();
         console.log("swatch clicked");
-        setSelectedSwatch({ productIndex, swatchIndex });
+        setSelectedSwatch({productIndex, swatchIndex});
         navigate(`/product/${products[productIndex].productId}?colorId=${colorId}`);
+        window.scrollTo(0, 0)
+        window.location.reload();
 
     };
-
+    const handleImageClick = (productId, colorId) => {
+        navigate(`/product/${productId}?colorId=${colorId}`);
+        window.scrollTo(0, 0)
+        window.location.reload();
+    };
     return (
         <div className="youMayLikeBottom">
             <h3>You may also like</h3>
@@ -83,6 +89,8 @@ const YouMayLike = ({ products }) => {
                                 src={currentImages[productIndex]?.current}
                                 alt={product.name}
                                 className="productImage"
+                                onClick={() => handleImageClick(product.productId, product.images[0].colorId)}
+
                             />
                             {hoverIndex === productIndex && (
                                 <div
@@ -97,7 +105,7 @@ const YouMayLike = ({ products }) => {
                                             onMouseEnter={(e) => handleSwatchHover(e, productIndex, swatch.colorId)}
                                             onClick={(e) => handleSwatchClick(e, productIndex, swatchIndex, swatch.colorId)}
                                         >
-                                            <img src={swatch.swatch} alt={swatch.swatchAlt} className="swatch" />
+                                            <img src={swatch.swatch} alt={swatch.swatchAlt} className="swatch"/>
                                         </button>
                                     ))}
                                 </div>

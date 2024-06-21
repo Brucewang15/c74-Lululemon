@@ -80,11 +80,11 @@ export const ProductPage = () => {
                 navigate('/wrong-product')
             })
 
-    }, [productID]);
+    }, [productID, colorID]);
 
     useEffect(() => {
         window.scrollTo(0, 0);
-    }, []);
+    }, [productID, colorID]);
 
     // Define a function to get the images based on selected swatch
     const getCurrentImagesAndAlts = () => {
@@ -170,7 +170,7 @@ export const ProductPage = () => {
                             <AddToBag isExpanded={isExpanded} handleExpand={handleExpand}/>
                             <ProductDetails product={product} refs={refs} handleScroll={handleScrollAndExpand}/>
                         </div>
-                        <YouMayLikeSide products={youMayLikeProducts} />
+                        <YouMayLikeSide products={youMayLikeProducts}/>
 
                     </div>
                     {product.whyWeMadeThis &&
@@ -186,7 +186,7 @@ export const ProductPage = () => {
                 {/*    <br/>*/}
                 {/*    <button onClick={() => navigate('/')}>Go Back to What's New Page</button>*/}
                 {/*</div>*/}
-                <YouMayLike products={youMayLikeProducts} />
+                <YouMayLike products={youMayLikeProducts}/>
                 <Reviews/>
                 <Footer/>
             </div>
