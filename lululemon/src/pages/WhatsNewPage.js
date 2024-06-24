@@ -12,6 +12,8 @@ import {Header} from "../components/shared/Header";
 import Footer from "../components/shared/Footer";
 import React, {useEffect, useRef, useState} from "react";
 import {Outlet} from "react-router-dom";
+import {ShoppingCart} from "../components/shoppingcart/ShoppingCart";
+
 
 export const WhatsNewPage = () => {
     const [isSticky, setIsSticky] = useState(false);

@@ -2,8 +2,10 @@ import StorefrontOutlinedIcon from "@mui/icons-material/StorefrontOutlined";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import './AddToBag.scss'
+import {useNavigate} from "react-router-dom";
 
 export const AddToBag = ({isExpanded, handleExpand}) => {
+    const navigate = useNavigate()
     return (
         <div className='addToBagContainer'>
             <div className='ship'>
@@ -36,7 +38,7 @@ export const AddToBag = ({isExpanded, handleExpand}) => {
                     </label>
                 </div>)}
             <div className='buttonContainer'>
-                <button className='button1'>ADD TO BAG</button>
+                <button className='button1' onClick={() => navigate('/shop/mybag')}>ADD TO BAG</button>
             </div>
             <div className='otherStoreContainer'>
                 <button className='button2'>Check All Store Inventory</button>

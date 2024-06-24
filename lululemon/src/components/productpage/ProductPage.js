@@ -58,7 +58,7 @@ export const ProductPage = () => {
         axios.get(`${singleProductURL}/${productID}?mykey=${myKey}`)
             .then(res => {
                 const productData = res.data.rs
-                //console.log('productData ===>', productData)
+                console.log('productData ===>', productData)
                 if (!productData || !productData.images || productData.images.length === 0) {
                     navigate('/wrong-product')
                 }
