@@ -10,6 +10,7 @@ const saveFakeDataToLocalStorage = () => {
     if (!existingCart) {
         localStorage.setItem('shoppingCart', JSON.stringify(fakeCartData.cartItems));
     }
+
 };
 export const ShoppingCart = () => {
     const shoppingCart = useSelector(state => state.shoppingCartReducer.shoppingCart)
