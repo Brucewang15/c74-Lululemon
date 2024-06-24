@@ -112,6 +112,7 @@ export const ShoppingCartWithItems = () => {
                                                     {[...Array(5).keys()].map(i => (
                                                         <option className='dropdownItem' key={i + 1}
                                                                 value={i + 1}>{i + 1}</option>
+
                                                     ))}
                                                 </select>
 

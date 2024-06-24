@@ -3,6 +3,7 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  font-family: Calibre, Helvetica Neue, Helvetica, Roboto, Arial, sans-serif;
 
   //HEADER
   .shoppingCartHeader {
@@ -28,6 +29,17 @@
     .signInContainer {
       display: flex;
       align-items: center;
+      cursor: pointer;
+      text-decoration: none;
+      gap: 5px;
+      font-size: 1rem;
+      font-family: Helvetica;
+
+      &:hover {
+        text-decoration: underline #c8102e;
+        text-underline-offset: 5px;
+        transition: ease-in-out 0.5s;
+      }
     }
   }
 
@@ -100,6 +112,8 @@
             margin-top: .375rem;
             color: black;
             margin-bottom: 0;
+            font-size: 1rem;
+            font-family: Helvetica;
           }
 
           //Product Details including size, edit, price, quantity, total Price etc.
@@ -107,6 +121,8 @@
             display: flex;
             flex-direction: row;
             justify-content: space-between;
+            align-items: center;
+            height: 40%;
 
             gap: 10px;
             margin-top: .375rem;
@@ -119,12 +135,17 @@
               align-items: flex-start;
               gap: 15px;
               justify-content: center;
+
+              .edit {
+                font-size: 0.9rem;
+              }
             }
 
             //  size and edit container
             .productDetailsRight {
               display: flex;
               flex-direction: row;
+              align-items: flex-start;
               gap: 10px;
 
               .priceContainer {
@@ -138,9 +159,56 @@
               .quantityContainer {
                 display: flex;
                 flex-direction: column;
-                align-items: flex-end;
-                gap: 15px;
+                align-items: flex-start;
+                gap: 5px;
                 justify-content: center;
+
+                .dropdownMenu {
+                  background-color: #fff;
+                  background-position: center right 1rem;
+                  background-repeat: no-repeat;
+                  border: 0.5px solid #000;
+                  border-radius: .25rem;
+                  font-size: 1.125rem;
+                  height: 3.25rem;
+                  padding: .875rem 1rem;
+                  width: 100%;
+                  //appearance: none;
+                  //-webkit-appearance: none;
+                  //-moz-appearance: none;
+                  outline: none;
+
+
+                }
+
+                //  dropdown item
+                .dropdownMenu option {
+
+                  color: black;
+                  border: none;
+                  padding: .5rem;
+                  font-size: 1.125rem;
+                  background: transparent !important;
+                }
+
+                .dropdownMenu option:checked {
+                  background-color: #fff !important;
+                }
+
+                .dropdownMenu option:hover {
+                  background-color: #fff !important;
+                }
+
+                .dropdownMenu option:focus {
+                  background-color: #fff !important;
+                }
+
+                .dropdownMenu option:active {
+                  background: linear-gradient(#000000, #000000);
+                  background-color: #000000 !important; /* for IE */
+                  color: #ffed00 !important;
+                }
+
               }
 
               .totalPriceContainer {
@@ -175,8 +243,9 @@
                 background-color: #f8f8f8;
                 border: none;
                 cursor: pointer;
-                text-decoration: underline 1px black solid;
+                text-decoration: underline black solid;
                 text-underline-offset: 5px;
+                font-size: 0.9rem;
               }
             }
           }
