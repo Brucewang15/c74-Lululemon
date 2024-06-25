@@ -9,10 +9,11 @@
   max-width: 90rem;
   margin-right: auto;
   margin-left: auto;
+  gap: 50px;
 
   .shoppingCartBody {
 
-    width: 70%;
+    width: 65%;
     margin-top: 50px;
     display: flex;
     flex-direction: column;
@@ -22,6 +23,7 @@
     margin-right: auto;
     padding-top: 50px;
     padding-bottom: 50px;
+
 
     .itemCountContainer {
       font-size: 1.5rem;
@@ -109,7 +111,7 @@
               flex-direction: row;
               align-items: flex-start;
               gap: 10px;
-              width: 40%;
+              width: 50%;
 
               .priceContainer {
                 display: flex;
@@ -117,6 +119,7 @@
                 align-items: flex-end;
                 gap: 15px;
                 justify-content: center;
+                width: 30%;
               }
 
               .quantityContainer {
@@ -242,7 +245,7 @@
   .orderSummary {
     margin-top: 50px;
     padding-top: 50px;
-    width: 30%;
+    width: 25%;
   }
 
 }

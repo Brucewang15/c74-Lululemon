@@ -9,9 +9,10 @@
   max-width: 90rem;
   margin-right: auto;
   margin-left: auto;
+  gap: 50px;
 }
 .shoppingCartWrapper .shoppingCartBody {
-  width: 70%;
+  width: 65%;
   margin-top: 50px;
   display: flex;
   flex-direction: column;
@@ -99,7 +100,7 @@
   flex-direction: row;
   align-items: flex-start;
   gap: 10px;
-  width: 40%;
+  width: 50%;
 }
 .shoppingCartWrapper .shoppingCartBody .itemsContainer .itemContainer .productDetailsContainer .productDetails .productDetailsRight .priceContainer {
   display: flex;
@@ -107,6 +108,7 @@
   align-items: flex-end;
   gap: 15px;
   justify-content: center;
+  width: 30%;
 }
 .shoppingCartWrapper .shoppingCartBody .itemsContainer .itemContainer .productDetailsContainer .productDetails .productDetailsRight .quantityContainer {
   display: flex;
@@ -207,7 +209,7 @@
 .shoppingCartWrapper .orderSummary {
   margin-top: 50px;
   padding-top: 50px;
-  width: 30%;
+  width: 25%;
 }
 
 /*# sourceMappingURL=ShoppingCartProduct.css.map */

@@ -2,6 +2,7 @@ import AccessAlarmTwoToneIcon from "@mui/icons-material/AccessAlarmTwoTone";
 import {useDispatch, useSelector} from "react-redux";
 import {changeQuantity, removeProduct} from "../../redux/actions/shoppingCartActions";
 import './ShoppingCartProduct.scss'
+import OrderSummary from "./OrderSummary";
 
 export const ShoppingCartProduct = () => {
     const shoppingCart = useSelector(state => state.shoppingCartReducer.shoppingCart)
@@ -145,7 +146,7 @@ export const ShoppingCartProduct = () => {
 
             </div>
             <div className='orderSummary'>
-                order summary
+                <OrderSummary/>
             </div>
         </div>
     )
