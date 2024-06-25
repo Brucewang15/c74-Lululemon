@@ -24,6 +24,10 @@ export const shoppingCartReducer = (state = initialState, action) => {
             const newCart = state.shoppingCart.filter(product => product.productId !== action.payload)
             localStorage.setItem('shoppingCart', JSON.stringify(newCart));
             return {...state, shoppingCart: newCart}
+        // test to add new items, Whitney you can delete this later
+        case actionTypes.ADD_ITEMS:
+            const addedCart = [...state.shoppingCart, action.payload]
+            return {...state, shoppingCart: addedCart}
         default:
             return state
     }

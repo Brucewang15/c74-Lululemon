@@ -186,7 +186,9 @@ export const ProductPage = () => {
                                          selectedLengthIndex={selectedLengthIndex}
                             />
 
-                            <AddToBag isExpanded={isExpanded} handleExpand={handleExpand}/>
+                            <AddToBag isExpanded={isExpanded} handleExpand={handleExpand}
+                                      product={product} selectedSize={selectedSize} colorId={selectedColorId}
+                            />
                             <ProductDetails product={product} refs={refs} handleScroll={handleScrollAndExpand}/>
                         </div>
                         <YouMayLikeSide products={youMayLikeProducts}/>

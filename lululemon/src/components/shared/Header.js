@@ -8,11 +8,12 @@ import Accessories from "./Accessories";
 import Shoes from "./Shoes";
 import FathersDay from "./FathersDay";
 import {useNavigate} from "react-router-dom";
+import {useSelector} from "react-redux";
 
 export const Header = ({isSticky}) => {
     const navigate = useNavigate()
     const [hover, setHover] = useState([false, false, false, false, false]);
-
+    const shoppingCart = useSelector(state => state.shoppingCartReducer.shoppingCart)
     const updateHover = (index, newValue) => {
         // Create a new array with the updated element
         const newItems = [...hover];
@@ -118,7 +119,7 @@ export const Header = ({isSticky}) => {
 
                             <a onClick={() => navigate('/shop/mybag')}>
                                 <img src="https://www.svgrepo.com/show/43071/shopping-bag.svg" alt=""/>
-                                <p>0</p>
+                                <p>{shoppingCart.length}</p>
                             </a>
                         </div>
                     </div>

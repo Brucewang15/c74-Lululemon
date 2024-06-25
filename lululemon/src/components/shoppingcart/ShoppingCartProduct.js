@@ -21,32 +21,37 @@ export const ShoppingCartProduct = () => {
         }
     }
     const convertPriceToNumber = (price) => {
+
         try {
             if (!price.startsWith('$')) {
                 throw new Error('Price format is incorrect');
             }
             // convert the '$85 CAD' to, a number so we can use to calculate, and then convert it to '$85.00' form.
             const newPrice = price.replace('$', '').trim();
-            const priceNumber = Number(newPrice.slice(0, newPrice.indexOf(' '))).toFixed(2);
-            return `$${priceNumber}`;
+            const priceNumber = Number(parseInt(newPrice.slice(0, newPrice.indexOf(' '))));
+            // console.log('newPrice:', newPrice, 'priceNumber:', priceNumber, 'typeof PriceNumber:', typeof priceNumber)
+            return `$${priceNumber.toFixed(2)}`;
         } catch (error) {
             console.error('Error converting price:', error);
             return '$0.00';
         }
     }
     const calcTotalPrice = (price, quantity) => {
+        console.log(price)
         try {
             if (!price.startsWith('$')) {
                 throw new Error('Price format is incorrect');
             }
             const newPrice = price.replace('$', '').trim();
-            const priceNumber = Number(newPrice.slice(0, newPrice.indexOf(' ')));
+            const priceNumber = Number(parseInt(newPrice.slice(0, newPrice.indexOf(' '))));
             if (isNaN(priceNumber) || isNaN(quantity)) {
                 throw new Error('Invalid number format');
             }
             // convert the '$85 CAD' to, a number so we can use to calculate the total price with quantity, and then convert it to '$85.00' form.
-            const totalPrice = (priceNumber * quantity).toFixed(2);
-            return `$${totalPrice}`;
+            const totalPrice = (priceNumber * quantity);
+            console.log('typeof totalPrice:', typeof totalPrice, totalPrice)
+
+            return `$${totalPrice.toFixed(2)}`;
         } catch (error) {
             console.error('Error calculating total price:', error);
             return '$0.00';
@@ -66,7 +71,7 @@ export const ShoppingCartProduct = () => {
             <div className='shoppingCartBody'>
                 <div className='itemCountContainer'>
                     <div className='itemCount'>
-                        <span className='wordMyBag'>My Bag</span>
+                        <span className='wordMyBag'>My Bag </span>
                         <span
                             className='wordItem'>({shoppingCart.length} {shoppingCart.length > 1 ? 'Items' : 'Item'})</span>
                     </div>
