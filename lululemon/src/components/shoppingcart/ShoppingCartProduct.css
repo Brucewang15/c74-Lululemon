@@ -1,0 +1,180 @@
+.shoppingCartBody {
+  width: 80%;
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  background-color: #fafafa;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+.shoppingCartBody .itemCountContainer {
+  font-size: 1.5rem;
+  line-height: 1.0666666667;
+}
+.shoppingCartBody .itemCountContainer .wordMyBag {
+  font-weight: 800;
+}
+.shoppingCartBody .itemCountContainer .wordMyBag {
+  font-weight: 600;
+}
+.shoppingCartBody .textContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+  background-color: #e5e6e7;
+  border: 0.0625rem solid #53565a;
+  margin-top: 1.5rem;
+  width: 100%;
+  padding-left: 10px;
+}
+.shoppingCartBody .itemsContainer {
+  width: 100%;
+}
+.shoppingCartBody .itemsContainer .itemContainer {
+  display: flex;
+  flex-direction: row;
+  margin-top: 0.375rem;
+  padding: 1.5rem 0 2rem;
+}
+.shoppingCartBody .itemsContainer .itemContainer .productImage {
+  width: 12.4375rem;
+}
+.shoppingCartBody .itemsContainer .itemContainer .productDetailsContainer {
+  margin-left: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  width: 100%;
+}
+.shoppingCartBody .itemsContainer .itemContainer .productDetailsContainer .productName {
+  font-family: Calibre, Verlag, Helvetica, sans-serif;
+  font-size: 1.2rem;
+}
+.shoppingCartBody .itemsContainer .itemContainer .productDetailsContainer .productColor {
+  margin-top: 0.375rem;
+  color: black;
+  margin-bottom: 0;
+  font-size: 1rem;
+  font-family: Helvetica;
+}
+.shoppingCartBody .itemsContainer .itemContainer .productDetailsContainer .productDetails {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 40%;
+  gap: 10px;
+  margin-top: 0.375rem;
+  width: 100%;
+}
+.shoppingCartBody .itemsContainer .itemContainer .productDetailsContainer .productDetails .sizeAndEditContainer {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 15px;
+  justify-content: center;
+}
+.shoppingCartBody .itemsContainer .itemContainer .productDetailsContainer .productDetails .sizeAndEditContainer .edit {
+  font-size: 0.9rem;
+}
+.shoppingCartBody .itemsContainer .itemContainer .productDetailsContainer .productDetails .productDetailsRight {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 10px;
+}
+.shoppingCartBody .itemsContainer .itemContainer .productDetailsContainer .productDetails .productDetailsRight .priceContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 15px;
+  justify-content: center;
+}
+.shoppingCartBody .itemsContainer .itemContainer .productDetailsContainer .productDetails .productDetailsRight .quantityContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  justify-content: center;
+  margin-right: 10px;
+}
+.shoppingCartBody .itemsContainer .itemContainer .productDetailsContainer .productDetails .productDetailsRight .quantityContainer .dropdownMenu {
+  background-color: #fff;
+  background-position: center right 1rem;
+  background-repeat: no-repeat;
+  border: 0.5px solid #000;
+  border-radius: 0.25rem;
+  font-size: 1.125rem;
+  height: 3.25rem;
+  padding: 0.875rem 1rem;
+  width: 100%;
+  outline: none;
+}
+.shoppingCartBody .itemsContainer .itemContainer .productDetailsContainer .productDetails .productDetailsRight .quantityContainer .dropdownMenu option {
+  color: black;
+  border: none;
+  padding: 0.5rem;
+  font-size: 1.125rem;
+  background: transparent !important;
+}
+.shoppingCartBody .itemsContainer .itemContainer .productDetailsContainer .productDetails .productDetailsRight .quantityContainer .dropdownMenu option:checked {
+  background-color: #fff !important;
+}
+.shoppingCartBody .itemsContainer .itemContainer .productDetailsContainer .productDetails .productDetailsRight .quantityContainer .dropdownMenu option:hover {
+  background-color: #fff !important;
+}
+.shoppingCartBody .itemsContainer .itemContainer .productDetailsContainer .productDetails .productDetailsRight .quantityContainer .dropdownMenu option:focus {
+  background-color: #fff !important;
+}
+.shoppingCartBody .itemsContainer .itemContainer .productDetailsContainer .productDetails .productDetailsRight .quantityContainer .dropdownMenu option:active {
+  background: linear-gradient(#000000, #000000);
+  background-color: #000000 !important; /* for IE */
+  color: #ffed00 !important;
+}
+.shoppingCartBody .itemsContainer .itemContainer .productDetailsContainer .productDetails .productDetailsRight .totalPriceContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 15px;
+}
+.shoppingCartBody .itemsContainer .itemContainer .productDetailsContainer .shippingAndReturnContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  height: 45%;
+  width: 100%;
+}
+.shoppingCartBody .itemsContainer .itemContainer .productDetailsContainer .shippingAndReturnContainer .removeContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+.shoppingCartBody .itemsContainer .itemContainer .productDetailsContainer .shippingAndReturnContainer .removeContainer .save {
+  border-right: 1px solid #d1d3d5 !important;
+}
+.shoppingCartBody .itemsContainer .itemContainer .productDetailsContainer .shippingAndReturnContainer .removeContainer .button {
+  background-color: #f8f8f8;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline black solid;
+  text-underline-offset: 5px;
+  font-size: 0.9rem;
+}
+
+.button {
+  background-color: #f8f8f8;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline 1px black solid;
+  text-decoration-color: #8d9196;
+  text-underline-offset: 5px;
+}
+
+/*# sourceMappingURL=ShoppingCartProduct.css.map */
