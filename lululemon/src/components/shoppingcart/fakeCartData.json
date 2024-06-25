@@ -137,6 +137,68 @@
           }
         }
       ]
+    },
+    {
+      "productId": "prod10550189",
+      "name": "Product 3",
+      "price": "$999 CAD",
+      "selectedSize": "L",
+      "selectedColorId": "32650",
+      "quantity": 3,
+      "images": [
+        {
+          "colorId": "56496",
+          "colorAlt": "Pink Peony",
+          "mainCarousel": {
+            "media": "http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/56496/prod10550089_56496_img0.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/56496/prod10550089_56496_img1.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/56496/prod10550089_56496_img2.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/56496/prod10550089_56496_img3.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/56496/prod10550089_56496_img4.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/56496/prod10550089_56496_img5.jpg"
+          }
+        },
+        {
+          "colorId": "32650",
+          "colorAlt": "Faint Lavender",
+          "mainCarousel": {
+            "media": "http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/32650/prod10550089_32650_img0.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/32650/prod10550089_32650_img1.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/32650/prod10550089_32650_img2.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/32650/prod10550089_32650_img3.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/32650/prod10550089_32650_img4.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/32650/prod10550089_32650_img5.jpg"
+          }
+        },
+        {
+          "colorId": "52291",
+          "colorAlt": "Pastel Blue",
+          "mainCarousel": {
+            "media": "http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/52291/prod10550089_52291_img0.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/52291/prod10550089_52291_img1.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/52291/prod10550089_52291_img2.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/52291/prod10550089_52291_img3.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/52291/prod10550089_52291_img4.jpg"
+          }
+        }
+      ]
+    },
+    {
+      "productId": "prod10550189",
+      "name": "Product 3",
+      "price": "$999 CAD",
+      "selectedSize": "L",
+      "selectedColorId": "52291",
+      "quantity": 3,
+      "images": [
+        {
+          "colorId": "56496",
+          "colorAlt": "Pink Peony",
+          "mainCarousel": {
+            "media": "http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/56496/prod10550089_56496_img0.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/56496/prod10550089_56496_img1.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/56496/prod10550089_56496_img2.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/56496/prod10550089_56496_img3.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/56496/prod10550089_56496_img4.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/56496/prod10550089_56496_img5.jpg"
+          }
+        },
+        {
+          "colorId": "32650",
+          "colorAlt": "Faint Lavender",
+          "mainCarousel": {
+            "media": "http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/32650/prod10550089_32650_img0.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/32650/prod10550089_32650_img1.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/32650/prod10550089_32650_img2.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/32650/prod10550089_32650_img3.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/32650/prod10550089_32650_img4.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/32650/prod10550089_32650_img5.jpg"
+          }
+        },
+        {
+          "colorId": "52291",
+          "colorAlt": "Pastel Blue",
+          "mainCarousel": {
+            "media": "http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/52291/prod10550089_52291_img0.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/52291/prod10550089_52291_img1.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/52291/prod10550089_52291_img2.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/52291/prod10550089_52291_img3.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/52291/prod10550089_52291_img4.jpg"
+          }
+        }
+      ]
     }
   ]
 }

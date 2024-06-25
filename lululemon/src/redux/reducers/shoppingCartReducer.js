@@ -21,7 +21,8 @@ export const shoppingCartReducer = (state = initialState, action) => {
                 shoppingCart: updatedCart
             }
         case actionTypes.REMOVE_PRODUCTS:
-            const newCart = state.shoppingCart.filter(product => product.productId !== action.payload)
+            // deal with filter out the selected product, but also filter same product with different size OR same product with different colors
+            const newCart = state.shoppingCart.filter(product => product.productId !== action.payload.productID || (product.productId === action.payload.productID && product.selectedSize !== action.payload.selectedSize) || (product.productId === action.payload.productID && product.selectedColorId !== action.payload.selectedColorId))
             localStorage.setItem('shoppingCart', JSON.stringify(newCart));
             return {...state, shoppingCart: newCart}
         // test to add new items, Whitney you can delete this later

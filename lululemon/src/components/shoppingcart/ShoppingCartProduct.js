@@ -63,8 +63,8 @@ export const ShoppingCartProduct = () => {
         dispatch(changeQuantity(newQuantity, index))
     }
 
-    const handleRemoveProduct = (productID) => {
-        dispatch(removeProduct(productID))
+    const handleRemoveProduct = (productID, selectedSize, selectedColorId) => {
+        dispatch(removeProduct(productID, selectedSize, selectedColorId))
     }
     return (
         <div className='shoppingCartWrapper'>
@@ -134,7 +134,7 @@ export const ShoppingCartProduct = () => {
                                         <div className='removeContainer'>
                                             <button className='save button'>Save for Later</button>
                                             <button className='remove button'
-                                                    onClick={() => handleRemoveProduct(item.productId)}>Remove
+                                                    onClick={() => handleRemoveProduct(item.productId, item.selectedSize, item.selectedColorId)}>Remove
                                             </button>
                                         </div>
                                     </div>
