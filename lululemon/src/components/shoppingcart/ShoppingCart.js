@@ -6,10 +6,11 @@ import fakeCartData from '../../components/shoppingcart/fakeCartData.json'
 import {useEffect} from "react";
 
 const saveFakeDataToLocalStorage = () => {
-    const existingCart = localStorage.getItem('shoppingCart');
-    if (!existingCart) {
-        localStorage.setItem('shoppingCart', JSON.stringify(fakeCartData.cartItems));
-    }
+    // const existingCart = localStorage.getItem('shoppingCart');
+    // if (!existingCart) {
+    //     localStorage.setItem('shoppingCart', JSON.stringify(fakeCartData.cartItems));
+    // }
+    localStorage.setItem('shoppingCart', JSON.stringify(fakeCartData.cartItems));
 
 };
 export const ShoppingCart = () => {

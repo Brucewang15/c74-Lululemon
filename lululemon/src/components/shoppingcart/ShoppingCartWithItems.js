@@ -1,4 +1,4 @@
-// import './ShoppingCartWithItems.scss'
+import './ShoppingCartWithItems.scss'
 import {ShoppingCartHeader} from "./ShoppingCartHeader";
 import {ShoppingCartFooter} from "./ShoppingCartFooter";
 import {ShoppingCartProduct} from "./ShoppingCartProduct";

@@ -4,6 +4,7 @@
   flex-direction: column;
   gap: 10px;
   font-family: Calibre, Helvetica Neue, Helvetica, Roboto, Arial, sans-serif;
+  background-color: #f8f8f8;
 }
 .shoppingCartContainer .shoppingCartHeader {
   position: fixed;

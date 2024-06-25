@@ -10,3 +10,10 @@ export const changeQuantity = (newQuantity, index) => {
 
     }
 }
+
+export const removeProduct = (productID) => {
+    return {
+        type: actionTypes.REMOVE_PRODUCTS,
+        payload: productID
+    }
+}

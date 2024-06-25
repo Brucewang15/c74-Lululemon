@@ -4,6 +4,7 @@ import {actionTypes} from "../actions/actionTypes";
 
 const initialState = {
     shoppingCart: JSON.parse(localStorage.getItem('shoppingCart')) || fakeCartData.cartItems
+    // shoppingCart: fakeCartData.cartItems
     // shoppingCart: []     // 模拟空购物车
 }
 
@@ -19,6 +20,10 @@ export const shoppingCartReducer = (state = initialState, action) => {
                 ...state,
                 shoppingCart: updatedCart
             }
+        case actionTypes.REMOVE_PRODUCTS:
+            const newCart = state.shoppingCart.filter(product => product.productId !== action.payload)
+            localStorage.setItem('shoppingCart', JSON.stringify(newCart));
+            return {...state, shoppingCart: newCart}
         default:
             return state
     }
