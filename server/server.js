@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const CartItemController = require("./controllers/CartItemController");
 
 const app = express();
-const PORT = 5000;
+const PORT = 8000;
 
 app.use(cors());
 app.use(express.json());
@@ -26,4 +26,4 @@ CartItemController(app);
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
-});
+})

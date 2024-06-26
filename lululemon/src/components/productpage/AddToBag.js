@@ -6,25 +6,25 @@ import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {addItems} from "../../redux/actions/shoppingCartActions";
 
-export const AddToBag = ({isExpanded, handleExpand, colorId, product, selectedSize}) => {
+export const AddToBag = ({isExpanded, handleExpand, colorId, product, selectedSize, handleAddToBag}) => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
 
     // test to add new items, Whitney you can delete this later
-    const handleAddToBag = () => {
-        const addedProduct = {
-            productId: product.productId,
-            name: product.name,
-            price: product.price,
-            selectedSize: selectedSize,
-            selectedColorId: colorId,
-            quantity: 1,
-            images: product.images
-        }
-        dispatch(addItems(addedProduct))
-        navigate('/shop/mybag')
-    }
+    // const handleAddToBag = () => {
+    //     const addedProduct = {
+    //         productId: product.productId,
+    //         name: product.name,
+    //         price: product.price,
+    //         selectedSize: selectedSize,
+    //         selectedColorId: colorId,
+    //         quantity: 1,
+    //         images: product.images
+    //     }
+    //     dispatch(addItems(addedProduct))
+    //     navigate('/shop/mybag')
+    // }
     return (
         <div className='addToBagContainer'>
             <div className='ship'>

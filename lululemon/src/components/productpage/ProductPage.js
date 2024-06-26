@@ -148,6 +148,29 @@ export const ProductPage = () => {
             refs.current[index].current.scrollIntoView({behavior: 'smooth'});
         }
     };
+
+    const handleAddToBag = () => {
+        if (!selectedSize) {
+            alert("Please select a size.");
+            return;
+        }
+        const cartItem = {
+            productId: productID,
+            colorId: selectedColorId,
+            size: selectedSize,
+            quantity: 1
+        };
+        axios.post('http://localhost:8000/cart/add', cartItem)
+            .then(response => {
+                alert('Item added to cart');
+                console.log('Item added to cart:', response.data);
+            })
+            .catch(error => {
+                console.error('Error adding item to cart:', error);
+                alert('Failed to add item to cart');
+            });
+    };
+
     if (!product) {
         return <div>loading</div>
     }
@@ -186,8 +209,12 @@ export const ProductPage = () => {
                                          selectedLengthIndex={selectedLengthIndex}
                             />
 
-                            <AddToBag isExpanded={isExpanded} handleExpand={handleExpand}
-                                      product={product} selectedSize={selectedSize} colorId={selectedColorId}
+                            <AddToBag isExpanded={isExpanded}
+                                      handleExpand={handleExpand}
+                                      product={product}
+                                      selectedSize={selectedSize}
+                                      colorId={selectedColorId}
+                                      handleAddToBag={handleAddToBag}
                             />
                             <ProductDetails product={product} refs={refs} handleScroll={handleScrollAndExpand}/>
                         </div>
@@ -198,15 +225,8 @@ export const ProductPage = () => {
                         <WhyWeMadeThis product={product} images={images} alt={alt} refs={refs}
                                        expandedIndex={expandedIndex} setExpendedIndex={setExpendedIndex}/>}
                 </div>
-                {/*Details go here*/}
 
                 <br/>
-                {/*<div>*/}
-                {/*    /!*底下这俩都是返回Whats New Page。看你们爱用哪个都行*!/*/}
-                {/*    <Link to='/'>To What's New Page </Link>*/}
-                {/*    <br/>*/}
-                {/*    <button onClick={() => navigate('/')}>Go Back to What's New Page</button>*/}
-                {/*</div>*/}
 
                 <YouMayLike products={youMayLikeProducts}/>
 
