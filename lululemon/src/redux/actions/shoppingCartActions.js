@@ -25,3 +25,4 @@ export const addItems = (product) => {
         payload: product
     }
 }
+
