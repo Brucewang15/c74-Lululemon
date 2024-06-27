@@ -5,11 +5,13 @@ import './ShoppingCartProduct.scss'
 import {OrderSummary} from "./OrderSummary";
 import {useEffect, useState} from "react";
 import {fetchProductDetails} from "../../redux/utils/api";
+import {EditPopUp} from "./EditPopUp";
 
 export const ShoppingCartProduct = () => {
     const shoppingCart = useSelector(state => state.shoppingCartReducer.shoppingCart)
     const dispatch = useDispatch()
     const [productDetails, setProductDetails] = useState([]);
+    const [isVisibleEdit, setIsVisibleEdit] = useState(Array(shoppingCart.length).fill(false))
 
     useEffect(() => {
         const fetchDetails = async () => {
@@ -70,6 +72,11 @@ export const ShoppingCartProduct = () => {
             return '$0.00';
         }
     }
+    const handleEditPopUp = (index) => {
+        console.log('index', index, 'arr', isVisibleEdit)
+        const newState = isVisibleEdit.map((item, i) => i === index ? !item : item)
+        setIsVisibleEdit(newState)
+    }
 
     const handleQuantityChange = (e, index) => {
         const newQuantity = Number(e.target.value)
@@ -96,6 +103,7 @@ export const ShoppingCartProduct = () => {
                 <div className='itemsContainer'>
                     {shoppingCart.map((item, index) => {
                         const productDetail = productDetails[index];
+                        console.log(productDetail)
                         const { image, colorAlt } = getCurrentImage(item, productDetail);
                         return (
                             <div key={index} className='itemContainer'>
@@ -108,7 +116,8 @@ export const ShoppingCartProduct = () => {
                                             <div className='size'>
                                                 Size {item.size}
                                             </div>
-                                            <button className='edit button'>Edit</button>
+                                            <button className='edit button'
+                                                    onClick={() => handleEditPopUp(index)}>Edit</button>
                                         </div>
                                         <div className='productDetailsRight'>
                                             <div className='priceContainer'>
@@ -144,6 +153,9 @@ export const ShoppingCartProduct = () => {
                                         </div>
                                     </div>
                                 </div>
+                                {isVisibleEdit[index] &&
+                                    <EditPopUp product={productDetail} key={index} closeOut={() => handleEditPopUp(index)}/>
+                                }
                             </div>
                         );
                     })}
