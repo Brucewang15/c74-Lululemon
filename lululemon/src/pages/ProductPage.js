@@ -1,28 +1,28 @@
 import {Link, useLocation, useNavigate, useParams} from "react-router-dom";
-import {Header} from "../shared/Header";
-import Footer from "../shared/Footer";
+import {Header} from "../components/shared/Header";
+import Footer from "../components/shared/Footer";
 import React, {useEffect, useRef, useState} from "react";
 import axios from "axios";
-import {myKey, productURL, singleProductURL} from "../../redux/utils/helper";
-import './ProductPage.scss'
-import {Modal} from "./Modal";
+import {myKey, productURL, singleProductURL} from "../redux/utils/helper";
+import '../components/productpage/ProductPage.scss'
+import {Modal} from "../components/productpage/Modal";
 import StorefrontOutlinedIcon from '@mui/icons-material/StorefrontOutlined';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
 import {Carousel} from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
-import {ImageCarousel} from "./ImageCarousel";
-import {Swatches} from "./Swatches";
-import {SizeButtons} from "./SizeButtons";
-import {AddToBag} from "./AddToBag";
-import {ProductDetails} from "./ProductDetails";
-import {WhyWeMadeThis} from "./WhyWeMadeThis";
+import {ImageCarousel} from "../components/productpage/ImageCarousel";
+import {Swatches} from "../components/productpage/Swatches";
+import {SizeButtons} from "../components/productpage/SizeButtons";
+import {AddToBag} from "../components/productpage/AddToBag";
+import {ProductDetails} from "../components/productpage/ProductDetails";
+import {WhyWeMadeThis} from "../components/productpage/WhyWeMadeThis";
 
-import {Reviews} from "./Reviews";
+import {Reviews} from "../components/productpage/Reviews";
 import {useSelector} from "react-redux";
-import YouMayLikeSide from "./YouMayLikeSide";
-import YouMayLike from "./YouMayLike";
+import YouMayLikeSide from "../components/productpage/YouMayLikeSide";
+import YouMayLike from "../components/productpage/YouMayLike";
 
 export const ProductPage = () => {
     // Router

@@ -1,10 +1,10 @@
 import {useDispatch, useSelector} from "react-redux";
-import {EmptyShoppingCart} from "./EmptyShoppingCart";
-import {ShoppingCartWithItems} from "./ShoppingCartWithItems";
+import {EmptyShoppingCart} from "../components/shoppingcart/EmptyShoppingCart";
+import {ShoppingCartWithItems} from "../components/shoppingcart/ShoppingCartWithItems";
 import AccessAlarmTwoToneIcon from '@mui/icons-material/AccessAlarmTwoTone';
-import fakeCartData from '../../components/shoppingcart/fakeCartData.json'
+import fakeCartData from '../components/shoppingcart/fakeCartData.json'
 import {useEffect} from "react";
-import {fetchCartItems} from "../../redux/actions/shoppingCartActions";
+import {fetchCartItems} from "../redux/actions/shoppingCartActions";
 
 // const saveFakeDataToLocalStorage = () => {
 //     // const existingCart = localStorage.getItem('shoppingCart');

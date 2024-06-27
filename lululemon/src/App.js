@@ -1,10 +1,10 @@
 import './App.css';
 import {WhatsNewPage} from "./pages/WhatsNewPage";
 import {BrowserRouter, Link, Route, Routes} from "react-router-dom";
-import {ProductPage} from "./components/productpage/ProductPage";
+import {ProductPage} from "./pages/ProductPage";
 import {WrongPage} from './components/productpage/WrongPage'
 import {WrongProductPage} from "./components/productpage/WrongProductPage";
-import {ShoppingCart} from "./components/shoppingcart/ShoppingCart";
+import {ShoppingCart} from "./pages/ShoppingCart";
 
 function App() {
     return (
