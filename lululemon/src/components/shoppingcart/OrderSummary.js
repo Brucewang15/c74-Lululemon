@@ -6,7 +6,7 @@ import {useState} from "react";
 
 
 
-const OrderSummary = () => {
+export const OrderSummary = () => {
 
 
     const [popUpText, setPopUpText] = useState('');
@@ -129,4 +129,4 @@ const OrderSummary = () => {
 
 
 
-export default OrderSummary;
+

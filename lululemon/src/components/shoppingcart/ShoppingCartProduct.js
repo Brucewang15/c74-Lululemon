@@ -2,24 +2,37 @@ import AccessAlarmTwoToneIcon from "@mui/icons-material/AccessAlarmTwoTone";
 import {useDispatch, useSelector} from "react-redux";
 import {changeQuantity, removeProduct} from "../../redux/actions/shoppingCartActions";
 import './ShoppingCartProduct.scss'
-import OrderSummary from "./OrderSummary";
+import {OrderSummary} from "./OrderSummary";
+import {useEffect, useState} from "react";
+import {fetchProductDetails} from "../../redux/utils/api";
 
 export const ShoppingCartProduct = () => {
     const shoppingCart = useSelector(state => state.shoppingCartReducer.shoppingCart)
     const dispatch = useDispatch()
-    const getCurrentImage = (item) => {
-        const currentImage = item.images?.find(image => image.colorId === item.selectedColorId)
+    const [productDetails, setProductDetails] = useState([]);
+
+    useEffect(() => {
+        const fetchDetails = async () => {
+            const details = await Promise.all(shoppingCart.map(item => fetchProductDetails(item.productId)));
+            setProductDetails(details);
+        };
+        fetchDetails();
+    }, [shoppingCart]);
+
+    const getCurrentImage = (item, productDetail) => {
+        const currentImage = productDetail?.images?.find(image => image.colorId === item.colorId);
         if (currentImage) {
             return {
                 image: currentImage.mainCarousel.media.split('|')[0].trim(),
-                colorAlt: currentImage.colorAlt
-            }
+                colorAlt: currentImage.colorAlt,
+            };
         }
         return {
             image: '',
             colorAlt: 'No Color Alt',
-        }
-    }
+        };
+    };
+
     const convertPriceToNumber = (price) => {
 
         try {
@@ -37,7 +50,7 @@ export const ShoppingCartProduct = () => {
         }
     }
     const calcTotalPrice = (price, quantity) => {
-        console.log(price)
+        //console.log(price)
         try {
             if (!price.startsWith('$')) {
                 throw new Error('Price format is incorrect');
@@ -82,26 +95,25 @@ export const ShoppingCartProduct = () => {
                 </div>
                 <div className='itemsContainer'>
                     {shoppingCart.map((item, index) => {
-                        const {image, colorAlt} = getCurrentImage(item)
+                        const productDetail = productDetails[index];
+                        const { image, colorAlt } = getCurrentImage(item, productDetail);
                         return (
                             <div key={index} className='itemContainer'>
-                                <img className='productImage' src={image} alt={colorAlt}/>
-                                {/*<img src={  item.images[0].mainCarousel.media.split('|')[0].trim()} alt={item.name}/>*/}
+                                <img className='productImage' src={image} alt={colorAlt} />
                                 <div className='productDetailsContainer'>
-                                    <h3 className='productName'>{item.name}</h3>
+                                    <h3 className='productName'>{productDetail?.name}</h3>
                                     <p className='productColor'>{colorAlt}</p>
                                     <div className='productDetails'>
                                         <div className='sizeAndEditContainer'>
                                             <div className='size'>
-                                                Size {item.selectedSize}
+                                                Size {item.size}
                                             </div>
                                             <button className='edit button'>Edit</button>
                                         </div>
                                         <div className='productDetailsRight'>
                                             <div className='priceContainer'>
                                                 <div>Item Price</div>
-
-                                                <div>{convertPriceToNumber(item.price)}</div>
+                                                <div>{convertPriceToNumber(productDetail?.price)}</div>
                                             </div>
                                             <div className='quantityContainer'>
                                                 <label htmlFor={`quantity-${index}`}>Quantity</label>
@@ -112,20 +124,15 @@ export const ShoppingCartProduct = () => {
                                                     onChange={(e) => handleQuantityChange(e, index)}
                                                 >
                                                     {[...Array(5).keys()].map(i => (
-                                                        <option className='dropdownItem' key={i + 1}
-                                                                value={i + 1}>{i + 1}</option>
-
+                                                        <option className='dropdownItem' key={i + 1} value={i + 1}>{i + 1}</option>
                                                     ))}
                                                 </select>
-
                                             </div>
                                             <div className='totalPriceContainer'>
-
                                                 <div>Total Price</div>
-                                                {calcTotalPrice(item.price, item.quantity)}
+                                                {calcTotalPrice(productDetail?.price, item.quantity)}
                                             </div>
                                         </div>
-
                                     </div>
                                     <div className='shippingAndReturnContainer'>
                                         <div>
@@ -133,15 +140,12 @@ export const ShoppingCartProduct = () => {
                                         </div>
                                         <div className='removeContainer'>
                                             <button className='save button'>Save for Later</button>
-                                            <button className='remove button'
-                                                    onClick={() => handleRemoveProduct(item.productId, item.selectedSize, item.selectedColorId)}>Remove
-                                            </button>
+                                            <button className='remove button' onClick={() => handleRemoveProduct(item.productId, item.size, item.colorId)}>Remove</button>
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
-                        )
+                        );
                     })}
                     <div className='savedForLaterContainer'>
                         <h2>Saved for Later</h2>

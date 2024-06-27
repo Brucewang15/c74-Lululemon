@@ -1,7 +1,7 @@
 // Fetch all the filter API
 
 import axios from "axios";
-import {apiURL, generalURL, myKey} from "../helper";
+import {apiURL, generalURL, myKey} from "../utils/helper";
 
 import {actionTypes} from "./actionTypes";
 

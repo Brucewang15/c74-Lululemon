@@ -3,7 +3,7 @@ import {Header} from "../shared/Header";
 import Footer from "../shared/Footer";
 import React, {useEffect, useRef, useState} from "react";
 import axios from "axios";
-import {myKey, productURL, singleProductURL} from "../../redux/helper";
+import {myKey, productURL, singleProductURL} from "../../redux/utils/helper";
 import './ProductPage.scss'
 import {Modal} from "./Modal";
 import StorefrontOutlinedIcon from '@mui/icons-material/StorefrontOutlined';
