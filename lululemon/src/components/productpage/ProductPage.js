@@ -162,13 +162,14 @@ export const ProductPage = () => {
         };
         axios.post('http://localhost:8000/cart/add', cartItem)
             .then(response => {
-                alert('Item added to cart');
+                //alert('Item added to cart');
                 console.log('Item added to cart:', response.data);
             })
             .catch(error => {
                 console.error('Error adding item to cart:', error);
-                alert('Failed to add item to cart');
+                //alert('Failed to add item to cart');
             });
+        navigate('/shop/mybag')
     };
 
     if (!product) {
