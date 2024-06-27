@@ -1,12 +1,17 @@
 import React from 'react';
 import './AddToBagModal.css';
+import {useNavigate} from "react-router-dom";
 
 const AddToBagModal = ({ product, recommendedProducts, isOpen, onClose, image, selectedSize }) => {
-    console.log(recommendedProducts);
+    const navigate = useNavigate();
     if (!isOpen) return null;
     let size = selectedSize;
     if (!size) {
         size = 'ONE SIZE'
+    }
+
+    const handleCheckOut = () => {
+        navigate('/shop/mybag')
     }
 
     return (
@@ -33,7 +38,7 @@ const AddToBagModal = ({ product, recommendedProducts, isOpen, onClose, image, s
                             <p>{product.price}</p>
                         </div>
                         <div className="modal-buttons">
-                            <button className="view-bag-button">VIEW BAG & CHECKOUT</button>
+                            <button className="view-bag-button" onClick={handleCheckOut}>VIEW BAG & CHECKOUT</button>
                             <button className="continue-shopping-button" onClick={onClose}>Continue Shopping</button>
                         </div>
                     </div>
