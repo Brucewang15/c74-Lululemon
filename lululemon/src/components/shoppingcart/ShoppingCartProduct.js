@@ -1,10 +1,11 @@
 import AccessAlarmTwoToneIcon from "@mui/icons-material/AccessAlarmTwoTone";
 import {useDispatch, useSelector} from "react-redux";
-import {changeQuantity, removeProduct} from "../../redux/actions/shoppingCartActions";
+import {changeQuantity, fetchCartItems, removeProduct} from "../../redux/actions/shoppingCartActions";
 import './ShoppingCartProduct.scss'
 import {OrderSummary} from "./OrderSummary";
 import {useEffect, useState} from "react";
 import {fetchProductDetails} from "../../redux/utils/api";
+import axios from "axios";
 
 export const ShoppingCartProduct = () => {
     const shoppingCart = useSelector(state => state.shoppingCartReducer.shoppingCart)
@@ -34,7 +35,9 @@ export const ShoppingCartProduct = () => {
     };
 
     const convertPriceToNumber = (price) => {
-
+        if (!price) {
+            return '$0.00';
+        }
         try {
             if (!price.startsWith('$')) {
                 throw new Error('Price format is incorrect');
@@ -50,6 +53,9 @@ export const ShoppingCartProduct = () => {
         }
     }
     const calcTotalPrice = (price, quantity) => {
+        if (!price) {
+            return '$0.00';
+        }
         //console.log(price)
         try {
             if (!price.startsWith('$')) {
@@ -62,7 +68,7 @@ export const ShoppingCartProduct = () => {
             }
             // convert the '$85 CAD' to, a number so we can use to calculate the total price with quantity, and then convert it to '$85.00' form.
             const totalPrice = (priceNumber * quantity);
-            console.log('typeof totalPrice:', typeof totalPrice, totalPrice)
+            // console.log('typeof totalPrice:', typeof totalPrice, totalPrice)
 
             return `$${totalPrice.toFixed(2)}`;
         } catch (error) {
@@ -71,13 +77,27 @@ export const ShoppingCartProduct = () => {
         }
     }
 
-    const handleQuantityChange = (e, index) => {
-        const newQuantity = Number(e.target.value)
-        dispatch(changeQuantity(newQuantity, index))
+    // const handleQuantityChange = (e, index) => {
+    //     const newQuantity = Number(e.target.value)
+    //     dispatch(changeQuantity(newQuantity, index))
+    // }
+
+    const handleQuantityChange = (e, index, itemId) => {
+        const newQuantity = Number(e.target.value);
+        dispatch(changeQuantity(newQuantity, index, itemId));
     }
 
-    const handleRemoveProduct = (productID, selectedSize, selectedColorId) => {
-        dispatch(removeProduct(productID, selectedSize, selectedColorId))
+    const handleRemoveProduct = (itemId, selectedSize, selectedColorId) => {
+        axios.delete(`http://localhost:8000/cart/delete/${itemId}`)
+            .then(response => {
+                // 你可以在这里调用Redux action来更新前端的购物车状态
+                dispatch(removeProduct(itemId, selectedSize, selectedColorId));
+                console.log('Item removed from cart:', response.data);
+                dispatch(fetchCartItems());
+            })
+            .catch(error => {
+                console.error('Error removing item from cart:', error);
+            });
     }
     return (
         <div className='shoppingCartWrapper'>
@@ -96,10 +116,10 @@ export const ShoppingCartProduct = () => {
                 <div className='itemsContainer'>
                     {shoppingCart.map((item, index) => {
                         const productDetail = productDetails[index];
-                        const { image, colorAlt } = getCurrentImage(item, productDetail);
+                        const {image, colorAlt} = getCurrentImage(item, productDetail);
                         return (
                             <div key={index} className='itemContainer'>
-                                <img className='productImage' src={image} alt={colorAlt} />
+                                <img className='productImage' src={image} alt={colorAlt}/>
                                 <div className='productDetailsContainer'>
                                     <h3 className='productName'>{productDetail?.name}</h3>
                                     <p className='productColor'>{colorAlt}</p>
@@ -121,10 +141,11 @@ export const ShoppingCartProduct = () => {
                                                     className='dropdownMenu'
                                                     id={`quantity-${index}`}
                                                     value={item.quantity}
-                                                    onChange={(e) => handleQuantityChange(e, index)}
+                                                    onChange={(e) => handleQuantityChange(e, index, item._id)}
                                                 >
                                                     {[...Array(5).keys()].map(i => (
-                                                        <option className='dropdownItem' key={i + 1} value={i + 1}>{i + 1}</option>
+                                                        <option className='dropdownItem' key={i + 1}
+                                                                value={i + 1}>{i + 1}</option>
                                                     ))}
                                                 </select>
                                             </div>
@@ -140,7 +161,9 @@ export const ShoppingCartProduct = () => {
                                         </div>
                                         <div className='removeContainer'>
                                             <button className='save button'>Save for Later</button>
-                                            <button className='remove button' onClick={() => handleRemoveProduct(item.productId, item.size, item.colorId)}>Remove</button>
+                                            <button className='remove button'
+                                                    onClick={() => handleRemoveProduct(item._id, item.size, item.colorId)}>Remove
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
