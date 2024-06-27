@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { singleProductURL, myKey } from './helper';
+import { singleProductURL, productURL, myKey } from './helper';
 
 export const fetchProductDetails = async (productId) => {
     try {
@@ -10,3 +10,15 @@ export const fetchProductDetails = async (productId) => {
         return null;
     }
 };
+
+export const fetchFirstPageProducts = async() => {
+    try {
+        const response = await axios.post(productURL);
+        //console.log(response.data);
+        return response.data.rs.products;
+
+    } catch (error) {
+        console.log('error fetching goes well products: ', error);
+        return null;
+    }
+}
