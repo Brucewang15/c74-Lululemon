@@ -27,6 +27,16 @@ export const changeQuantity = (newQuantity, index, itemId) => async dispatch => 
     }
 };
 
+export const updateQuantity = (quantity, index, itemId) => {
+    return {
+        type: actionTypes.CHANGE_QUANTITY,
+        payload: {
+            newQuantity: quantity,
+            index: index,
+            itemId: itemId
+        }
+    }
+};
 export const removeProduct = (itemId, selectedSize, selectedColorId) => {
     return {
         type: actionTypes.REMOVE_PRODUCTS,

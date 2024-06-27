@@ -20,17 +20,20 @@ import {ProductDetails} from "../components/productpage/ProductDetails";
 import {WhyWeMadeThis} from "../components/productpage/WhyWeMadeThis";
 
 import {Reviews} from "../components/productpage/Reviews";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import YouMayLikeSide from "../components/productpage/YouMayLikeSide";
 import YouMayLike from "../components/productpage/YouMayLike";
 import AddToBagModal from "../components/productpage/AddToBagModal";
 import {fetchFirstPageProducts} from "../redux/utils/api";
+import {addItems, updateQuantity} from "../redux/actions/shoppingCartActions";
 
 export const ProductPage = () => {
     // Router
     const {productID, colorID} = useParams()
     const location = useLocation()
     const navigate = useNavigate()
+    const dispatch = useDispatch()
+    const shoppingCart = useSelector(state => state.shoppingCartReducer.shoppingCart)
     // useStates
     const [product, setProduct] = useState({})
     const [selectedColorId, setSelectedColorId] = useState(null)
@@ -119,7 +122,6 @@ export const ProductPage = () => {
     }
 
 
-
     const {images, alt} = getCurrentImagesAndAlts()
 
 
@@ -180,6 +182,24 @@ export const ProductPage = () => {
             .then(response => {
                 //alert('Item added to cart');
                 console.log('Item added to cart:', response.data);
+
+                const existingItemIndex = shoppingCart.findIndex(item =>
+                    item.productId === cartItem.productId &&
+                    item.colorId === cartItem.colorId &&
+                    item.size === cartItem.size
+                );
+
+                if (existingItemIndex !== -1) {
+                    // If item exists, update the quantity in the Redux store
+                    const updatedItem = {
+                        ...shoppingCart[existingItemIndex],
+                        quantity: shoppingCart[existingItemIndex].quantity + 1
+                    };
+                    dispatch(updateQuantity(updatedItem.quantity, existingItemIndex, updatedItem._id));
+                } else {
+                    // If item does not exist, add the new item to the Redux store
+                    dispatch(addItems(cartItem));
+                }
             })
             .catch(error => {
                 console.error('Error adding item to cart:', error);
@@ -282,6 +302,7 @@ export const ProductPage = () => {
                 onClose={() => setBagModalOpen(false)}
                 image={images[0]}
                 selectedSize={selectedSize}
+                cartLength={shoppingCart.length}
             />
         </>
     )

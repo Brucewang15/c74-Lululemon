@@ -1,8 +1,9 @@
 import React from 'react';
 import './AddToBagModal.css';
 import {useNavigate} from "react-router-dom";
+import {useSelector} from "react-redux";
 
-const AddToBagModal = ({ product, recommendedProducts, isOpen, onClose, image, selectedSize }) => {
+const AddToBagModal = ({product, recommendedProducts, isOpen, onClose, image, selectedSize, cartLength}) => {
     const navigate = useNavigate();
     if (!isOpen) return null;
     let size = selectedSize;
@@ -20,7 +21,7 @@ const AddToBagModal = ({ product, recommendedProducts, isOpen, onClose, image, s
                 <button className="close-button" onClick={onClose}>×</button>
                 <div className="modal-header">
                     <h2>Nice Pick!</h2>
-                    <span>{`1 Item`}</span>
+                    <span>{`${cartLength} ${cartLength === 1 && cartLength !== 0 ? 'item' : 'items'}`}</span>
                     {/*TODO: change to total items of the cart*/}
                 </div>
                 <div className="modal-body">

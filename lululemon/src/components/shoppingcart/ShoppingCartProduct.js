@@ -6,11 +6,14 @@ import {OrderSummary} from "./OrderSummary";
 import {useEffect, useState} from "react";
 import {fetchProductDetails} from "../../redux/utils/api";
 import axios from "axios";
+import {RemoveItemModal} from "./RemoveItemModal";
 
 export const ShoppingCartProduct = () => {
     const shoppingCart = useSelector(state => state.shoppingCartReducer.shoppingCart)
     const dispatch = useDispatch()
     const [productDetails, setProductDetails] = useState([]);
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [selectedItem, setSelectedItem] = useState(null)
 
     useEffect(() => {
         const fetchDetails = async () => {
@@ -99,6 +102,15 @@ export const ShoppingCartProduct = () => {
                 console.error('Error removing item from cart:', error);
             });
     }
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false)
+        setSelectedItem(null)
+    }
+    const handleOpenModal = (item) => {
+        setIsModalOpen(true)
+        setSelectedItem(item)
+    }
     return (
         <div className='shoppingCartWrapper'>
             <div className='shoppingCartBody'>
@@ -161,8 +173,11 @@ export const ShoppingCartProduct = () => {
                                         </div>
                                         <div className='removeContainer'>
                                             <button className='save button'>Save for Later</button>
+                                            {/*<button className='remove button'*/}
+                                            {/*        onClick={() => handleRemoveProduct(item._id, item.size, item.colorId)}>Remove*/}
+                                            {/*</button>*/}
                                             <button className='remove button'
-                                                    onClick={() => handleRemoveProduct(item._id, item.size, item.colorId)}>Remove
+                                                    onClick={() => handleOpenModal(item)}>Remove
                                             </button>
                                         </div>
                                     </div>
@@ -180,6 +195,9 @@ export const ShoppingCartProduct = () => {
             <div className='orderSummary'>
                 <OrderSummary/>
             </div>
+            {isModalOpen === true &&
+                <RemoveItemModal closeModal={handleCloseModal} handleRemoveProduct={handleRemoveProduct}
+                                 item={selectedItem}/>}
         </div>
     )
 }

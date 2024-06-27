@@ -2,7 +2,7 @@
 
 import "./Header.css"
 import Men from "./Men";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Women from "./Women";
 import Accessories from "./Accessories";
 import Shoes from "./Shoes";
@@ -11,9 +11,11 @@ import {useNavigate} from "react-router-dom";
 import {useSelector} from "react-redux";
 
 export const Header = ({isSticky}) => {
+    const shoppingCart = useSelector(state => state.shoppingCartReducer.shoppingCart)
     const navigate = useNavigate()
     const [hover, setHover] = useState([false, false, false, false, false]);
-    const shoppingCart = useSelector(state => state.shoppingCartReducer.shoppingCart)
+    const [cartCount, setCartCount] = useState(shoppingCart.length)
+
     const updateHover = (index, newValue) => {
         // Create a new array with the updated element
         const newItems = [...hover];
@@ -22,6 +24,10 @@ export const Header = ({isSticky}) => {
         setHover(newItems);
     };
 
+    useEffect(() => {
+        const shoppingCartCount = shoppingCart.length
+        setCartCount(shoppingCartCount)
+    }, [shoppingCart]);
     return (
 
         <div className='headerContent'>
@@ -119,7 +125,7 @@ export const Header = ({isSticky}) => {
 
                             <a onClick={() => navigate('/shop/mybag')}>
                                 <img src="https://www.svgrepo.com/show/43071/shopping-bag.svg" alt=""/>
-                                <p>{shoppingCart.length}</p>
+                                <p>{cartCount}</p>
                             </a>
                         </div>
                     </div>
