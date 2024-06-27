@@ -17,9 +17,14 @@ const getAllCartItems = () => {
     return CartItemModel.find();
 }
 
+const findOne = async (query) => {
+    return await CartItemModel.findOne(query);
+};
+
 module.exports = {
     addToCart,
     deleteFromCart,
     updateCartItem,
-    getAllCartItems
+    getAllCartItems,
+    findOne
 };

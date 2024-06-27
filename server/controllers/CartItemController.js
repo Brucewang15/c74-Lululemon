@@ -2,14 +2,28 @@ const {
     addToCart,
     deleteFromCart,
     updateCartItem,
-    getAllCartItems
+    getAllCartItems,
+    findOne
 } = require('../models/CartItemDao');
 
 const CartItemController = (app) => {
     app.post('/cart/add', async (req, res) => {
+        const { productId, colorId, size } = req.body;
+
         try {
-            const cartItem = await addToCart(req.body);
-            res.status(201).json(cartItem);
+            // Check if the item already exists in the cart
+            const existingCartItem = await findOne({ productId, colorId, size });
+
+            if (existingCartItem) {
+                // If item exists, update the quantity
+                existingCartItem.quantity += 1;
+                const updatedCartItem = await existingCartItem.save();
+                res.status(200).json(updatedCartItem);
+            } else {
+                // If item does not exist, create a new cart item
+                const newCartItem = await addToCart(req.body);
+                res.status(201).json(newCartItem);
+            }
         } catch (error) {
             res.status(400).json({ message: error.message });
         }

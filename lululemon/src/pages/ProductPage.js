@@ -23,6 +23,7 @@ import {Reviews} from "../components/productpage/Reviews";
 import {useSelector} from "react-redux";
 import YouMayLikeSide from "../components/productpage/YouMayLikeSide";
 import YouMayLike from "../components/productpage/YouMayLike";
+import AddToBagModal from "../components/productpage/AddToBagModal";
 
 export const ProductPage = () => {
     // Router
@@ -45,6 +46,9 @@ export const ProductPage = () => {
     const [isExpanded, setIsExpanded] = useState(false)
     const [expandedIndex, setExpendedIndex] = useState(null);
     const [scrollPosition, setScrollPosition] = useState(0)
+
+    const [bagModalOpen, setBagModalOpen] = useState(false)
+    const [recommendedProducts, setRecommendedProducts] = useState([])
 
     const refs = useRef([])
 
@@ -105,6 +109,7 @@ export const ProductPage = () => {
     }
 
 
+
     const {images, alt} = getCurrentImagesAndAlts()
 
 
@@ -150,7 +155,8 @@ export const ProductPage = () => {
     };
 
     const handleAddToBag = () => {
-        if (!selectedSize) {
+        console.log(product.sizes[0].details !== 0 && !selectedSize);
+        if (product.sizes[0].details.length !== 0 && !selectedSize) {
             alert("Please select a size.");
             return;
         }
@@ -169,7 +175,23 @@ export const ProductPage = () => {
                 console.error('Error adding item to cart:', error);
                 //alert('Failed to add item to cart');
             });
-        navigate('/shop/mybag')
+        //navigate('/shop/mybag')
+        fetchRecommendedProducts();
+        setBagModalOpen(true);
+    };
+
+    const fetchRecommendedProducts = async (colorId) => {
+        try {
+
+            // Filter the first 4 products that have the same color ID as the added product
+            const filteredProducts = products
+                .filter(product => product.swatches.some(swatch => swatch.colorId === colorId))
+                .slice(0, 4);
+
+            setRecommendedProducts(filteredProducts);
+        } catch (error) {
+            console.error('Error fetching recommended products', error);
+        }
     };
 
     if (!product) {
@@ -236,6 +258,13 @@ export const ProductPage = () => {
             </div>
             {/*Here is the modal, you can close and open it*/}
             {isModalVisible && <Modal images={images} close={handleModalClose} alt={alt} name={product.name}/>}
+            <AddToBagModal
+                product={product}
+                recommendedProducts={recommendedProducts}
+                isOpen={bagModalOpen}
+                onClose={() => setBagModalOpen(false)}
+                image={images[0]}
+            />
         </>
     )
 }
