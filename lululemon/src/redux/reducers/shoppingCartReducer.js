@@ -3,9 +3,11 @@ import {actionTypes} from "../actions/actionTypes";
 
 
 const initialState = {
-    shoppingCart: JSON.parse(localStorage.getItem('shoppingCart')) || fakeCartData.cartItems
+    // shoppingCart: calStorage.getItem('shoppingCart')) || fakeCartData.cartItemsJSON.parse(lo
     // shoppingCart: fakeCartData.cartItems
     // shoppingCart: []     // 模拟空购物车
+    shoppingCart: [],
+    error: null,
 }
 
 export const shoppingCartReducer = (state = initialState, action) => {
@@ -29,6 +31,18 @@ export const shoppingCartReducer = (state = initialState, action) => {
         case actionTypes.ADD_ITEMS:
             const addedCart = [...state.shoppingCart, action.payload]
             return {...state, shoppingCart: addedCart}
+        case actionTypes.FETCH_CART_SUCCESS:
+            return {
+                ...state,
+                shoppingCart: action.payload,
+                error: null,
+            };
+        case actionTypes.FETCH_CART_ERROR:
+            return {
+                ...state,
+                shoppingCart: [],
+                error: action.payload,
+            };
         default:
             return state
     }
