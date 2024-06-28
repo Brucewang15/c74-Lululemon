@@ -7,6 +7,7 @@ import {useEffect, useState} from "react";
 import {fetchProductDetails} from "../../redux/utils/api";
 import axios from "axios";
 import {RemoveItemModal} from "./RemoveItemModal";
+import {EditPopUp} from "./EditPopUp";
 
 export const ShoppingCartProduct = () => {
     const shoppingCart = useSelector(state => state.shoppingCartReducer.shoppingCart)
@@ -14,6 +15,8 @@ export const ShoppingCartProduct = () => {
     const [productDetails, setProductDetails] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [selectedItem, setSelectedItem] = useState(null)
+    const [isVisibleEdit, setIsVisibleEdit] = useState(Array(shoppingCart.length).fill(false))
+    const sizesSelected = []
 
     useEffect(() => {
         const fetchDetails = async () => {
@@ -47,9 +50,9 @@ export const ShoppingCartProduct = () => {
             }
             // convert the '$85 CAD' to, a number so we can use to calculate, and then convert it to '$85.00' form.
             const newPrice = price.replace('$', '').trim();
-            const priceNumber = Number(parseInt(newPrice.slice(0, newPrice.indexOf(' '))));
+            const priceNumber = Number(newPrice.slice(0, newPrice.indexOf('C')).trim()).toFixed(2);
             // console.log('newPrice:', newPrice, 'priceNumber:', priceNumber, 'typeof PriceNumber:', typeof priceNumber)
-            return `$${priceNumber.toFixed(2)}`;
+            return `$${priceNumber}`;
         } catch (error) {
             console.error('Error converting price:', error);
             return '$0.00';
@@ -65,19 +68,25 @@ export const ShoppingCartProduct = () => {
                 throw new Error('Price format is incorrect');
             }
             const newPrice = price.replace('$', '').trim();
-            const priceNumber = Number(parseInt(newPrice.slice(0, newPrice.indexOf(' '))));
+            const priceNumber = Number(newPrice.slice(0, newPrice.indexOf('C')).trim());
             if (isNaN(priceNumber) || isNaN(quantity)) {
                 throw new Error('Invalid number format');
             }
             // convert the '$85 CAD' to, a number so we can use to calculate the total price with quantity, and then convert it to '$85.00' form.
-            const totalPrice = (priceNumber * quantity);
+
+            const totalPrice = (priceNumber * quantity).toFixed(2);
             // console.log('typeof totalPrice:', typeof totalPrice, totalPrice)
 
-            return `$${totalPrice.toFixed(2)}`;
+            return `$${totalPrice}`;
         } catch (error) {
             console.error('Error calculating total price:', error);
             return '$0.00';
         }
+    }
+    const handleCloseOut = (index) => {
+        console.log('index', index, 'arr', isVisibleEdit)
+        const newState = isVisibleEdit.map((item, i) => i === index ? !item : item)
+        setIsVisibleEdit(newState)
     }
 
     // const handleQuantityChange = (e, index) => {
@@ -128,7 +137,9 @@ export const ShoppingCartProduct = () => {
                 <div className='itemsContainer'>
                     {shoppingCart.map((item, index) => {
                         const productDetail = productDetails[index];
+
                         const {image, colorAlt} = getCurrentImage(item, productDetail);
+                        sizesSelected.push(item.size)
                         return (
                             <div key={index} className='itemContainer'>
                                 <img className='productImage' src={image} alt={colorAlt}/>
@@ -140,7 +151,9 @@ export const ShoppingCartProduct = () => {
                                             <div className='size'>
                                                 Size {item.size}
                                             </div>
-                                            <button className='edit button'>Edit</button>
+                                            <button className='edit button'
+                                                    onClick={() => handleCloseOut(index)}>Edit
+                                            </button>
                                         </div>
                                         <div className='productDetailsRight'>
                                             <div className='priceContainer'>
@@ -182,6 +195,13 @@ export const ShoppingCartProduct = () => {
                                         </div>
                                     </div>
                                 </div>
+                                {isVisibleEdit[index]
+                                    && <EditPopUp product={productDetails[index]}
+                                                  item={item} sizeInit={sizesSelected[index]}
+                                                  colorInit={item.colorId}
+                                                  index={index}
+                                                  closeOut={handleCloseOut}/>
+                                }
                             </div>
                         );
                     })}

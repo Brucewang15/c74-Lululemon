@@ -22,6 +22,28 @@ export const shoppingCartReducer = (state = initialState, action) => {
                 ...state,
                 shoppingCart: updatedCart
             }
+        case actionTypes.EDIT_CART:
+            const editedCart = state.shoppingCart.map((item, index) => {
+                return index === action.payload.index
+                    ? {...item, size: action.payload.newSize, colorId: action.payload.newColorId}
+                    : item
+            })
+            // localStorage.setItem('shoppingCart', JSON.stringify(updatedCart));
+            return {
+                ...state,
+                shoppingCart: editedCart
+            }
+        case actionTypes.MERGE_CART_ITEMS:
+            const mergedCart = state.shoppingCart.map((item, idx) => {
+                if (idx === action.payload.existingItemIndex) {
+                    return {...item, quantity: action.payload.updatedQuantity};
+                }
+                return item;
+            }).filter((_, idx) => idx !== action.payload.index);
+            return {
+                ...state,
+                shoppingCart: mergedCart
+            };
         case actionTypes.REMOVE_PRODUCTS:
             // deal with filter out the selected product, but also filter same product with different size OR same product with different colors
             // const newCart = state.shoppingCart.filter(product => product._id !== action.payload.itemId || (product._id === action.payload.itemId && product.selectedSize !== action.payload.selectedSize) || (product._id === action.payload.itemId && product.selectedColorId !== action.payload.selectedColorId))

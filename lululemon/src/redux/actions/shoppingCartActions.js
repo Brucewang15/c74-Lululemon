@@ -37,7 +37,74 @@ export const updateQuantity = (quantity, index, itemId) => {
         }
     }
 };
+
+
+// export const edtCart = (newSize, newColorId, index, itemId) => async dispatch => {
+//     try {
+//         const response = await axios.post(`http://localhost:8000/cart/update/${itemId}`,
+//             {size: newSize, colorId: newColorId});
+//         dispatch({
+//             type: actionTypes.EDIT_CART,
+//             payload: {
+//                 newSize,
+//                 newColorId,
+//                 index
+//             }
+//         });
+//         dispatch(fetchCartItems());
+//     } catch (error) {
+//         console.error("Error updating cart:", error);
+//         // 可以在此处添加错误处理逻辑
+//     }
+// };
+export const edtCart = (newSize, newColorId, index, itemId) => async (dispatch, getState) => {
+    try {
+        const {shoppingCartReducer: {shoppingCart}} = getState();
+
+        // 查找是否存在相同的商品
+        const existingItemIndex = shoppingCart.findIndex(item =>
+            item.productId === shoppingCart[index].productId &&
+            item.colorId === newColorId &&
+            item.size === newSize
+        );
+
+        if (existingItemIndex !== -1 && existingItemIndex !== index) {
+            // 如果存在相同的商品，并且不是当前更新的商品，合并数量
+            const updatedQuantity = shoppingCart[existingItemIndex].quantity + shoppingCart[index].quantity;
+            await axios.post(`http://localhost:8000/cart/update/${shoppingCart[existingItemIndex]._id}`, {quantity: updatedQuantity});
+
+            // 删除当前商品
+            await axios.delete(`http://localhost:8000/cart/delete/${itemId}`);
+
+            // 更新 Redux store
+            dispatch({
+                type: actionTypes.MERGE_CART_ITEMS,
+                payload: {
+                    existingItemIndex,
+                    updatedQuantity
+                }
+            });
+        } else {
+            // 否则，正常更新
+            await axios.post(`http://localhost:8000/cart/update/${itemId}`, {size: newSize, colorId: newColorId});
+            dispatch({
+                type: actionTypes.EDIT_CART,
+                payload: {
+                    newSize,
+                    newColorId,
+                    index
+                }
+            });
+        }
+
+        dispatch(fetchCartItems());
+    } catch (error) {
+        console.error("Error updating cart:", error);
+    }
+};
+
 export const removeProduct = (itemId, selectedSize, selectedColorId) => {
+
     return {
         type: actionTypes.REMOVE_PRODUCTS,
         // payload: {productID, selectedSize, selectedColorId}
