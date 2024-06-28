@@ -25,7 +25,7 @@ export const Header = ({isSticky}) => {
     };
 
     useEffect(() => {
-        const shoppingCartCount = shoppingCart.length
+        const shoppingCartCount = shoppingCart.reduce((total, item) => total + item.quantity, 0);
         setCartCount(shoppingCartCount)
     }, [shoppingCart]);
     return (
