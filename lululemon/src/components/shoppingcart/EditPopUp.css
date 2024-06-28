@@ -9,6 +9,7 @@
   justify-content: center;
   align-items: center;
   font-family: Roboto;
+  z-index: 2;
 }
 .editPopUp .carousel {
   width: 50%;
@@ -60,6 +61,7 @@
   outline: 1px solid black;
   border: 2px solid white;
   cursor: pointer;
+  transition: 0.5s ease-in-out;
 }
 .editPopUp .productEdit .detailEdit .swatchesGroup .swatchImgSelected {
   width: 35px;
@@ -68,11 +70,13 @@
   outline: 1px solid black;
   border: 2px solid white;
   cursor: pointer;
+  transition: 0.5s ease-in-out;
 }
 .editPopUp .productEdit .detailEdit .selectedSize {
   font-size: 15px;
   font-weight: 400;
   margin-bottom: 10px;
+  transition: 0.2s ease-in-out;
 }
 .editPopUp .productEdit .detailEdit .sizesGroup {
   display: flex;
@@ -100,6 +104,7 @@
   font-weight: 600;
   background-color: black;
   color: white;
+  transition: 0.2s ease-in-out;
 }
 .editPopUp .productEdit .updateBtn {
   width: 100%;
@@ -112,16 +117,30 @@
   border-color: #c8102e;
   border-radius: 5%;
   color: white;
+  cursor: pointer;
+  transition: 0.5s ease-in-out;
+}
+.editPopUp .productEdit .updateBtn:hover {
+  background-color: #8c0b20;
 }
 .editPopUp .productEdit .viewDetails {
   width: 100%;
   font-size: 12px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-underline-color: #c42424;
+  cursor: pointer;
+}
+.editPopUp .productEdit .viewDetails:hover {
+  color: #c8102e;
+  transition: 0.5s ease-in-out;
 }
 .editPopUp .productEdit .closeOutBtn {
   position: absolute;
   top: 5px;
   right: 10px;
   font-size: 25px;
+  cursor: pointer;
 }
 
 /*# sourceMappingURL=EditPopUp.css.map */

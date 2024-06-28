@@ -7,6 +7,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: 0.5s ease-in-out;
 }
 .cardCarousel .arrows {
   position: absolute;
@@ -27,6 +28,7 @@
   background-color: white;
   border-radius: 15%;
   text-align: center;
+  cursor: pointer;
 }
 .cardCarousel .arrows .arrowNext {
   position: fixed;
@@ -37,6 +39,7 @@
   background-color: white;
   border-radius: 15%;
   text-align: center;
+  cursor: pointer;
 }
 
 /*# sourceMappingURL=CartCarousel.css.map */

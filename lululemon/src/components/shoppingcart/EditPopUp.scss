@@ -9,6 +9,7 @@
   justify-content: center;
   align-items: center;
   font-family: Roboto;
+  z-index: 2;
 
   .carousel {
     width: 50%;
@@ -60,6 +61,7 @@
             outline: 1px solid black;
             border: 2px solid white;
             cursor: pointer;
+            transition: 0.5s ease-in-out;
           }
         }
         .swatchImgSelected {
@@ -69,6 +71,7 @@
           outline: 1px solid black;
           border: 2px solid white;
           cursor: pointer;
+          transition: 0.5s ease-in-out;
         }
       }
 
@@ -76,6 +79,7 @@
         font-size: 15px;
         font-weight: 400;
         margin-bottom: 10px;
+        transition: 0.2s ease-in-out;
       }
 
       .sizesGroup {
@@ -103,6 +107,7 @@
           font-weight: 600;
           background-color: black;
           color: white;
+          transition: 0.2s ease-in-out;
         }
       }
     }
@@ -118,11 +123,24 @@
       border-color: #c8102e;
       border-radius: 5%;
       color: white;
+      cursor: pointer;
+      transition: 0.5s ease-in-out;
+      &:hover {
+        background-color: #8c0b20;
+      }
     }
 
     .viewDetails {
       width: 100%;
       font-size: 12px;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-underline-color: #c42424;
+      cursor: pointer;
+      &:hover {
+        color: #c8102e;
+        transition: 0.5s ease-in-out;
+      }
     }
 
     .closeOutBtn {
@@ -130,6 +148,7 @@
       top: 5px;
       right: 10px;
       font-size: 25px;
+      cursor: pointer;
     }
   }
 

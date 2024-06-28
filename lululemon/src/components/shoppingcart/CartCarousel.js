@@ -1,10 +1,32 @@
 import './CartCarousel.scss'
-import {useState} from "react";
-export const CartCarousel = ({imgList}) => {
+import {useEffect, useState} from "react";
+export const CartCarousel = ({product, colorSelected}) => {
     const [imgId, setImgId] = useState(0)
-    const imgUrls = imgList.split('|')
+    const [colorId, setColorId] = useState(colorSelected)
+    let imgList = []
+
+    console.log('img', colorSelected)
+    console.log('imgs', product.images)
+
+    product.images.map((item, i) => {
+        if (item.colorId === colorSelected) {
+            console.log(item.mainCarousel.media.split('|'))
+            imgList = item.mainCarousel.media.split('|')
+        }
+    })
+
+    useEffect(() => {
+        product.images.map((item, i) => {
+            if (item.colorId === colorSelected) {
+                console.log(item.mainCarousel.media.split('|'))
+                imgList = item.mainCarousel.media.split('|')
+            }
+        })
+    }, [colorId]);
+
+    // const imgUrls = images.split('|')
     return <div className='cardCarousel'>
-        <img src={imgUrls[imgId]} alt=""/>
+        <img src={imgList[imgId]} alt=""/>
         <div className="arrows">
             {imgId > 0 &&
                 <div className="arrowBefore" onClick={() =>
@@ -12,9 +34,9 @@ export const CartCarousel = ({imgList}) => {
                     {'<'}
                 </div>
             }
-            {imgId < imgUrls.length - 1 &&
+            {imgId < imgList.length - 1 &&
                 <div className="arrowNext" onClick={() =>
-                    imgId < imgUrls.length - 1 && setImgId(imgId + 1)}>
+                    imgId < imgList.length - 1 && setImgId(imgId + 1)}>
                     {'>'}
                 </div>
             }

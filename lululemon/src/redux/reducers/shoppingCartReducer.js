@@ -17,10 +17,21 @@ export const shoppingCartReducer = (state = initialState, action) => {
                 return index === action.payload.index ? {...item, quantity: action.payload.newQuantity}
                     : item
             })
-            localStorage.setItem('shoppingCart', JSON.stringify(updatedCart));
+            // localStorage.setItem('shoppingCart', JSON.stringify(updatedCart));
             return {
                 ...state,
                 shoppingCart: updatedCart
+            }
+        case actionTypes.EDIT_CART:
+            const editedCart = state.shoppingCart.map((item, index) => {
+                return index === action.payload.index
+                    ? {...item, size: action.payload.newSize, colorId: action.payload.newColorId}
+                    : item
+            })
+            // localStorage.setItem('shoppingCart', JSON.stringify(updatedCart));
+            return {
+                ...state,
+                shoppingCart: editedCart
             }
         case actionTypes.REMOVE_PRODUCTS:
             // deal with filter out the selected product, but also filter same product with different size OR same product with different colors
