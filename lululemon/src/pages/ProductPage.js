@@ -60,6 +60,9 @@ export const ProductPage = () => {
     const [products, setProducts] = useState([]);
     const youMayLikeProducts = products.slice(0, 4);
 
+    // calculate the total number of items in cart
+    const totalItems = shoppingCart.reduce((total, item) => total + item.quantity, 0);
+
     useEffect(() => {
         const fetchProducts = async () => {
             const fetchedProducts = await fetchFirstPageProducts();
@@ -308,7 +311,7 @@ export const ProductPage = () => {
                 onClose={() => setBagModalOpen(false)}
                 image={images[0]}
                 selectedSize={selectedSize}
-                cartLength={shoppingCart.length}
+                totalItems={totalItems}
             />
         </>
     )

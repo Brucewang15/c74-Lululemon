@@ -3,7 +3,7 @@ import './AddToBagModal.css';
 import {useNavigate} from "react-router-dom";
 import {useSelector} from "react-redux";
 
-const AddToBagModal = ({product, recommendedProducts, isOpen, onClose, image, selectedSize, cartLength}) => {
+const AddToBagModal = ({product, recommendedProducts, isOpen, onClose, image, selectedSize, totalItems}) => {
     const navigate = useNavigate();
     if (!isOpen) return null;
     let size = selectedSize;
@@ -15,20 +15,23 @@ const AddToBagModal = ({product, recommendedProducts, isOpen, onClose, image, se
         navigate('/shop/mybag')
     }
 
+
+
     return (
         <div className="modal-overlay" onClick={onClose}>
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
                 <button className="close-button" onClick={onClose}>×</button>
                 <div className="modal-header">
                     <h2>Nice Pick!</h2>
-                    <span>{`${cartLength} ${cartLength === 1 && cartLength !== 0 ? 'item' : 'items'}`}</span>
-                    {/*TODO: change to total items of the cart*/}
+                    <i className="fas fa-shopping-bag"></i>
+                    <span>{`${totalItems} ${totalItems === 1 && totalItems !== 0 ? 'item' : 'items'}`}</span>
+
                 </div>
                 <div className="modal-body">
                     <div className="product-summary">
                         <img src={image} alt={product.name}/>
                         <div>
-                            <h3>{product.name}</h3>
+                            <h4>{product.name}</h4>
                             <p>{`Size: ${size}`}</p>
                             <p>{product.price}</p>
                         </div>
@@ -40,19 +43,22 @@ const AddToBagModal = ({product, recommendedProducts, isOpen, onClose, image, se
                         </div>
                         <div className="modal-buttons">
                             <button className="view-bag-button" onClick={handleCheckOut}>VIEW BAG & CHECKOUT</button>
-                            <button className="continue-shopping-button" onClick={onClose}>Continue Shopping</button>
+                            <button className="continue-shopping-button" onClick={onClose}>
+                                CONTINUE SHOPPING
+                                <i className="fa fa-arrow-right"></i>
+                            </button>
                         </div>
                     </div>
 
                 </div>
                 <div className="recommended-products">
-                    <h3>Goes well with</h3>
+                    <h2>Goes well with</h2>
                     <div className="products">
                         {recommendedProducts.map((item, index) => (
                             <div key={index} className="recommended-product">
                                 <img src={item.images[0].mainCarousel.media.split('|').map(img => img.trim())[0]}
                                      alt={item.name}/>
-                                <p>{item.name}</p>
+                                <h5>{item.name}</h5>
                                 <p>{item.price}</p>
                             </div>
                             // <div>{item.name}</div>
