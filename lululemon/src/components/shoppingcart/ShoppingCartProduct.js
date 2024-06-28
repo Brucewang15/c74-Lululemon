@@ -17,6 +17,8 @@ export const ShoppingCartProduct = () => {
     const [selectedItem, setSelectedItem] = useState(null)
     const [isVisibleEdit, setIsVisibleEdit] = useState(Array(shoppingCart.length).fill(false))
     const sizesSelected = []
+    const [totalPrice, setTotalPrice] = useState(0)
+
 
     useEffect(() => {
         const fetchDetails = async () => {
@@ -25,6 +27,19 @@ export const ShoppingCartProduct = () => {
         };
         fetchDetails();
     }, [shoppingCart]);
+
+    useEffect(() => {
+        const total = shoppingCart.reduce((acc, item, index) => {
+            const productDetail = productDetails[index];
+            if (productDetail) {
+                const newPrice = productDetail.price.replace('$', '').trim();
+                const priceNumber = Number(parseInt(newPrice.slice(0, newPrice.indexOf(' '))));
+                return acc + (priceNumber * item.quantity);
+            }
+            return acc;
+        }, 0);
+        setTotalPrice(total.toFixed(2));
+    }, [shoppingCart, productDetails]);
 
     const getCurrentImage = (item, productDetail) => {
         const currentImage = productDetail?.images?.find(image => image.colorId === item.colorId);
@@ -120,6 +135,8 @@ export const ShoppingCartProduct = () => {
         setIsModalOpen(true)
         setSelectedItem(item)
     }
+
+
     return (
         <div className='shoppingCartWrapper'>
             <div className='shoppingCartBody'>
@@ -213,7 +230,7 @@ export const ShoppingCartProduct = () => {
 
             </div>
             <div className='orderSummary'>
-                <OrderSummary/>
+                <OrderSummary totalPrice={totalPrice}/>
             </div>
             {isModalOpen === true &&
                 <RemoveItemModal closeModal={handleCloseModal} handleRemoveProduct={handleRemoveProduct}
