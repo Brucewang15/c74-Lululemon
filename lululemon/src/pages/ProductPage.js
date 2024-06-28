@@ -204,6 +204,7 @@ export const ProductPage = () => {
                     // If item does not exist, add the new item to the Redux store
                     dispatch(addItems(cartItem));
                 }
+                console.log(shoppingCart)
                 dispatch(fetchCartItems())
             })
             .catch(error => {
