@@ -25,7 +25,7 @@ import YouMayLikeSide from "../components/productpage/YouMayLikeSide";
 import YouMayLike from "../components/productpage/YouMayLike";
 import AddToBagModal from "../components/productpage/AddToBagModal";
 import {fetchFirstPageProducts} from "../redux/utils/api";
-import {addItems, updateQuantity} from "../redux/actions/shoppingCartActions";
+import {addItems, fetchCartItems, updateQuantity} from "../redux/actions/shoppingCartActions";
 
 export const ProductPage = () => {
     // Router
@@ -176,8 +176,12 @@ export const ProductPage = () => {
             productId: productID,
             colorId: selectedColorId,
             size: selectedSize,
-            quantity: 1
+            quantity: 1,
+            images: product.images,
+            price: product.price,
+            name: product.name
         };
+
         axios.post('http://localhost:8000/cart/add', cartItem)
             .then(response => {
                 //alert('Item added to cart');
@@ -200,6 +204,7 @@ export const ProductPage = () => {
                     // If item does not exist, add the new item to the Redux store
                     dispatch(addItems(cartItem));
                 }
+                dispatch(fetchCartItems())
             })
             .catch(error => {
                 console.error('Error adding item to cart:', error);

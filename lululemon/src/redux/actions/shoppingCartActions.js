@@ -21,6 +21,7 @@ export const changeQuantity = (newQuantity, index, itemId) => async dispatch => 
                 index
             }
         });
+        dispatch(fetchCartItems());
     } catch (error) {
         console.error("Error updating quantity:", error);
         // 可以在此处添加错误处理逻辑
