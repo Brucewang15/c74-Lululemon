@@ -89,22 +89,24 @@ export const OrderSummary = ({totalPrice}) => {
                     </div>
 
                     <div className="estimatedTotalBottom">
-                        
-                        {`or 4 payments of  $${totalPrice / 4} with`}
-                        <img
-                            src="https://upload.wikimedia.org/wikipedia/en/thumb/c/c3/Afterpay_logo.svg/332px-Afterpay_logo.svg.png?20201227051205"
-                            alt=""/> or
-                        <img
-                            src="https://1000logos.net/wp-content/uploads/2022/07/Klarna-Logo.png" alt=""/>
-                        <div className="moreInfo" onClick={() => {
-                            handleMoreInfo("Buy items now and pay later - in 4 payments. Learn more", "payment")
-                        }}>
-                            <img src="https://cdn-icons-png.flaticon.com/512/8/8201.png" alt=""/>
-                            {showPopUp === "payment" && (
-                                <div className="popUp">
-                                    {popUpText}
-                                </div>
-                            )}
+
+                        <div className='wordContainer'> {`or 4 payments of  $${(totalPrice / 4).toFixed(2)} with`}</div>
+                        <div className='imageContainer'>
+                            <img
+                                src="https://upload.wikimedia.org/wikipedia/en/thumb/c/c3/Afterpay_logo.svg/332px-Afterpay_logo.svg.png?20201227051205"
+                                alt=""/> or
+                            <img
+                                src="https://1000logos.net/wp-content/uploads/2022/07/Klarna-Logo.png" alt=""/>
+                            <div className="moreInfo" onClick={() => {
+                                handleMoreInfo("Buy items now and pay later - in 4 payments. Learn more", "payment")
+                            }}>
+                                <img src="https://cdn-icons-png.flaticon.com/512/8/8201.png" alt=""/>
+                                {showPopUp === "payment" && (
+                                    <div className="popUp">
+                                        {popUpText}
+                                    </div>
+                                )}
+                            </div>
                         </div>
                     </div>
                 </div>
