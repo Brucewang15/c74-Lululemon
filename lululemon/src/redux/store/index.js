@@ -8,16 +8,18 @@
 //
 // export const reduxStore = createStore(reducer, applyMiddleware(thunk))
 
-import { createStore, applyMiddleware, combineReducers } from 'redux';
+import {createStore, applyMiddleware, combineReducers} from 'redux';
 import {thunk} from 'redux-thunk';
-import { filterReducer } from '../reducers/filterReducer';
-import { productReducer } from '../reducers/productReducer';
+import {filterReducer} from '../reducers/filterReducer';
+import {productReducer} from '../reducers/productReducer';
 import {reviewsReducer} from "../reducers/reviewsReducer";
+import {shoppingCartReducer} from "../reducers/shoppingCartReducer";
 
 const rootReducer = combineReducers({
     filterReducer,
     productReducer,
-    reviewsReducer
+    reviewsReducer,
+    shoppingCartReducer
 });
 
 export const reduxStore = createStore(rootReducer, applyMiddleware(thunk));

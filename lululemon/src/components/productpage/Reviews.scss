@@ -1,161 +1,201 @@
-
-hr {
+.reviewsWrapper {
   width: 100%;
-  border: none;
-  border-top: 1px solid #c2c2c2;
-}
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
-.reviews {
-  font-family: Roboto;
 
-
-  .reviewsHeader {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    .reviewsHeaderTitle {
-      width: 25%;
-      font-size: 45px;
-      font-weight: 600;
-      text-align: left;
-      margin: 30px 0;
-    }
-    .reviewsHeaderDetails {
-      display: flex;
-      width: 75%;
-      flex-direction: row;
-      justify-content: space-between;
-      margin: 30px 0;
-
-      .reviewsHeaderDetailsRating {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        justify-content: center;
-        gap: 10px;
-
-        .stars {
-          display: flex;
-          font-size: 20px;
-          font-weight: 600;
-          .starsAll {
-            display: flex;
-            img {
-              width: 15px;
-              margin: 0 2px;
-            }
-          }
-        }
-        .count {
-          font-size: 10px;
-        }
-      }
-      .reviewsHeaderDetailsSize {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        justify-content: center;
-        gap: 10px;
-        .reivewsHeaderDetailSizeSum {
-          font-size: 20px;
-          font-weight: 600;
-        }
-        .reviewsHeaderDetailsSizeRange {
-          display: flex;
-          flex-direction: row;
-          align-items: center;
-          font-size: 10px;
-          .rangeBars {
-            display: flex;
-            margin: 0 10px;
-            .range {
-              width: 20px;
-              height: 6px;
-              background-color: #d2d2d2;
-              margin-right: 2px;
-            }
-            .black {
-              background-color: black;
-            }
-          }
-        }
-      }
-      button {
-        width: 200px;
-        height: 40px;
-        border-radius: 5px;
-        border: none;
-        background-color: black;
-        color: white;
-        font-size: 10px;
-        font-weight: 700;
-        margin-top: 8px;
-        &:hover {
-          background-color: #4f4f4f;
-        }
-      }
-    }
+  .line {
+    margin: 0 auto;
   }
 
+  hr {
+    width: 100%;
+    border: none;
+    border-top: 1px solid #c2c2c2;
 
-  .reviewsSection {
-    display: flex;
+    margin-left: 10px;
+  }
 
-    .reviewsFilter {
+  .reviews {
+    font-family: Roboto;
+    margin: 0 auto;
+    width: 90%;
+
+
+    .reviewsHeader {
+      width: 100%;
       display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      border: none;
-      width: 25%;
-      .filterTitle {
+      flex-direction: row;
+
+      .reviewsHeaderTitle {
+        width: 25%;
+        font-size: 45px;
         font-weight: 600;
-        margin-bottom: 15px;
+        text-align: left;
+        margin: 30px 0;
       }
 
-      .search {
-        width: 100%;
-        height: 30px;
-        border-radius: 5px;
-        margin-bottom: 10px;
-      }
-      .filterRating {
-        background-color: white;
-        width: 100%;
+      .reviewsHeaderDetails {
         display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        margin-right: 10px;
-        padding-left: 10px;
+        width: 75%;
+        flex-direction: row;
+        justify-content: space-between;
+        margin: 30px 0;
 
-        p {
-          font-weight: 500;
-          margin-top: 10px;
-          margin-bottom: -10px;
+        .reviewsHeaderDetailsRating {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          justify-content: center;
+          gap: 10px;
+
+          .stars {
+            display: flex;
+            font-size: 20px;
+            font-weight: 600;
+
+            .starsAll {
+              display: flex;
+
+              img {
+                width: 15px;
+                margin: 0 2px;
+              }
+            }
+          }
+
+          .count {
+            font-size: 10px;
+          }
         }
-        label {
-          font-size: 15px;
+
+        .reviewsHeaderDetailsSize {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          justify-content: center;
+          gap: 10px;
+
+          .reivewsHeaderDetailSizeSum {
+            font-size: 20px;
+            font-weight: 600;
+          }
+
+          .reviewsHeaderDetailsSizeRange {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            font-size: 10px;
+
+            .rangeBars {
+              display: flex;
+              margin: 0 10px;
+
+              .range {
+                width: 20px;
+                height: 6px;
+                background-color: #d2d2d2;
+                margin-right: 2px;
+              }
+
+              .black {
+                background-color: black;
+              }
+            }
+          }
+        }
+
+        button {
+          width: 200px;
+          height: 40px;
+          border-radius: 5px;
+          border: none;
+          background-color: black;
+          color: white;
+          font-size: 10px;
+          font-weight: 700;
+          margin-top: 8px;
+
+          &:hover {
+            background-color: #4f4f4f;
+          }
         }
       }
     }
 
-    .reviewsContent {
-      width: 75%;
-      margin-left: 20px;
-      .reviewsSum {
+
+    .reviewsSection {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: start;
+      gap: 20px;
+
+      .reviewsFilter {
         display: flex;
-        justify-content: space-between;
-        margin-bottom: 20px;
-        .reviewsSumCount {
-          font-size: 12px;
-          font-weight: 500;
+        flex-direction: column;
+        align-items: flex-start;
+        border: none;
+        width: 25%;
+
+        .filterTitle {
+          font-weight: 600;
+          margin-bottom: 15px;
         }
-        .reviewsSumSort {
-          select {
-            height: 30px;
-            border: none;
-            background-color: white;
+
+        .search {
+          width: 100%;
+          height: 30px;
+          border-radius: 5px;
+          margin-bottom: 10px;
+        }
+
+        .filterRating {
+          background-color: white;
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          margin-right: 10px;
+          padding-left: 10px;
+
+          p {
+            font-weight: 500;
+            margin-top: 10px;
+            margin-bottom: -10px;
           }
 
+          label {
+            font-size: 15px;
+          }
+        }
+      }
+
+      .reviewsContent {
+        width: 75%;
+        margin-left: 20px;
+
+        .reviewsSum {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 20px;
+
+          .reviewsSumCount {
+            font-size: 12px;
+            font-weight: 500;
+          }
+
+          .reviewsSumSort {
+            select {
+              height: 30px;
+              border: none;
+              background-color: white;
+            }
+
+          }
         }
       }
     }

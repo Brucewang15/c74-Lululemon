@@ -20,6 +20,9 @@ import {ProductDetails} from "./ProductDetails";
 import {WhyWeMadeThis} from "./WhyWeMadeThis";
 
 import {Reviews} from "./Reviews";
+import {useSelector} from "react-redux";
+import YouMayLikeSide from "./YouMayLikeSide";
+import YouMayLike from "./YouMayLike";
 
 export const ProductPage = () => {
     // Router
@@ -32,15 +35,21 @@ export const ProductPage = () => {
     const [selectedSwatchIndex, setSelectedSwatchIndex] = useState(null)
     // const [selectedSize, setSelectedSize] = useState(false)
     const [selectedSizeIndex, setSelectedSizeIndex] = useState(null)
+    const [selectedLengthIndex, setSelectedLengthIndex] = useState(null);
     const [swatchName, setSwatchName] = useState('')
     const [selectedSize, setSelectedSize] = useState('')
+    const [selectedLength, setSelectedLength] = useState('');
     const [isSizeSelected, setIsSizeSelected] = useState(false)
+    const [isSizeGroup, setIsSizeGroup] = useState(false)
     const [isModalVisible, setIsModalVisible] = useState(false)
     const [isExpanded, setIsExpanded] = useState(false)
     const [expandedIndex, setExpendedIndex] = useState(null);
     const [scrollPosition, setScrollPosition] = useState(0)
 
     const refs = useRef([])
+
+    const products = useSelector(state => state.filterReducer.products) || [];
+    const youMayLikeProducts = products.slice(0, 4);
 
 
     useEffect(() => {
@@ -74,11 +83,11 @@ export const ProductPage = () => {
                 navigate('/wrong-product')
             })
 
-    }, [productID]);
+    }, [productID, colorID]);
 
     useEffect(() => {
         window.scrollTo(0, 0);
-    }, []);
+    }, [productID, colorID]);
 
     // Define a function to get the images based on selected swatch
     const getCurrentImagesAndAlts = () => {
@@ -105,11 +114,19 @@ export const ProductPage = () => {
         setSwatchName(swatchName)
         navigate(`/product/${productID}?colorId=${colorID}`);
     }
-    const handleSizeButtonClick = (size, index) => {
+    const handleSizeButtonClick = (size, index, groupTitle) => {
         // setSelectedSize(!selectedSize)
         setSelectedSizeIndex(index)
         setSelectedSize(size)
+
         setIsSizeSelected(true)
+        setIsSizeGroup(true)
+    }
+    const handleLengthButtonClick = (length, index) => {
+        setSelectedLengthIndex(index);
+        setSelectedLength(length);
+        setIsSizeSelected(true);
+        setIsSizeGroup(false)
     }
 
     const handleModalOpen = () => {
@@ -150,6 +167,7 @@ export const ProductPage = () => {
                             {/*</button>*/}
                         </div>
                         <div className='productInfo'>
+                            <Link to='/'><h4>What's New Page</h4></Link>
                             <div className='productName'>{product.name}</div>
                             <div className='productPrice'>{product.price}</div>
 
@@ -158,12 +176,22 @@ export const ProductPage = () => {
                             </div>
                             <Swatches product={product} handleSwatchClick={handleSwatchClick}
                                       selectedSwatchIndex={selectedSwatchIndex}/>
-                            <SizeButtons product={product} isSizeSelected={isSizeSelected} selectedSize={selectedSize}
+                            <SizeButtons product={product} isSizeSelected={isSizeSelected}
+                                         selectedSize={selectedSize}
                                          selectedSizeIndex={selectedSizeIndex}
-                                         handleSizeButtonClick={handleSizeButtonClick}/>
-                            <AddToBag isExpanded={isExpanded} handleExpand={handleExpand}/>
+                                         handleSizeButtonClick={handleSizeButtonClick}
+                                         handleLengthButtonClick={handleLengthButtonClick}
+                                         isSizeGroup={isSizeGroup}
+                                         selectedLength={selectedLength}
+                                         selectedLengthIndex={selectedLengthIndex}
+                            />
+
+                            <AddToBag isExpanded={isExpanded} handleExpand={handleExpand}
+                                      product={product} selectedSize={selectedSize} colorId={selectedColorId}
+                            />
                             <ProductDetails product={product} refs={refs} handleScroll={handleScrollAndExpand}/>
                         </div>
+                        <YouMayLikeSide products={youMayLikeProducts}/>
 
                     </div>
                     {product.whyWeMadeThis &&
@@ -173,12 +201,15 @@ export const ProductPage = () => {
                 {/*Details go here*/}
 
                 <br/>
-                <div>
-                    {/*底下这俩都是返回Whats New Page。看你们爱用哪个都行*/}
-                    <Link to='/'>To What's New Page </Link>
-                    <br/>
-                    <button onClick={() => navigate('/')}>Go Back to What's New Page</button>
-                </div>
+                {/*<div>*/}
+                {/*    /!*底下这俩都是返回Whats New Page。看你们爱用哪个都行*!/*/}
+                {/*    <Link to='/'>To What's New Page </Link>*/}
+                {/*    <br/>*/}
+                {/*    <button onClick={() => navigate('/')}>Go Back to What's New Page</button>*/}
+                {/*</div>*/}
+
+                <YouMayLike products={youMayLikeProducts}/>
+
                 <Reviews/>
                 <Footer/>
             </div>
@@ -187,3 +218,4 @@ export const ProductPage = () => {
         </>
     )
 }
+

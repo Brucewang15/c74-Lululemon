@@ -1,0 +1,41 @@
+.youMayLike {
+    width: 100px;
+    position: relative;
+    background: #fafafa;
+    border: none;
+    padding: 10px;
+
+}
+
+.youMayLike h3 {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.youMayLike ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.youMayLike li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.youMayLike li img {
+    width: 90px;
+    height: auto;
+    object-fit: cover;
+    margin-bottom: 5px;
+}
+.youMayLike li img:hover {
+    opacity: 0.7;
+}
+
+.youMayLike li p {
+    font-size: 10px;
+    text-align: center;
+}

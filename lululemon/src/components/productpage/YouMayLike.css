@@ -1,0 +1,78 @@
+.youMayLikeBottom {
+    width: 100%;
+    margin-top: 50px;
+    text-align: center;
+}
+
+.youMayLikeBottom h3 {
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+.youMayLikeBottom .products {
+    display: flex;
+    justify-content: space-around;
+}
+
+.youMayLikeBottom .product {
+    width: 22%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    background: #fff;
+}
+
+.youMayLikeBottom .imageContainer {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    position: relative;
+}
+
+.youMayLikeBottom .product img {
+    width: 100%;
+    height: auto;
+    transition: transform 0.3s ease-in-out;
+}
+
+/*.youMayLikeBottom .product:hover img {*/
+/*    transform: scale(1.05);*/
+/*}*/
+
+.youMayLikeBottom .swatchesContainer {
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 5px;
+    background: white;
+    padding: 5px;
+
+    width: 98%;
+    z-index: 99;
+
+}
+
+.youMayLikeBottom .swatchButton {
+    border: none;
+    background: none;
+    padding: 0;
+    width: 10%
+}
+
+.youMayLikeBottom .swatch {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+
+.youMayLikeBottom .swatchButton:hover .swatch {
+    border-color: black;
+}
+

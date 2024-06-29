@@ -30,6 +30,15 @@
         align-items: flex-start;
         margin-left: 10px;
 
+        h4 {
+          font-size: small;
+          text-decoration: underline black;
+
+          &:hover {
+            text-decoration: underline red;
+          }
+        }
+
         .productName {
           font-size: 2.05rem;
           font-weight: 700;
@@ -67,37 +76,6 @@
     }
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 //.productPageWrapperHidden {

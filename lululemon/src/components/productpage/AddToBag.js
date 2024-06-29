@@ -2,8 +2,29 @@ import StorefrontOutlinedIcon from "@mui/icons-material/StorefrontOutlined";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import './AddToBag.scss'
+import {useNavigate} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {addItems} from "../../redux/actions/shoppingCartActions";
 
-export const AddToBag = ({isExpanded, handleExpand}) => {
+export const AddToBag = ({isExpanded, handleExpand, colorId, product, selectedSize}) => {
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+
+
+    // test to add new items, Whitney you can delete this later
+    const handleAddToBag = () => {
+        const addedProduct = {
+            productId: product.productId,
+            name: product.name,
+            price: product.price,
+            selectedSize: selectedSize,
+            selectedColorId: colorId,
+            quantity: 1,
+            images: product.images
+        }
+        dispatch(addItems(addedProduct))
+        navigate('/shop/mybag')
+    }
     return (
         <div className='addToBagContainer'>
             <div className='ship'>
@@ -36,7 +57,7 @@ export const AddToBag = ({isExpanded, handleExpand}) => {
                     </label>
                 </div>)}
             <div className='buttonContainer'>
-                <button className='button1'>ADD TO BAG</button>
+                <button className='button1' onClick={handleAddToBag}>ADD TO BAG</button>
             </div>
             <div className='otherStoreContainer'>
                 <button className='button2'>Check All Store Inventory</button>
