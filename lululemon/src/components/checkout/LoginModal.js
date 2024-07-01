@@ -3,13 +3,15 @@ import './LoginModal.css';
 import CloseIcon from '@mui/icons-material/Close';
 import axios from "axios";
 import {myKey} from "../../redux/utils/helper";
+import {useDispatch, useSelector} from "react-redux";
+import {setToken, setUser} from "../../redux/actions/authAction";
 
-export const LoginModal = ({handleModalClose}) => {
+export const LoginModal = ({handleModalClose, isSuccess, setIsSuccess}) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [token, setToken] = useState('')
     const [message, setMessage] = useState('')
-    const [isSuccess, setIsSuccess] = useState(false)
+
+    const dispatch = useDispatch()
 
     // markxu@itlab.com
     // ITLabAPI@2024
@@ -24,7 +26,8 @@ export const LoginModal = ({handleModalClose}) => {
             password
         })
             .then(res => {
-                setToken(res.data.data.token)
+                dispatch(setToken(res.data.data.token))
+                dispatch(setUser(res.data.data.user))
                 setMessage('Login successful')
                 console.log(res.data.data)
                 setIsSuccess(true)
