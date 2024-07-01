@@ -17,7 +17,7 @@ export const EmptyShoppingCart = () => {
 
             <div className='emptyShoppingCartBody'>
                 <h1>Give your bag some love!</h1>
-                <button className='whatsNewBtn' onClick={() => navigate('/')}>SHOP WHAT"S NEW
+                <button className='whatsNewBtn' onClick={() => navigate('/')}>SHOP WHAT'S NEW
                 </button>
             </div>
 

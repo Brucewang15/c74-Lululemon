@@ -18,7 +18,7 @@ export const ShoppingCartProduct = () => {
     const [isVisibleEdit, setIsVisibleEdit] = useState(Array(shoppingCart.length).fill(false))
     const sizesSelected = []
     const [totalPrice, setTotalPrice] = useState(0)
-
+    const totalItems = shoppingCart.reduce((total, item) => total + item.quantity, 0);
 
     useEffect(() => {
         const fetchDetails = async () => {
@@ -144,7 +144,8 @@ export const ShoppingCartProduct = () => {
                     <div className='itemCount'>
                         <span className='wordMyBag'>My Bag </span>
                         <span
-                            className='wordItem'>({shoppingCart.length} {shoppingCart.length > 1 ? 'Items' : 'Item'})</span>
+                            // className='wordItem'>({shoppingCart.length} {shoppingCart.length > 1 ? 'Items' : 'Item'})</span>
+                            className='wordItem'>({totalItems} {totalItems > 1 ? 'Items' : 'Item'})</span>
                     </div>
                 </div>
                 <div className='textContainer'>

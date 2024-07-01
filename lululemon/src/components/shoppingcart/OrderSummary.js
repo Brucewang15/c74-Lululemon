@@ -1,9 +1,10 @@
 import "./OrderSummary.css";
 import {useState} from "react";
+import {useNavigate} from "react-router-dom";
 
 
 export const OrderSummary = ({totalPrice}) => {
-
+    const navigate = useNavigate()
 
     const [popUpText, setPopUpText] = useState('');
     const [showPopUp, setShowPopUp] = useState(null);
@@ -116,7 +117,7 @@ export const OrderSummary = ({totalPrice}) => {
 
             <div className="pay">
 
-                <button>
+                <button onClick={() => navigate('/shop/checkout')}>
                     <img src="https://luxecreative.com/wp-content/uploads/2019/09/lululemon.png" alt=""/>
                     CHECKOUT
                 </button>
