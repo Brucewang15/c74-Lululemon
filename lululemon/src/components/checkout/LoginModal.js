@@ -50,7 +50,7 @@ export const LoginModal = ({handleModalClose}) => {
         console.log(e.target.value)
     }
     return (
-        <div className="modal-overlay" onClick={handleModalClose}>
+        <div className="modal-overlay">
             <div className="modal-content" onClick={e => e.stopPropagation()}>
                 <div className="modal-header">
                     <h2>Make shopping even easier.</h2>
