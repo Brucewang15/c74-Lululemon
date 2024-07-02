@@ -122,13 +122,13 @@ export const OrderSummary = ({totalPrice}) => {
                     CHECKOUT
                 </button>
 
-                or checkout quickly with
+                {/*or checkout quickly with*/}
 
-                <button>
-                    <img
-                        src="https://i0.wp.com/cypruscomiccon.org/wp-content/uploads/2015/07/Paypal-logo-white.svg1_.png?ssl=1"
-                        alt=""/>
-                </button>
+                {/*<button>*/}
+                {/*    <img*/}
+                {/*        src="https://i0.wp.com/cypruscomiccon.org/wp-content/uploads/2015/07/Paypal-logo-white.svg1_.png?ssl=1"*/}
+                {/*        alt=""/>*/}
+                {/*</button>*/}
 
             </div>
 

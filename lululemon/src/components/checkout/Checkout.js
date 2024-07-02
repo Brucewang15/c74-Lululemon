@@ -3,13 +3,16 @@ import {ShoppingCartFooter} from "../shoppingcart/ShoppingCartFooter";
 import './Checkout.css'
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import {LoginModal} from "./LoginModal";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import axios from "axios";
 import {myKey} from "../../redux/utils/helper";
 import {fetchCartItems} from "../../redux/actions/shoppingCartActions";
 import {fetchProductDetails} from "../../redux/utils/api";
 import {setToken, setUser} from "../../redux/actions/authAction";
+import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
+import ExpandLessOutlinedIcon from '@mui/icons-material/ExpandLessOutlined';
+import ExpandMoreOutlinedIcon from '@mui/icons-material/ExpandMoreOutlined';
 
 export const Checkout = () => {
     const shoppingCart = useSelector(state => state.shoppingCartReducer.shoppingCart)
@@ -20,6 +23,8 @@ export const Checkout = () => {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [isSuccess, setIsSuccess] = useState(false)
     const [productDetails, setProductDetails] = useState([]);
+    const [isExpanded, setIsExpanded] = useState(true)
+    const totalItems = shoppingCart.reduce((total, item) => total + item.quantity, 0);
     // markxu@itlab.com
     // ITLabAPI@2024
     const handleOpenLoginModal = () => {
@@ -124,11 +129,16 @@ export const Checkout = () => {
             return 0;
         }
     };
+
+    const handleExpand = () => {
+        setIsExpanded(!isExpanded)
+    }
+
     return (
         <>
 
             <ShoppingCartHeader/>
-            <h1 style={{marginTop: '100px', padding: "20px 0"}}>Checkout</h1>
+            <h1 style={{marginTop: '80px', paddingTop: '30px'}}>Checkout</h1>
             <div className='checkoutBody'>
                 {isSuccess === false ?
                     (<div className='checkoutBodyLeft'>
@@ -154,30 +164,62 @@ export const Checkout = () => {
                 <div className='checkoutBodyRight'>
                     <div className='orderSummary'>
                         <h2>Order summary</h2>
-                        {shoppingCart.map((item, index) => {
-                            const productDetail = productDetails[index];
-                            const {image, colorAlt} = getCurrentImage(item, productDetail);
-                            return (
-                                <div key={index} className="shoppingCartItem">
-                                    <img className='productImage' src={image} alt={colorAlt}/>
-                                    <div className='productInfo'>
-                                        <h3>{productDetail?.name}</h3>
-                                        <p>Color: {colorAlt}</p>
-                                        <p>Size: {item.size}</p>
-                                        <p>Quantity: {item.quantity}</p>
-                                        <p>Price: {productDetail?.price}</p>
+                        <div className='orderHeader'>
+                            <div className='orderHeaderLeft'>
+                                <ShoppingBagOutlinedIcon/>
+                                <span>{`${totalItems} ${totalItems === 1 && totalItems !== 0 ? 'item' : 'items'}`}</span>
+                                {isExpanded ? <ExpandLessOutlinedIcon onClick={handleExpand}/> :
+                                    <ExpandMoreOutlinedIcon onClick={handleExpand}/>}
+                            </div>
+                            <div className='orderHeaderRight'>
+                                ${shoppingCart.reduce((total, item, index) => {
+                                const productDetail = productDetails[index];
+                                return total + (productDetail ? calcTotalPrice(productDetail.price, item.quantity) : 0);
+                            }, 0).toFixed(2)}</div>
+                        </div>
+                        {isExpanded && <div className='shoppingCartContainer'>
+                            {shoppingCart.map((item, index) => {
+                                const productDetail = productDetails[index];
+                                const {image, colorAlt} = getCurrentImage(item, productDetail);
+                                return (
+                                    <div key={index} className="shoppingCartItem">
+                                        <img className='productImage' src={image} alt={colorAlt}/>
+                                        <div className='productInfo'>
+                                            <h3>{productDetail?.name}</h3>
+                                            <p>Color: {colorAlt}</p>
+                                            <p>Size: {item.size}</p>
+                                            <p>Quantity: {item.quantity}</p>
+                                            <p>Price: {productDetail?.price}</p>
+                                        </div>
                                     </div>
-                                </div>
-                            );
-                        })}
+                                );
+                            })}
+                        </div>}
                         <div className="orderTotal">
-                            <h3>
-                                Total: $
-                                {shoppingCart.reduce((total, item, index) => {
+                            <div className="orderTotalRow">
+                                <span>Subtotal</span>
+                                <span>${shoppingCart.reduce((total, item, index) => {
                                     const productDetail = productDetails[index];
                                     return total + (productDetail ? calcTotalPrice(productDetail.price, item.quantity) : 0);
-                                }, 0).toFixed(2)}
-                            </h3>
+                                }, 0).toFixed(2)}</span>
+                            </div>
+                            <div className="orderTotalRow">
+                                <span>Shipping</span>
+                                <span>FREE</span>
+                            </div>
+                            <div className="orderTotalRow">
+                                <span>Tax</span>
+                                <span>Calculated at next step</span>
+                            </div>
+                            <div className="orderTotalFinal">
+                                <h3>
+                                    Order Total: CAD $
+                                    {shoppingCart.reduce((total, item, index) => {
+                                        const productDetail = productDetails[index];
+                                        return total + (productDetail ? calcTotalPrice(productDetail.price, item.quantity) : 0);
+                                    }, 0).toFixed(2)}
+                                </h3>
+                            </div>
                         </div>
                     </div>
                 </div>
