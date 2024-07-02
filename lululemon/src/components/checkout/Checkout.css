@@ -3,45 +3,87 @@
     display: flex;
     flex-direction: row;
     margin: 0 auto;
+    justify-content: space-between;
+}
 
+.checkoutBodyLeft {
+    width: 55%;
+}
 
-    .checkoutBodyLeft {
-        width: 60%;
+.checkoutBodyRight {
+    width: 40%;
 
-        .loginContainer {
+    .orderSummary {
+        border: 1px solid #ddd;
+        padding: 20px;
+
+        .shoppingCartItem {
             display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: flex-start;
-            gap: 5px;
-            padding: 10px 0;
-        }
+            margin-bottom: 10px;
 
-        .loginTitle {
-            display: flex;
-            flex-direction: row;
-            justify-content: flex-start;
-            align-items: center;
-            gap: 4px;
+            .productImage {
+                width: 60px;
+                height: 80px;
+                object-fit: cover;
+                margin-right: 10px;
+            }
 
-            span {
-                font-weight: 600;
-                font-size: x-large;
+            .productInfo {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                align-items: flex-start;
+                width: 50%;
+
+                h3 {
+                    font-size: 1rem;
+                    margin: 0;
+                }
+
+                p {
+                    margin: 0;
+                    font-size: 0.9rem;
+                }
             }
         }
 
-        .loginText {
-            cursor: pointer;
-
-            span {
-                text-decoration: underline black;
-                font-weight: 600;
-                cursor: pointer;
-            }
+        .orderTotal {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.2rem;
         }
     }
+}
 
-    .checkoutBodyRight {
-        width: 40%;
+.loginContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 5px;
+    padding: 10px 0;
+}
+
+.loginTitle {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 4px;
+
+    span {
+        font-weight: 600;
+        font-size: x-large;
+    }
+}
+
+.loginText {
+    cursor: pointer;
+
+    span {
+        text-decoration: underline black;
+        font-weight: 600;
+        cursor: pointer;
     }
 }

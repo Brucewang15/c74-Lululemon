@@ -26,8 +26,16 @@ export const LoginModal = ({handleModalClose, isSuccess, setIsSuccess}) => {
             password
         })
             .then(res => {
-                dispatch(setToken(res.data.data.token))
-                dispatch(setUser(res.data.data.user))
+                const token = res.data.data.token
+                const expirationTime = new Date().getTime() + 2 * 60 * 60 * 1000
+                // const expirationTime = new Date().getTime() + 2 * 1000
+                const userInfo = res.data.data.user
+                localStorage.setItem('token', token)
+                localStorage.setItem('tokenExpiration', expirationTime)
+                localStorage.setItem('userInfo', JSON.stringify(userInfo))
+
+                dispatch(setToken(token))
+                dispatch(setUser(userInfo))
                 setMessage('Login successful')
                 console.log(res.data.data)
                 setIsSuccess(true)
