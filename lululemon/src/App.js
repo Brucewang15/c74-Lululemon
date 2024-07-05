@@ -6,8 +6,42 @@ import {WrongPage} from './components/productpage/WrongPage'
 import {WrongProductPage} from "./components/productpage/WrongProductPage";
 import {ShoppingCart} from "./pages/ShoppingCart";
 import {Checkout} from "./components/checkout/Checkout";
+import {useDispatch} from "react-redux";
+import {useEffect} from "react";
+import {refreshToken} from "./redux/utils/api";
+import {setToken, setUser} from "./redux/actions/authAction";
+//import api from "../services/api";
 
 function App() {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        const initializeAuth = async () => {
+            const token = localStorage.getItem('token');
+            const tokenExpiration = localStorage.getItem('tokenExpiration');
+            const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+
+            if (token && tokenExpiration) {
+                const isTokenExpired = new Date().getTime() > tokenExpiration;
+                if (isTokenExpired) {
+                    const newToken = await refreshToken();
+                    if (newToken) {
+                        dispatch(setToken(newToken));
+                        dispatch(setUser(userInfo));
+                    } else {
+                        localStorage.removeItem('token');
+                        localStorage.removeItem('tokenExpiration');
+                        localStorage.removeItem('userInfo');
+                    }
+                } else {
+                    dispatch(setToken(token));
+                    dispatch(setUser(userInfo));
+                }
+            }
+        };
+
+        initializeAuth();
+    }, [dispatch]);
     return (
         <div className="App">
             <BrowserRouter>
