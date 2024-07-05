@@ -26,16 +26,11 @@ export const fetchFirstPageProducts = async() => {
 }
 
 export const refreshToken = async () => {
-    // const userInfo =
-    //     {
-    //         "email":"markxu@itlab.com",
-    //         "password":"ITLabAPI@2024"
-    //     }
-
+    const userInfo = JSON.parse(localStorage.getItem('userInfo'));
     try {
         const response = await axios.post(`http://api-lulu.hibitbyte.com/auth/refresh-token?mykey=${myKey}`, {
-            "email":"markxu@itlab.com",
-            "password":"ITLabAPI@2024"
+            email: userInfo.email,
+            password:"ITLabAPI@2024"
         });
         const newToken = response.data.data.token;
         const expirationTime = new Date().getTime() + 2 * 60 * 60 * 1000; // 2 hours
