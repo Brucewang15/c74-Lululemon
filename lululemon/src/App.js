@@ -10,7 +10,7 @@ import Login from "./components/login/Login";
 function App() {
     return (
         <div className="App">
-            <Login/>
+
             <BrowserRouter>
                 <Routes>
                     <Route path='/' element={<WhatsNewPage/>}/>
@@ -18,6 +18,7 @@ function App() {
                     <Route path='/wrong-product' element={<WrongProductPage/>}/>
                     <Route path='/shop/mybag' element={<ShoppingCart/>}/>
                     <Route path='*' element={<WrongPage/>}/>
+                    <Route path ='/account/login' element = {<Login/>}></Route>
                 </Routes>
             </BrowserRouter>
 

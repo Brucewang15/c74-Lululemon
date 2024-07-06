@@ -9,6 +9,9 @@ import Shoes from "./Shoes";
 import FathersDay from "./FathersDay";
 import {useNavigate} from "react-router-dom";
 import {useSelector} from "react-redux";
+import { Link } from 'react-router-dom';
+
+
 
 export const Header = ({isSticky}) => {
     const navigate = useNavigate()
@@ -27,7 +30,7 @@ export const Header = ({isSticky}) => {
         <div className='headerContent'>
             <div className="topHeaderNavigation">
                 <div className="topHeaderNavigationIndividual">
-                    <a href="">
+                    <a href = "">
                         <img src="https://cdn-icons-png.flaticon.com/512/535/535239.png" alt=""/>
                         <p id="miniAnimation">Store Locator</p>
                     </a>
@@ -109,10 +112,10 @@ export const Header = ({isSticky}) => {
                         </div>
 
                         <div className="threeIcons">
-                            <a href="">
+                            <Link to='/account/login'>
                                 <img src="https://cdn-icons-png.flaticon.com/512/1144/1144760.png" alt=""/>
                                 <p id="miniAnimation">Sign In</p>
-                            </a>
+                            </Link>
                             <a href="">
                                 <img src="https://www.svgrepo.com/show/326671/heart-outline.svg" alt=""/>
                             </a>

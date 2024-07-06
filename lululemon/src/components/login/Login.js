@@ -1,5 +1,9 @@
 import "./Login.css"
+import {React} from 'react'
 
+import {Link} from 'react-router-dom'
+import {Header} from "../shared/Header";
+import Footer from "../shared/Footer";
 
 const Login = () => {
 
@@ -7,7 +11,7 @@ const Login = () => {
 
     return <>
 
-
+        <Header/>
         <div className="login">
 
             <div className="loginTitle">Wellbeing made easier. We've got you.</div>
@@ -77,6 +81,8 @@ const Login = () => {
                 </div>
             </div>
         </div>
+
+        <Footer/>
 
     </>
 }
