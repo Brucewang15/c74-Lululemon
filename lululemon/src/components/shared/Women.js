@@ -122,7 +122,7 @@ const Women = () => {
                 </div>
                 <div className="womenContainerBottomRight">
                     <div className="womenContainerTitle">
-                        <p>SHOP ALL MEN</p>
+                        <p>SHOP ALL WOMEN</p>
                         <img
                             src="https://media.discordapp.net/attachments/853703320711462973/1251035798258581615/wEh2fQzOMe7oAAAAABJRU5ErkJggg.png?ex=666d1d61&is=666bcbe1&hm=ee03720f4d9eaa2bad003b0fc97a7a705cd4b8d06ca8105f42ee8a5e8a49f4f0&=&format=webp&quality=lossless&width=900&height=900"
                             alt=""/>

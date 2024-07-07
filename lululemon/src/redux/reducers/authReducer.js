@@ -2,7 +2,8 @@ import {actionTypes} from "../actions/actionTypes";
 
 const initialState = {
     token: '',
-    user: null
+    user: null,
+    loginStatus: false
 }
 
 export const authReducer = (state = initialState, action) => {
@@ -14,6 +15,10 @@ export const authReducer = (state = initialState, action) => {
         case actionTypes.SET_USER:
             return {
                 ...state, user: action.payload
+            }
+        case actionTypes.LOGIN_SUCCESS:
+            return {
+                ...state, loginStatus: true
             }
         default:
             return state

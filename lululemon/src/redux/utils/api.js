@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { singleProductURL, productURL, myKey } from './helper';
+import {singleProductURL, productURL, myKey} from './helper';
 import {setToken, setUser} from "../actions/authAction";
 import {useDispatch} from "react-redux";
 
@@ -13,7 +13,7 @@ export const fetchProductDetails = async (productId) => {
     }
 };
 
-export const fetchFirstPageProducts = async() => {
+export const fetchFirstPageProducts = async () => {
     try {
         const response = await axios.post(productURL);
         //console.log(response.data);
@@ -30,7 +30,7 @@ export const refreshToken = async () => {
     try {
         const response = await axios.post(`http://api-lulu.hibitbyte.com/auth/refresh-token?mykey=${myKey}`, {
             email: userInfo.email,
-            password:"ITLabAPI@2024"
+            password: "ITLabAPI@2024"
         });
         const newToken = response.data.data.token;
         const expirationTime = new Date().getTime() + 2 * 60 * 60 * 1000; // 2 hours
