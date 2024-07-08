@@ -11,6 +11,7 @@ import {useEffect} from "react";
 import {refreshToken} from "./redux/utils/api";
 import {setToken, setUser} from "./redux/actions/authAction";
 //import api from "../services/api";
+import {ThankYou} from "./components/checkout/ThankYou";
 
 function App() {
     const dispatch = useDispatch();
@@ -51,6 +52,7 @@ function App() {
                     <Route path='/wrong-product' element={<WrongProductPage/>}/>
                     <Route path='/shop/mybag' element={<ShoppingCart/>}/>
                     <Route path='/shop/checkout' element={<Checkout/>}/>
+                    <Route path='/shop/thankyou' element={<ThankYou/>}/>
                     <Route path='*' element={<WrongPage/>}/>
                 </Routes>
             </BrowserRouter>

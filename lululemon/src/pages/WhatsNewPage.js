@@ -17,6 +17,7 @@ import {ShoppingCart} from "./ShoppingCart";
 
 export const WhatsNewPage = () => {
     const [isSticky, setIsSticky] = useState(false);
+    // 'useRef' don't trigger re-render of the component
     const sentinelRef = useRef(null);
 
     useEffect(() => {
