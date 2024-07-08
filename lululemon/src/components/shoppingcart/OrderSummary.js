@@ -12,6 +12,7 @@ export const OrderSummary = ({totalPrice}) => {
 
     const shoppingCart = useSelector(state => state.shoppingCartReducer.shoppingCart);
     const token = useSelector(state => state.authReducer.token);
+    const isLogin = useSelector(state => state.authReducer.loginStatus)
 
     const [popUpText, setPopUpText] = useState('');
     const [showPopUp, setShowPopUp] = useState(null);
@@ -168,11 +169,11 @@ export const OrderSummary = ({totalPrice}) => {
                 {/*<div className="payPal">*/}
                 {/*    <Payment/>*/}
                 {/*</div>*/}
-                <button onClick={handlePlaceOrder}>
+                {isLogin === true && <button onClick={handlePlaceOrder}>
                     <img
                         src="https://i0.wp.com/cypruscomiccon.org/wp-content/uploads/2015/07/Paypal-logo-white.svg1_.png?ssl=1"
                         alt=""/>
-                </button>
+                </button>}
 
             </div>
 

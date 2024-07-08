@@ -3,23 +3,29 @@ import {useDispatch, useSelector} from "react-redux";
 import {changeQuantity, fetchCartItems, removeProduct} from "../../redux/actions/shoppingCartActions";
 import './ShoppingCartProduct.scss'
 import {OrderSummary} from "./OrderSummary";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {fetchProductDetails} from "../../redux/utils/api";
 import axios from "axios";
 import {RemoveItemModal} from "./RemoveItemModal";
 import {EditPopUp} from "./EditPopUp";
+import {LoginModal} from "../checkout/LoginModal";
 
 export const ShoppingCartProduct = () => {
     const shoppingCart = useSelector(state => state.shoppingCartReducer.shoppingCart)
+    const isLogin = useSelector(state => state.authReducer.loginStatus)
     const dispatch = useDispatch()
     const [productDetails, setProductDetails] = useState([]);
-    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [isModalOpen1, setIsModalOpen1] = useState(false)
     const [selectedItem, setSelectedItem] = useState(null)
     const [isVisibleEdit, setIsVisibleEdit] = useState(Array(shoppingCart.length).fill(false))
     const sizesSelected = []
     const [totalPrice, setTotalPrice] = useState(0)
     const totalItems = shoppingCart.reduce((total, item) => total + item.quantity, 0);
+    const [isModalOpen, setIsModalOpen] = useState(false)
 
+    const [isSuccess, setIsSuccess] = useState(false)
+    // markxu@itlab.com
+    // ITLabAPI@2024
     useEffect(() => {
         const fetchDetails = async () => {
             const details = await Promise.all(shoppingCart.map(item => fetchProductDetails(item.productId)));
@@ -128,15 +134,20 @@ export const ShoppingCartProduct = () => {
     }
 
     const handleCloseModal = () => {
-        setIsModalOpen(false)
+        setIsModalOpen1(false)
         setSelectedItem(null)
     }
     const handleOpenModal = (item) => {
-        setIsModalOpen(true)
+        setIsModalOpen1(true)
         setSelectedItem(item)
     }
 
-
+    const handleOpenLoginModal = () => {
+        setIsModalOpen(true)
+    }
+    const handleCLoseLoginModal = () => {
+        setIsModalOpen(false)
+    }
     return (
         <div className='shoppingCartWrapper'>
             <div className='shoppingCartBody'>
@@ -225,7 +236,11 @@ export const ShoppingCartProduct = () => {
                     })}
                     <div className='savedForLaterContainer'>
                         <h2>Saved for Later</h2>
-                        <p><span>Sign in</span> or <span> create a member account</span> to view your saved items.</p>
+                        {isLogin === false &&
+                            <p><span
+                                onClick={handleOpenLoginModal}>Sign in</span> or <span> create a member account</span> to
+                                view your saved items.
+                            </p>}
                     </div>
                 </div>
 
@@ -233,9 +248,11 @@ export const ShoppingCartProduct = () => {
             <div className='orderSummary'>
                 <OrderSummary totalPrice={totalPrice}/>
             </div>
-            {isModalOpen === true &&
+            {isModalOpen1 === true &&
                 <RemoveItemModal closeModal={handleCloseModal} handleRemoveProduct={handleRemoveProduct}
                                  item={selectedItem}/>}
+            {isModalOpen && <LoginModal handleModalClose={handleCLoseLoginModal} isSuccess={isSuccess}
+                                        setIsSuccess={setIsSuccess}/>}
         </div>
     )
 }

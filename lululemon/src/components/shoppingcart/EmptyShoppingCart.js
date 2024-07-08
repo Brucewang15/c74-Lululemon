@@ -2,18 +2,20 @@ import {useNavigate} from "react-router-dom";
 import './EmptyShoppingCart.scss'
 import PermIdentitySharpIcon from "@mui/icons-material/PermIdentitySharp";
 import VerifiedUserOutlinedIcon from '@mui/icons-material/VerifiedUserOutlined';
+import {ShoppingCartHeader} from "./ShoppingCartHeader";
 
 export const EmptyShoppingCart = () => {
     const navigate = useNavigate()
 
     return (
         <div className='emptyShoppingCartContainer'>
-            <div className='shoppingCartHeader'>
-                <img
-                    src='https://hucksterdesign.com/wp-content/uploads/2020/12/lululemon-logo.jpg'
-                    alt="logo"/>
-                <div className='signInContainer'><PermIdentitySharpIcon/> Sign in</div>
-            </div>
+            <ShoppingCartHeader/>
+            {/*<div className='shoppingCartHeader'>*/}
+            {/*    <img*/}
+            {/*        src='https://hucksterdesign.com/wp-content/uploads/2020/12/lululemon-logo.jpg'*/}
+            {/*        alt="logo"/>*/}
+            {/*    <div className='signInContainer'><PermIdentitySharpIcon/> Sign in</div>*/}
+            {/*</div>*/}
 
             <div className='emptyShoppingCartBody'>
                 <h1>Give your bag some love!</h1>
