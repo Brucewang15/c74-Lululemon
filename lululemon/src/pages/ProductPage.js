@@ -184,6 +184,9 @@ export const ProductPage = () => {
             size: selectedSize,
             quantity: 1,
             price: productPrice,
+            image: images[0],
+            name: product.name,
+            swatchName: swatchName,
         };
 
         axios.post('http://localhost:8000/cart/add', cartItem)

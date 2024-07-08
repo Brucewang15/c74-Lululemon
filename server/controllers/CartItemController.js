@@ -9,7 +9,8 @@ const {
 
 const CartItemController = (app) => {
     app.post('/cart/add', async (req, res) => {
-        const { productId, colorId, size, price } = req.body;
+        console.log("adding to cart ==== ", req.body);
+        const { productId, colorId, size, price, image, name, swatchName } = req.body;
 
         try {
             // Check if the item already exists in the cart

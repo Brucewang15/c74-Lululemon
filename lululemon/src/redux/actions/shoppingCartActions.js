@@ -58,7 +58,7 @@ export const updateQuantity = (quantity, index, itemId) => {
 //         // 可以在此处添加错误处理逻辑
 //     }
 // };
-export const edtCart = (newSize, newColorId, index, itemId) => async (dispatch, getState) => {
+export const edtCart = (newSize, newColorId, index, itemId, colorDes, image) => async (dispatch, getState) => {
     try {
         const {shoppingCartReducer: {shoppingCart}} = getState();
 
@@ -87,13 +87,19 @@ export const edtCart = (newSize, newColorId, index, itemId) => async (dispatch, 
             });
         } else {
             // 否则，正常更新
-            await axios.post(`http://localhost:8000/cart/update/${itemId}`, {size: newSize, colorId: newColorId});
+            await axios.post(`http://localhost:8000/cart/update/${itemId}`, {
+                size: newSize,
+                colorId: newColorId,
+                swatchName: colorDes,
+                image: image});
             dispatch({
                 type: actionTypes.EDIT_CART,
                 payload: {
                     newSize,
                     newColorId,
-                    index
+                    index,
+                    colorDes,
+                    image
                 }
             });
         }
