@@ -21,10 +21,15 @@ const findOne = async (query) => {
     return await CartItemModel.findOne(query);
 };
 
+const deleteAllCartItems = () => {
+    return CartItemModel.deleteMany({});
+}
+
 module.exports = {
     addToCart,
     deleteFromCart,
     updateCartItem,
     getAllCartItems,
-    findOne
+    findOne,
+    deleteAllCartItems,
 };

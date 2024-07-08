@@ -9,7 +9,7 @@ import axios from "axios";
 import {myKey} from "../../redux/utils/helper";
 import {fetchCartItems} from "../../redux/actions/shoppingCartActions";
 import {fetchProductDetails} from "../../redux/utils/api";
-import {setToken, setUser} from "../../redux/actions/authAction";
+//import {setToken, setUser} from "../../redux/actions/authAction";
 import {useNavigate} from "react-router-dom";
 import {loginSuccess, setToken, setUser} from "../../redux/actions/authAction";
 import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
@@ -56,9 +56,13 @@ export const Checkout = () => {
                 authorization: `bear ${token}`
             }
         })
-            .then(res => console.log('Order Placed successfully', res.data))
+            .then(async (res) => {
+                console.log('Order Placed successfully', res.data)
+                await axios.delete(`http://localhost:8000/cart/cleanup`);
+                console.log('Cart cleaned up successfully');
+                navigate('/shop/thankyou')
+            })
             .catch(err => console.error('Order place failed', err))
-        navigate('/shop/thankyou')
     }
 
 

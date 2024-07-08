@@ -3,7 +3,8 @@ const {
     deleteFromCart,
     updateCartItem,
     getAllCartItems,
-    findOne
+    findOne,
+    deleteAllCartItems
 } = require('../models/CartItemDao');
 
 const CartItemController = (app) => {
@@ -55,6 +56,15 @@ const CartItemController = (app) => {
             res.status(400).json({ message: error.message });
         }
     });
+
+    app.delete('/cart/cleanup', async (req, res) => {
+        try {
+            await deleteAllCartItems();
+            res.status(200).json({ message: 'All cart items deleted successfully' });
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    })
 };
 
 module.exports = CartItemController;
