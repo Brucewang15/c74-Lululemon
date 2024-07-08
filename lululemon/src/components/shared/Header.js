@@ -50,7 +50,7 @@ export const Header = ({isSticky}) => {
         };
 
         fetchAndCountCartItems();
-    }, []);
+    }, [shoppingCart]);
     return (
 
         <div className='headerContent'>
