@@ -1,21 +1,35 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import './AddToBagModal.css';
 import {useNavigate} from "react-router-dom";
 import {useSelector} from "react-redux";
+import {fetchCartItemsFromDB} from "../../redux/utils/api";
 
 const AddToBagModal = ({product, recommendedProducts, isOpen, onClose, image, selectedSize, totalItems}) => {
+    const [totalPrice, setTotalPrice] = useState(0);
     const navigate = useNavigate();
+
+    const updateTotalPrice = async () => {
+        const cartItems = await fetchCartItemsFromDB();
+        let price = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+        setTotalPrice(price);
+    };
+
+    useEffect(() => {
+        if (isOpen) {
+            updateTotalPrice();
+        }
+    }, [isOpen]);
+
     if (!isOpen) return null;
+
     let size = selectedSize;
     if (!size) {
-        size = 'ONE SIZE'
+        size = 'ONE SIZE';
     }
 
     const handleCheckOut = () => {
-        navigate('/shop/mybag')
-    }
-
-
+        navigate('/shop/mybag');
+    };
 
     return (
         <div className="modal-overlay" onClick={onClose}>
@@ -39,7 +53,7 @@ const AddToBagModal = ({product, recommendedProducts, isOpen, onClose, image, se
                     <div className="cart-summary">
                         <div className="subtotal">
                             <p>Subtotal</p>
-                            <p>{product.price}</p>
+                            <p>{`$${totalPrice} CAD`}</p>
                         </div>
                         <div className="modal-buttons">
                             <button className="view-bag-button" onClick={handleCheckOut}>VIEW BAG & CHECKOUT</button>

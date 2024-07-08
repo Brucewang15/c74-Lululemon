@@ -6,6 +6,7 @@ const CartItemSchema = new Schema({
     colorId: { type: String, required: true },
     size: { type: String, default: "" },
     quantity: { type: Number, required: true },
+    price: { type: Number },
 });
 
 module.exports = CartItemSchema;

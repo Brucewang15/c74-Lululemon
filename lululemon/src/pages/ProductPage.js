@@ -170,19 +170,20 @@ export const ProductPage = () => {
     };
 
     const handleAddToBag = () => {
-        console.log(product.sizes[0].details !== 0 && !selectedSize);
+        //console.log(product.sizes[0].details !== 0 && !selectedSize);
         if (product.sizes[0].details.length !== 0 && !selectedSize) {
             alert("Please select a size.");
             return;
         }
+        const newPrice = product.price.replace('$', '').trim();
+        const productPrice = Number(parseInt(newPrice.slice(0, newPrice.indexOf(' '))));
+        console.log("product price: ", productPrice);
         const cartItem = {
             productId: productID,
             colorId: selectedColorId,
             size: selectedSize,
             quantity: 1,
-            images: product.images,
-            price: product.price,
-            name: product.name
+            price: productPrice,
         };
 
         axios.post('http://localhost:8000/cart/add', cartItem)
