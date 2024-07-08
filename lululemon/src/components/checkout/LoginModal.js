@@ -4,7 +4,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import axios from "axios";
 import {myKey} from "../../redux/utils/helper";
 import {useDispatch, useSelector} from "react-redux";
-import {setToken, setUser} from "../../redux/actions/authAction";
+import {loginSuccess, setToken, setUser} from "../../redux/actions/authAction";
 
 export const LoginModal = ({handleModalClose, isSuccess, setIsSuccess}) => {
     const [email, setEmail] = useState('')
@@ -36,6 +36,7 @@ export const LoginModal = ({handleModalClose, isSuccess, setIsSuccess}) => {
 
                 dispatch(setToken(token))
                 dispatch(setUser(userInfo))
+                dispatch(loginSuccess())
                 setMessage('Login successful')
                 console.log(res.data.data)
                 setIsSuccess(true)

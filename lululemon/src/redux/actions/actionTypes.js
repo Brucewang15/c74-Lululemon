@@ -20,5 +20,6 @@ export const actionTypes = {
     'FETCH_CART_SUCCESS': 'FETCH_CART_SUCCESS',
     'FETCH_CART_ERROR': 'FETCH_CART_ERROR',
     'SET_TOKEN': 'SET_TOKEN',
-    'SET_USER': 'SET_USER'
+    'SET_USER': 'SET_USER',
+    'LOGIN_SUCCESS': 'LOGIN_SUCCESS'
 }

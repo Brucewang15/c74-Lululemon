@@ -13,3 +13,9 @@ export const setUser = (user) => {
         payload: user
     }
 }
+
+export const loginSuccess = () => {
+    return {
+        type: actionTypes.LOGIN_SUCCESS,
+    }
+}

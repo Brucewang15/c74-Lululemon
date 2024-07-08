@@ -9,7 +9,8 @@ import {Checkout} from "./components/checkout/Checkout";
 import {useDispatch} from "react-redux";
 import {useEffect} from "react";
 import {refreshToken} from "./redux/utils/api";
-import {setToken, setUser} from "./redux/actions/authAction";
+import {loginSuccess, setToken, setUser} from "./redux/actions/authAction";
+
 //import api from "../services/api";
 import {ThankYou} from "./components/checkout/ThankYou";
 
@@ -29,6 +30,7 @@ function App() {
                     if (newToken) {
                         dispatch(setToken(newToken));
                         dispatch(setUser(userInfo));
+                        dispatch(loginSuccess())
                     } else {
                         localStorage.removeItem('token');
                         localStorage.removeItem('tokenExpiration');
@@ -37,6 +39,8 @@ function App() {
                 } else {
                     dispatch(setToken(token));
                     dispatch(setUser(userInfo));
+                    dispatch(loginSuccess())
+                    
                 }
             }
         };

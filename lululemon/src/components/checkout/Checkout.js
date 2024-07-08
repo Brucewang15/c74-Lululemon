@@ -11,6 +11,7 @@ import {fetchCartItems} from "../../redux/actions/shoppingCartActions";
 import {fetchProductDetails} from "../../redux/utils/api";
 import {setToken, setUser} from "../../redux/actions/authAction";
 import {useNavigate} from "react-router-dom";
+import {loginSuccess, setToken, setUser} from "../../redux/actions/authAction";
 import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
 import ExpandLessOutlinedIcon from '@mui/icons-material/ExpandLessOutlined';
 import ExpandMoreOutlinedIcon from '@mui/icons-material/ExpandMoreOutlined';
@@ -71,6 +72,7 @@ export const Checkout = () => {
                 if (currentTime < expirationTime) {
                     dispatch(setToken(storedToken))
                     dispatch(setUser(userInfo))
+                    dispatch(loginSuccess())
                     setIsSuccess(true)
                 } else {
                     localStorage.removeItem('token')
@@ -112,7 +114,24 @@ export const Checkout = () => {
             colorAlt: 'No Color Alt',
         };
     };
-
+    const convertPriceToNumber = (price) => {
+        if (!price) {
+            return '$0.00';
+        }
+        try {
+            if (!price.startsWith('$')) {
+                throw new Error('Price format is incorrect');
+            }
+            // convert the '$85 CAD' to, a number so we can use to calculate, and then convert it to '$85.00' form.
+            const newPrice = price.replace('$', '').trim();
+            const priceNumber = Number(newPrice.slice(0, newPrice.indexOf('C')).trim()).toFixed(2);
+            // console.log('newPrice:', newPrice, 'priceNumber:', priceNumber, 'typeof PriceNumber:', typeof priceNumber)
+            return `$${priceNumber}`;
+        } catch (error) {
+            console.error('Error converting price:', error);
+            return '$0.00';
+        }
+    }
     const calcTotalPrice = (price, quantity) => {
         if (!price) {
             return 0;
@@ -197,7 +216,7 @@ export const Checkout = () => {
                                             <p>Color: {colorAlt}</p>
                                             <p>Size: {item.size}</p>
                                             <p>Quantity: {item.quantity}</p>
-                                            <p>Price: {productDetail?.price}</p>
+                                            <p>Price: {convertPriceToNumber(productDetail?.price)}</p>
                                         </div>
                                     </div>
                                 );
