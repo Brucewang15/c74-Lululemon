@@ -11,7 +11,9 @@ const AddToBagModal = ({product, recommendedProducts, isOpen, onClose, image, se
     const updateTotalPrice = async () => {
         const cartItems = await fetchCartItemsFromDB();
         let price = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
-        setTotalPrice(price);
+        const newPrice = product.price.replace('$', '').trim();
+        const productPrice = Number(parseInt(newPrice.slice(0, newPrice.indexOf(' '))));
+        setTotalPrice(price + productPrice);
     };
 
     useEffect(() => {
