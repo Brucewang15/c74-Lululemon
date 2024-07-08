@@ -10,6 +10,7 @@ import FathersDay from "./FathersDay";
 import {useNavigate} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {LoginModal} from "../checkout/LoginModal";
+import {fetchCartItemsFromDB} from "../../redux/utils/api";
 
 export const Header = ({isSticky}) => {
     const shoppingCart = useSelector(state => state.shoppingCartReducer.shoppingCart)
@@ -40,9 +41,16 @@ export const Header = ({isSticky}) => {
     }
 
     useEffect(() => {
-        const shoppingCartCount = shoppingCart.reduce((total, item) => total + item.quantity, 0);
-        setCartCount(shoppingCartCount)
-    }, [shoppingCart]);
+        //const shoppingCartCount = shoppingCart.reduce((total, item) => total + item.quantity, 0);
+        //setCartCount(shoppingCartCount)
+        const fetchAndCountCartItems = async () => {
+            const cartItems = await fetchCartItemsFromDB();
+            const shoppingCartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+            setCartCount(shoppingCartCount);
+        };
+
+        fetchAndCountCartItems();
+    }, []);
     return (
 
         <div className='headerContent'>

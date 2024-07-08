@@ -25,6 +25,16 @@ export const fetchFirstPageProducts = async () => {
     }
 }
 
+export const fetchCartItemsFromDB = async () => {
+    try {
+        const response = await axios.get(`http://localhost:8000/cart`);
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching cart items:', error);
+        return [];
+    }
+};
+
 export const refreshToken = async () => {
     const userInfo = JSON.parse(localStorage.getItem('userInfo'));
     try {
