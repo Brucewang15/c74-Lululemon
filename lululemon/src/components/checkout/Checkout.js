@@ -142,10 +142,10 @@ export const Checkout = () => {
                         {isExpanded && <div className='shoppingCartContainer'>
                             {shoppingCart.map((item, index) => (
                                 <div key={index} className="shoppingCartItem">
-                                    <img className='productImage' src={item.image} alt={item.colorAlt}/>
+                                    <img className='productImage' src={item.image} alt={item.swatchName}/>
                                     <div className='productInfo'>
                                         <h3>{item.name}</h3>
-                                        <p>Color: {item.name}</p>
+                                        <p>Color: {item.swatchName}</p>
                                         <p>Size: {item.size}</p>
                                         <p>Quantity: {item.quantity}</p>
                                         <p>Price: ${item.price.toFixed(2)}</p>
