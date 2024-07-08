@@ -1,11 +1,17 @@
 import "./OrderSummary.css";
-import {useState} from "react";
+import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {Payment} from "../checkout/Payment";
+import axios from "axios";
+import {myKey} from "../../redux/utils/helper";
+import {useSelector} from "react-redux";
 
 
 export const OrderSummary = ({totalPrice}) => {
     const navigate = useNavigate()
+
+    const shoppingCart = useSelector(state => state.shoppingCartReducer.shoppingCart);
+    const token = useSelector(state => state.authReducer.token);
 
     const [popUpText, setPopUpText] = useState('');
     const [showPopUp, setShowPopUp] = useState(null);
@@ -20,6 +26,34 @@ export const OrderSummary = ({totalPrice}) => {
         }
 
     };
+
+    const handlePlaceOrder = () => {
+        const requestBody = {
+            "taxRate": 1.13,
+            "isActive": true,
+            "isDelete": false,
+            "orderItems": shoppingCart.map(item => {
+                return {
+                    quantity: item.quantity,
+                    productId: item.productId,
+                    colorId: item.colorId,
+                    size: item.size,
+                }
+            })
+        }
+        axios.post(`http://api-lulu.hibitbyte.com/order?mykey=${myKey}`, requestBody, {
+            headers: {
+                authorization: `bear ${token}`
+            }
+        })
+            .then(async (res) => {
+                console.log('Order Placed successfully', res.data)
+                await axios.delete(`http://localhost:8000/cart/cleanup`);
+                console.log('Cart cleaned up successfully');
+                navigate('/shop/thankyou')
+            })
+            .catch(err => console.error('Order place failed', err))
+    }
 
     return <>
 
@@ -131,9 +165,14 @@ export const OrderSummary = ({totalPrice}) => {
                 {/*        alt=""/>*/}
                 {/*</button>*/}
 
-                <div className="payPal">
-                    <Payment/>
-                </div>
+                {/*<div className="payPal">*/}
+                {/*    <Payment/>*/}
+                {/*</div>*/}
+                <button onClick={handlePlaceOrder}>
+                    <img
+                        src="https://i0.wp.com/cypruscomiccon.org/wp-content/uploads/2015/07/Paypal-logo-white.svg1_.png?ssl=1"
+                        alt=""/>
+                </button>
 
             </div>
 
