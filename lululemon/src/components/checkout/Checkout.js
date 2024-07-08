@@ -10,12 +10,14 @@ import {myKey} from "../../redux/utils/helper";
 import {fetchCartItems} from "../../redux/actions/shoppingCartActions";
 import {fetchProductDetails} from "../../redux/utils/api";
 import {setToken, setUser} from "../../redux/actions/authAction";
+import {useNavigate} from "react-router-dom";
 
 export const Checkout = () => {
     const shoppingCart = useSelector(state => state.shoppingCartReducer.shoppingCart)
     const userInfo = useSelector(state => state.authReducer.user) || {}
     const token = useSelector(state => state.authReducer.token)
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [isSuccess, setIsSuccess] = useState(false)
@@ -50,6 +52,7 @@ export const Checkout = () => {
         })
             .then(res => console.log('Order Placed successfully', res.data))
             .catch(err => console.error('Order place failed', err))
+        navigate('/shop/thankyou')
     }
 
 
@@ -146,13 +149,18 @@ export const Checkout = () => {
                             <div className='loginTitle'>
                                 <span>Welcome Back {userInfo.firstName} {userInfo.lastName}</span>
                             </div>
-                            <button onClick={handlePlaceOrder}>Place your order here</button>
+                            <button onClick={handlePlaceOrder}>
+                                <img
+                                    src="https://i0.wp.com/cypruscomiccon.org/wp-content/uploads/2015/07/Paypal-logo-white.svg1_.png?ssl=1"
+                                    alt=""/>
+                            </button>
+
                         </div>
                     </div>)
                 }
 
                 <div className='checkoutBodyRight'>
-                    <div className='orderSummary'>
+                <div className='orderSummary'>
                         <h2>Order summary</h2>
                         {shoppingCart.map((item, index) => {
                             const productDetail = productDetails[index];

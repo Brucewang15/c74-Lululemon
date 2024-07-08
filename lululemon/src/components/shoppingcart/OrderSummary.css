@@ -119,6 +119,11 @@
         > button:nth-child(2) {
             background-color: #006fb9;
         }
+
+        .paypal {
+            border: 1px solid black;
+            height: 500px;
+        }
     }
 
 }

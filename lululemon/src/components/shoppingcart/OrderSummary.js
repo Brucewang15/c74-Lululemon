@@ -1,6 +1,7 @@
 import "./OrderSummary.css";
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
+import {Payment} from "../checkout/Payment";
 
 
 export const OrderSummary = ({totalPrice}) => {
@@ -124,11 +125,15 @@ export const OrderSummary = ({totalPrice}) => {
 
                 or checkout quickly with
 
-                <button>
-                    <img
-                        src="https://i0.wp.com/cypruscomiccon.org/wp-content/uploads/2015/07/Paypal-logo-white.svg1_.png?ssl=1"
-                        alt=""/>
-                </button>
+                {/*<button>*/}
+                {/*    <img*/}
+                {/*        src="https://i0.wp.com/cypruscomiccon.org/wp-content/uploads/2015/07/Paypal-logo-white.svg1_.png?ssl=1"*/}
+                {/*        alt=""/>*/}
+                {/*</button>*/}
+
+                <div className="payPal">
+                    <Payment/>
+                </div>
 
             </div>
 

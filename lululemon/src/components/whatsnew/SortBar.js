@@ -1,7 +1,7 @@
 import './SortBar.css';
 import {removeFilters} from "../../redux/actions/filterAction";
 import {useDispatch, useSelector} from "react-redux";
-import { setSortingOption } from '../../redux/actions/filterAction';
+import {setSortingOption} from '../../redux/actions/filterAction';
 import {useState} from "react";
 
 export const SortBar = () => {
@@ -43,9 +43,9 @@ export const SortBar = () => {
                     <div onClick={() => handleSortChange('New Arrivals')}>New Arrivals</div>
                     <div onClick={() => handleSortChange('Top Rated')}>Top Rated</div>
                     <div onClick={() => handleSortChange('Price: High to Low')}>Price: High to Low</div>
-                        <div onClick={() => handleSortChange('Price: Low to High')}>Price: Low to High</div>
-                    </div>
+                    <div onClick={() => handleSortChange('Price: Low to High')}>Price: Low to High</div>
                 </div>
+            </div>
         </div>
     )
 

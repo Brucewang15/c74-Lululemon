@@ -6,6 +6,7 @@ import {WrongPage} from './components/productpage/WrongPage'
 import {WrongProductPage} from "./components/productpage/WrongProductPage";
 import {ShoppingCart} from "./pages/ShoppingCart";
 import {Checkout} from "./components/checkout/Checkout";
+import {ThankYou} from "./components/checkout/ThankYou";
 
 function App() {
     return (
@@ -17,6 +18,7 @@ function App() {
                     <Route path='/wrong-product' element={<WrongProductPage/>}/>
                     <Route path='/shop/mybag' element={<ShoppingCart/>}/>
                     <Route path='/shop/checkout' element={<Checkout/>}/>
+                    <Route path='/shop/thankyou' element={<ThankYou/>}/>
                     <Route path='*' element={<WrongPage/>}/>
                 </Routes>
             </BrowserRouter>
