@@ -1,0 +1,128 @@
+.productCard {
+    border: none;
+    overflow: hidden;
+    text-align: left;
+    transition: transform 0.3s ease;
+    padding: 2px;
+    font-family: Helvetica;
+    position: relative;
+}
+
+/*.productCard:hover {*/
+/*    transform: scale(1.05);*/
+/*}*/
+
+.productImage {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.heartButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #fafafa;
+    border: none;
+    border-radius: 50%;
+    /*font-size: 30px;*/
+    /*color: #ccc;*/
+    cursor: pointer;
+
+
+}
+
+.heart {
+    color: #ccc;
+    font-size: 30px;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+.heart:hover {
+    color: red;
+}
+
+.swatchesContainer {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+    position: relative;
+}
+
+.swatches {
+    display: flex;
+    gap: 5px;
+    padding-top: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    overflow-x: hidden;
+    flex: 1;
+
+}
+
+.swatchButton {
+    background: none;
+    border: none;
+    /*padding: 0;*/
+    cursor: pointer;
+    position: relative;
+    outline: none;
+    transition: transform 1s ease;
+    /*padding-top: 5px;*/
+    /*padding-left: 5px;*/
+    /*padding-right: 5px;*/
+}
+
+.swatchButton:hover .swatch {
+    /*border: 3px solid white;*/
+    outline: 3px solid black;
+
+}
+
+.swatch {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    outline: 1px solid #e0e0e0;
+}
+
+.swatchScrollButton {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #333;
+    z-index: 1;
+}
+
+.swatchScrollButton.left {
+    left: 5px;
+}
+
+.swatchScrollButton.right {
+    right: 5px;
+}
+
+.productName {
+    font-size: 1rem;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.productPrice {
+    font-size: 1rem;
+    color: #555;
+}
+
+.compareContainer {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.compareContainer label {
+    margin-left: 5px;
+    font-size: 0.875rem;
+    cursor: pointer;
+}

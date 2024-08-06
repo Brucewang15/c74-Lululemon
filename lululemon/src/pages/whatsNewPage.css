@@ -1,0 +1,20 @@
+.whatsNewWrapper {
+    max-width: 1440px;
+    min-width: 1440px;
+    margin: 0 auto;
+}
+
+
+.whatsNewPageLayout {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+
+
+}
+
+.whatsNewContainer {
+    flex: 1;
+    padding: 20px;
+}

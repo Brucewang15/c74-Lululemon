@@ -1,0 +1,100 @@
+.reviewCard {
+  width: 100%;
+  border-radius: 5px;
+  border: none;
+  margin-bottom: 10px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 10px 0 10px 30px;
+  margin-bottom: 10px;
+  box-shadow: 0 5px 5px #e3e3e3;
+
+  .reviewer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 6px;
+    .reviewerInitial {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background-color: #868686;
+      color: white;
+      font-size: 15px;
+      font-weight: 600;
+      margin-right: 5px;
+    }
+    .reviewerName {
+      font-size: 10px;
+      font-weight: 600;
+      margin-right: 5px;
+    }
+    .reviewTime {
+      font-size: 10px;
+    }
+  }
+
+  .reviewCardRating {
+    margin-bottom: 8px;
+    img {
+      width: 12px;
+      margin: 2px;
+    }
+  }
+
+  .reviewCardTitle {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .reviewCardComment {
+    text-align: left;
+    font-size: 15px;
+    font-weight: 400;
+    margin-bottom: 16px;
+  }
+
+  .reviewCardSize {
+    display: flex;
+    margin-bottom: 10px;
+    .reviewCardSizeContainer {
+      display: flex;
+      margin-right: 15px;
+      .reviewCardSizeTitle {
+        font-size: 12px;
+        font-weight: 600;
+        margin-right: 3px;
+      }
+      .reviewCardSizeNum {
+        font-size: 12px;
+        font-weight: 400;
+      }
+    }
+  }
+
+  .reviewReaction {
+    display: flex;
+    font-size: 12px;
+    margin-left: 5px;
+    margin-bottom: 8px;
+    &:hover {
+      cursor: pointer;
+    }
+
+    img {
+      width: 16px;
+      margin-right: 10px;
+    }
+    .reviewReactionHelpful {
+      width: 40px;
+      .helpful {
+        display: flex;
+        align-items: flex-start;
+      }
+    }
+
+  }
+}

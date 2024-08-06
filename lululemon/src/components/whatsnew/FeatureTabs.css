@@ -1,0 +1,31 @@
+.featureTabsContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 60px;
+  width: 100%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: #ffffff;
+}
+
+.featureTab {
+  cursor: pointer;
+  padding: 10px 20px;
+  transition: background-color 0.3s ease;
+  border-bottom: 2px solid transparent;
+  color: #000;
+}
+.featureTab.active {
+  border-bottom: 2px solid red;
+  color: black;
+  font-weight: bold;
+  transition: ease-in-out;
+}
+.featureTab:hover {
+  border-bottom: 2px solid red;
+  transition: 0.6s ease-in-out;
+}
+
+/*# sourceMappingURL=FeatureTabs.css.map */

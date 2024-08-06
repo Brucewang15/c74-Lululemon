@@ -1,0 +1,56 @@
+.shoppingCartFooter {
+  display: flex;
+  flex-direction: column;
+  height: 10%;
+  margin-bottom: 10%;
+  background-color: white;
+  border: 1px black;
+}
+.shoppingCartFooter .list1 {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  max-width: 85.75rem;
+  color: #53565a;
+  display: flex;
+  padding: 1.5rem 1rem 0.75rem;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.shoppingCartFooter .list1 ul {
+  flex: 0;
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+  font-size: 13.8px;
+  cursor: pointer;
+}
+.shoppingCartFooter .list2 {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  max-width: 85.75rem;
+  font-size: 0.875rem;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-weight: 400;
+  line-height: 1.4285714286;
+  color: #53565a;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 1.5rem 1rem;
+  border-top: 0.0625rem solid #d3d5d7;
+}
+.shoppingCartFooter .list2 ul {
+  flex: 0;
+  margin-bottom: 0.6rem;
+  font-size: 13.8px;
+  cursor: pointer;
+}
+.shoppingCartFooter .list2 ul:hover {
+  text-decoration: underline #c8102e 1px solid;
+  text-underline-offset: 6px;
+  transition: 0.2s ease-in;
+}
+
+/*# sourceMappingURL=ShoppingCartFooter.css.map */

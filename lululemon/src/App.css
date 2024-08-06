@@ -1,0 +1,14 @@
+.App {
+    text-align: center;
+    box-sizing: border-box;
+
+    /*max-width: 1440px;*/
+    /*min-width: 1440px;*/
+    background-color: #fafafa;
+    justify-content: center;
+    align-items: center;
+    /*margin: 0 auto;*/
+
+    font-family: Helvetica;
+}
+
