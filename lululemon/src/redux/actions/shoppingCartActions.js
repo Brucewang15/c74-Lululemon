@@ -54,10 +54,9 @@ export const edtCart = (newSize, newColorId, index, colorDes, image) => (dispatc
 };
 
 // Remove an item from the cart
-export const removeProduct = (itemId) => (dispatch, getState) => {
+export const removeProduct = (itemId, size, colorId) => (dispatch, getState) => {
     let cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
-    cart = cart.filter((product) => product._id !== itemId);
-
+    cart = cart.filter((product) => product._id !== itemId || product.size !== size || product.colorId !== colorId);
     localStorage.setItem('shoppingCart', JSON.stringify(cart));
     dispatch({
         type: actionTypes.REMOVE_PRODUCTS,

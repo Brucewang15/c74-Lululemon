@@ -41,16 +41,14 @@ export const Header = ({isSticky}) => {
     }
 
     useEffect(() => {
-        //const shoppingCartCount = shoppingCart.reduce((total, item) => total + item.quantity, 0);
-        //setCartCount(shoppingCartCount)
-        const fetchAndCountCartItems = async () => {
-            const cartItems = await fetchCartItemsFromDB();
+        const fetchAndCountCartItems = () => {
+            const cartItems = JSON.parse(localStorage.getItem('shoppingCart')) || [];
             const shoppingCartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
             setCartCount(shoppingCartCount);
         };
 
         fetchAndCountCartItems();
-    }, [shoppingCart]);
+    }, [localStorage]);
     return (
 
         <div className='headerContent'>

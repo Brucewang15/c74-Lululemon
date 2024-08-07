@@ -24,118 +24,30 @@ export const ShoppingCartProduct = () => {
     const [isModalOpen, setIsModalOpen] = useState(false)
 
     const [isSuccess, setIsSuccess] = useState(false)
-    // markxu@itlab.com
-    // ITLabAPI@2024
-    // useEffect(() => {
-    //     const fetchDetails = async () => {
-    //         const details = await Promise.all(shoppingCart.map(item => fetchProductDetails(item.productId)));
-    //         setProductDetails(details);
-    //     };
-    //     fetchDetails();
-    // }, [shoppingCart]);
-
-    // useEffect(() => {
-    //     const total = shoppingCart.reduce((acc, item, index) => {
-    //         const productDetail = productDetails[index];
-    //         if (productDetail) {
-    //             const newPrice = productDetail.price.replace('$', '').trim();
-    //             const priceNumber = Number(parseInt(newPrice.slice(0, newPrice.indexOf(' '))));
-    //             return acc + (priceNumber * item.quantity);
-    //         }
-    //         return acc;
-    //     }, 0);
-    //     setTotalPrice(total.toFixed(2));
-    // }, [shoppingCart, productDetails]);
 
     useEffect(() => {
         const total = shoppingCart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
         setTotalPrice(total.toFixed(2));
     }, [shoppingCart]);
 
-    // const getCurrentImage = (item, productDetail) => {
-    //     const currentImage = productDetail?.images?.find(image => image.colorId === item.colorId);
-    //     if (currentImage) {
-    //         return {
-    //             image: currentImage.mainCarousel.media.split('|')[0].trim(),
-    //             colorAlt: currentImage.colorAlt,
-    //         };
-    //     }
-    //     return {
-    //         image: '',
-    //         colorAlt: 'No Color Alt',
-    //     };
-    // };
-
-    // const convertPriceToNumber = (price) => {
-    //     if (!price) {
-    //         return '$0.00';
-    //     }
-    //     try {
-    //         if (!price.startsWith('$')) {
-    //             throw new Error('Price format is incorrect');
-    //         }
-    //         // convert the '$85 CAD' to, a number so we can use to calculate, and then convert it to '$85.00' form.
-    //         const newPrice = price.replace('$', '').trim();
-    //         const priceNumber = Number(newPrice.slice(0, newPrice.indexOf('C')).trim()).toFixed(2);
-    //         // console.log('newPrice:', newPrice, 'priceNumber:', priceNumber, 'typeof PriceNumber:', typeof priceNumber)
-    //         return `$${priceNumber}`;
-    //     } catch (error) {
-    //         console.error('Error converting price:', error);
-    //         return '$0.00';
-    //     }
-    // }
-    // const calcTotalPrice = (price, quantity) => {
-    //     if (!price) {
-    //         return '$0.00';
-    //     }
-    //     //console.log(price)
-    //     try {
-    //         if (!price.startsWith('$')) {
-    //             throw new Error('Price format is incorrect');
-    //         }
-    //         const newPrice = price.replace('$', '').trim();
-    //         const priceNumber = Number(newPrice.slice(0, newPrice.indexOf('C')).trim());
-    //         if (isNaN(priceNumber) || isNaN(quantity)) {
-    //             throw new Error('Invalid number format');
-    //         }
-    //         // convert the '$85 CAD' to, a number so we can use to calculate the total price with quantity, and then convert it to '$85.00' form.
-    //
-    //         const totalPrice = (priceNumber * quantity).toFixed(2);
-    //         // console.log('typeof totalPrice:', typeof totalPrice, totalPrice)
-    //
-    //         return `$${totalPrice}`;
-    //     } catch (error) {
-    //         console.error('Error calculating total price:', error);
-    //         return '$0.00';
-    //     }
-    // }
     const handleCloseOut = (index) => {
         console.log('index', index, 'arr', isVisibleEdit)
         const newState = isVisibleEdit.map((item, i) => i === index ? !item : item)
         setIsVisibleEdit(newState)
     }
 
-    // const handleQuantityChange = (e, index) => {
-    //     const newQuantity = Number(e.target.value)
-    //     dispatch(changeQuantity(newQuantity, index))
-    // }
-
     const handleQuantityChange = (e, index, itemId) => {
         const newQuantity = Number(e.target.value);
+        const updatedCart = [...shoppingCart];
+        updatedCart[index].quantity = newQuantity;
+        localStorage.setItem('shoppingCart', JSON.stringify(updatedCart));
         dispatch(changeQuantity(newQuantity, index, itemId));
+        dispatch(fetchCartItems());
     }
 
     const handleRemoveProduct = (itemId, selectedSize, selectedColorId) => {
-        axios.delete(`http://localhost:8000/cart/delete/${itemId}`)
-            .then(response => {
-                // 你可以在这里调用Redux action来更新前端的购物车状态
-                dispatch(removeProduct(itemId, selectedSize, selectedColorId));
-                console.log('Item removed from cart:', response.data);
-                dispatch(fetchCartItems());
-            })
-            .catch(error => {
-                console.error('Error removing item from cart:', error);
-            });
+        dispatch(removeProduct(itemId, selectedSize, selectedColorId));
+        dispatch(fetchCartItems());
     }
 
     const handleCloseModal = () => {
