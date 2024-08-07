@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 import { Check } from "../icon/check";
 import { See } from "../icon/see";
 import { Unseen } from "../icon/unseen";
+import axios from "axios";
+import { serverAPI } from "../../redux/utils/helper";
 
 export const SignupPage = () => {
   const [email, setEmail] = useState("");
@@ -25,9 +27,26 @@ export const SignupPage = () => {
 
   const navigator = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     validateEmail(email);
+
+    if (isFormValid) {
+      try {
+        const res = await axios.post(`${serverAPI}/auth/signup`, {
+          email,
+          password,
+        });
+
+        if (res.status === 201) {
+          alert("Registered Successfully");
+        } else {
+          alert("Registered failed");
+        }
+      } catch (e) {
+        console.log("Register failed");
+      }
+    }
   };
 
   const handleGoBackHome = () => {
@@ -41,7 +60,7 @@ export const SignupPage = () => {
       setEmailError("Please enter an email address");
     } else if (!re.test(email)) {
       setEmailError(
-        "Email address is not in the correct format (xxx@yyy.zzz). Please correct the email address."
+        "Email address is not in the correct format (xxx@yyy.zzz). Please correct the email address.",
       );
     } else {
       setEmailError("");
@@ -195,7 +214,7 @@ export const SignupPage = () => {
               <div className="password-criteria">
                 <div className="criteria-column">
                   <div
-                    class={`criteriaItem ${
+                    className={`criteriaItem ${
                       passwordCriteria.length ? "met" : ""
                     }`}
                   >
@@ -205,7 +224,7 @@ export const SignupPage = () => {
                     <p>8 characters</p>
                   </div>
                   <div
-                    class={`criteriaItem ${
+                    className={`criteriaItem ${
                       passwordCriteria.uppercase ? "met" : ""
                     }`}
                   >
@@ -217,7 +236,7 @@ export const SignupPage = () => {
                 </div>
                 <div className="criteria-column">
                   <div
-                    class={`criteriaItem ${
+                    className={`criteriaItem ${
                       passwordCriteria.lowercase ? "met" : ""
                     }`}
                   >
@@ -227,7 +246,7 @@ export const SignupPage = () => {
                     <p>1 lowercase</p>
                   </div>
                   <div
-                    class={`criteriaItem ${
+                    className={`criteriaItem ${
                       passwordCriteria.digit ? "met" : ""
                     }`}
                   >

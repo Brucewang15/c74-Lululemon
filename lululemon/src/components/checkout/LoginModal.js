@@ -29,7 +29,7 @@ export const LoginModal = ({
   }, [isSuccess, handleModalClose, isLogin]);
   const handleSignIn = () => {
     axios
-      .post(`${serverAPI}/user/login`, {
+      .post(`${serverAPI}/auth/login`, {
         email,
         password,
       })
@@ -121,7 +121,9 @@ export const LoginModal = ({
           By signing in, you agree to the <a href="#">Terms of Use</a> and
           acknowledge the <a href="#">Privacy Policy</a>.
         </p>
-        <button className="guest-button">Continue as a guest</button>
+        <button onClick={handleModalClose} className="guest-button">
+          Continue as a guest
+        </button>
       </div>
     </div>
   );
