@@ -2,18 +2,29 @@
 
 import "./Header.css"
 import Men from "./Men";
-import {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Women from "./Women";
 import Accessories from "./Accessories";
 import Shoes from "./Shoes";
 import FathersDay from "./FathersDay";
 import {useNavigate} from "react-router-dom";
 import {useSelector} from "react-redux";
+import {LoginModal} from "../checkout/LoginModal";
+import {fetchCartItemsFromDB} from "../../redux/utils/api";
 
 export const Header = ({isSticky}) => {
+    const shoppingCart = useSelector(state => state.shoppingCartReducer.shoppingCart)
     const navigate = useNavigate()
     const [hover, setHover] = useState([false, false, false, false, false]);
-    const shoppingCart = useSelector(state => state.shoppingCartReducer.shoppingCart)
+    const [cartCount, setCartCount] = useState(shoppingCart.length)
+    const userInfo = useSelector(state => state.authReducer.user)
+    const isLogin = useSelector(state => state.authReducer.loginStatus)
+    const [isModalOpen, setIsModalOpen] = useState(false)
+
+    const [isSuccess, setIsSuccess] = useState(false)
+    // markxu@itlab.com
+    // ITLabAPI@2024
+
     const updateHover = (index, newValue) => {
         // Create a new array with the updated element
         const newItems = [...hover];
@@ -22,6 +33,24 @@ export const Header = ({isSticky}) => {
         setHover(newItems);
     };
 
+    const handleOpenLoginModal = () => {
+        setIsModalOpen(true)
+    }
+    const handleCLoseLoginModal = () => {
+        setIsModalOpen(false)
+    }
+
+    useEffect(() => {
+        //const shoppingCartCount = shoppingCart.reduce((total, item) => total + item.quantity, 0);
+        //setCartCount(shoppingCartCount)
+        const fetchAndCountCartItems = async () => {
+            const cartItems = await fetchCartItemsFromDB();
+            const shoppingCartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+            setCartCount(shoppingCartCount);
+        };
+
+        fetchAndCountCartItems();
+    }, [shoppingCart]);
     return (
 
         <div className='headerContent'>
@@ -109,9 +138,12 @@ export const Header = ({isSticky}) => {
                         </div>
 
                         <div className="threeIcons">
-                            <a href="">
+                            <a onClick={() => {
+                                if (isLogin === false)
+                                    handleOpenLoginModal()
+                            }}>
                                 <img src="https://cdn-icons-png.flaticon.com/512/1144/1144760.png" alt=""/>
-                                <p id="miniAnimation">Sign In</p>
+                                <p id="miniAnimation"> {!isLogin ? 'Sign In' : `${userInfo.firstName} ${userInfo.lastName}`}</p>
                             </a>
                             <a href="">
                                 <img src="https://www.svgrepo.com/show/326671/heart-outline.svg" alt=""/>
@@ -119,7 +151,7 @@ export const Header = ({isSticky}) => {
 
                             <a onClick={() => navigate('/shop/mybag')}>
                                 <img src="https://www.svgrepo.com/show/43071/shopping-bag.svg" alt=""/>
-                                <p>{shoppingCart.length}</p>
+                                <p>{cartCount}</p>
                             </a>
                         </div>
                     </div>
@@ -130,6 +162,8 @@ export const Header = ({isSticky}) => {
                 {hover[2] && <Accessories/>}
                 {hover[3] && <Shoes/>}
                 {hover[4] && <FathersDay/>}
+                {isModalOpen && <LoginModal handleModalClose={handleCLoseLoginModal} isSuccess={isSuccess}
+                                            setIsSuccess={setIsSuccess}/>}
             </div>
         </div>
     );

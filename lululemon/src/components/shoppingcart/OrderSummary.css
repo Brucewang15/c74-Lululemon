@@ -47,22 +47,32 @@
         }
 
         .estimatedTotalBottom {
-            display: inline-flex;
+            /*display: inline-flex;*/
+            display: flex;
             align-items: center;
+            justify-content: flex-start;
             gap: 6px;
             font-size: 12px;
             position: relative;
-            min-width: 100px;
-            max-width: 272.5px;
+            /*min-width: 100px;*/
+            /*max-width: 272.5px;*/
+            width: 100%;
             margin: 0;
             padding: 0;
+            margin-top: 10px;
 
-            img:nth-child(1) {
-                height: 13px;
-            }
+            .imageContainer {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
 
-            img:nth-child(2) {
-                height: 23px;
+                img:nth-child(1) {
+                    height: 13px;
+                }
+
+                img:nth-child(2) {
+                    height: 23px;
+                }
             }
         }
 
@@ -108,6 +118,11 @@
 
         > button:nth-child(2) {
             background-color: #006fb9;
+        }
+
+        .paypal {
+            border: 1px solid black;
+            height: 500px;
         }
     }
 

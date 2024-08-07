@@ -1,4 +1,4 @@
-import {filterURL, myKey, productURL} from "../helper";
+import {filterURL, myKey, productURL} from "../utils/helper";
 import {actionTypes} from "./actionTypes";
 import axios from 'axios';
 

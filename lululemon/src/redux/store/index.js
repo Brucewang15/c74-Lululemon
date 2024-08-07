@@ -14,12 +14,14 @@ import {filterReducer} from '../reducers/filterReducer';
 import {productReducer} from '../reducers/productReducer';
 import {reviewsReducer} from "../reducers/reviewsReducer";
 import {shoppingCartReducer} from "../reducers/shoppingCartReducer";
+import {authReducer} from "../reducers/authReducer";
 
 const rootReducer = combineReducers({
     filterReducer,
     productReducer,
     reviewsReducer,
-    shoppingCartReducer
+    shoppingCartReducer,
+    authReducer
 });
 
 export const reduxStore = createStore(rootReducer, applyMiddleware(thunk));

@@ -1,13 +1,18 @@
 import "./OrderSummary.css";
-import {useState} from "react";
+import React, {useState} from "react";
+import {useNavigate} from "react-router-dom";
+import {Payment} from "../checkout/Payment";
+import axios from "axios";
+import {myKey} from "../../redux/utils/helper";
+import {useSelector} from "react-redux";
 
 
+export const OrderSummary = ({totalPrice}) => {
+    const navigate = useNavigate()
 
-
-
-
-const OrderSummary = () => {
-
+    const shoppingCart = useSelector(state => state.shoppingCartReducer.shoppingCart);
+    const token = useSelector(state => state.authReducer.token);
+    const isLogin = useSelector(state => state.authReducer.loginStatus)
 
     const [popUpText, setPopUpText] = useState('');
     const [showPopUp, setShowPopUp] = useState(null);
@@ -16,13 +21,40 @@ const OrderSummary = () => {
     const handleMoreInfo = (text, id) => {
         if (showPopUp === id) {
             setShowPopUp(null);
-        }
-        else {
+        } else {
             setShowPopUp(id);
             setPopUpText(text);
         }
 
     };
+
+    const handlePlaceOrder = () => {
+        const requestBody = {
+            "taxRate": 1.13,
+            "isActive": true,
+            "isDelete": false,
+            "orderItems": shoppingCart.map(item => {
+                return {
+                    quantity: item.quantity,
+                    productId: item.productId,
+                    colorId: item.colorId,
+                    size: item.size,
+                }
+            })
+        }
+        axios.post(`http://api-lulu.hibitbyte.com/order?mykey=${myKey}`, requestBody, {
+            headers: {
+                authorization: `bear ${token}`
+            }
+        })
+            .then(async (res) => {
+                console.log('Order Placed successfully', res.data)
+                await axios.delete(`http://localhost:8000/cart/cleanup`);
+                console.log('Cart cleaned up successfully');
+                navigate('/shop/thankyou')
+            })
+            .catch(err => console.error('Order place failed', err))
+    }
 
     return <>
 
@@ -38,7 +70,7 @@ const OrderSummary = () => {
                     </div>
 
                     <div className="orderSummaryInfoSectionsRight">
-                        x
+                        {`$${totalPrice}`}
                     </div>
                 </div>
 
@@ -46,7 +78,8 @@ const OrderSummary = () => {
 
                     <div className="orderSummaryInfoSectionsLeft">
                         <div className="orderSummaryInfoSectionsLeftText">Shipping</div>
-                        <div className="moreInfo" onClick={() => handleMoreInfo("We offer Free Standard Shipping on all orders within the United States. If you’d like to expedite shipping or ship to a different country, you can do so in checkout.", "shipping")}>
+                        <div className="moreInfo"
+                             onClick={() => handleMoreInfo("We offer Free Standard Shipping on all orders within the United States. If you’d like to expedite shipping or ship to a different country, you can do so in checkout.", "shipping")}>
                             <img src="https://cdn-icons-png.flaticon.com/512/8/8201.png" alt=""/>
                             {showPopUp === "shipping" && (
                                 <div className="popUp">
@@ -68,7 +101,9 @@ const OrderSummary = () => {
                         <div className="orderSummaryInfoSectionsLeftText">Tax</div>
 
 
-                        <div className="moreInfo" onClick={() => {handleMoreInfo("Taxes are based on your shipping location’s provincial and local sales tax.", "tax")}}>
+                        <div className="moreInfo" onClick={() => {
+                            handleMoreInfo("Taxes are based on your shipping location’s provincial and local sales tax.", "tax")
+                        }}>
                             <img src="https://cdn-icons-png.flaticon.com/512/8/8201.png" alt=""/>
                             {showPopUp === "tax" && (
                                 <div className="popUp">
@@ -87,19 +122,28 @@ const OrderSummary = () => {
                 <div className="estimatedTotal">
                     <div className="estimatedTotalTop">
                         <div>Estimated Total</div>
-                        <div>x</div>
+                        <div>  {`$${totalPrice}`}</div>
                     </div>
 
                     <div className="estimatedTotalBottom">
-                        or 4 payments of with <img src="https://upload.wikimedia.org/wikipedia/en/thumb/c/c3/Afterpay_logo.svg/332px-Afterpay_logo.svg.png?20201227051205" alt=""/> or <img
-                        src="https://1000logos.net/wp-content/uploads/2022/07/Klarna-Logo.png" alt=""/>
-                        <div className="moreInfo" onClick={() => {handleMoreInfo("Buy items now and pay later - in 4 payments. Learn more", "payment")}}>
-                            <img src="https://cdn-icons-png.flaticon.com/512/8/8201.png" alt=""/>
-                            {showPopUp === "payment" && (
-                                <div className="popUp">
-                                    {popUpText}
-                                </div>
-                            )}
+
+                        <div className='wordContainer'> {`or 4 payments of  $${(totalPrice / 4).toFixed(2)} with`}</div>
+                        <div className='imageContainer'>
+                            <img
+                                src="https://upload.wikimedia.org/wikipedia/en/thumb/c/c3/Afterpay_logo.svg/332px-Afterpay_logo.svg.png?20201227051205"
+                                alt=""/> or
+                            <img
+                                src="https://1000logos.net/wp-content/uploads/2022/07/Klarna-Logo.png" alt=""/>
+                            <div className="moreInfo" onClick={() => {
+                                handleMoreInfo("Buy items now and pay later - in 4 payments. Learn more", "payment")
+                            }}>
+                                <img src="https://cdn-icons-png.flaticon.com/512/8/8201.png" alt=""/>
+                                {showPopUp === "payment" && (
+                                    <div className="popUp">
+                                        {popUpText}
+                                    </div>
+                                )}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -109,16 +153,27 @@ const OrderSummary = () => {
 
             <div className="pay">
 
-                <button>
+                <button onClick={() => navigate('/shop/checkout')}>
                     <img src="https://luxecreative.com/wp-content/uploads/2019/09/lululemon.png" alt=""/>
                     CHECKOUT
                 </button>
 
                 or checkout quickly with
 
-                <button>
-                    <img src="https://i0.wp.com/cypruscomiccon.org/wp-content/uploads/2015/07/Paypal-logo-white.svg1_.png?ssl=1" alt=""/>
-                </button>
+                {/*<button>*/}
+                {/*    <img*/}
+                {/*        src="https://i0.wp.com/cypruscomiccon.org/wp-content/uploads/2015/07/Paypal-logo-white.svg1_.png?ssl=1"*/}
+                {/*        alt=""/>*/}
+                {/*</button>*/}
+
+                {/*<div className="payPal">*/}
+                {/*    <Payment/>*/}
+                {/*</div>*/}
+                {isLogin === true && <button onClick={handlePlaceOrder}>
+                    <img
+                        src="https://i0.wp.com/cypruscomiccon.org/wp-content/uploads/2015/07/Paypal-logo-white.svg1_.png?ssl=1"
+                        alt=""/>
+                </button>}
 
             </div>
 
@@ -129,4 +184,4 @@ const OrderSummary = () => {
 
 
 
-export default OrderSummary;
+

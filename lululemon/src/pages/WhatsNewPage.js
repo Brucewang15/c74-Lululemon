@@ -12,11 +12,12 @@ import {Header} from "../components/shared/Header";
 import Footer from "../components/shared/Footer";
 import React, {useEffect, useRef, useState} from "react";
 import {Outlet} from "react-router-dom";
-import {ShoppingCart} from "../components/shoppingcart/ShoppingCart";
+import {ShoppingCart} from "./ShoppingCart";
 
 
 export const WhatsNewPage = () => {
     const [isSticky, setIsSticky] = useState(false);
+    // 'useRef' don't trigger re-render of the component
     const sentinelRef = useRef(null);
 
     useEffect(() => {
