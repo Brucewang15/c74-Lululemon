@@ -45,7 +45,9 @@ export const EditPopUp = ({ productId, item, sizeInit, colorInit, index, closeOu
 
 
     const handleUpdateBag = (itemId, index, size, colorId, colorDes, image) => {
-        dispatch(edtCart(size, colorId, index, itemId, colorDes, image));
+        console.log("HANDLE UPDATE BAG CURRENT IMAGE", currentImage);
+        console.log(image);
+        dispatch(edtCart(size, colorId, index, colorDes, image));
         dispatch(fetchCartItems());
         closeOut(index);
     }
