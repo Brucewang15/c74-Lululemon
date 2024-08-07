@@ -8,13 +8,20 @@ const AddToBagModal = ({product, recommendedProducts, isOpen, onClose, image, se
     const [totalPrice, setTotalPrice] = useState(0);
     const navigate = useNavigate();
 
-    const updateTotalPrice = async () => {
-        const cartItems = await fetchCartItemsFromDB();
-        let price = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
-        const newPrice = product.price.replace('$', '').trim();
-        const productPrice = Number(parseInt(newPrice.slice(0, newPrice.indexOf(' '))));
-        setTotalPrice(price + productPrice);
+    // const updateTotalPrice = async () => {
+    //     const cartItems = await fetchCartItemsFromDB();
+    //     let price = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+    //     //const newPrice = product.price.replace('$', '').trim();
+    //     //const productPrice = Number(parseInt(newPrice.slice(0, newPrice.indexOf(' '))));
+    //     setTotalPrice(price);
+    // };
+    const updateTotalPrice = () => {
+        const cartItems = JSON.parse(localStorage.getItem('shoppingCart')) || [];
+        console.log("UPDATE TOTOAL PRICE", cartItems);
+        const price = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+        setTotalPrice(price);
     };
+
 
     useEffect(() => {
         if (isOpen) {
