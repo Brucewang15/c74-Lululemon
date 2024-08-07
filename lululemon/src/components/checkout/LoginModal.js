@@ -83,7 +83,7 @@ export const LoginModal = ({handleModalClose, isSuccess, setIsSuccess}) => {
                         <label htmlFor="password">Password</label>
                         <input type="password" id="password" name="password"
                                onChange={(e) => handlePasswordInput(e)} required/>
-                        <a href="#" className="forgot-password">Forgot your password?</a>
+                        <a href="forgotpassword" className="forgot-password">Forgot your password?</a>
                     </div>
                     <button type="submit" className="login-button" onClick={handleSignIn}>SIGN IN</button>
                 </form>

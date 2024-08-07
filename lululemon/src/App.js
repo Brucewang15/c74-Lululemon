@@ -13,6 +13,9 @@ import {loginSuccess, setToken, setUser} from "./redux/actions/authAction";
 
 //import api from "../services/api";
 import {ThankYou} from "./components/checkout/ThankYou";
+import {ForgotPassword} from "./components/checkout/ForgotPassword";
+import {SetNewPassword} from "./components/checkout/SetNewPassword";
+
 
 function App() {
     const dispatch = useDispatch();
@@ -52,6 +55,8 @@ function App() {
             <BrowserRouter>
                 <Routes>
                     <Route path='/' element={<WhatsNewPage/>}/>
+                    <Route path = '/forgotpassword' element = {<ForgotPassword/>}/>
+                    <Route path = '/forgotpassword/:token' element = {<SetNewPassword/>}/>
                     <Route path='/product/:productID' element={<ProductPage/>}/>
                     <Route path='/wrong-product' element={<WrongProductPage/>}/>
                     <Route path='/shop/mybag' element={<ShoppingCart/>}/>
