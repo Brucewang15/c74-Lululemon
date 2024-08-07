@@ -11,6 +11,8 @@ import { useEffect } from "react";
 import { loginSuccess, setToken, setUser } from "./redux/actions/authAction";
 import { ThankYou } from "./components/checkout/ThankYou";
 import { SignupPage } from "./components/signup/Signup";
+import { ForgotPassword } from "./components/checkout/ForgotPassword";
+import { SetNewPassword } from "./components/checkout/SetNewPassword";
 
 function App() {
   const dispatch = useDispatch();
@@ -68,6 +70,8 @@ function App() {
           <Route path="/shop/checkout" element={<Checkout />} />
           <Route path="/shop/thankyou" element={<ThankYou />} />
           <Route path="/signup" element={<SignupPage />} />
+          <Route path="/forgotpassword" element={<ForgotPassword />} />
+          <Route path="/forgotpassword/:token" element={<SetNewPassword />} />
           <Route path="*" element={<WrongPage />} />
         </Routes>
       </BrowserRouter>

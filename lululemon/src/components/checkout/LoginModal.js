@@ -9,6 +9,7 @@ import {
   setToken,
   setUser,
 } from "../../redux/actions/authAction";
+import { Link } from "react-router-dom";
 
 export const LoginModal = ({
   handleModalClose,
@@ -109,9 +110,9 @@ export const LoginModal = ({
               }}
               required
             />
-            <a href="#" className="forgot-password">
+            <Link className="forgot-password" to={"/forgotpassword"}>
               Forgot your password?
-            </a>
+            </Link>
           </div>
           <button type="submit" className="login-button" onClick={handleSignIn}>
             SIGN IN
