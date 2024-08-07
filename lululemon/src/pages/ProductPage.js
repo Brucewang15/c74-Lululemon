@@ -25,6 +25,7 @@ import YouMayLikeSide from "../components/productpage/YouMayLikeSide";
 import YouMayLike from "../components/productpage/YouMayLike";
 import AddToBagModal from "../components/productpage/AddToBagModal";
 import {fetchFirstPageProducts} from "../redux/utils/api";
+import {fetchInventory} from "../redux/actions/inventoryActions";
 import {addItems, fetchCartItems, updateQuantity} from "../redux/actions/shoppingCartActions";
 
 export const ProductPage = () => {
@@ -62,6 +63,12 @@ export const ProductPage = () => {
 
     // calculate the total number of items in cart
     const totalItems = shoppingCart.reduce((total, item) => total + item.quantity, 0);
+
+    
+    useEffect(() => {
+        dispatch(fetchInventory())
+    }, []);
+
 
     useEffect(() => {
         const fetchProducts = async () => {

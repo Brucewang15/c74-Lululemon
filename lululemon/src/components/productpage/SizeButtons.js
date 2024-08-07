@@ -1,4 +1,7 @@
+import { Inventory } from '@mui/icons-material';
 import './SizeButtons.scss'
+
+import {useSelector} from "react-redux";
 
 export const SizeButtons = ({
                                 product,
@@ -10,6 +13,16 @@ export const SizeButtons = ({
                                 isSizeGroup,
                                 selectedLength, selectedLengthIndex
                             }) => {
+    
+    const inv = useSelector(state => state.inventoryReducer.inventory);
+
+    const checkAvailable = (productID, size) => {
+        if (inv && inv[size] && inv[size] > 0) {
+            return 1
+        } else {
+            return 0
+        }
+    }
 
 
     return (
@@ -25,6 +38,7 @@ export const SizeButtons = ({
                         <div className='sizeButtonsContainer'>
                             {sizeGroup.details.length !== 0 && sizeGroup.details.length > 1 && sizeGroup.details.map((size, i) =>
                                 <button
+                                    disabled = {!checkAvailable(product.productID, size)}
                                     className={`${isSize ? (selectedSizeIndex === i ? 'sizeLettersButtonChecked' : 'sizeLettersButton') : (selectedLengthIndex === i ? 'sizeLettersButtonChecked' : 'sizeLettersButton')} `}
                                     key={i}
                                     onClick={() => isSize ? handleSizeButtonClick(size, i) : handleLengthButtonClick(size, i)}
