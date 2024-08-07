@@ -40,15 +40,14 @@ export const Header = ({isSticky}) => {
         setIsModalOpen(false)
     }
 
-    useEffect(() => {
-        const fetchAndCountCartItems = () => {
-            const cartItems = JSON.parse(localStorage.getItem('shoppingCart')) || [];
-            const shoppingCartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
-            setCartCount(shoppingCartCount);
-        };
+    const cart = useSelector(state => state.shoppingCartReducer.shoppingCart);
+    // const [cartCount, setCartCount] = useState(0);
 
-        fetchAndCountCartItems();
-    }, [localStorage]);
+    useEffect(() => {
+        const shoppingCartCount = cart.reduce((total, item) => total + item.quantity, 0);
+        setCartCount(shoppingCartCount);
+    }, [cart]);
+
     return (
 
         <div className='headerContent'>

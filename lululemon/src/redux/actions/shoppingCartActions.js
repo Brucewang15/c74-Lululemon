@@ -1,6 +1,12 @@
 // Add an item to the cart
 import {actionTypes} from "./actionTypes";
 
+export const addItemToCart = (item) => (dispatch, getState) => {
+    dispatch({ type: 'ADD_ITEM_TO_CART', payload: item });
+    const { cart } = getState();
+    localStorage.setItem('shoppingCart', JSON.stringify(cart));
+};
+
 export const addItems = (product) => (dispatch, getState) => {
     let cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
 
