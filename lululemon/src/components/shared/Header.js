@@ -11,6 +11,7 @@ import {useNavigate} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {LoginModal} from "../checkout/LoginModal";
 import {fetchCartItemsFromDB} from "../../redux/utils/api";
+import { Link } from "react-router-dom";
 
 export const Header = ({isSticky}) => {
     const shoppingCart = useSelector(state => state.shoppingCartReducer.shoppingCart)
@@ -142,6 +143,7 @@ export const Header = ({isSticky}) => {
                                 <img src="https://cdn-icons-png.flaticon.com/512/1144/1144760.png" alt=""/>
                                 <p id="miniAnimation"> {!isLogin ? 'Sign In' : `${userInfo.firstName} ${userInfo.lastName}`}</p>
                             </a>
+                            <Link to="/signup">Signup</Link>
                             <a href="">
                                 <img src="https://www.svgrepo.com/show/326671/heart-outline.svg" alt=""/>
                             </a>
