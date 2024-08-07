@@ -27,6 +27,8 @@ import AddToBagModal from "../components/productpage/AddToBagModal";
 import {fetchFirstPageProducts} from "../redux/utils/api";
 import { addItems, changeQuantity } from "../redux/actions/shoppingCartActions";
 
+import {fetchInventory} from "../redux/actions/inventoryActions";
+
 export const ProductPage = () => {
     // Router
     const {productID, colorID} = useParams()
@@ -62,6 +64,10 @@ export const ProductPage = () => {
 
     // calculate the total number of items in cart
     const totalItems = shoppingCart.reduce((total, item) => total + item.quantity, 0);
+    
+    useEffect(() => {
+        dispatch(fetchInventory())
+    }, []);
 
     useEffect(() => {
         const fetchProducts = async () => {

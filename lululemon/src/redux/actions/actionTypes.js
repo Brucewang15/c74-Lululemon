@@ -22,5 +22,7 @@ export const actionTypes = {
   SET_USER: "SET_USER",
   LOGIN_SUCCESS: "LOGIN_SUCCESS",
   LOGOUT: "LOGOUT",
+
+  SET_INVENTORY: "SET_INVENTORY",
 };
 
