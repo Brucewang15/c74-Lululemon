@@ -19,12 +19,13 @@ import ExpandLessOutlinedIcon from "@mui/icons-material/ExpandLessOutlined";
 import ExpandMoreOutlinedIcon from "@mui/icons-material/ExpandMoreOutlined";
 
 export const Checkout = () => {
+  const isLogin = useSelector((state) => state.authReducer.loginStatus);
+
   const shoppingCart = useSelector(
     (state) => state.shoppingCartReducer.shoppingCart,
   );
   const userInfo = useSelector((state) => state.authReducer.user) || {};
   const token = useSelector((state) => state.authReducer.token);
-  const isLogin = useSelector((state) => state.authReducer.loginStatus);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -97,8 +98,8 @@ export const Checkout = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(fetchCartItems());
-  }, [dispatch]);
+    dispatch(fetchCartItems(isLogin));
+  }, [dispatch, isLogin]);
 
   const handleExpand = () => {
     setIsExpanded(!isExpanded);
