@@ -10,6 +10,7 @@ import {
   setUser,
 } from "../../redux/actions/authAction";
 import { Link } from "react-router-dom";
+import { getCartId } from "../../redux/actions/shoppingCartActions";
 
 export const LoginModal = ({
   handleModalClose,
@@ -40,13 +41,16 @@ export const LoginModal = ({
         const expirationTime = new Date().getTime() + 2 * 60 * 60 * 1000;
         // const expirationTime = new Date().getTime() + 2 * 1000
         const userInfo = res.data.user;
+        const cartId = res.data.user.shoppingCart.id;
         localStorage.setItem("token", token);
         localStorage.setItem("tokenExpiration", expirationTime);
         localStorage.setItem("userInfo", JSON.stringify(userInfo));
+        localStorage.setItem("cartId", cartId);
 
         dispatch(setToken(token));
         dispatch(setUser(userInfo));
         dispatch(loginSuccess());
+        dispatch(getCartId(cartId));
         setMessage("Login successful");
         setIsSuccess(true);
       })

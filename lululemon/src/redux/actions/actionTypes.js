@@ -24,5 +24,5 @@ export const actionTypes = {
   LOGOUT: "LOGOUT",
 
   SET_INVENTORY: "SET_INVENTORY",
+  SET_CARTID: "SET_CARTID",
 };
-

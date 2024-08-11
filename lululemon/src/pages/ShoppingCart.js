@@ -1,10 +1,10 @@
-import {useDispatch, useSelector} from "react-redux";
-import {EmptyShoppingCart} from "../components/shoppingcart/EmptyShoppingCart";
-import {ShoppingCartWithItems} from "../components/shoppingcart/ShoppingCartWithItems";
-import AccessAlarmTwoToneIcon from '@mui/icons-material/AccessAlarmTwoTone';
-import fakeCartData from '../components/shoppingcart/fakeCartData.json'
-import {useEffect} from "react";
-import {fetchCartItems} from "../redux/actions/shoppingCartActions";
+import { useDispatch, useSelector } from "react-redux";
+import { EmptyShoppingCart } from "../components/shoppingcart/EmptyShoppingCart";
+import { ShoppingCartWithItems } from "../components/shoppingcart/ShoppingCartWithItems";
+import AccessAlarmTwoToneIcon from "@mui/icons-material/AccessAlarmTwoTone";
+import fakeCartData from "../components/shoppingcart/fakeCartData.json";
+import { useEffect } from "react";
+import { fetchCartItems } from "../redux/actions/shoppingCartActions";
 
 // const saveFakeDataToLocalStorage = () => {
 //     // const existingCart = localStorage.getItem('shoppingCart');
@@ -15,24 +15,31 @@ import {fetchCartItems} from "../redux/actions/shoppingCartActions";
 //
 // };
 export const ShoppingCart = () => {
-    const dispatch = useDispatch();
-    const shoppingCart = useSelector(state => state.shoppingCartReducer.shoppingCart);
-    console.log("shopping cart items: ", shoppingCart);
-    const error = useSelector(state => state.shoppingCartReducer.error);
+  const dispatch = useDispatch();
+  const shoppingCart = useSelector(
+    (state) => state.shoppingCartReducer.shoppingCart,
+  );
+  const isLoggedIn = useSelector((state) => state.authReducer.loginStatus);
+  // console.log("shopping cart items: ", shoppingCart);
+  const error = useSelector((state) => state.shoppingCartReducer.error);
 
-    // Using fake data to test LocalStoarge
-    useEffect(() => {
-        // saveFakeDataToLocalStorage()
-        dispatch(fetchCartItems())
-    }, [dispatch]);
+  // Using fake data to test LocalStoarge
+  useEffect(() => {
+    // saveFakeDataToLocalStorage()
+    dispatch(fetchCartItems(isLoggedIn));
+  }, [dispatch, isLoggedIn]);
 
-    if (error) {
-        return <div>Error loading shopping cart: {error.message}</div>;
-    }
+  if (error) {
+    return <div>Error loading shopping cart: {error.message}</div>;
+  }
 
-    return (
-        <div>
-            {shoppingCart.length === 0 ? <EmptyShoppingCart /> : <ShoppingCartWithItems />}
-        </div>
-    );
-}
+  return (
+    <div>
+      {shoppingCart.length === 0 ? (
+        <EmptyShoppingCart />
+      ) : (
+        <ShoppingCartWithItems />
+      )}
+    </div>
+  );
+};

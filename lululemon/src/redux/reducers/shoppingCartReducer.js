@@ -1,53 +1,59 @@
-import fakeCartData from '../../components/shoppingcart/fakeCartData.json'
-import {actionTypes} from "../actions/actionTypes";
+import fakeCartData from "../../components/shoppingcart/fakeCartData.json";
+import { actionTypes } from "../actions/actionTypes";
 
 const initialState = {
-    shoppingCart: JSON.parse(localStorage.getItem('shoppingCart')) || [],
-    error: null,
+  shoppingCart: JSON.parse(localStorage.getItem("shoppingCart")) || [],
+  error: null,
+  cartId: null,
 };
 
 export const shoppingCartReducer = (state = initialState, action) => {
-    switch (action.type) {
-        case actionTypes.CHANGE_QUANTITY:
-            return {
-                ...state,
-                shoppingCart: action.payload,
-            };
-        case actionTypes.EDIT_CART:
-            return {
-                ...state,
-                shoppingCart: action.payload,
-            };
-        case actionTypes.MERGE_CART_ITEMS:
-            return {
-                ...state,
-                shoppingCart: action.payload,
-            };
-        case actionTypes.REMOVE_PRODUCTS:
-            return {
-                ...state,
-                shoppingCart: action.payload,
-            };
-        case actionTypes.ADD_ITEMS:
-            return {
-                ...state,
-                shoppingCart: action.payload,
-            };
-        case actionTypes.FETCH_CART_SUCCESS:
-            return {
-                ...state,
-                shoppingCart: action.payload,
-                error: null,
-            };
-        case actionTypes.FETCH_CART_ERROR:
-            return {
-                ...state,
-                shoppingCart: [],
-                error: action.payload,
-            };
-        default:
-            return state;
-    }
+  switch (action.type) {
+    case actionTypes.CHANGE_QUANTITY:
+      return {
+        ...state,
+        shoppingCart: action.payload,
+      };
+    case actionTypes.EDIT_CART:
+      return {
+        ...state,
+        shoppingCart: action.payload,
+      };
+    case actionTypes.MERGE_CART_ITEMS:
+      return {
+        ...state,
+        shoppingCart: action.payload,
+      };
+    case actionTypes.REMOVE_PRODUCTS:
+      return {
+        ...state,
+        shoppingCart: action.payload,
+      };
+    case actionTypes.ADD_ITEMS:
+      return {
+        ...state,
+        shoppingCart: action.payload,
+      };
+    case actionTypes.FETCH_CART_SUCCESS:
+      return {
+        ...state,
+        shoppingCart: action.payload,
+        error: null,
+      };
+    case actionTypes.FETCH_CART_ERROR:
+      return {
+        ...state,
+        shoppingCart: [],
+        error: action.payload,
+      };
+    case actionTypes.SET_CARTID:
+      return {
+        ...state,
+        cartId: action.payload,
+      };
+    default:
+      return state;
+  }
 };
 
 // const initialState = {
