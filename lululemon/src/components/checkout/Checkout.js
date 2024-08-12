@@ -112,7 +112,7 @@ export const Checkout = () => {
       <div className="checkoutBody">
         {isLogin === false ? (
           <div className="checkoutBodyLeft">
-            <div className="loginContainer">
+            <div className="loginContainer" id="container">
               <div className="loginTitle">
                 <AccountCircleOutlinedIcon />
                 <span>Have an account?</span>
@@ -121,6 +121,24 @@ export const Checkout = () => {
                 <span>Log in</span> to checkout more quickly and easily
               </p>
             </div>
+            <div className="contactInfo" id="container">
+              <div className="title">Contact Information</div>
+              <div className="email">Email Address (for order notification)</div>
+              <input id="input" type="text"/>
+              <div className="checkbox">
+                <input type="checkbox"/>
+                <div>Sign me up for lululemon emails (you can unsubscribe at any time). See our privacy policy for details.</div>
+              </div>
+            </div>
+
+            <div className="shippingAddress" id="container">
+
+              <div className="title">Shipping Address</div>
+              Location
+              <div className="location" id="input"></div>
+
+            </div>
+
           </div>
         ) : (
           <div className="checkoutBodyLeft">
@@ -176,7 +194,7 @@ export const Checkout = () => {
                       <p>Color: {item.swatchName}</p>
                       <p>Size: {item.size}</p>
                       <p>Quantity: {item.quantity}</p>
-                      <p>Price: ${item.price.toFixed(2)}</p>
+                      <p>Price: ${Number(item.price).toFixed(2)}</p>
                     </div>
                   </div>
                 ))}

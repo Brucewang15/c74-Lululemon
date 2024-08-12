@@ -8,7 +8,54 @@
 }
 
 .checkoutBodyLeft {
-    width: 50%;
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-radius: 5px;
+    text-align: left;
+    #input {
+        border: 1px solid black;
+        background-color: white;
+        border-radius: 5px;
+        height: 50px;
+        padding-left: 20px;
+        font-size: 17px;
+
+    }
+    .input:focus{
+        box-shadow: 0 0 5px rgb(0, 0, 0, 0.8);
+        outline: none;
+    }
+    #container {
+        width: 650px;
+        background-color: white;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+    }
+    .shippingAddress {
+        .title {
+            font-weight: 600;
+            font-size: x-large
+        }
+    }
+    .contactInfo {
+        text-align: left;
+        .title {
+            font-weight: 600;
+            font-size: x-large;
+
+        }
+    }
+    .checkbox {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 10px;
+    }
 }
 
 .checkoutBodyRight {
