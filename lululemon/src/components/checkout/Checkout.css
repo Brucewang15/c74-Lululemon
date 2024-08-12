@@ -20,6 +20,7 @@
         border-radius: 5px;
         height: 50px;
         padding-left: 20px;
+
         font-size: 17px;
 
     }
@@ -37,9 +38,48 @@
 
     }
     .shippingAddress {
+
         .title {
             font-weight: 600;
             font-size: x-large
+        }
+        .two {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            gap: 30px;
+            .individual {
+                display: flex;
+                flex-direction: column;
+
+
+                gap: 10px;
+                width: 50%;
+            }
+
+
+            }
+        .three {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            gap: 30px;
+            .individual {
+                display: flex;
+                flex-direction: column;
+
+
+                gap: 10px;
+                width: 30%;
+            }
+
+
+        }
+        .phoneNumber {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
         }
     }
     .contactInfo {
@@ -56,7 +96,7 @@
         align-items: flex-start;
         gap: 10px;
     }
-}
+
 
 .checkoutBodyRight {
     width: 25%;

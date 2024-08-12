@@ -136,19 +136,70 @@ export const Checkout = () => {
               <div className="title">Shipping Address</div>
               Location
               <div className="location" id="input"></div>
+              <div className="two">
+
+                <div className="individual">
+                  First name
+                  <input type="text" id="input"/>
+                </div>
+
+                <div className="individual">
+                  Last name
+                  <input type="text" id="input"/>
+                </div>
+
+
+              </div>
+
+              <div className="phoneNumber">
+                Phone Number
+                <input type="text" id="input"/>
+              </div>
+
+
+              <div className="phoneNumber">
+                Address
+                <input type="text" id="input"/>
+              </div>
+
+              <div className="phoneNumber">
+                Delivery note (Optional)
+                <input type="text" id="input"/>
+              </div>
+
+              <div className="three">
+
+                <div className="individual">
+                  City
+                  <input type="text" id="input"/>
+                </div>
+
+                <div className="individual">
+                  State
+                  <input type="text" id="input"/>
+                </div>
+
+                <div className="individual">
+                  Zip Code
+                  <input type="text" id="input"/>
+                </div>
+
+
+              </div>
+
 
             </div>
 
           </div>
         ) : (
-          <div className="checkoutBodyLeft">
-            <div className="loginContainer">
-              <div className="loginTitle">
+            <div className="checkoutBodyLeft">
+              <div className="loginContainer">
+                <div className="loginTitle">
                 <span>
                   Welcome Back {userInfo.firstName} {userInfo.lastName}
                 </span>
-              </div>
-              <button onClick={handlePlaceOrder}>
+                </div>
+                <button onClick={handlePlaceOrder}>
                 <img
                   src="https://i0.wp.com/cypruscomiccon.org/wp-content/uploads/2015/07/Paypal-logo-white.svg1_.png?ssl=1"
                   alt=""
