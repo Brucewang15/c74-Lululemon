@@ -28,10 +28,26 @@
   font-size: 1rem;
   font-family: Helvetica;
 }
-.shoppingCartHeader .signInContainer:hover {
+.shoppingCartHeader .signInContainer .signIn:hover {
   text-decoration: underline #c8102e;
   text-underline-offset: 5px;
-  transition: ease-in-out 0.5s;
+  transition: ease-in-out 0.2s;
+}
+.shoppingCartHeader .signInContainer .userName {
+  margin-left: 5px;
+}
+.shoppingCartHeader .signInContainer .userName:hover {
+  text-decoration: underline #c8102e;
+  text-underline-offset: 5px;
+  transition: ease-in-out 0.2s;
+}
+.shoppingCartHeader .signInContainer .logOut {
+  margin-left: 5px;
+}
+.shoppingCartHeader .signInContainer .logOut:hover {
+  text-decoration: underline #c8102e;
+  text-underline-offset: 5px;
+  transition: ease-in-out 0.2s;
 }
 
 /*# sourceMappingURL=ShoppingCartHeader.css.map */

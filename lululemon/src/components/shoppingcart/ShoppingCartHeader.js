@@ -42,13 +42,17 @@ export const ShoppingCartHeader = () => {
       >
         <PermIdentitySharpIcon />{" "}
         {isLogin === false ? (
-          <div>Sign in</div>
+          <div className="signIn hover">Sign in</div>
         ) : (
-          <div>
+          <div className="userName hover">
             {userInfo.firstName} {userInfo.lastName}
           </div>
         )}
-        {isLogin && <div onClick={handleLogout}>Log Out</div>}
+        {isLogin && (
+          <div className="logOut hover" onClick={handleLogout}>
+            Log Out
+          </div>
+        )}
       </div>
       {isModalOpen && (
         <LoginModal

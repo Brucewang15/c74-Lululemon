@@ -8,10 +8,12 @@ import Accessories from "./Accessories";
 import Shoes from "./Shoes";
 import FathersDay from "./FathersDay";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { LoginModal } from "../checkout/LoginModal";
 import { fetchCartItemsFromDB } from "../../redux/utils/api";
 import { Link } from "react-router-dom";
+import { logout } from "../../redux/actions/authAction";
+import { fetchCartItems } from "../../redux/actions/shoppingCartActions";
 
 export const Header = ({ isSticky }) => {
   const shoppingCart = useSelector(
@@ -25,6 +27,7 @@ export const Header = ({ isSticky }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [isSuccess, setIsSuccess] = useState(false);
+  const dispatch = useDispatch();
   // markxu@itlab.com
   // ITLabAPI@2024
 
@@ -42,7 +45,14 @@ export const Header = ({ isSticky }) => {
   const handleCLoseLoginModal = () => {
     setIsModalOpen(false);
   };
-
+  const handleLogout = () => {
+    dispatch(logout());
+    localStorage.removeItem("token");
+    localStorage.removeItem("tokenExpiration");
+    localStorage.removeItem("userInfo");
+    localStorage.removeItem("cartId");
+    setCartCount(cartCount);
+  };
   const cart = useSelector((state) => state.shoppingCartReducer.shoppingCart);
   // const [cartCount, setCartCount] = useState(0);
 
@@ -52,8 +62,11 @@ export const Header = ({ isSticky }) => {
       0,
     );
     setCartCount(shoppingCartCount);
-  }, [cart]);
+  }, [cart, shoppingCart, isLogin]);
 
+  useEffect(() => {
+    dispatch(fetchCartItems(isLogin));
+  }, [isLogin]);
   return (
     <div className="headerContent">
       <div className="topHeaderNavigation">
@@ -181,7 +194,13 @@ export const Header = ({ isSticky }) => {
                     : `${userInfo.firstName} ${userInfo.lastName}`}
                 </p>
               </a>
-              <Link to="/signup">Signup</Link>
+              {isLogin === false ? (
+                <Link to="/signup">Sign up</Link>
+              ) : (
+                <div className="logout" onClick={handleLogout}>
+                  Log Out
+                </div>
+              )}
               <a href="">
                 <img
                   src="https://www.svgrepo.com/show/326671/heart-outline.svg"
