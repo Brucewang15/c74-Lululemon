@@ -18,6 +18,9 @@ import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import ExpandLessOutlinedIcon from "@mui/icons-material/ExpandLessOutlined";
 import ExpandMoreOutlinedIcon from "@mui/icons-material/ExpandMoreOutlined";
 
+
+import countriesData from './countriesAndStates.json'
+
 export const Checkout = () => {
   const isLogin = useSelector((state) => state.authReducer.loginStatus);
 
@@ -32,6 +35,43 @@ export const Checkout = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [isExpanded, setIsExpanded] = useState(true);
+
+
+  const [isGift, setIsGift] = useState(false);
+  const [isChange, setIsChange] = useState(false);
+  const [activeOption, setActiveOption] = useState(null); // if there are multiple things, no need for multiple useStates. just use one.
+
+  const [selectedCountry, setSelectedCountry] = useState(null);
+  const [states, setStates] = useState([]);
+
+  const [whichState, setWhichState] =useState(null)
+  const handleCountryChange = (e) => {
+
+    setSelectedCountry(e.target.value)
+  }
+  console.log(selectedCountry, states, whichState, 2)
+
+  useEffect(() => {
+
+    if (selectedCountry !== null) {
+
+      const country = countriesData.countries.find(c => c.name === selectedCountry);
+      setStates(country.states)
+
+    }
+
+  }, [selectedCountry]); //why useEffect works?
+
+
+  const handleWhichState = (e) => {
+    setWhichState(e.target.value)
+    console.log(whichState)
+  }
+
+  const handleActiveOption = (which) => {
+    setActiveOption(which)
+  }
+
   const totalItems = shoppingCart.reduce(
     (total, item) => total + item.quantity,
     0,
@@ -112,7 +152,7 @@ export const Checkout = () => {
       <div className="checkoutBody">
         {isLogin === false ? (
           <div className="checkoutBodyLeft">
-            <div className="loginContainer">
+            <div className="loginContainer" id="container">
               <div className="loginTitle">
                 <AccountCircleOutlinedIcon />
                 <span>Have an account?</span>
@@ -121,16 +161,191 @@ export const Checkout = () => {
                 <span>Log in</span> to checkout more quickly and easily
               </p>
             </div>
+            <div className="contactInfo" id="container">
+              <div className="title">Contact Information</div>
+              <div className="email">Email Address (for order notification)</div>
+              <input id="input" type="text"/>
+              <div className="checkbox">
+                <input type="checkbox"/>
+                <div>Sign me up for lululemon emails (you can unsubscribe at any time). See our privacy policy for details.</div>
+              </div>
+            </div>
+
+            <div className="shippingAddress" id="container">
+
+              <div className="title">Shipping Address</div>
+              Location
+              <select onChange={handleCountryChange} className="location" id="input">
+                {countriesData.countries.map((country) => (
+                    <option key={country.name} value={country.name}>
+                      {country.name}
+                    </option>
+                ))}
+
+              </select>
+              <div className="two">
+
+                <div className="individual">
+                  First name
+                  <input type="text" id="input"/>
+                </div>
+
+                <div className="individual">
+                  Last name
+                  <input type="text" id="input"/>
+                </div>
+
+
+              </div>
+
+              <div className="phoneNumber">
+                Phone Number
+                <input type="text" id="input"/>
+              </div>
+
+
+              <div className="phoneNumber">
+                Address
+                <input type="text" id="input"/>
+              </div>
+
+              <div className="phoneNumber">
+                Delivery note (Optional)
+                <input type="text" id="input"/>
+              </div>
+
+              <div className="three">
+
+                <div className="individual">
+                  City
+                  <input type="text" id="input"/>
+                </div>
+
+
+                <div className="individual">
+
+                  {(states.length !== 0 && <>
+
+                    State
+                    <select onChange={handleWhichState} id = "input"  name="" >
+                      {
+                        states.map((state) => (
+                            <option  key={state.name} value={state.name}>{state}</option>
+                        ))
+                      }
+                    </select>
+
+                  </>)}
+
+                </div>
+
+                <div className="individual">
+                  Zip Code
+                  <input type="text" id="input"/>
+                </div>
+
+
+              </div>
+
+
+            </div>
+
+              <div className="shippingGift" id="container">
+                <div className="title">Shipping & gift options</div>
+                {(!isChange && <div>
+                  <div onClick={() => {
+                    setIsChange(isChange => !isChange)
+                  }} className="change">Change
+                  </div>
+
+                </div>)}
+
+                {(isChange && <div className="isChange">
+
+                <div
+                        className='options'
+                        onClick={() => handleActiveOption(0)}
+                    >
+                      <div className={`optionCheckbox ${activeOption === 0 ? 'optionCheckboxClicked' : ''}`}></div>
+                      <div className="optionsRight">
+                        <div className="top">2-7 business days</div>
+                        <div className="bottom">Standard shipping (FREE)</div>
+                      </div>
+                    </div>
+                    <div
+                        className="options"
+                        onClick={() => handleActiveOption(1)}
+                    >
+                      <div className={`optionCheckbox ${activeOption === 1 ? 'optionCheckboxClicked' : ''}`}></div>
+                      <div className="optionsRight">
+                        <div className="top">2-4 business days</div>
+                        <div className="bottom">Express Shipping ($20.00)</div>
+                      </div>
+                    </div>
+                    <div
+                        className="options"
+                        onClick={() => handleActiveOption(2)}
+                    >
+                      <div className={`optionCheckbox ${activeOption === 2 ? 'optionCheckboxClicked' : ''}`}></div>
+                      <div className="optionsRight">
+                        <div className="top">2-3 business days</div>
+                        <div className="bottom">Priority Shipping ($30.00)</div>
+                      </div>
+                    </div>
+
+                  </div>)}
+                {(!isChange && <div>
+                  <div className="shippingTime">2-7 Business Days</div>
+                  <div className="shippingTimeText">Standard Shipping (FREE)</div>
+                </div>)}
+
+
+                <div className="checkbox">
+                  <input
+                      checked={isGift}
+                      onChange={(event) => setIsGift(event.target.checked)}
+                      type="checkbox"/>
+                  This is a gift. Add a message
+                </div>
+
+                {(isGift && <>
+
+                  <div className="two">
+                    <div className="individual">
+                      To
+                      <input type="text" id="input"/>
+                    </div>
+
+                    <div className="individual">
+                      From
+                      <input type="text" id="input"/>
+                    </div>
+                  </div>
+
+                  Message
+                  <input type="text" id="input"/>
+                  Your message will be printed on a receipt with prices hidden.
+
+
+                </>)}
+
+
+              </div>
+
+            <a href ='checkout/payment' className="nextStep">
+              GO TO NEXT STEP
+            </a>
+
           </div>
         ) : (
-          <div className="checkoutBodyLeft">
-            <div className="loginContainer">
-              <div className="loginTitle">
+            <div className="checkoutBodyLeft">
+                <div className="loginContainer">
+                    <div className="loginTitle">
                 <span>
                   Welcome Back {userInfo.firstName} {userInfo.lastName}
                 </span>
-              </div>
-              <button onClick={handlePlaceOrder}>
+                </div>
+                <button onClick={handlePlaceOrder}>
                 <img
                   src="https://i0.wp.com/cypruscomiccon.org/wp-content/uploads/2015/07/Paypal-logo-white.svg1_.png?ssl=1"
                   alt=""
@@ -176,7 +391,7 @@ export const Checkout = () => {
                       <p>Color: {item.swatchName}</p>
                       <p>Size: {item.size}</p>
                       <p>Quantity: {item.quantity}</p>
-                      <p>Price: ${item.price.toFixed(2)}</p>
+                      <p>Price: ${Number(item.price).toFixed(2)}</p>
                     </div>
                   </div>
                 ))}

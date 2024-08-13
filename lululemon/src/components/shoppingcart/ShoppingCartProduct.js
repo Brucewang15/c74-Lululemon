@@ -17,6 +17,7 @@ import { EditPopUp } from "./EditPopUp";
 import { LoginModal } from "../checkout/LoginModal";
 import { SavedForLater } from "./SavedForLater";
 
+
 export const ShoppingCartProduct = () => {
   const shoppingCart = useSelector(
     (state) => state.shoppingCartReducer.shoppingCart,
@@ -152,7 +153,7 @@ export const ShoppingCartProduct = () => {
                   <div className="productDetailsRight">
                     <div className="priceContainer">
                       <div>Item Price</div>
-                      <div>${item.price.toFixed(2)}</div>
+                      <div>${Number(item.price).toFixed(2)}</div>
                     </div>
                     <div className="quantityContainer">
                       <label htmlFor={`quantity-${index}`}>Quantity</label>

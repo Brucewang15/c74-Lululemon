@@ -1,4 +1,4 @@
-import fakeCartData from "../../components/shoppingcart/fakeCartData.json";
+
 import { actionTypes } from "../actions/actionTypes";
 
 const initialState = {
