@@ -5,6 +5,7 @@ import {
   changeServerQuantity,
   fetchCartItems,
   removeProduct,
+  saveForLater,
 } from "../../redux/actions/shoppingCartActions";
 import "./ShoppingCartProduct.scss";
 import { OrderSummary } from "./OrderSummary";
@@ -14,12 +15,16 @@ import axios from "axios";
 import { RemoveItemModal } from "./RemoveItemModal";
 import { EditPopUp } from "./EditPopUp";
 import { LoginModal } from "../checkout/LoginModal";
+import { SavedForLater } from "./SavedForLater";
 
 export const ShoppingCartProduct = () => {
   const shoppingCart = useSelector(
     (state) => state.shoppingCartReducer.shoppingCart,
   );
   const isLogin = useSelector((state) => state.authReducer.loginStatus);
+  const savedShoppingCart = useSelector(
+    (state) => state.shoppingCartReducer.savedShoppingCart,
+  );
   const dispatch = useDispatch();
   // const [productDetails, setProductDetails] = useState([]);
   const [isModalOpen1, setIsModalOpen1] = useState(false);
@@ -103,6 +108,9 @@ export const ShoppingCartProduct = () => {
   const handleCLoseLoginModal = () => {
     setIsModalOpen(false);
   };
+  const handleToSave = (item) => {
+    dispatch(saveForLater(item));
+  };
   return (
     <div className="shoppingCartWrapper">
       <div className="shoppingCartBody">
@@ -176,7 +184,12 @@ export const ShoppingCartProduct = () => {
                 <div className="shippingAndReturnContainer">
                   <div>Free Shipping + Free Returns</div>
                   <div className="removeContainer">
-                    <button className="save button">Save for Later</button>
+                    <button
+                      onClick={() => handleToSave(item)}
+                      className="save button"
+                    >
+                      Save for Later
+                    </button>
                     <button
                       className="remove button"
                       onClick={() => handleOpenModal(item)}
@@ -206,6 +219,17 @@ export const ShoppingCartProduct = () => {
                 <span> create a member account</span> to view your saved items.
               </p>
             )}
+            <div className="itemsContainer">
+              {isLogin && savedShoppingCart && savedShoppingCart.length > 0 && (
+                <SavedForLater
+                  savedShoppingCart={savedShoppingCart}
+                  handleQuantityChange={handleQuantityChange}
+                  handleCloseOut={handleCloseOut}
+                  handleOpenModal={handleOpenModal}
+                  isVisibleEdit={isVisibleEdit}
+                />
+              )}
+            </div>
           </div>
         </div>
       </div>

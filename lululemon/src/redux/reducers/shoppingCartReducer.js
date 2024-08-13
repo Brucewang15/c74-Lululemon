@@ -5,6 +5,7 @@ const initialState = {
   shoppingCart: JSON.parse(localStorage.getItem("shoppingCart")) || [],
   error: null,
   cartId: null,
+  savedShoppingCart: [],
 };
 
 export const shoppingCartReducer = (state = initialState, action) => {
@@ -51,6 +52,41 @@ export const shoppingCartReducer = (state = initialState, action) => {
         ...state,
         cartId: action.payload,
       };
+    case actionTypes.SAVE_FOR_LATER:
+      const savedItem = action.payload;
+      let newShoppingCart = [...state.shoppingCart];
+      newShoppingCart = newShoppingCart.filter((item) => {
+        return !(
+          item.productId === savedItem.productId &&
+          item.colorId === savedItem.colorId &&
+          item.size === savedItem.size &&
+          item.quantity === savedItem.quantity &&
+          item.price === savedItem.price
+        );
+      });
+      return {
+        ...state,
+        savedShoppingCart: [...state.savedShoppingCart, savedItem],
+        shoppingCart: newShoppingCart,
+      };
+    case actionTypes.ADD_BACK_TO_CART:
+      const unsavedItem = action.payload;
+      let newSavedShoppingCart = [...state.savedShoppingCart];
+      newSavedShoppingCart = newSavedShoppingCart.filter((item) => {
+        return !(
+          item.productId === unsavedItem.productId &&
+          item.colorId === unsavedItem.colorId &&
+          item.size === unsavedItem.size &&
+          item.quantity === unsavedItem.quantity &&
+          item.price === unsavedItem.price
+        );
+      });
+      return {
+        ...state,
+        shoppingCart: [...state.shoppingCart, unsavedItem],
+        savedShoppingCart: newSavedShoppingCart,
+      };
+
     default:
       return state;
   }

@@ -176,6 +176,21 @@ export const getCartId = (cartId) => {
         payload: cartId,
     }
 }
+
+
+export const saveForLater = (item) => {
+    return {
+        type: actionTypes.SAVE_FOR_LATER,
+        payload: item
+    }
+}
+
+export const addBackToCart = (item) => {
+    return {
+        type: actionTypes.ADD_BACK_TO_CART,
+        payload: item
+    }
+}
 // import {actionTypes} from "./actionTypes";
 // import axios from "axios";
 //

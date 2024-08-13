@@ -16,6 +16,9 @@ import { fetchCartItems } from "../redux/actions/shoppingCartActions";
 // };
 export const ShoppingCart = () => {
   const dispatch = useDispatch();
+  const savedShoppingCart = useSelector(
+    (state) => state.shoppingCartReducer.savedShoppingCart,
+  );
   const shoppingCart = useSelector(
     (state) => state.shoppingCartReducer.shoppingCart,
   );
@@ -35,7 +38,7 @@ export const ShoppingCart = () => {
 
   return (
     <div>
-      {shoppingCart.length === 0 ? (
+      {shoppingCart.length === 0 && savedShoppingCart.length === 0 ? (
         <EmptyShoppingCart />
       ) : (
         <ShoppingCartWithItems />
