@@ -15,6 +15,7 @@ import { RemoveItemModal } from "./RemoveItemModal";
 import { EditPopUp } from "./EditPopUp";
 import { LoginModal } from "../checkout/LoginModal";
 
+
 export const ShoppingCartProduct = () => {
   const shoppingCart = useSelector(
     (state) => state.shoppingCartReducer.shoppingCart,
