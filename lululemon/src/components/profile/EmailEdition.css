@@ -1,0 +1,94 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.change-email-modal {
+  background: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 80vw; /* 80% of the viewport width */
+  max-width: 400px; /* Optional: Set a maximum width to prevent it from becoming too wide on large screens */
+  position: relative;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.current-email {
+  background-color: #f0f0f0;
+}
+
+.change-button {
+  width: 100%;
+  padding: 12px;
+  background-color: #d31334;
+  border-color: #d31334;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  text-transform: uppercase;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.change-button:disabled {
+  background-color: #8d9196;
+  border-color: #8d9196;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.underline-button {
+  width: 100%;
+  background: none;
+  border: none;
+  color: #000;
+  text-decoration: underline;
+  text-decoration-color: #000;
+  text-underline-offset: 4px;
+  cursor: pointer;
+  padding: 0;
+  margin-top: 20px;
+  font-size: 1rem;
+}
+
+.underline-button:hover {
+  text-decoration-color: #d31334;
+}

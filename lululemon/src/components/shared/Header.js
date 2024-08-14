@@ -42,7 +42,6 @@ export const Header = ({isSticky}) => {
     }
 
     const cart = useSelector(state => state.shoppingCartReducer.shoppingCart);
-    // const [cartCount, setCartCount] = useState(0);
 
     useEffect(() => {
         const shoppingCartCount = cart.reduce((total, item) => total + item.quantity, 0);

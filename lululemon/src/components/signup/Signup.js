@@ -195,7 +195,7 @@ export const SignupPage = () => {
               <div className="password-criteria">
                 <div className="criteria-column">
                   <div
-                    class={`criteriaItem ${
+                    className={`criteriaItem ${
                       passwordCriteria.length ? "met" : ""
                     }`}
                   >
@@ -205,7 +205,7 @@ export const SignupPage = () => {
                     <p>8 characters</p>
                   </div>
                   <div
-                    class={`criteriaItem ${
+                    className={`criteriaItem ${
                       passwordCriteria.uppercase ? "met" : ""
                     }`}
                   >
@@ -217,7 +217,7 @@ export const SignupPage = () => {
                 </div>
                 <div className="criteria-column">
                   <div
-                    class={`criteriaItem ${
+                    className={`criteriaItem ${
                       passwordCriteria.lowercase ? "met" : ""
                     }`}
                   >
@@ -227,7 +227,7 @@ export const SignupPage = () => {
                     <p>1 lowercase</p>
                   </div>
                   <div
-                    class={`criteriaItem ${
+                    className={`criteriaItem ${
                       passwordCriteria.digit ? "met" : ""
                     }`}
                   >

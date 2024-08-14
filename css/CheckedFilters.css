@@ -1,0 +1,52 @@
+.checkedFiltersWrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: left;
+  align-items: center;
+  padding: 8px 8px 8px 2px;
+}
+.checkedFiltersWrapper .clearFilter {
+  background-color: black;
+  color: white;
+  width: auto;
+  height: 20px;
+  border: 1px solid #8d9196;
+  font-size: 0.8rem;
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 8px;
+  font-weight: bold;
+}
+.checkedFiltersWrapper .checkedFiltersContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  font-family: inherit;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.2;
+  box-sizing: border-box;
+  margin-right: 0.5rem;
+}
+.checkedFiltersWrapper .checkedFiltersContainer .checkedFilter {
+  border: 1px solid #8d9196;
+  background-color: #fff;
+  font-size: 0.8rem;
+  margin-right: 5px;
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 10px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.checkedFiltersWrapper .checkedFiltersContainer .checkedFilter:hover {
+  border-color: #000;
+}
+.checkedFiltersWrapper .unselectedFilters {
+  display: none;
+  border: none;
+}/*# sourceMappingURL=CheckedFilters.css.map */
