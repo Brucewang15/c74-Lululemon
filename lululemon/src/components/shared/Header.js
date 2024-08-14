@@ -14,6 +14,7 @@ import { fetchCartItemsFromDB } from "../../redux/utils/api";
 import { Link } from "react-router-dom";
 import { logout } from "../../redux/actions/authAction";
 import { fetchCartItems } from "../../redux/actions/shoppingCartActions";
+import ModalHelpBox from "../help/ModalHelpBox";
 
 export const Header = ({ isSticky }) => {
   const shoppingCart = useSelector(
@@ -232,6 +233,7 @@ export const Header = ({ isSticky }) => {
           />
         )}
       </div>
+      <ModalHelpBox />
     </div>
   );
 };
