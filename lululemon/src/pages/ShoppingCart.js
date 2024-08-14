@@ -4,7 +4,10 @@ import { ShoppingCartWithItems } from "../components/shoppingcart/ShoppingCartWi
 import AccessAlarmTwoToneIcon from "@mui/icons-material/AccessAlarmTwoTone";
 
 import { useEffect } from "react";
-import { fetchCartItems } from "../redux/actions/shoppingCartActions";
+import {
+  fetchAllSavedItemsFromServer,
+  fetchCartItems,
+} from "../redux/actions/shoppingCartActions";
 
 // const saveFakeDataToLocalStorage = () => {
 //     // const existingCart = localStorage.getItem('shoppingCart');
@@ -16,29 +19,33 @@ import { fetchCartItems } from "../redux/actions/shoppingCartActions";
 // };
 export const ShoppingCart = () => {
   const dispatch = useDispatch();
-  const savedShoppingCart = useSelector(
-    (state) => state.shoppingCartReducer.savedShoppingCart,
-  );
+
   const shoppingCart = useSelector(
     (state) => state.shoppingCartReducer.shoppingCart,
   );
   const isLoggedIn = useSelector((state) => state.authReducer.loginStatus);
+  const savedItems = useSelector(
+    (state) => state.shoppingCartReducer.savedItems,
+  );
   // console.log("shopping cart items: ", shoppingCart);
   const error = useSelector((state) => state.shoppingCartReducer.error);
-
+  const cartId = localStorage.getItem("cartId");
   // Using fake data to test LocalStoarge
   useEffect(() => {
     // saveFakeDataToLocalStorage()
     dispatch(fetchCartItems(isLoggedIn));
   }, [dispatch, isLoggedIn]);
-
+  useEffect(() => {
+    console.log(cartId);
+    if (cartId) dispatch(fetchAllSavedItemsFromServer());
+  }, [cartId, dispatch]);
   if (error) {
     return <div>Error loading shopping cart: {error.message}</div>;
   }
-
+  // && savedItems.length === 0
   return (
     <div>
-      {shoppingCart.length === 0 && savedShoppingCart.length === 0 ? (
+      {shoppingCart.length === 0 && savedItems.length === 0 ? (
         <EmptyShoppingCart />
       ) : (
         <ShoppingCartWithItems />

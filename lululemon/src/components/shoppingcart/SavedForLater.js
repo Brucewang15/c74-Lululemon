@@ -1,10 +1,15 @@
 import { EditPopUp } from "./EditPopUp";
 import React from "react";
-import { useDispatch } from "react-redux";
-import { addBackToCart } from "../../redux/actions/shoppingCartActions";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addBackToCart,
+  addBackToCartToServer,
+  removeSavedItem,
+  saveForLaterToServer,
+} from "../../redux/actions/shoppingCartActions";
 
 export const SavedForLater = ({
-  savedShoppingCart,
+  savedItems,
   handleCloseOut,
   handleQuantityChange,
   handleOpenModal,
@@ -14,10 +19,19 @@ export const SavedForLater = ({
   const handleAddBackToBag = (item) => {
     dispatch(addBackToCart(item));
   };
+  const isLogin = useSelector((state) => state.authReducer.loginStatus);
+  const handleAddBackToBagToServer = (savedItemId) => {
+    dispatch(addBackToCartToServer(savedItemId));
+  };
 
+  const handleRemoveSavedItem = (savedItemId) => {
+    if (isLogin) {
+      dispatch(removeSavedItem(savedItemId));
+    }
+  };
   return (
     <div className="itemsContainer">
-      {savedShoppingCart.map((item, index) => (
+      {savedItems.map((item, index) => (
         <div key={index} className="itemContainer">
           <img
             className="productImage"
@@ -63,8 +77,7 @@ export const SavedForLater = ({
                   </select>
                 </div>
                 <div className="totalPriceContainer">
-                  <div>Total Price</div>$
-                  {(item.price * item.quantity).toFixed(2)}
+                  <div>Total Price</div>${(item.price * 1).toFixed(2)}
                 </div>
               </div>
             </div>
@@ -72,14 +85,20 @@ export const SavedForLater = ({
               <div>Free Shipping + Free Returns</div>
               <div className="removeContainer">
                 <button
-                  onClick={() => handleAddBackToBag(item)}
+                  onClick={() => {
+                    if (isLogin) {
+                      handleAddBackToBagToServer(item.id);
+                    } else {
+                      handleAddBackToBag(item);
+                    }
+                  }}
                   className="save button"
                 >
                   Add To Bag
                 </button>
                 <button
                   className="remove button"
-                  onClick={() => handleOpenModal(item)}
+                  onClick={() => handleRemoveSavedItem(item.id)}
                 >
                   Remove
                 </button>

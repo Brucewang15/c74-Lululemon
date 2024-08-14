@@ -170,6 +170,8 @@ export const fetchCartItems = (isLoggedIn) => async dispatch => {
         });
 };
 
+
+// get cartId when user logged in
 export const getCartId = (cartId) => {
     return {
         type: actionTypes.SET_CARTID,
@@ -177,6 +179,42 @@ export const getCartId = (cartId) => {
     }
 }
 
+// Save for later actions
+
+export const fetchAllSavedItemsFromServer = () => async (dispatch, getState) => {
+    const cartId = localStorage.getItem('cartId')
+    if (!cartId || isNaN(cartId)) {
+        console.log('invalid cartId:', cartId)
+        return
+    }
+    try {
+        const res = await axios.get(`http://localhost:3399/cart/${cartId}/savedItems`)
+        const savedItems = res.data.data.savedItems
+        dispatch({
+            type: actionTypes.FETCH_SAVED_ITEMS_FROM_SERVER,
+            payload: savedItems
+        })
+    } catch (e) {
+        console.log('fetching saved items failed', e)
+    }
+}
+
+export const saveForLaterToServer = (itemId) => async dispatch => {
+    const cartId = localStorage.getItem('cartId')
+    if (!itemId && !cartId) {
+        console.log('no cartId or itemId')
+        return
+    }
+
+    try {
+        const res = await axios.post(`http://localhost:3399/cart/${cartId}/saveForLater/${itemId}`)
+
+        dispatch(fetchAllSavedItemsFromServer())
+        dispatch(fetchCartItems(true))
+    } catch (e) {
+        console.log('save for later failed:', e)
+    }
+}
 
 export const saveForLater = (item) => {
     return {
@@ -185,12 +223,43 @@ export const saveForLater = (item) => {
     }
 }
 
+
+export const addBackToCartToServer = (savedItemId) => async dispatch => {
+    const cartId = localStorage.getItem('cartId')
+    if (!(savedItemId && cartId)) {
+        console.log('no cartId and savedItemId, include them to move back to cart')
+    }
+    try {
+        const res = await axios.post(`http://localhost:3399/cart/${cartId}/moveBackToCart/${savedItemId}`)
+        dispatch(fetchCartItems(true))
+        dispatch(fetchAllSavedItemsFromServer())
+    } catch (e) {
+        console.log('moving item back to cart failed')
+    }
+}
 export const addBackToCart = (item) => {
     return {
         type: actionTypes.ADD_BACK_TO_CART,
         payload: item
     }
 }
+
+export const removeSavedItem = (savedItemId) => async dispatch => {
+    const cartId = localStorage.getItem('cartId')
+    if (!(savedItemId && cartId)) {
+        console.log('no cartId and savedItemId, include them to move back to cart')
+    }
+
+    try {
+        console.log('cartId', cartId, "itemId", savedItemId)
+        await axios.delete(`http://localhost:3399/cart/${cartId}/deleteSavedItem/${savedItemId}`)
+        dispatch(fetchAllSavedItemsFromServer())
+        dispatch(fetchCartItems(true))
+    } catch (e) {
+        console.log('deleting saved item failed')
+    }
+}
+
 // import {actionTypes} from "./actionTypes";
 // import axios from "axios";
 //

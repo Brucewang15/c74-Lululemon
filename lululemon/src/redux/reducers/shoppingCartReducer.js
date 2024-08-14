@@ -1,11 +1,10 @@
-
 import { actionTypes } from "../actions/actionTypes";
 
 const initialState = {
   shoppingCart: JSON.parse(localStorage.getItem("shoppingCart")) || [],
   error: null,
-  cartId: null,
-  savedShoppingCart: [],
+  cartId: localStorage.getItem("cartId") || null,
+  savedItems: [],
 };
 
 export const shoppingCartReducer = (state = initialState, action) => {
@@ -66,12 +65,12 @@ export const shoppingCartReducer = (state = initialState, action) => {
       });
       return {
         ...state,
-        savedShoppingCart: [...state.savedShoppingCart, savedItem],
+        savedItems: [...state.savedItems, savedItem],
         shoppingCart: newShoppingCart,
       };
     case actionTypes.ADD_BACK_TO_CART:
       const unsavedItem = action.payload;
-      let newSavedShoppingCart = [...state.savedShoppingCart];
+      let newSavedShoppingCart = [...state.savedItems];
       newSavedShoppingCart = newSavedShoppingCart.filter((item) => {
         return !(
           item.productId === unsavedItem.productId &&
@@ -84,13 +83,18 @@ export const shoppingCartReducer = (state = initialState, action) => {
       return {
         ...state,
         shoppingCart: [...state.shoppingCart, unsavedItem],
-        savedShoppingCart: newSavedShoppingCart,
+        savedItems: newSavedShoppingCart,
       };
 
+    case actionTypes.FETCH_SAVED_ITEMS_FROM_SERVER:
+      return { ...state, savedItems: action.payload };
+    case actionTypes.LOGOUT:
+      return { ...state, savedItems: [] };
     default:
       return state;
   }
 };
+
 
 // const initialState = {
 //     // shoppingCart: calStorage.getItem('shoppingCart')) || fakeCartData.cartItemsJSON.parse(lo

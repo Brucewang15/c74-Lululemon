@@ -3,29 +3,30 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   changeQuantity,
   changeServerQuantity,
+  fetchAllSavedItemsFromServer,
   fetchCartItems,
   removeProduct,
   saveForLater,
+  saveForLaterToServer,
 } from "../../redux/actions/shoppingCartActions";
 import "./ShoppingCartProduct.scss";
 import { OrderSummary } from "./OrderSummary";
 import React, { useEffect, useState } from "react";
-import { fetchProductDetails } from "../../redux/utils/api";
-import axios from "axios";
+
 import { RemoveItemModal } from "./RemoveItemModal";
 import { EditPopUp } from "./EditPopUp";
 import { LoginModal } from "../checkout/LoginModal";
 import { SavedForLater } from "./SavedForLater";
-
 
 export const ShoppingCartProduct = () => {
   const shoppingCart = useSelector(
     (state) => state.shoppingCartReducer.shoppingCart,
   );
   const isLogin = useSelector((state) => state.authReducer.loginStatus);
-  const savedShoppingCart = useSelector(
-    (state) => state.shoppingCartReducer.savedShoppingCart,
+  const savedItems = useSelector(
+    (state) => state.shoppingCartReducer.savedItems,
   );
+  const cartId = useSelector((state) => state.shoppingCartReducer.cartId);
   const dispatch = useDispatch();
   // const [productDetails, setProductDetails] = useState([]);
   const [isModalOpen1, setIsModalOpen1] = useState(false);
@@ -42,7 +43,10 @@ export const ShoppingCartProduct = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [isSuccess, setIsSuccess] = useState(false);
-
+  useEffect(() => {
+    console.log(cartId);
+    if (cartId) dispatch(fetchAllSavedItemsFromServer());
+  }, [cartId, dispatch]);
   useEffect(() => {
     const total = shoppingCart.reduce(
       (acc, item) => acc + item.price * item.quantity,
@@ -111,6 +115,10 @@ export const ShoppingCartProduct = () => {
   };
   const handleToSave = (item) => {
     dispatch(saveForLater(item));
+  };
+
+  const handleSaveForLaterInSaver = (itemId) => {
+    dispatch(saveForLaterToServer(itemId));
   };
   return (
     <div className="shoppingCartWrapper">
@@ -186,7 +194,11 @@ export const ShoppingCartProduct = () => {
                   <div>Free Shipping + Free Returns</div>
                   <div className="removeContainer">
                     <button
-                      onClick={() => handleToSave(item)}
+                      onClick={() => {
+                        if (isLogin) {
+                          handleSaveForLaterInSaver(item.id);
+                        } else alert("Please log in to save items");
+                      }}
                       className="save button"
                     >
                       Save for Later
@@ -221,9 +233,9 @@ export const ShoppingCartProduct = () => {
               </p>
             )}
             <div className="itemsContainer">
-              {isLogin && savedShoppingCart && savedShoppingCart.length > 0 && (
+              {isLogin && savedItems && savedItems.length > 0 && (
                 <SavedForLater
-                  savedShoppingCart={savedShoppingCart}
+                  savedItems={savedItems}
                   handleQuantityChange={handleQuantityChange}
                   handleCloseOut={handleCloseOut}
                   handleOpenModal={handleOpenModal}
