@@ -15,12 +15,14 @@ import {productReducer} from '../reducers/productReducer';
 import {reviewsReducer} from "../reducers/reviewsReducer";
 import {shoppingCartReducer} from "../reducers/shoppingCartReducer";
 import {authReducer} from "../reducers/authReducer";
+import { helpReducer } from '../reducers/helpReducer';
 
 const rootReducer = combineReducers({
     filterReducer,
     productReducer,
     reviewsReducer,
     shoppingCartReducer,
+    helpReducer,
     authReducer
 });
 

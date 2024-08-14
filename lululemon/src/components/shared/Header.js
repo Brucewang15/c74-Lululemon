@@ -13,6 +13,8 @@ import {LoginModal} from "../checkout/LoginModal";
 import {fetchCartItemsFromDB} from "../../redux/utils/api";
 import { Link } from "react-router-dom";
 
+import ModalHelpBox from "../help/ModalHelpBox";
+
 export const Header = ({isSticky}) => {
     const shoppingCart = useSelector(state => state.shoppingCartReducer.shoppingCart)
     const navigate = useNavigate()
@@ -164,6 +166,7 @@ export const Header = ({isSticky}) => {
                 {isModalOpen && <LoginModal handleModalClose={handleCLoseLoginModal} isSuccess={isSuccess}
                                             setIsSuccess={setIsSuccess}/>}
             </div>
+            <ModalHelpBox/>
         </div>
     );
 };
