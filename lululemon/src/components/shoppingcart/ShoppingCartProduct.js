@@ -17,6 +17,7 @@ import { RemoveItemModal } from "./RemoveItemModal";
 import { EditPopUp } from "./EditPopUp";
 import { LoginModal } from "../checkout/LoginModal";
 import { SavedForLater } from "./SavedForLater";
+import { useNavigate } from "react-router-dom";
 
 export const ShoppingCartProduct = () => {
   const shoppingCart = useSelector(
@@ -28,6 +29,7 @@ export const ShoppingCartProduct = () => {
   );
   const cartId = useSelector((state) => state.shoppingCartReducer.cartId);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   // const [productDetails, setProductDetails] = useState([]);
   const [isModalOpen1, setIsModalOpen1] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
@@ -229,7 +231,11 @@ export const ShoppingCartProduct = () => {
             {isLogin === false && (
               <p>
                 <span onClick={handleOpenLoginModal}>Sign in</span> or{" "}
-                <span> create a member account</span> to view your saved items.
+                <span onClick={() => navigate("/signup")}>
+                  {" "}
+                  create a member account
+                </span>{" "}
+                to view your saved items.
               </p>
             )}
             <div className="itemsContainer">

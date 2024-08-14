@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import "./Signup.css";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -9,6 +9,8 @@ import { See } from "../icon/see";
 import { Unseen } from "../icon/unseen";
 import axios from "axios";
 import { serverAPI } from "../../redux/utils/helper";
+import { LoginModal } from "../checkout/LoginModal";
+import { useSelector } from "react-redux";
 
 export const SignupPage = () => {
   const [email, setEmail] = useState("");
@@ -24,7 +26,6 @@ export const SignupPage = () => {
     lowercase: false,
     digit: false,
   });
-
   const navigator = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -50,7 +51,7 @@ export const SignupPage = () => {
   };
 
   const handleGoBackHome = () => {
-    navigator("/");
+    navigator(-1);
   };
 
   const validateEmail = (email) => {
