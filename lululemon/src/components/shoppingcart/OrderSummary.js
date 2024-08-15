@@ -1,10 +1,10 @@
 import "./OrderSummary.css";
 import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
-import {Payment} from "../checkout/Payment";
 import axios from "axios";
 import {myKey} from "../../redux/utils/helper";
 import {useSelector} from "react-redux";
+import {Paypal} from "../checkout/Paypal";
 
 
 export const OrderSummary = ({totalPrice}) => {
@@ -160,20 +160,13 @@ export const OrderSummary = ({totalPrice}) => {
 
                 or checkout quickly with
 
-                {/*<button>*/}
+                <Paypal amount={totalPrice}/>
+
+                {/*{isLogin === true && <button onClick={handlePlaceOrder}>*/}
                 {/*    <img*/}
                 {/*        src="https://i0.wp.com/cypruscomiccon.org/wp-content/uploads/2015/07/Paypal-logo-white.svg1_.png?ssl=1"*/}
                 {/*        alt=""/>*/}
-                {/*</button>*/}
-
-                {/*<div className="payPal">*/}
-                {/*    <Payment/>*/}
-                {/*</div>*/}
-                {isLogin === true && <button onClick={handlePlaceOrder}>
-                    <img
-                        src="https://i0.wp.com/cypruscomiccon.org/wp-content/uploads/2015/07/Paypal-logo-white.svg1_.png?ssl=1"
-                        alt=""/>
-                </button>}
+                {/*</button>}*/}
 
             </div>
 

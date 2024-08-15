@@ -12,6 +12,7 @@
     flex-direction: row;
     justify-content: space-between;
     gap: 30px;
+
     .individual {
         display: flex;
         flex-direction: column;
@@ -23,6 +24,7 @@
 
 
 }
+
 .checkoutBodyLeft {
     width: 60%;
     display: flex;
@@ -30,7 +32,10 @@
     gap: 10px;
     border-radius: 5px;
     text-align: left;
+
     .nextStep {
+        border: none;
+        margin-left: 20%;
         display: flex;
         justify-content: center;
         height: 50px;
@@ -41,10 +46,12 @@
         align-items: center;
         border-radius: 5px;
     }
+
     .nextStep:hover {
         background-color: #a00d25;
         cursor: pointer;
     }
+
     #input {
         border: 1px solid black;
         background-color: white;
@@ -55,10 +62,12 @@
         font-size: 17px;
 
     }
-    #input:focus{
+
+    #input:focus {
         box-shadow: 0 0 5px rgb(0, 0, 0, 0.8);
         outline: none;
     }
+
     #container {
         width: 650px;
         background-color: white;
@@ -68,17 +77,21 @@
         gap: 10px;
 
     }
+
     .shippingGift {
         position: relative;
+
         .title {
             font-weight: 600;
             font-size: x-large;
             margin-bottom: 10px;
         }
+
         .shippingTime {
             font-weight: 600;
 
         }
+
         .change {
             position: absolute;
             right: 30px;
@@ -86,11 +99,13 @@
             border-bottom: 1px solid gray;
 
         }
+
         .change:hover {
             cursor: pointer;
         }
 
     }
+
     .shippingAddress {
 
         .title {
@@ -103,6 +118,7 @@
             flex-direction: row;
             justify-content: space-between;
             gap: 30px;
+
             .individual {
                 display: flex;
                 flex-direction: column;
@@ -114,18 +130,21 @@
 
 
         }
+
         .phoneNumber {
             display: flex;
             flex-direction: column;
             gap: 10px;
         }
-        }
+    }
+
     .isChange {
 
         .options {
             display: flex;
             flex-direction: row;
-            align-items: flex-start;gap: 10px;
+            align-items: flex-start;
+            gap: 10px;
             margin-bottom: 10px;
 
             .optionCheckbox {
@@ -138,10 +157,12 @@
                 justify-content: center;
                 align-items: center;
             }
+
             .optionCheckboxClicked {
                 border: 1px solid red;
                 box-shadow: 0 0 5px rgb(0, 0, 0, 0.3)
             }
+
             .optionCheckboxClicked::after {
                 content: '';
                 height: 9px;
@@ -161,21 +182,24 @@
             }
         }
     }
-    }
-    .contactInfo {
-        text-align: left;
-        .title {
-            font-weight: 600;
-            font-size: x-large;
+}
 
-        }
+.contactInfo {
+    text-align: left;
+
+    .title {
+        font-weight: 600;
+        font-size: x-large;
+
     }
-    .checkbox {
-        display: flex;
-        flex-direction: row;
-        align-items: flex-start;
-        gap: 10px;
-    }
+}
+
+.checkbox {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 10px;
+}
 
 
 .checkoutBodyRight {
@@ -288,6 +312,7 @@
         border: none;
         border-radius: 5px;
         background-color: #006fb9;
+
         &:hover {
             cursor: pointer;
             filter: brightness(95%);
@@ -323,3 +348,16 @@
     }
 }
 
+#streetAddress {
+    border: 1px solid black;
+    background-color: white;
+    border-radius: 5px;
+    height: 50px;
+    padding-left: 20px;
+
+    font-size: 17px;
+}
+
+#container {
+    margin-bottom: 10px;
+}
