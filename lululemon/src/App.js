@@ -13,7 +13,7 @@ import { ThankYou } from "./components/checkout/ThankYou";
 import { SignupPage } from "./components/signup/Signup";
 import { ForgotPassword } from "./components/checkout/ForgotPassword";
 import { SetNewPassword } from "./components/checkout/SetNewPassword";
-import { CheckoutPayment} from "./components/checkout/CheckoutPayment";
+import { CheckoutPayment } from "./components/checkout/CheckoutPayment";
 
 function App() {
   const dispatch = useDispatch();
@@ -73,8 +73,8 @@ function App() {
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/forgotpassword" element={<ForgotPassword />} />
           <Route path="/forgotpassword/:token" element={<SetNewPassword />} />
+          <Route path="/shop/checkout/payment" element={<CheckoutPayment />} />
           <Route path="*" element={<WrongPage />} />
-          <Route path="/shop/checkout/payment" element = {<CheckoutPayment/>}/>
         </Routes>
       </BrowserRouter>
     </div>

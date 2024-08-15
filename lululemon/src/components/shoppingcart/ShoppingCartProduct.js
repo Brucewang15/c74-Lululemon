@@ -55,6 +55,7 @@ export const ShoppingCartProduct = () => {
       0,
     );
     setTotalPrice(total.toFixed(2));
+    console.log("total ori=>", total, "total to fixed", total.toFixed(2));
   }, [shoppingCart]);
 
   const handleCloseOut = (index) => {
