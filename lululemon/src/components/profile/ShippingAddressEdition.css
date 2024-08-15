@@ -10,14 +10,15 @@
   align-items: center;
 }
 
-.change-password-modal {
-  background: white;
+.shipping-address-form {
   max-width: 400px;
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  position: relative;
+  margin: 0 auto;
+  background-color: #ffffff;
+  padding: 24px;
+  border-radius: 8px;
   width: 80vw; /* 80% of the viewport width */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
 }
 
 .close-button {
@@ -26,75 +27,74 @@
   right: 10px;
   background: none;
   border: none;
-  font-size: 24px;
+  font-size: 1.5rem;
   cursor: pointer;
 }
 
 h2 {
-  margin-top: 20px;
+  margin-top: 0;
   margin-bottom: 20px;
 }
 
 .form-group {
-  margin-bottom: 15px;
+  margin-bottom: 16px;
 }
 
-.form-group label {
-  display: block;
-  margin-bottom: 5px;
-}
-
-.password-input-wrapper {
+.form-group .input-wrapper {
   position: relative;
 }
 
-.password-input-wrapper input {
+.form-group.error input {
+  border-color: #ef4444;
+}
+
+.error-message {
+  color: #ef4444;
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 4px;
+  color: #374151;
+}
+
+input[type="text"],
+input[type="tel"],
+select {
   width: 100%;
-  padding: 10px;
-  padding-right: 40px;
-  border: 1px solid #ccc;
+  padding: 8px 12px;
+  border: 1px solid #d1d5db;
   border-radius: 4px;
-  font-size: 16px;
+  font-size: 14px;
 }
 
-.toggle-password {
-  position: absolute;
-  right: 5px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  cursor: pointer;
+input[type="text"]::placeholder,
+input[type="tel"]::placeholder {
+  color: #9ca3af;
 }
 
-.password-criteria {
-  display: flex;
-  justify-content: space-between;
+.help-text {
+  font-size: 12px;
+  color: #6b7280;
+  margin-top: 4px;
 }
 
-.criteria-column {
-  flex: 1;
-}
-
-.criteriaItem {
+.checkbox-group {
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
-.check {
-  flex-shrink: 0;
-  width: 20px;
-  height: 20px;
-  opacity: 0;
-  transition: opacity 0.3s ease;
+.checkbox-group input[type="checkbox"] {
+  margin-right: 8px;
+  width: 4vw;
 }
 
-.criteriaItem.met .check {
-  opacity: 1;
-}
-
-.change-button {
+.submit-button {
   width: 100%;
   padding: 12px;
   background-color: #d31334;
@@ -105,11 +105,11 @@ h2 {
   font-size: 16px;
   text-transform: uppercase;
   cursor: pointer;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
-.change-button:disabled {
-  background-color:                                                       #8d9196;
+.submit-button:disabled {
+  background-color: #8d9196;
   border-color: #8d9196;
   cursor: not-allowed;
   opacity: 0.7;

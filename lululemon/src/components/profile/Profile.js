@@ -5,6 +5,8 @@ import { Plus } from "../icon/plus";
 import NameEdition from "./NameEdition";
 import EmailEdition from "./EmailEdition";
 import PasswordEdition from "./PasswordEdition";
+import ShippingAddressEdition from "./ShippingAddressEdition";
+import GiftCardEdition from "./GiftCardEdition";
 
 const Profile = () => {
   return (
@@ -54,14 +56,19 @@ const User = () => {
 const Account = () => {
   const [isEmailEditOpen, setIsEmailEditOpen] = useState(false);
   const [isPasswordEditOpen, setIsPasswordEditOpen] = useState(false);
-  
+
   return (
     <div className="user section">
       <h2 className="subtitle">Account</h2>
       <div className="field">
         <div className="nameSection">
           <label className="label">Email</label>
-          <button className="edit-button" onClick={() => setIsEmailEditOpen(true)}>Edit</button>
+          <button
+            className="edit-button"
+            onClick={() => setIsEmailEditOpen(true)}
+          >
+            Edit
+          </button>
         </div>
         <div className="input">kidjokerrjerry@duck.com</div>
       </div>
@@ -71,7 +78,12 @@ const Account = () => {
       <div className="field">
         <div className="nameSection">
           <label className="label">Password</label>
-          <button className="edit-button" onClick={() => setIsPasswordEditOpen(true)}>Edit</button>
+          <button
+            className="edit-button"
+            onClick={() => setIsPasswordEditOpen(true)}
+          >
+            Edit
+          </button>
         </div>
         <div className="input">••••••••••</div>
         {isPasswordEditOpen && (
@@ -82,31 +94,49 @@ const Account = () => {
   );
 };
 
-const CheckoutPreferences = () => (
-  <div className="section">
-    <div className="checkout field">
-      <h2 className="subtitle">Shipping addresses</h2>
-      <a className="add-link">
-        <Plus width={24} height={24} />
-        <p className="text">Add a shipping address</p>
-      </a>
+const CheckoutPreferences = () => {
+  const [isShippingAddressEditOpen, setIsShippingAddressEditOpen] =
+    useState(false);
+  const [isGiftCardEditOpen, setIsGiftCardEditOpen] = useState(false);
+  const [isCreditCardEditOpen, setIsCreditCardEditOpen] = useState(false);
+
+  return (
+    <div className="section">
+      <div className="checkout field">
+        <h2 className="subtitle">Shipping addresses</h2>
+        <a
+          className="add-link"
+          onClick={() => setIsShippingAddressEditOpen(true)}
+        >
+          <Plus width={24} height={24} />
+          <p className="text">Add a shipping address</p>
+        </a>
+      </div>
+      <div className="checkout field">
+        <h2 className="subtitle">Credit cards</h2>
+        <a className="add-link">
+          <Plus width={24} height={24} />
+          <p className="text">Add a credit card</p>
+        </a>
+      </div>
+      <div className="checkout field">
+        <h2 className="subtitle">Gift cards</h2>
+        <a className="add-link" onClick={() => setIsGiftCardEditOpen(true)}>
+          <Plus width={24} height={24} />
+          <p className="text">Add a gift card</p>
+        </a>
+      </div>
+      {isShippingAddressEditOpen && (
+        <ShippingAddressEdition
+          onClose={() => setIsShippingAddressEditOpen(false)}
+        />
+      )}
+      {isGiftCardEditOpen && (
+        <GiftCardEdition onClose={() => setIsGiftCardEditOpen(false)} />
+      )}
     </div>
-    <div className="checkout field">
-      <h2 className="subtitle">Credit cards</h2>
-      <a className="add-link">
-        <Plus width={24} height={24} />
-        <p className="text">Add a credit card</p>
-      </a>
-    </div>
-    <div className="checkout field">
-      <h2 className="subtitle">Gift cards</h2>
-      <a className="add-link">
-        <Plus width={24} height={24} />
-        <p className="text">Add a gift card</p>
-      </a>
-    </div>
-  </div>
-);
+  );
+};
 
 const Communication = () => {
   const [emailsEnabled, setEmailsEnabled] = useState(false);
