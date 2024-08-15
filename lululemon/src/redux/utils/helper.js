@@ -27,3 +27,6 @@ export const singleProductURL = "http://api-lulu.hibitbyte.com/product";
 // 原本的格式：http://api-lulu.hibitbyte.com/product/prod10550089?mykey=QNshco%2Bkkoxz2b5FtiitfQZdaTwKo%2Bhnc6f50d1LWDP6JtjB7fAjd5tFFjeBhCS2l/3Yq4batruGmWrcvq2T6w==
 
 export const serverAPI = "http://localhost:3399";
+
+export const mapsAPIKey = "AIzaSyBoKOon79RIsZNl-HR0pBC01_57ChXhhDU";
+export const paypalClientID = "AT9hs40ufNEJzS9Xjhqtb6QK0XTIfeyxIyUPC68K2m3XQBp1Bf11YV4h4DwOk5rRSzZLdeGzp5a_Va3i"
