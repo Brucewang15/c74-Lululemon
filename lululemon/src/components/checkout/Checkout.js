@@ -20,6 +20,7 @@ import ExpandMoreOutlinedIcon from "@mui/icons-material/ExpandMoreOutlined";
 
 
 import countriesData from './countriesAndStates.json'
+import {loadStripe} from "@stripe/stripe-js";
 
 export const Checkout = () => {
   const isLogin = useSelector((state) => state.authReducer.loginStatus);
@@ -47,9 +48,12 @@ export const Checkout = () => {
   const [whichState, setWhichState] =useState(null)
   const handleCountryChange = (e) => {
 
+
+
     setSelectedCountry(e.target.value)
   }
   console.log(selectedCountry, states, whichState, 2)
+
 
   useEffect(() => {
 
@@ -76,6 +80,39 @@ export const Checkout = () => {
     (total, item) => total + item.quantity,
     0,
   );
+
+  const shoppingCart1 = useSelector(
+      (state) => state.shoppingCartReducer.shoppingCart,
+  );
+
+  const makePayment = async () => {
+
+    const stripe = await loadStripe('pk_test_51PnMZjIsvOFHvBvCO3hpgLRwd5oJSwBsUz0P11DOs3cQsYGMjiFQsdT1opFFeJZmHbxX2eOuWFqT4SAKkINTNJRi00vpdvOXdh');
+
+    const body = {
+      products: shoppingCart1
+    }
+    const headers = {
+      'Content-Type': "application/json"
+    }
+    const response = await fetch('https://localhost:3399/checkout/stripe', {
+
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify(body)
+
+    })
+
+    console.log("testing")
+    const session = await response.json()
+    const result = stripe.redirectToCheckout({
+      sessionId:session.id
+    })
+    if (result.error) {
+      console.log(result.error)
+    }
+  }
+
   // markxu@itlab.com
   // ITLabAPI@2024
   const handleOpenLoginModal = () => {
@@ -332,9 +369,9 @@ export const Checkout = () => {
 
               </div>
 
-            <a href ='checkout/payment' className="nextStep">
+            <div onClick={makePayment} className="nextStep">
               GO TO NEXT STEP
-            </a>
+            </div>
 
           </div>
         ) : (
