@@ -8,7 +8,10 @@ import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { myKey, serverAPI } from "../../redux/utils/helper";
-import { fetchCartItems } from "../../redux/actions/shoppingCartActions";
+import {
+  fetchCartItems,
+  setShippingCost,
+} from "../../redux/actions/shoppingCartActions";
 import { useNavigate } from "react-router-dom";
 import {
   getAddressFromServer,
@@ -26,6 +29,8 @@ import { useJsApiLoader } from "@react-google-maps/api";
 import { mapsAPIKey } from "../../redux/utils/helper";
 import { Library } from "@googlemaps/js-api-loader";
 
+import taxRateData from "./taxRate.json";
+
 export const Checkout = () => {
   const navigator = useNavigate();
   const isLogin = useSelector((state) => state.authReducer.loginStatus);
@@ -40,6 +45,9 @@ export const Checkout = () => {
   const token = useSelector((state) => state.authReducer.token);
   const shippingAddress = useSelector(
     (state) => state.authReducer.shippingAddress,
+  );
+  const shippingCost = useSelector(
+    (state) => state.shoppingCartReducer.shippingCost,
   );
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -184,6 +192,12 @@ export const Checkout = () => {
   };
   const handleCLoseLoginModal = () => {
     setIsModalOpen(false);
+  };
+
+  const handleShippingCost = (e) => {
+    const cost = parseFloat(e.currentTarget.getAttribute("data-value"));
+    console.log("this is the shipping cost", cost);
+    dispatch(setShippingCost(cost));
   };
 
   // const handlePlaceOrder = () => {
@@ -422,8 +436,12 @@ export const Checkout = () => {
                 {isChange && (
                   <div className="isChange">
                     <div
+                      data-value="0"
                       className="options"
-                      onClick={() => handleActiveOption(0)}
+                      onClick={(e) => {
+                        handleActiveOption(0);
+                        handleShippingCost(e);
+                      }}
                     >
                       <div
                         className={`optionCheckbox ${activeOption === 0 ? "optionCheckboxClicked" : ""}`}
@@ -434,8 +452,12 @@ export const Checkout = () => {
                       </div>
                     </div>
                     <div
+                      data-value="20"
                       className="options"
-                      onClick={() => handleActiveOption(1)}
+                      onClick={(e) => {
+                        handleActiveOption(1);
+                        handleShippingCost(e);
+                      }}
                     >
                       <div
                         className={`optionCheckbox ${activeOption === 1 ? "optionCheckboxClicked" : ""}`}
@@ -446,8 +468,12 @@ export const Checkout = () => {
                       </div>
                     </div>
                     <div
+                      data-value="30"
                       className="options"
-                      onClick={() => handleActiveOption(2)}
+                      onClick={(e) => {
+                        handleActiveOption(2);
+                        handleShippingCost(e);
+                      }}
                     >
                       <div
                         className={`optionCheckbox ${activeOption === 2 ? "optionCheckboxClicked" : ""}`}
@@ -565,7 +591,9 @@ export const Checkout = () => {
               </div>
               <div className="orderTotalRow">
                 <span>Shipping</span>
-                <span>FREE</span>
+                <span>
+                  {shippingCost === 0 ? "FREE" : `$${shippingCost}.00`}
+                </span>
               </div>
               <div className="orderTotalRow">
                 <span>Tax</span>
@@ -574,11 +602,11 @@ export const Checkout = () => {
               <div className="orderTotalFinal">
                 <h3>
                   Order Total: CAD $
-                  {shoppingCart
-                    .reduce((total, item) => {
+                  {(
+                    shoppingCart.reduce((total, item) => {
                       return total + item.price * item.quantity;
-                    }, 0)
-                    .toFixed(2)}
+                    }, 0) + shippingCost
+                  ).toFixed(2)}
                 </h3>
               </div>
             </div>

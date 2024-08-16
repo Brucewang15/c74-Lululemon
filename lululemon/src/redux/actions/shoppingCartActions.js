@@ -260,6 +260,14 @@ export const removeSavedItem = (savedItemId) => async dispatch => {
     }
 }
 
+export const setShippingCost = (shippingCost) => {
+    return {
+        type: actionTypes.SET_SHIPPING_COST,
+        payload: shippingCost
+    }
+}
+
+
 // import {actionTypes} from "./actionTypes";
 // import axios from "axios";
 //

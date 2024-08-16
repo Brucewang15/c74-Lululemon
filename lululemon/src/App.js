@@ -8,7 +8,12 @@ import { ShoppingCart } from "./pages/ShoppingCart";
 import { Checkout } from "./components/checkout/Checkout";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { loginSuccess, setToken, setUser } from "./redux/actions/authAction";
+import {
+  loginSuccess,
+  logout,
+  setToken,
+  setUser,
+} from "./redux/actions/authAction";
 import { ThankYou } from "./components/checkout/ThankYou";
 import { SignupPage } from "./components/signup/Signup";
 import { ForgotPassword } from "./components/checkout/ForgotPassword";
@@ -26,7 +31,9 @@ function App() {
 
       if (token && tokenExpiration) {
         const isTokenExpired = new Date().getTime() > tokenExpiration;
+
         if (isTokenExpired) {
+          dispatch(logout());
           localStorage.removeItem("token");
           localStorage.removeItem("tokenExpiration");
           localStorage.removeItem("userInfo");
@@ -34,6 +41,14 @@ function App() {
           dispatch(setToken(token));
           dispatch(setUser(userInfo));
           dispatch(loginSuccess());
+          const timeUntilExpiration = tokenExpiration - new Date().getTime();
+          setTimeout(() => {
+            localStorage.removeItem("token");
+            localStorage.removeItem("tokenExpiration");
+            localStorage.removeItem("userInfo");
+            dispatch(logout());
+            alert("Your session has expired. Please log in again.");
+          }, timeUntilExpiration);
         }
       }
     };

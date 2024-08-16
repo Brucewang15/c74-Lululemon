@@ -5,6 +5,7 @@ const initialState = {
   error: null,
   cartId: localStorage.getItem("cartId") || null,
   savedItems: [],
+  shippingCost: 0,
 };
 
 export const shoppingCartReducer = (state = initialState, action) => {
@@ -90,6 +91,9 @@ export const shoppingCartReducer = (state = initialState, action) => {
       return { ...state, savedItems: action.payload };
     case actionTypes.LOGOUT:
       return { ...state, savedItems: [] };
+    case actionTypes.SET_SHIPPING_COST:
+      return { ...state, shippingCost: action.payload };
+
     default:
       return state;
   }
