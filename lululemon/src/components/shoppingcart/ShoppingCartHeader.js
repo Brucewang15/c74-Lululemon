@@ -26,6 +26,7 @@ export const ShoppingCartHeader = () => {
     localStorage.removeItem("tokenExpiration");
     localStorage.removeItem("userInfo");
     localStorage.removeItem("cartId");
+    localStorage.removeItem("userId");
   };
   return (
     <div className="shoppingCartHeader">

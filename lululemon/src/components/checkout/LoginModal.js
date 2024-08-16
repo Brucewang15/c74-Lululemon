@@ -8,6 +8,7 @@ import {
   loginSuccess,
   setToken,
   setUser,
+  setUserId,
 } from "../../redux/actions/authAction";
 import { Link } from "react-router-dom";
 import { getCartId } from "../../redux/actions/shoppingCartActions";
@@ -36,12 +37,14 @@ export const LoginModal = ({
         password,
       })
       .then((res) => {
-        console.log(res.data);
+        console.log(res);
         const token = res.data.token;
         const expirationTime = new Date().getTime() + 2 * 60 * 60 * 1000;
         // const expirationTime = new Date().getTime() + 2 * 1000
         const userInfo = res.data.user;
         const cartId = res.data.user.shoppingCart.id;
+        const userId = res.data.user.id;
+        localStorage.setItem("userId", userId);
         localStorage.setItem("token", token);
         localStorage.setItem("tokenExpiration", expirationTime);
         localStorage.setItem("userInfo", JSON.stringify(userInfo));
@@ -51,6 +54,7 @@ export const LoginModal = ({
         dispatch(setUser(userInfo));
         dispatch(loginSuccess());
         dispatch(getCartId(cartId));
+        dispatch(setUserId(userId));
         setMessage("Login successful");
         setIsSuccess(true);
       })

@@ -17,7 +17,6 @@ export const Paypal = ({ amount }) => {
     script.src = `https://www.paypal.com/sdk/js?client-id=${paypalClientID}&currency=USD`;
     script.setAttribute("data-namespace", "paypal_sdk");
     script.async = true;
-    console.log("amount==>", amount);
     console.log("e1");
     script.onload = () => {
       window.paypal_sdk

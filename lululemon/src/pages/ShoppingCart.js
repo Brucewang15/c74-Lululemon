@@ -36,7 +36,11 @@ export const ShoppingCart = () => {
     dispatch(fetchCartItems(isLoggedIn));
   }, [dispatch, isLoggedIn]);
   useEffect(() => {
-    console.log(cartId);
+    console.log(
+      "cartId from db, ==>",
+      cartId,
+      " (if null means not logged in)",
+    );
     if (cartId) dispatch(fetchAllSavedItemsFromServer());
   }, [cartId, dispatch]);
   if (error) {

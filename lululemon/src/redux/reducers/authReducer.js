@@ -4,6 +4,8 @@ const initialState = {
   token: "",
   user: null,
   loginStatus: false,
+  shippingAddress: [],
+  userId: null,
 };
 
 export const authReducer = (state = initialState, action) => {
@@ -27,6 +29,14 @@ export const authReducer = (state = initialState, action) => {
       return {
         ...state,
         loginStatus: false,
+      };
+    case actionTypes.SET_USERID:
+      return { ...state, userId: action.payload };
+
+    case actionTypes.GET_SHIPPING_ADDRESS:
+      return {
+        ...state,
+        shippingAddress: action.payload,
       };
     default:
       return state;

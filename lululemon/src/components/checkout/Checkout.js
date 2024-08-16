@@ -11,6 +11,7 @@ import { myKey, serverAPI } from "../../redux/utils/helper";
 import { fetchCartItems } from "../../redux/actions/shoppingCartActions";
 import { useNavigate } from "react-router-dom";
 import {
+  getAddressFromServer,
   loginSuccess,
   setToken,
   setUser,
@@ -33,7 +34,13 @@ export const Checkout = () => {
     (state) => state.shoppingCartReducer.shoppingCart,
   );
   const userInfo = useSelector((state) => state.authReducer.user) || {};
+  const userId =
+    useSelector((state) => state.authReducer.userId) ||
+    localStorage.getItem("userId");
   const token = useSelector((state) => state.authReducer.token);
+  const shippingAddress = useSelector(
+    (state) => state.authReducer.shippingAddress,
+  );
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -75,6 +82,12 @@ export const Checkout = () => {
     setSelectedCountry(e.target.value);
   };
   // console.log(selectedCountry, states, whichState, 2);
+
+  // useEffects -----
+  useEffect(() => {
+    // console.log("userId==>", userId);
+    isLogin && userId && dispatch(getAddressFromServer(userId));
+  }, [dispatch, isLogin, userId]);
 
   useEffect(() => {
     if (selectedCountry !== null) {
@@ -173,34 +186,34 @@ export const Checkout = () => {
     setIsModalOpen(false);
   };
 
-  const handlePlaceOrder = () => {
-    const requestBody = {
-      taxRate: 1.13,
-      isActive: true,
-      isDelete: false,
-      orderItems: shoppingCart.map((item) => {
-        return {
-          quantity: item.quantity,
-          productId: item.productId,
-          colorId: item.colorId,
-          size: item.size,
-        };
-      }),
-    };
-    axios
-      .post(`http://api-lulu.hibitbyte.com/order?mykey=${myKey}`, requestBody, {
-        headers: {
-          authorization: `bear ${token}`,
-        },
-      })
-      .then(async (res) => {
-        console.log("Order Placed successfully", res.data);
-        await axios.delete(`http://localhost:8000/cart/cleanup`);
-        console.log("Cart cleaned up successfully");
-        navigate("/shop/thankyou");
-      })
-      .catch((err) => console.error("Order place failed", err));
-  };
+  // const handlePlaceOrder = () => {
+  //   const requestBody = {
+  //     taxRate: 1.13,
+  //     isActive: true,
+  //     isDelete: false,
+  //     orderItems: shoppingCart.map((item) => {
+  //       return {
+  //         quantity: item.quantity,
+  //         productId: item.productId,
+  //         colorId: item.colorId,
+  //         size: item.size,
+  //       };
+  //     }),
+  //   };
+  //   axios
+  //     .post(`http://api-lulu.hibitbyte.com/order?mykey=${myKey}`, requestBody, {
+  //       headers: {
+  //         authorization: `bear ${token}`,
+  //       },
+  //     })
+  //     .then(async (res) => {
+  //       console.log("Order Placed successfully", res.data);
+  //       await axios.delete(`http://localhost:8000/cart/cleanup`);
+  //       console.log("Cart cleaned up successfully");
+  //       navigate("/shop/thankyou");
+  //     })
+  //     .catch((err) => console.error("Order place failed", err));
+  // };
 
   useEffect(() => {
     const checkTokenValidity = () => {
@@ -265,7 +278,23 @@ export const Checkout = () => {
               {/*  />*/}
               {/*</button>*/}
             </div>
-
+            {/*<div>*/}
+            {/*  {shippingAddress &&*/}
+            {/*    shippingAddress.length > 0 &&*/}
+            {/*    shippingAddress.map((adr, index) => {*/}
+            {/*      return (*/}
+            {/*        <div key={index}>*/}
+            {/*          <div>{adr.address}</div>*/}
+            {/*          <div>*/}
+            {/*            {adr.firstName} {adr.lastName}*/}
+            {/*          </div>*/}
+            {/*          <div>{adr.phoneNumber}</div>*/}
+            {/*          <div>{adr.province}</div>*/}
+            {/*          <div>{adr.postalCode}</div>*/}
+            {/*        </div>*/}
+            {/*      );*/}
+            {/*    })}*/}
+            {/*</div>*/}
             <form onSubmit={submitHandler} action="">
               <div className="contactInfo" id="container">
                 <div className="title">Contact Information</div>

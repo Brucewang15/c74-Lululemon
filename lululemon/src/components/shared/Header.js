@@ -52,6 +52,7 @@ export const Header = ({ isSticky }) => {
     localStorage.removeItem("tokenExpiration");
     localStorage.removeItem("userInfo");
     localStorage.removeItem("cartId");
+    localStorage.removeItem("userId");
     setCartCount(cartCount);
   };
   const cart = useSelector((state) => state.shoppingCartReducer.shoppingCart);
