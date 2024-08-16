@@ -109,7 +109,7 @@ export const Checkout = () => {
         placeAutoCompleteRef.current,
         {
           componentRestrictions: { country: "CA" },
-          fields: ["place_id", "geometry", "name", "formatted_address"],
+          fields: ["place_id", "geometry", "name", "formatted_address", "address_components"],
           bounds: new google.maps.Circle({
             center: location,
             radius: radius,
@@ -122,13 +122,34 @@ export const Checkout = () => {
   }, [isLoaded, selectedCountry]);
 
   const onPlaceChanged = () => {
-    const place = autoCompleteRef.current.getPlace();
+    const place = autoCompleteRef.current.getPlace()
 
-    if (place && place.formatted_address) {
-      updateFormData((prevState) => ({
-        ...prevState,
-        streetAddress: place.formatted_address.split(",")[0],
-      }));
+    if (place && place.address_components) {
+      const addressComponents = place.address_components
+      console.log('DD===>', addressComponents);
+
+      const getComponentName = (type) => {
+        const component = addressComponents.find(component => component.types.includes(type))
+        return component ? component.long_name : ''
+      }
+
+      if (addressComponents) {
+        const streetNumber = getComponentName('street_number')
+        const streetName = getComponentName('route')
+        const city = getComponentName('locality')
+        const state = getComponentName('administrative_area_level_1')
+        const zipcode = getComponentName('postal_code')
+
+        const streetAddress = `${streetNumber} ${streetName}`.trim()
+
+        updateFormData(prevState => ({
+          ...prevState,
+          streetAddress,
+          city,
+          state,
+          zipcode
+        }));
+      }
     }
   };
 
@@ -369,6 +390,7 @@ export const Checkout = () => {
                       name="city"
                       type="text"
                       id="input"
+                      value={formData.city}
                       onChange={changeHandler}
                     />
                   </div>
@@ -377,17 +399,19 @@ export const Checkout = () => {
                     {states.length !== 0 && (
                       <>
                         {selectedCountry === "Canada" ? "Provinces" : "States"}
-                        <select
-                          onChange={changeHandler}
+                        <input
                           id="input"
                           name="state"
+                          value={formData.state}
+                          onChange={changeHandler}
+
                         >
-                          {states.map((state) => (
-                            <option key={state.name} value={state.name}>
-                              {state}
-                            </option>
-                          ))}
-                        </select>
+                          {/*{states.map((state) => (*/}
+                          {/*  <option key={state.name} value={state.name}>*/}
+                          {/*    {state}*/}
+                          {/*  </option>*/}
+                          {/*))}*/}
+                        </input>
                       </>
                     )}
                   </div>
@@ -398,6 +422,7 @@ export const Checkout = () => {
                       name="zipcode"
                       type="text"
                       id="input"
+                      value={formData.zipcode}
                       onChange={changeHandler}
                     />
                   </div>
