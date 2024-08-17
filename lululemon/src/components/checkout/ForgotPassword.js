@@ -73,7 +73,7 @@ export const ForgotPassword = () => {
             <strong>Reset Passsword Link:</strong>{" "}
             <a href={`forgotpassword/${resetToken}`}>{resetToken}</a>
           </div>
-        </div>
+        </div>i
       </div>
 
       <Footer />

@@ -58,6 +58,40 @@ export const Checkout = () => {
   const [whichState, setWhichState] = useState(null);
   const [streetAddress, setStreetAddress] = useState(null);
 
+  const [allShippingAddress, setAllShippingAddress] = useState(null);
+
+  const displayAllShippingAddress = async() => {
+    try {
+
+      const response = await fetch(
+          'http://localhost:3399/checkout/getAllShippingAddress',
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+      )
+      if (response.ok) {
+        console.log("ok testing")
+        const allAddresses = await response.json();
+        setAllShippingAddress(allAddresses)
+      }
+      else {
+        console.log("ok bad")
+        setAllShippingAddress(null)
+      }
+
+    }
+    catch(err) {
+      console.log("error", err)
+    }
+  }
+  
+  useEffect(() => {
+    displayAllShippingAddress()
+  }, []);
+
   const [formData, updateFormData] = useState({
     country: "CA",
     state: "",
@@ -265,6 +299,11 @@ export const Checkout = () => {
           </div>
         ) : (
           <div className="checkoutBodyLeft">
+
+
+
+
+
             <div className="loginContainer">
               <div className="loginTitle">
                 <span>
@@ -312,93 +351,133 @@ export const Checkout = () => {
               </div>
 
               <div className="shippingAddress" id="container">
+
+
+                <div className="shippingAddressList">
+
+
+
+
+                  {console.log(allShippingAddress, "all")}
+
+                  {(allShippingAddress !== null) && ( //already in a {}, no need for another one.
+
+                      allShippingAddress.map((address) => ( <>
+
+                                <div className="shippingAddressContainer">
+
+                                  <button className = "shippingButton"></button>
+                                  <div className="right">
+
+                                    <div className="name">{address.firstName} {address.lastName}</div>
+                                    <div className="rest">{address.address}</div>
+                                    <div className="rest">{address.province}, {address.postalCode}</div>
+                                    <div className="rest">{address.phoneNumber}</div>
+                                  </div>
+
+
+
+                                </div>
+                                <hr/>
+
+                      </>
+
+
+                            )
+                        ))}
+
+
+
+                </div>
+
+
                 <div className="title">Shipping Address</div>
                 Location
                 <select
-                  name="country"
-                  onChange={handleCountryChange}
-                  className="location"
-                  id="input"
+                    name="country"
+                    onChange={handleCountryChange}
+                    className="location"
+                    id="input"
                 >
                   {countriesData.countries.map((country) => (
-                    <option key={country.name} value={country.name}>
-                      {country.name}
-                    </option>
+                      <option key={country.name} value={country.name}>
+                        {country.name}
+                      </option>
                   ))}
                 </select>
                 <div className="two">
                   <div className="individual">
                     First name
                     <input
-                      name="firstName"
-                      type="text"
-                      id="input"
-                      onChange={changeHandler}
+                        name="firstName"
+                        type="text"
+                        id="input"
+                        onChange={changeHandler}
                     />
                   </div>
 
                   <div className="individual" onChange={changeHandler}>
                     Last name
-                    <input name="lastName" type="text" id="input" />
+                    <input name="lastName" type="text" id="input"/>
                   </div>
                 </div>
                 <div className="phoneNumber" onChange={changeHandler}>
                   Phone Number
-                  <input name="phone" type="text" id="input" />
+                  <input name="phone" type="text" id="input"/>
                 </div>
                 <div className="phoneNumber">
                   Address
                   <input
-                    type="text"
-                    id={"streetAddress"}
-                    name={"streetAddress"}
-                    ref={placeAutoCompleteRef}
-                    value={formData.streetAddress}
-                    onChange={changeHandler}
-                    placeholder="Include apt, suite, or floor number here"
+                      type="text"
+                      id={"streetAddress"}
+                      name={"streetAddress"}
+                      ref={placeAutoCompleteRef}
+                      value={formData.streetAddress}
+                      onChange={changeHandler}
+                      placeholder="Include apt, suite, or floor number here"
                   />
                 </div>
                 <div className="phoneNumber">
                   Delivery note (Optional)
-                  <input type="text" id="input" />
+                  <input type="text" id="input"/>
                 </div>
                 <div className="three">
                   <div className="individual">
                     City
                     <input
-                      name="city"
-                      type="text"
-                      id="input"
-                      onChange={changeHandler}
+                        name="city"
+                        type="text"
+                        id="input"
+                        onChange={changeHandler}
                     />
                   </div>
 
                   <div className="individual">
                     {states.length !== 0 && (
-                      <>
-                        {selectedCountry === "Canada" ? "Provinces" : "States"}
-                        <select
-                          onChange={changeHandler}
-                          id="input"
-                          name="state"
-                        >
-                          {states.map((state) => (
-                            <option key={state.name} value={state.name}>
-                              {state}
-                            </option>
-                          ))}
-                        </select>
-                      </>
+                        <>
+                          {selectedCountry === "Canada" ? "Provinces" : "States"}
+                          <select
+                              onChange={changeHandler}
+                              id="input"
+                              name="state"
+                          >
+                            {states.map((state) => (
+                                <option key={state.name} value={state.name}>
+                                  {state}
+                                </option>
+                            ))}
+                          </select>
+                        </>
                     )}
                   </div>
 
                   <div className="individual">
                     {selectedCountry === "Canada" ? "Postal Code" : "Zip Code"}
                     <input
-                      name="zipcode"
-                      type="text"
-                      id="input"
-                      onChange={changeHandler}
+                        name="zipcode"
+                        type="text"
+                        id="input"
+                        onChange={changeHandler}
                     />
                   </div>
                 </div>

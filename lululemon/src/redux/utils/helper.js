@@ -28,5 +28,5 @@ export const singleProductURL = "http://api-lulu.hibitbyte.com/product";
 
 export const serverAPI = "http://localhost:3399";
 
-export const mapsAPIKey = "AIzaSyBoKOon79RIsZNl-HR0pBC01_57ChXhhDU";
+export const mapsAPIKey = "AIzaSyClQEWcH82tAU1_C7NopB4XX4-xl0wotJ0";
 export const paypalClientID = "AT9hs40ufNEJzS9Xjhqtb6QK0XTIfeyxIyUPC68K2m3XQBp1Bf11YV4h4DwOk5rRSzZLdeGzp5a_Va3i"

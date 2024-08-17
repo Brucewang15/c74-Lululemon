@@ -3,8 +3,10 @@
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
   },
   "dependencies": {
+    "@react-google-maps/api": "^2.19.3",
     "@stripe/stripe-js": "^4.2.0",
     "dotenv": "^16.4.5",
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "google-maps": "^4.3.3"
   }
 }

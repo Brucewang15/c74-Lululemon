@@ -33,6 +33,32 @@
     border-radius: 5px;
     text-align: left;
 
+    .shippingAddressContainer {
+        display: flex;
+        flex-direction: row;
+        padding: 20px 0;
+
+        .right {
+
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            .name {
+                font-weight: bold;
+            }
+        }
+        .shippingButton {
+            outline: none;
+            border-radius: 50%;
+            border: 1px solid black;
+            height: 15px;
+            width: 15px;
+
+            background-color: white;
+
+            margin-right: 10px;
+        }
+    }
     .nextStep {
         border: none;
         margin-left: 20%;
