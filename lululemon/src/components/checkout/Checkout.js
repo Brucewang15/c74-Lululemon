@@ -52,7 +52,7 @@ export const Checkout = () => {
   const shippingCost = useSelector(
     (state) => state.shoppingCartReducer.shippingCost,
   );
-
+  const taxRate = useSelector((state) => state.shoppingCartReducer.taxRate);
   const taxAmount = useSelector((state) => state.shoppingCartReducer.taxAmount);
 
   const dispatch = useDispatch();
@@ -66,13 +66,14 @@ export const Checkout = () => {
   const [isChange, setIsChange] = useState(false);
   const [activeOption, setActiveOption] = useState(null); // if there are multiple things, no need for multiple useStates. just use one.
 
-  const [selectedCountry, setSelectedCountry] = useState(null);
+  const [selectedCountry, setSelectedCountry] = useState(
+    countriesData.countries[0].name,
+  );
   const [states, setStates] = useState([]);
 
   const [whichState, setWhichState] = useState(null);
   const [streetAddress, setStreetAddress] = useState(null);
 
-  const [initialTaxRate, setInitialTaxRate] = useState(null);
   const [totalBeforeTax, setTotalBeforeTax] = useState(0);
 
   const [formData, updateFormData] = useState({
@@ -101,40 +102,49 @@ export const Checkout = () => {
   };
   // console.log(selectedCountry, states, whichState, 2);
 
+  // get total amount before tax, and tax rate and calculate tax amount and save in useState & Redux ----
   useEffect(() => {
-    const total = shoppingCart.reduce((total, item) => {
-      return total + item.price * item.quantity;
-    }, 0);
-    setTotalBeforeTax(total);
-    dispatch(setTotalBeforeTaxRedux(total));
-  }, [shoppingCart]);
+    const calculateTotalAndTax = () => {
+      const total = shoppingCart.reduce((total, item) => {
+        return total + item.price * item.quantity;
+      }, 0);
+      setTotalBeforeTax(total);
+      dispatch(setTotalBeforeTaxRedux(total));
 
-  // get tax rate and save in useState ----
-  useEffect(() => {
-    const getTaxRate = () => {
-      let taxRate = 0;
-
-      if (selectedCountry === "Canada" || selectedCountry === "United States") {
-        if (formData.state) {
-          taxRate = taxRateData.taxRates[selectedCountry][formData.state];
-          console.log(
-            `Tax rate for ${selectedCountry}, ${formData.state}:`,
-            taxRate,
-          );
+      if (totalBeforeTax !== 0) {
+        let taxRate = 0;
+        if (
+          selectedCountry === "Canada" ||
+          selectedCountry === "United States"
+        ) {
+          if (formData.state) {
+            taxRate = taxRateData.taxRates[selectedCountry][formData.state];
+            console.log(
+              `Tax rate for ${selectedCountry}, ${formData.state}:`,
+              taxRate,
+            );
+          }
+        } else if (selectedCountry && selectedCountry !== "") {
+          taxRate = taxRateData.defaultTaxRate;
+          console.log("Tax rate for other countries (default):", taxRate);
+        } else {
+          console.log("No country selected, tax rate is 0");
         }
-      } else if (selectedCountry && selectedCountry !== "") {
-        taxRate = taxRateData.defaultTaxRate;
-        console.log("Tax rate for other countries (default):", taxRate);
-      } else {
-        console.log("No country selected, tax rate is 0");
+        // setInitialTaxRate(taxRate);
+        dispatch(setTaxRate(taxRate));
+        const taxAmount = taxRate * totalBeforeTax;
+        console.log("Calculated Tax Amount:", taxAmount);
+        dispatch(setTaxAmount(taxAmount));
       }
-      setInitialTaxRate(taxRate);
-      const taxAmount = taxRate * totalBeforeTax;
-      dispatch(setTaxAmount(taxAmount));
+
+      if (totalBeforeTax === 0) {
+        dispatch(setTaxRate(0));
+        dispatch(setTaxAmount(0));
+      }
     };
 
-    getTaxRate();
-  }, [selectedCountry, formData.state]);
+    calculateTotalAndTax();
+  }, [selectedCountry, formData.state, shoppingCart, totalBeforeTax]);
 
   // useEffects -----
   useEffect(() => {
@@ -151,6 +161,7 @@ export const Checkout = () => {
     }
   }, [selectedCountry]); //why useEffect works?
 
+  // initialize the shippingCost to be 0 by default
   useEffect(() => {
     dispatch(setShippingCost(0));
   }, []);
