@@ -11,6 +11,9 @@ import { myKey, serverAPI } from "../../redux/utils/helper";
 import {
   fetchCartItems,
   setShippingCost,
+  setTaxAmount,
+  setTaxRate,
+  setTotalBeforeTaxRedux,
 } from "../../redux/actions/shoppingCartActions";
 import { useNavigate } from "react-router-dom";
 import {
@@ -49,6 +52,9 @@ export const Checkout = () => {
   const shippingCost = useSelector(
     (state) => state.shoppingCartReducer.shippingCost,
   );
+
+  const taxAmount = useSelector((state) => state.shoppingCartReducer.taxAmount);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -66,6 +72,9 @@ export const Checkout = () => {
   const [whichState, setWhichState] = useState(null);
   const [streetAddress, setStreetAddress] = useState(null);
 
+  const [initialTaxRate, setInitialTaxRate] = useState(null);
+  const [totalBeforeTax, setTotalBeforeTax] = useState(0);
+
   const [formData, updateFormData] = useState({
     country: "CA",
     state: "",
@@ -80,6 +89,7 @@ export const Checkout = () => {
   });
 
   const libs = ["core", "maps", "places", "marker"];
+
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: mapsAPIKey,
     libraries: libs,
@@ -90,6 +100,41 @@ export const Checkout = () => {
     setSelectedCountry(e.target.value);
   };
   // console.log(selectedCountry, states, whichState, 2);
+
+  useEffect(() => {
+    const total = shoppingCart.reduce((total, item) => {
+      return total + item.price * item.quantity;
+    }, 0);
+    setTotalBeforeTax(total);
+    dispatch(setTotalBeforeTaxRedux(total));
+  }, [shoppingCart]);
+
+  // get tax rate and save in useState ----
+  useEffect(() => {
+    const getTaxRate = () => {
+      let taxRate = 0;
+
+      if (selectedCountry === "Canada" || selectedCountry === "United States") {
+        if (formData.state) {
+          taxRate = taxRateData.taxRates[selectedCountry][formData.state];
+          console.log(
+            `Tax rate for ${selectedCountry}, ${formData.state}:`,
+            taxRate,
+          );
+        }
+      } else if (selectedCountry && selectedCountry !== "") {
+        taxRate = taxRateData.defaultTaxRate;
+        console.log("Tax rate for other countries (default):", taxRate);
+      } else {
+        console.log("No country selected, tax rate is 0");
+      }
+      setInitialTaxRate(taxRate);
+      const taxAmount = taxRate * totalBeforeTax;
+      dispatch(setTaxAmount(taxAmount));
+    };
+
+    getTaxRate();
+  }, [selectedCountry, formData.state]);
 
   // useEffects -----
   useEffect(() => {
@@ -107,6 +152,10 @@ export const Checkout = () => {
   }, [selectedCountry]); //why useEffect works?
 
   useEffect(() => {
+    dispatch(setShippingCost(0));
+  }, []);
+
+  useEffect(() => {
     if (isLoaded && placeAutoCompleteRef) {
       const location = new google.maps.LatLng(
         43.65245414078278,
@@ -116,12 +165,18 @@ export const Checkout = () => {
       autoCompleteRef.current = new google.maps.places.Autocomplete(
         placeAutoCompleteRef.current,
         {
-          componentRestrictions: { country: "CA" },
-          fields: ["place_id", "geometry", "name", "formatted_address", "address_components"],
-          bounds: new google.maps.Circle({
-            center: location,
-            radius: radius,
-          }).getBounds(),
+          // componentRestrictions: { country: "CA" },
+          fields: [
+            "place_id",
+            "geometry",
+            "name",
+            "formatted_address",
+            "address_components",
+          ],
+          // bounds: new google.maps.Circle({
+          //   center: location,
+          //   radius: radius,
+          // }).getBounds(),
           strictBounds: false,
         },
       );
@@ -130,32 +185,34 @@ export const Checkout = () => {
   }, [isLoaded, selectedCountry]);
 
   const onPlaceChanged = () => {
-    const place = autoCompleteRef.current.getPlace()
+    const place = autoCompleteRef.current.getPlace();
 
     if (place && place.address_components) {
-      const addressComponents = place.address_components
-      console.log('DD===>', addressComponents);
+      const addressComponents = place.address_components;
+      console.log("DD===>", addressComponents);
 
       const getComponentName = (type) => {
-        const component = addressComponents.find(component => component.types.includes(type))
-        return component ? component.long_name : ''
-      }
+        const component = addressComponents.find((component) =>
+          component.types.includes(type),
+        );
+        return component ? component.long_name : "";
+      };
 
       if (addressComponents) {
-        const streetNumber = getComponentName('street_number')
-        const streetName = getComponentName('route')
-        const city = getComponentName('locality')
-        const state = getComponentName('administrative_area_level_1')
-        const zipcode = getComponentName('postal_code')
+        const streetNumber = getComponentName("street_number");
+        const streetName = getComponentName("route");
+        const city = getComponentName("locality");
+        const state = getComponentName("administrative_area_level_1");
+        const zipcode = getComponentName("postal_code");
 
-        const streetAddress = `${streetNumber} ${streetName}`.trim()
+        const streetAddress = `${streetNumber} ${streetName}`.trim();
 
-        updateFormData(prevState => ({
+        updateFormData((prevState) => ({
           ...prevState,
           streetAddress,
           city,
           state,
-          zipcode
+          zipcode,
         }));
       }
     }
@@ -410,24 +467,23 @@ export const Checkout = () => {
                   </div>
 
                   <div className="individual">
-                    {states.length !== 0 && (
-                      <>
-                        {selectedCountry === "Canada" ? "Provinces" : "States"}
-                        <input
-                          id="input"
-                          name="state"
-                          value={formData.state}
-                          onChange={changeHandler}
-
-                        >
-                          {/*{states.map((state) => (*/}
-                          {/*  <option key={state.name} value={state.name}>*/}
-                          {/*    {state}*/}
-                          {/*  </option>*/}
-                          {/*))}*/}
-                        </input>
-                      </>
-                    )}
+                    {/*{states.length !== 0 && (*/}
+                    <>
+                      {selectedCountry === "Canada" ? "Provinces" : "States"}
+                      <input
+                        id="input"
+                        name="state"
+                        value={formData.state}
+                        onChange={changeHandler}
+                      >
+                        {/*{states.map((state) => (*/}
+                        {/*  <option key={state.name} value={state.name}>*/}
+                        {/*    {state}*/}
+                        {/*  </option>*/}
+                        {/*))}*/}
+                      </input>
+                    </>
+                    {/*)}*/}
                   </div>
 
                   <div className="individual">
@@ -622,16 +678,15 @@ export const Checkout = () => {
               </div>
               <div className="orderTotalRow">
                 <span>Tax</span>
-                <span>Calculated at next step</span>
+                {/*<span>{(initialTaxRate * totalBeforeTax).toFixed(2)}</span>*/}
+                <span>{`$${isNaN(taxAmount) === true ? (0).toFixed(2) : taxAmount.toFixed(2)}`}</span>
               </div>
               <div className="orderTotalFinal">
                 <h3>
                   Order Total: CAD $
-                  {(
-                    shoppingCart.reduce((total, item) => {
-                      return total + item.price * item.quantity;
-                    }, 0) + shippingCost
-                  ).toFixed(2)}
+                  {isNaN(taxAmount)
+                    ? (totalBeforeTax + shippingCost).toFixed(2)
+                    : (totalBeforeTax + shippingCost + taxAmount).toFixed(2)}
                 </h3>
               </div>
             </div>

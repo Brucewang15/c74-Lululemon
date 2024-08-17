@@ -267,6 +267,25 @@ export const setShippingCost = (shippingCost) => {
     }
 }
 
+export const setTaxRate = (taxRate) => {
+    return {
+        type: actionTypes.SET_TAX_RATE,
+        payload: taxRate
+    }
+}
+export const setTaxAmount = (taxAmount) => {
+    return {
+        type: actionTypes.SET_TAX_AMOUNT,
+        payload: taxAmount
+    }
+}
+
+export const setTotalBeforeTaxRedux = (totalBeforeTax) => {
+    return {
+        type: actionTypes.SET_TOTAL_BEFORE_TAX,
+        payload: totalBeforeTax
+    }
+}
 
 // import {actionTypes} from "./actionTypes";
 // import axios from "axios";

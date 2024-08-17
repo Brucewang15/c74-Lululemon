@@ -6,6 +6,9 @@ const initialState = {
   cartId: localStorage.getItem("cartId") || null,
   savedItems: [],
   shippingCost: 0,
+  taxRate: 0,
+  taxAmount: 0,
+  totalBeforeTax: 0,
 };
 
 export const shoppingCartReducer = (state = initialState, action) => {
@@ -93,6 +96,22 @@ export const shoppingCartReducer = (state = initialState, action) => {
       return { ...state, savedItems: [] };
     case actionTypes.SET_SHIPPING_COST:
       return { ...state, shippingCost: action.payload };
+    case actionTypes.SET_TAX_RATE:
+      return {
+        ...state,
+        taxRate: action.payload,
+      };
+    case actionTypes.SET_TAX_AMOUNT:
+      return {
+        ...state,
+        taxAmount: action.payload,
+      };
+
+    case actionTypes.SET_TOTAL_BEFORE_TAX:
+      return {
+        ...state,
+        totalBeforeTax: action.payload,
+      };
 
     default:
       return state;
