@@ -14,7 +14,7 @@ const ImageSearch = () => {
 
   const [URLInput, setURLInput] = useState("")
 
-  const [uploadHasError, setUploadHasError] = useState(false);
+  const [uploadError, setUploadError] = useState(0);
   const [file, setFile] = useState(null);
   const [imgUrl, setImgUrl] = useState(null);
   const inputRef = useRef();
@@ -39,13 +39,13 @@ const ImageSearch = () => {
   
   // send files to the server // learn from my other video
   const handleSearchImage = async () => {
-    setUploadHasError(false)
+    setUploadError(0)
     
     dispatch(setUploading(true))
     try {
-      await Promise.all([dispatch(searchImage(file))])
+        await Promise.all([dispatch(searchImage(file))])
     } catch (err) {
-      setUploadHasError(true)
+        setUploadError(err.response.status)
     } 
     dispatch(setUploading(false))
 
@@ -53,13 +53,13 @@ const ImageSearch = () => {
   };
 
   const handleSearchURL = async () => {
-    setUploadHasError(false)
+    setUploadError(0)
     
     dispatch(setUploading(true))
     try {
-      await Promise.all([dispatch(searchImageURL(URLInput))])
+        await Promise.all([dispatch(searchImageURL(URLInput))])
     } catch (err) {
-      setUploadHasError(true)
+        setUploadError(err.response.status)
     } 
     dispatch(setUploading(false))
 
@@ -113,7 +113,11 @@ const ImageSearch = () => {
                 }
                 </div>
                 <button className="select-button upload-button" disabled={!file || isLoading} onClick={handleSearchImage}>Image Search</button>
-                {uploadHasError && <div className="warning">There was an error with the search. Please try again.</div>}
+                {
+                    uploadError == 503 && <div className="warning">There was an error with the search. Please try again.</div>
+                    || uploadError == 406 && <div className="warning">The image provided is not appropriate.</div>
+                    || uploadError != 0 && <div className="warning">There was an unknown error with code: {uploadError}</div>
+                }
                 <div className="border"/>
             </div>
             <div className="image-upload">
