@@ -7,12 +7,17 @@ import cross_icon from "../../assets/cross.png";
 import {useDispatch, useSelector} from "react-redux";
 import { setHelpActivity, setHelpOpen } from "../../redux/actions/helpAction";
 import WelcomePage from "./WelcomePage";
+import ImageSearch from "./ImageSearch";
 
 const ModalHelpBox = () => {
     const dispatch = useDispatch()
 
     const isHelpOpen = useSelector(
         (state) => state.helpReducer.isHelpOpen,
+    );
+
+    const lastActivity = useSelector(
+        (state) => state.helpReducer.lastActivity,
     );
 
     console.log(isHelpOpen)
@@ -30,6 +35,11 @@ const ModalHelpBox = () => {
         dispatch(setHelpActivity(""));
     };
 
+    var currentPageName = "Help"
+    if (lastActivity == "Photo"){
+        currentPageName = "Image Search"
+    }
+
     
     return <div className="modalHelpBox">
     <div className="modalContainer">
@@ -42,6 +52,13 @@ const ModalHelpBox = () => {
             <div className="helpBox">
                 <div className="helpBoxNavBar">
                     <div className="helpBoxNavBarCell">
+                        <img
+                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Lululemon_Athletica_logo.svg/2048px-Lululemon_Athletica_logo.svg.png"
+                        alt="lululemonLogo" className="lululemonHelpBoxLogo"
+                        />
+                        <div className="helpBoxNavBarTitle">
+                            {currentPageName}
+                        </div>
                     </div>
                     <div className="helpBoxNavBarCell alignRight">
                         <button onClick={onHide} className="topbarButton">
@@ -52,8 +69,14 @@ const ModalHelpBox = () => {
                         </button>
                     </div>
                 </div>
+                <div className="helpBoxGradient">
+                </div>
 
-                <WelcomePage/>
+                {
+                    lastActivity == "Photo" && <ImageSearch/> ||
+                    <WelcomePage/>
+                }
+                
             </div>
         }
     </div>

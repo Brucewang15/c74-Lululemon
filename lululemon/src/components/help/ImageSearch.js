@@ -1,33 +1,130 @@
-import "./WelcomePage.css"
+import { useState, useRef } from "react";
+import "./ImageSearch.css"
 
-import {useDispatch, useSelector} from "react-redux";
-import { setHelpActivity } from "../../redux/actions/helpAction";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
+import { searchImage, searchImageURL, setUploading } from "../../redux/actions/helpAction";
 
 const ImageSearch = () => {
-    const dispatch = useDispatch()
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
-    const lastActivity = useSelector(
-        (state) => state.helpReducer.lastActivity,
-    );
+  const isLoading = useSelector(state => state.helpReducer.isUploading)
 
-    const onOpenPhoto = () => {
-        dispatch(setHelpActivity("Photo"));
-    };
+  const [URLInput, setURLInput] = useState("")
 
-    const onOpenChat = () => {
-        dispatch(setHelpActivity("Chat"));
-    };
+  const [uploadHasError, setUploadHasError] = useState(false);
+  const [file, setFile] = useState(null);
+  const [imgUrl, setImgUrl] = useState(null);
+  const inputRef = useRef();
 
+  const handleDragOver = (event) => {
+    event.preventDefault();
+  };
+
+  const handleDrop = (event) => {
+    event.preventDefault();
+    const file = event.dataTransfer.files[0]
+    setFile(file)
+    setImgUrl(URL.createObjectURL(file))
+  };
+
+  const handlePickImage = (event) => {
+    event.preventDefault();
+    const file = event.target.files[0]
+    setFile(file)
+    setImgUrl(URL.createObjectURL(file))
+  };
+  
+  // send files to the server // learn from my other video
+  const handleSearchImage = async () => {
+    setUploadHasError(false)
     
-    return <div className="welcomePage">
-        <button onClick={onOpenPhoto} className="button photoButton">
-            Image Search
-        </button>
-        <button onClick={onOpenChat} className="button chatButton">
-            Live Chat
-        </button>
+    dispatch(setUploading(true))
+    try {
+      await Promise.all([dispatch(searchImage(file))])
+    } catch (err) {
+      setUploadHasError(true)
+    } 
+    dispatch(setUploading(false))
+
+    navigate("/suggested")
+  };
+
+  const handleSearchURL = async () => {
+    setUploadHasError(false)
+    
+    dispatch(setUploading(true))
+    try {
+      await Promise.all([dispatch(searchImageURL(URLInput))])
+    } catch (err) {
+      setUploadHasError(true)
+    } 
+    dispatch(setUploading(false))
+
+    navigate("/suggested")
+  };
+
+  const handleURLInputChange = (event) => {
+    setURLInput(event.target.value)
+  }
+
+  const isValidURL = (url) => {
+    return url != ""
+  }
+
+
+  return (
+    <div className="imagesearch-page">
+      
+        <div className="imagesearch-container">
+            <div className="title">
+               AI Product Search
+            </div>
+            <div className="description">
+               Search for a product from our catalogue from <br/>an image, using a JPG, PNG file, or URL.
+            </div>
+            <div className="image-upload">
+                <div 
+                    className="dropzone"
+                    onDragOver={handleDragOver}
+                    onDrop={handleDrop}
+                >
+                {
+                    file && 
+                    <div className="image-preview-wrapper">
+                    <img src={imgUrl} className="image-preview">
+                    </img>
+                    </div>
+                    ||
+                    <div className="upload-wrapper">
+                    <div className="drop-text-1">Drag and Drop</div>
+                    <div className="drop-text-2">Or</div>
+                    <input 
+                        type="file"
+                        onChange={handlePickImage}
+                        hidden
+                        accept="image/png, image/jpeg"
+                        ref={inputRef}
+                    />
+                    <button className="select-button" onClick={() => inputRef.current.click()}>Select Image</button>
+                    </div>
+                }
+                </div>
+                <button className="select-button upload-button" disabled={!file || isLoading} onClick={handleSearchImage}>Image Search</button>
+                {uploadHasError && <div className="warning">There was an error with the search. Please try again.</div>}
+                <div className="border"/>
+            </div>
+            <div className="image-upload">
+                <div className="url-row">
+                    <input className="text-field" type="text" id="image-url-search" onChange={handleURLInputChange} placeholder="Image URL" />
+                    <button className="select-button upload-button-url" disabled={isLoading || !isValidURL(URLInput)} onClick={handleSearchURL} >Image URL Search</button>
+                </div>
+            </div>
+        </div>
     </div>
-}
+  );
+};
 
-
-export default ImageSearch
+export default ImageSearch;
