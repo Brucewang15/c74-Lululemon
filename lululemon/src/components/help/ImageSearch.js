@@ -69,6 +69,7 @@ const ImageSearch = () => {
         if (err.response){
             setUploadError(err.response.status)
         } else {
+            console.log(err)
             setUploadError(1)
         }
     } 

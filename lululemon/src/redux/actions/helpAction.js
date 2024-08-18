@@ -95,7 +95,7 @@ const formatResults = (res) => {
     if (validResults.length == 0) {
         for (let i = 0; i < res.data.length; i++) {
             const score = res.data[i].score
-            if (score > 0.3 && score > topScore) {
+            if (score > 0.1 && score > topScore) {
                 topScoreIndex = i
                 topScore = score
             }
