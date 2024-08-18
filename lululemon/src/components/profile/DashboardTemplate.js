@@ -3,13 +3,11 @@ import Footer from "../../components/shared/Footer";
 import "./DashboardTemplate.css";
 
 const DashboardLayout = ({mainContent, sidebarTitle}) => {
-  console.log(sidebarTitle);
-  
   return (
     <>
       <Header isSticky={false} />
       <div className="dashboard-containers">
-        <Navigator currentPage="Dashboard" />
+        <Navigator currentPage={sidebarTitle} />
         <div className="main-layout">
           <Sidebar sidebarTitle={sidebarTitle}/>
           {mainContent}
@@ -47,8 +45,8 @@ const Sidebar = ({sidebarTitle}) => {
     { title: "Dashboard", link: "/account/dashboard" },
     { title: "Purchase History", link: "/account/purchaseHistory" },
     { title: "Profile", link: "/account/profile" },
+    { title: "Wish List", link: "/account/wishlist" },
     { title: "Membership Benefits", link: "/account/membership" },
-    { title: "Wish List", link: "/account/wishList" },
   ];
 
   return (

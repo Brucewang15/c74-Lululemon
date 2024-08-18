@@ -2,7 +2,7 @@
 .content-area {
   flex: 1;
   padding: 1rem;
-  max-width: 60vw;
+  width: 60vw;
 }
 
 .greeting-section {

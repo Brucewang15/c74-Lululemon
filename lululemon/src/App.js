@@ -22,6 +22,7 @@ import { CheckoutPayment } from "./components/checkout/CheckoutPayment";
 import { Dashboard } from "./components/profile/Dashboard";
 import PurchaseHistory from "./components/profile/PurchaseHistory";
 import Profile from "./components/profile/Profile";
+import WishlistPage from "./components/profile/Wishlist";
 
 function App() {
   const dispatch = useDispatch();
@@ -95,6 +96,7 @@ function App() {
           <Route path="/account/dashboard" element={<Dashboard />} />
           <Route path="/account/purchaseHistory" element={<PurchaseHistory />} />
           <Route path="/account/profile" element={<Profile />} />
+          <Route path="/account/wishlist" element={<WishlistPage />} />
           <Route path="*" element={<WrongPage />} />
         </Routes>
       </BrowserRouter>

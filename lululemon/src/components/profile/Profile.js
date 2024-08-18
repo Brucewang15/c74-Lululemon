@@ -6,7 +6,7 @@ import NameEdition from "./NameEdition";
 import EmailEdition from "./EmailEdition";
 import PasswordEdition from "./PasswordEdition";
 import ShippingAddressEdition from "./ShippingAddressEdition";
-import GiftCardEdition from "./GiftcardEdition";
+import GiftCardEdition from "./GiftCardEdition";
 import CreditcardEdition from "./CreditcardEdition";
 
 const Profile = () => {
