@@ -7,7 +7,7 @@ import cross_icon from "../../assets/cross.png";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import { searchImage, searchImageURL, setUploading } from "../../redux/actions/helpAction";
+import { searchImage, searchImageURL, setHelpOpen, setUploading } from "../../redux/actions/helpAction";
 
 const ImageSearch = () => {
   const dispatch = useDispatch()
@@ -44,27 +44,15 @@ const ImageSearch = () => {
     setImgUrl(URL.createObjectURL(file))
   };
   
-  // send files to the server // learn from my other video
-  const handleSearchImage = async () => {
+  
+
+  const handleSearch = async (promise) => {
     setUploadError(0)
     
     dispatch(setUploading(true))
     try {
-        await Promise.all([dispatch(searchImage(file))])
-    } catch (err) {
-        setUploadError(err.response.status)
-    } 
-    dispatch(setUploading(false))
-
-    navigate("/suggested")
-  };
-
-  const handleSearchURL = async () => {
-    setUploadError(0)
-    
-    dispatch(setUploading(true))
-    try {
-        await Promise.all([dispatch(searchImageURL(URLInput))])
+        await Promise.all([dispatch(promise)])
+        dispatch(setHelpOpen(false))
     } catch (err) {
         if (err.response){
             setUploadError(err.response.status)
@@ -77,6 +65,8 @@ const ImageSearch = () => {
 
     navigate("/suggested")
   };
+
+
 
   const handleURLInputChange = (event) => {
     setURLInput(event.target.value)
@@ -138,7 +128,7 @@ const ImageSearch = () => {
                     </div>
                 }
                 </div>
-                <button className="select-button upload-button" disabled={!file || isLoading} onClick={handleSearchImage}>Image Search</button>
+                <button className="select-button upload-button" disabled={!file || isLoading} onClick={()=> handleSearch(searchImage(file))}>Image Search</button>
                 {
                     uploadError == 503 && <div className="warning">There was an error with the search. Please try again.</div>
                     || uploadError == 406 && <div className="warning">The image provided is not appropriate.</div>
@@ -149,7 +139,7 @@ const ImageSearch = () => {
             <div className="image-upload">
                 <div className="url-row">
                     <input className="text-field" type="text" id="image-url-search" onChange={handleURLInputChange} placeholder="Image URL" />
-                    <button className="select-button upload-button-url" disabled={isLoading || !isValidURL(URLInput)} onClick={handleSearchURL} >Image URL Search</button>
+                    <button className="select-button upload-button-url" disabled={isLoading || !isValidURL(URLInput)} onClick={()=> handleSearch(searchImageURL(URLInput))} >Image URL Search</button>
                 </div>
             </div>
         </div>

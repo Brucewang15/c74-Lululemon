@@ -19,8 +19,7 @@ const ModalHelpBox = () => {
     const lastActivity = useSelector(
         (state) => state.helpReducer.lastActivity,
     );
-
-    console.log(isHelpOpen)
+    
 
     const onHide = () => {
         dispatch(setHelpOpen(false));
