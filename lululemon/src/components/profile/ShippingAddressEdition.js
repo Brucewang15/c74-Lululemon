@@ -41,6 +41,8 @@ const ShippingAddressEdition = ({ onClose }) => {
   });
 
   const hasErrors = Object.values(errors).some((error) => error !== "");
+  const isDisabled =
+    Object.values(formData).some((value) => value === "") || hasErrors;
 
   const provinces = [
     "Alberta",
@@ -59,28 +61,59 @@ const ShippingAddressEdition = ({ onClose }) => {
   ];
 
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
+    let { name, value, type, checked } = e.target;
     if (name === "postalCode") {
-      const formattedPostalCode = formatPostalCode(value);
-      setFormData((prevData) => ({
-        ...prevData,
-        postalCode: formattedPostalCode,
+      value = formatPostalCode(value);
+
+      const postalCodePattern = /^[A-Za-z]\d[A-Za-z] \d[A-Za-z]\d$/;
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        [name]: !postalCodePattern.test(value) ? "Please enter a valid postal code in the format." : "",
       }));
-    } else {
-      setFormData((prevData) => ({
-        ...prevData,
-        [name]: type === "checkbox" ? checked : value,
+    } else if (name === "phoneNumber") {
+      let formattedPhoneNumber = value.replace(/[^\d]/g, ""); // Remove non-digit characters
+      if (formattedPhoneNumber.length > 10) {
+        formattedPhoneNumber = formattedPhoneNumber.slice(0, 10); // Limit to 10 digits
+      }
+      if (formattedPhoneNumber.length > 0) {
+        formattedPhoneNumber = `(${formattedPhoneNumber}`;
+      }
+      if (formattedPhoneNumber.length > 4) {
+        formattedPhoneNumber = `${formattedPhoneNumber.slice(
+          0,
+          4
+        )}) ${formattedPhoneNumber.slice(4)}`;
+      }
+      if (formattedPhoneNumber.length > 9) {
+        formattedPhoneNumber = `${formattedPhoneNumber.slice(
+          0,
+          9
+        )}-${formattedPhoneNumber.slice(9)}`;
+      }
+      value = formattedPhoneNumber;
+
+      const phonePattern = /^\(\d{3}\) \d{3}-\d{4}$/;
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        [name]: !phonePattern.test(value) ? "Please enter a valid phone number in the format." : "",
       }));
     }
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: type === "checkbox" ? checked : value,
+    }));
   };
 
   const handleBlur = (e) => {
     const { name, value } = e.target;
-    const errorMessage = validateField(name, value);
-    setErrors((prevErrors) => ({
-      ...prevErrors,
-      [name]: errorMessage,
-    }));
+
+    if (!value.trim()) {
+      const errorMessage = validateField(name, value);
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        [name]: errorMessage,
+      }));
+    }
   };
 
   const handleSubmit = (e) => {
@@ -188,9 +221,7 @@ const ShippingAddressEdition = ({ onClose }) => {
               onChange={handleChange}
               onBlur={handleBlur}
             />
-            {errors.city && (
-              <p className="error-message">{errors.city}</p>
-            )}
+            {errors.city && <p className="error-message">{errors.city}</p>}
           </div>
 
           <div className={`form-group ${errors.province ? "error" : ""}`}>
@@ -243,7 +274,7 @@ const ShippingAddressEdition = ({ onClose }) => {
             </label>
           </div>
 
-          <button type="submit" className="submit-button" disabled={hasErrors}>
+          <button type="submit" className="submit-button" disabled={isDisabled}>
             SAVE ADDRESS
           </button>
           <button type="button" className="underline-button" onClick={onClose}>

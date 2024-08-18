@@ -6,7 +6,8 @@ import NameEdition from "./NameEdition";
 import EmailEdition from "./EmailEdition";
 import PasswordEdition from "./PasswordEdition";
 import ShippingAddressEdition from "./ShippingAddressEdition";
-import GiftCardEdition from "./GiftCardEdition";
+import GiftCardEdition from "./GiftcardEdition";
+import CreditcardEdition from "./CreditcardEdition";
 
 const Profile = () => {
   return (
@@ -114,7 +115,7 @@ const CheckoutPreferences = () => {
       </div>
       <div className="checkout field">
         <h2 className="subtitle">Credit cards</h2>
-        <a className="add-link">
+        <a className="add-link" onClick={() => setIsCreditCardEditOpen(true)}>
           <Plus width={24} height={24} />
           <p className="text">Add a credit card</p>
         </a>
@@ -133,6 +134,9 @@ const CheckoutPreferences = () => {
       )}
       {isGiftCardEditOpen && (
         <GiftCardEdition onClose={() => setIsGiftCardEditOpen(false)} />
+      )}
+      {isCreditCardEditOpen && (
+        <CreditcardEdition onClose={() => setIsCreditCardEditOpen(false)} />
       )}
     </div>
   );

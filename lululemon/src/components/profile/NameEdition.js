@@ -3,6 +3,9 @@ import { Cross } from "../icon/cross";
 import { useState } from "react";
 
 const NameEdition = ({ onClose }) => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+
   const [errors, setErrors] = useState({
     "first name": "",
   });
@@ -23,6 +26,9 @@ const NameEdition = ({ onClose }) => {
     return "";
   };
 
+  const hasErrors = Object.values(errors).some((error) => error !== "");
+  const isDisabled = !firstName || hasErrors;
+
   return (
     <div className="modal-overlay">
       <div className="modal-content">
@@ -31,14 +37,14 @@ const NameEdition = ({ onClose }) => {
         </button>
         <h2>Edit your name</h2>
         <form className="edit-name-form">
-          <div className={`form-group ${
-              errors["first name"] ? "error" : ""
-            }`}>
+          <div className={`form-group ${errors["first name"] ? "error" : ""}`}>
             <label htmlFor="first-name">First name</label>
             <input
               type="text"
               id="first-name"
               name="first name"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
               onBlur={handleBlur}
               required
             />
@@ -52,10 +58,12 @@ const NameEdition = ({ onClose }) => {
               type="text"
               id="last-name"
               name="last name"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
               required
             />
           </div>
-          <button type="submit" className="save-button">
+          <button type="submit" className="save-button" disabled={isDisabled}>
             SAVE NAME
           </button>
           <button type="button" className="underline-button" onClick={onClose}>

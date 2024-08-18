@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./GiftCardEdition.css";
+import "./GiftcardEdition.css";
 import { Info } from "../icon/info";
 import { Cross } from "../icon/cross";
 
