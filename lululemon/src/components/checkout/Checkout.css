@@ -348,6 +348,19 @@
     }
 }
 
+.newAddress {
+    margin-left: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 8px;
+
+    .addressRadio {
+        margin-left: 8px;
+        font-weight: bold;
+    }
+}
+
 #streetAddress {
     border: 1px solid black;
     background-color: white;

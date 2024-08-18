@@ -287,6 +287,11 @@ export const setTotalBeforeTaxRedux = (totalBeforeTax) => {
     }
 }
 
+// place order api
+export const placeOrder = async (userId, orderData) => {
+    await axios.post(`http://localhost:3399/order/${userId}`, {orderData})
+}
+
 // import {actionTypes} from "./actionTypes";
 // import axios from "axios";
 //

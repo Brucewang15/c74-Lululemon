@@ -30,7 +30,11 @@ export const actionTypes = {
   ADD_BACK_TO_CART: "ADD_BACK_TO_CART",
   FETCH_SAVED_ITEMS_FROM_SERVER: "FETCH_SAVED_ITEMS_FROM_SERVER",
 
+  // shipping address related
   GET_SHIPPING_ADDRESS: "GET_SHIPPING_ADDRESS",
+  SELECT_ADDRESS: "SELECT_ADDRESS",
+
+  // shopping cart actions - tax and costs related
   SET_SHIPPING_COST: "SET_SHIPPING_COST",
   SET_TAX_RATE: "SET_TAX_RATE",
   SET_TAX_AMOUNT: "SET_TAX_AMOUNT",

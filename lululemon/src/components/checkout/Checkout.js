@@ -10,6 +10,7 @@ import axios from "axios";
 import { myKey, serverAPI } from "../../redux/utils/helper";
 import {
   fetchCartItems,
+  placeOrder,
   setShippingCost,
   setTaxAmount,
   setTaxRate,
@@ -17,8 +18,9 @@ import {
 } from "../../redux/actions/shoppingCartActions";
 import { useNavigate } from "react-router-dom";
 import {
-  getAddressFromServer,
+  fetchAddressList,
   loginSuccess,
+  selectAnAddress,
   setToken,
   setUser,
 } from "../../redux/actions/authAction";
@@ -33,22 +35,31 @@ import { mapsAPIKey } from "../../redux/utils/helper";
 import { Library } from "@googlemaps/js-api-loader";
 
 import taxRateData from "./taxRate.json";
+import { ShippingAddressList } from "./ShippingAddressList";
 
 export const Checkout = () => {
   const navigator = useNavigate();
-  const isLogin = useSelector((state) => state.authReducer.loginStatus);
 
+  // shopping cart
   const shoppingCart = useSelector(
     (state) => state.shoppingCartReducer.shoppingCart,
   );
+
+  // user infomration related
   const userInfo = useSelector((state) => state.authReducer.user) || {};
   const userId =
     useSelector((state) => state.authReducer.userId) ||
     localStorage.getItem("userId");
   const token = useSelector((state) => state.authReducer.token);
-  const shippingAddress = useSelector(
-    (state) => state.authReducer.shippingAddress,
+  const isLogin = useSelector((state) => state.authReducer.loginStatus);
+
+  // address related
+  const addressList = useSelector((state) => state.authReducer.addressList);
+  const selectedAddress = useSelector(
+    (state) => state.authReducer.selectedAddress,
   );
+
+  // tax and shipping cost related
   const shippingCost = useSelector(
     (state) => state.shoppingCartReducer.shippingCost,
   );
@@ -58,24 +69,32 @@ export const Checkout = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  // address related
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [isExpanded, setIsExpanded] = useState(true);
 
+  // bottom part ( gift and shipping options related)
+  const [giftTo, setGiftTo] = useState("");
+  const [giftFrom, setGiftFrom] = useState("");
+  const [giftMessage, setGiftMessage] = useState("");
   const [isGift, setIsGift] = useState(false);
   const [isChange, setIsChange] = useState(false);
   const [activeOption, setActiveOption] = useState(null); // if there are multiple things, no need for multiple useStates. just use one.
 
+  // address related
+  const [isNewAddress, setIsNewAddress] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState(
     countriesData.countries[0].name,
   );
   const [states, setStates] = useState([]);
-
   const [whichState, setWhichState] = useState(null);
   const [streetAddress, setStreetAddress] = useState(null);
 
+  // tax related
   const [totalBeforeTax, setTotalBeforeTax] = useState(0);
 
+  // address and google map related
   const [formData, updateFormData] = useState({
     country: "CA",
     state: "",
@@ -147,9 +166,10 @@ export const Checkout = () => {
   }, [selectedCountry, formData.state, shoppingCart, totalBeforeTax]);
 
   // useEffects -----
+  //get user's shipping Address list
   useEffect(() => {
     // console.log("userId==>", userId);
-    isLogin && userId && dispatch(getAddressFromServer(userId));
+    isLogin && userId && dispatch(fetchAddressList(userId));
   }, [dispatch, isLogin, userId]);
 
   useEffect(() => {
@@ -240,25 +260,66 @@ export const Checkout = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    try {
-      const res = await axios.post(
-        `${serverAPI}/user/userInfo/${userInfo.id}/address`,
-        {
-          firstName: formData.firstName,
-          lastName: formData.lastName,
-          phoneNumber: formData.phone,
-          address: formData.streetAddress,
-          city: formData.city,
-          province: formData.state,
-          postalCode: formData.zipcode,
-        },
-      );
+    // if the user click on the new shipping address
+    if (isNewAddress) {
+      const sanitizedData = {
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        phoneNumber: formData.phone,
+        address: formData.streetAddress,
+        city: formData.city,
+        province: formData.state,
+        postalCode: formData.zipcode,
+      };
+      try {
+        const res = await axios.post(
+          `${serverAPI}/user/userInfo/${userInfo.id}/address`,
+          sanitizedData,
+          // {
+          //   firstName: formData.firstName,
+          //   lastName: formData.lastName,
+          //   phoneNumber: formData.phone,
+          //   address: formData.streetAddress,
+          //   city: formData.city,
+          //   province: formData.state,
+          //   postalCode: formData.zipcode,
+          // },
+        );
+        console.log(
+          "this is the new address just added to the db==>",
+          res.data.data.newAddress,
+        );
 
-      console.log("Address added successfully.");
-    } catch (e) {
-      console.log("Adding address failed.");
+        const newAddress = res.data.data.newAddress;
+        dispatch(selectAnAddress(newAddress.id));
+        console.log("Address added successfully.");
+      } catch (e) {
+        console.log("Adding address failed.");
+      }
     }
-    navigator("/shop/checkout/payment");
+    console.log(selectedAddress);
+    if (Object.keys(selectedAddress).length === 0) {
+      alert("You must choose an address or enter a new one");
+      return;
+    }
+    // this is the data needed for placing an order, also should include userId in the params
+    const orderData = {
+      taxAmount,
+      totalBeforeTax,
+      shippingAddressId: selectedAddress.id,
+      shippingFee: shippingCost,
+      isGift: isGift,
+      giftTo: giftTo,
+      giftFrom: giftFrom,
+      giftMessage: giftMessage,
+    };
+    if (shoppingCart.length !== 0) {
+      await placeOrder(userId, orderData);
+      dispatch(fetchCartItems(isLogin));
+      // navigator("/shop/checkout/payment");
+    } else {
+      alert("Your shopping cart is empty, cannot place order");
+    }
   };
 
   const handleWhichState = (e) => {
@@ -288,35 +349,6 @@ export const Checkout = () => {
     console.log("this is the shipping cost", cost);
     dispatch(setShippingCost(cost));
   };
-
-  // const handlePlaceOrder = () => {
-  //   const requestBody = {
-  //     taxRate: 1.13,
-  //     isActive: true,
-  //     isDelete: false,
-  //     orderItems: shoppingCart.map((item) => {
-  //       return {
-  //         quantity: item.quantity,
-  //         productId: item.productId,
-  //         colorId: item.colorId,
-  //         size: item.size,
-  //       };
-  //     }),
-  //   };
-  //   axios
-  //     .post(`http://api-lulu.hibitbyte.com/order?mykey=${myKey}`, requestBody, {
-  //       headers: {
-  //         authorization: `bear ${token}`,
-  //       },
-  //     })
-  //     .then(async (res) => {
-  //       console.log("Order Placed successfully", res.data);
-  //       await axios.delete(`http://localhost:8000/cart/cleanup`);
-  //       console.log("Cart cleaned up successfully");
-  //       navigate("/shop/thankyou");
-  //     })
-  //     .catch((err) => console.error("Order place failed", err));
-  // };
 
   useEffect(() => {
     const checkTokenValidity = () => {
@@ -374,30 +406,8 @@ export const Checkout = () => {
                   Welcome Back {userInfo.firstName} {userInfo.lastName}
                 </span>
               </div>
-              {/*<button onClick={handlePlaceOrder}>*/}
-              {/*  <img*/}
-              {/*    src="https://i0.wp.com/cypruscomiccon.org/wp-content/uploads/2015/07/Paypal-logo-white.svg1_.png?ssl=1"*/}
-              {/*    alt=""*/}
-              {/*  />*/}
-              {/*</button>*/}
             </div>
-            {/*<div>*/}
-            {/*  {shippingAddress &&*/}
-            {/*    shippingAddress.length > 0 &&*/}
-            {/*    shippingAddress.map((adr, index) => {*/}
-            {/*      return (*/}
-            {/*        <div key={index}>*/}
-            {/*          <div>{adr.address}</div>*/}
-            {/*          <div>*/}
-            {/*            {adr.firstName} {adr.lastName}*/}
-            {/*          </div>*/}
-            {/*          <div>{adr.phoneNumber}</div>*/}
-            {/*          <div>{adr.province}</div>*/}
-            {/*          <div>{adr.postalCode}</div>*/}
-            {/*        </div>*/}
-            {/*      );*/}
-            {/*    })}*/}
-            {/*</div>*/}
+
             <form onSubmit={submitHandler} action="">
               <div className="contactInfo" id="container">
                 <div className="title">Contact Information</div>
@@ -416,98 +426,116 @@ export const Checkout = () => {
 
               <div className="shippingAddress" id="container">
                 <div className="title">Shipping Address</div>
-                Location
-                <select
-                  name="country"
-                  onChange={handleCountryChange}
-                  className="location"
-                  id="input"
+                <div onClick={() => setIsNewAddress(false)}>
+                  <ShippingAddressList addressList={addressList} />
+                </div>
+                <label
+                  className="newAddress"
+                  onClick={() => setIsNewAddress(true)}
                 >
-                  {countriesData.countries.map((country) => (
-                    <option key={country.name} value={country.name}>
-                      {country.name}
-                    </option>
-                  ))}
-                </select>
-                <div className="two">
-                  <div className="individual">
-                    First name
-                    <input
-                      name="firstName"
-                      type="text"
+                  <input type="radio" name="shippingAddress" />
+                  <div className="addressRadio">New shipping address</div>
+                </label>
+                {isNewAddress && (
+                  <>
+                    <span>Location</span>
+                    <select
+                      name="country"
+                      onChange={handleCountryChange}
+                      className="location"
                       id="input"
-                      onChange={changeHandler}
-                    />
-                  </div>
+                    >
+                      {countriesData.countries.map((country) => (
+                        <option key={country.name} value={country.name}>
+                          {country.name}
+                        </option>
+                      ))}
+                    </select>
+                    <div className="two">
+                      <div className="individual">
+                        First name
+                        <input
+                          name="firstName"
+                          type="text"
+                          id="input"
+                          onChange={changeHandler}
+                        />
+                      </div>
 
-                  <div className="individual" onChange={changeHandler}>
-                    Last name
-                    <input name="lastName" type="text" id="input" />
-                  </div>
-                </div>
-                <div className="phoneNumber" onChange={changeHandler}>
-                  Phone Number
-                  <input name="phone" type="text" id="input" />
-                </div>
-                <div className="phoneNumber">
-                  Address
-                  <input
-                    type="text"
-                    id={"streetAddress"}
-                    name={"streetAddress"}
-                    ref={placeAutoCompleteRef}
-                    value={formData.streetAddress}
-                    onChange={changeHandler}
-                    placeholder="Include apt, suite, or floor number here"
-                  />
-                </div>
-                <div className="phoneNumber">
-                  Delivery note (Optional)
-                  <input type="text" id="input" />
-                </div>
-                <div className="three">
-                  <div className="individual">
-                    City
-                    <input
-                      name="city"
-                      type="text"
-                      id="input"
-                      value={formData.city}
-                      onChange={changeHandler}
-                    />
-                  </div>
-
-                  <div className="individual">
-                    {/*{states.length !== 0 && (*/}
-                    <>
-                      {selectedCountry === "Canada" ? "Provinces" : "States"}
+                      <div className="individual" onChange={changeHandler}>
+                        Last name
+                        <input name="lastName" type="text" id="input" />
+                      </div>
+                    </div>
+                    <div className="phoneNumber" onChange={changeHandler}>
+                      Phone Number
+                      <input name="phone" type="text" id="input" />
+                    </div>
+                    <div className="phoneNumber">
+                      Address
                       <input
-                        id="input"
-                        name="state"
-                        value={formData.state}
+                        type="text"
+                        id={"streetAddress"}
+                        name={"streetAddress"}
+                        ref={placeAutoCompleteRef}
+                        value={formData.streetAddress}
                         onChange={changeHandler}
-                      >
-                        {/*{states.map((state) => (*/}
-                        {/*  <option key={state.name} value={state.name}>*/}
-                        {/*    {state}*/}
-                        {/*  </option>*/}
-                        {/*))}*/}
-                      </input>
-                    </>
-                    {/*)}*/}
-                  </div>
+                        placeholder="Include apt, suite, or floor number here"
+                      />
+                    </div>
+                    <div className="phoneNumber">
+                      Delivery note (Optional)
+                      <input type="text" id="input" />
+                    </div>
+                    <div className="three">
+                      <div className="individual">
+                        City
+                        <input
+                          name="city"
+                          type="text"
+                          id="input"
+                          value={formData.city}
+                          onChange={changeHandler}
+                        />
+                      </div>
 
-                  <div className="individual">
-                    {selectedCountry === "Canada" ? "Postal Code" : "Zip Code"}
-                    <input
-                      name="zipcode"
-                      type="text"
-                      id="input"
-                      value={formData.zipcode}
-                      onChange={changeHandler}
-                    />
-                  </div>
-                </div>
+                      <div className="individual">
+                        {/*{states.length !== 0 && (*/}
+                        <>
+                          {selectedCountry === "Canada"
+                            ? "Provinces"
+                            : "States"}
+                          <input
+                            id="input"
+                            name="state"
+                            value={formData.state}
+                            onChange={changeHandler}
+                          >
+                            {/*{states.map((state) => (*/}
+                            {/*  <option key={state.name} value={state.name}>*/}
+                            {/*    {state}*/}
+                            {/*  </option>*/}
+                            {/*))}*/}
+                          </input>
+                        </>
+                        {/*)}*/}
+                      </div>
+
+                      <div className="individual">
+                        {selectedCountry === "Canada"
+                          ? "Postal Code"
+                          : "Zip Code"}
+                        <input
+                          name="zipcode"
+                          type="text"
+                          id="input"
+                          value={formData.zipcode}
+                          onChange={changeHandler}
+                        />
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
 
               <div className="shippingGift" id="container">
@@ -589,7 +617,9 @@ export const Checkout = () => {
                 <div className="checkbox">
                   <input
                     checked={isGift}
-                    onChange={(event) => setIsGift(event.target.checked)}
+                    onChange={(event) => {
+                      setIsGift(event.target.checked);
+                    }}
                     type="checkbox"
                   />
                   This is a gift. Add a message
@@ -600,16 +630,34 @@ export const Checkout = () => {
                     <div className="two">
                       <div className="individual">
                         To
-                        <input type="text" id="input" />
+                        <input
+                          type="text"
+                          id="input"
+                          onChange={(e) => {
+                            setGiftTo(e.target.value);
+                          }}
+                        />
                       </div>
 
                       <div className="individual">
                         From
-                        <input type="text" id="input" />
+                        <input
+                          type="text"
+                          id="input"
+                          onChange={(e) => {
+                            setGiftFrom(e.target.value);
+                          }}
+                        />
                       </div>
                     </div>
                     Message
-                    <input type="text" id="input" />
+                    <input
+                      type="text"
+                      id="input"
+                      onChange={(e) => {
+                        setGiftMessage(e.target.value);
+                      }}
+                    />
                     Your message will be printed on a receipt with prices
                     hidden.
                   </>
@@ -715,3 +763,51 @@ export const Checkout = () => {
     </>
   );
 };
+
+// const handlePlaceOrder = () => {
+//   const requestBody = {
+//     taxRate: 1.13,
+//     isActive: true,
+//     isDelete: false,
+//     orderItems: shoppingCart.map((item) => {
+//       return {
+//         quantity: item.quantity,
+//         productId: item.productId,
+//         colorId: item.colorId,
+//         size: item.size,
+//       };
+//     }),
+//   };
+//   axios
+//     .post(`http://api-lulu.hibitbyte.com/order?mykey=${myKey}`, requestBody, {
+//       headers: {
+//         authorization: `bear ${token}`,
+//       },
+//     })
+//     .then(async (res) => {
+//       console.log("Order Placed successfully", res.data);
+//       await axios.delete(`http://localhost:8000/cart/cleanup`);
+//       console.log("Cart cleaned up successfully");
+//       navigate("/shop/thankyou");
+//     })
+//     .catch((err) => console.error("Order place failed", err));
+// };
+
+{
+  /*<button onClick={handlePlaceOrder}>*/
+}
+{
+  /*  <img*/
+}
+{
+  /*    src="https://i0.wp.com/cypruscomiccon.org/wp-content/uploads/2015/07/Paypal-logo-white.svg1_.png?ssl=1"*/
+}
+{
+  /*    alt=""*/
+}
+{
+  /*  />*/
+}
+{
+  /*</button>*/
+}
