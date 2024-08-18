@@ -1,5 +1,8 @@
 import { useState, useRef } from "react";
 import "./ImageSearch.css"
+import "./Loader.css"
+
+import cross_icon from "../../assets/cross.png";
 
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -22,6 +25,10 @@ const ImageSearch = () => {
   const handleDragOver = (event) => {
     event.preventDefault();
   };
+
+  const removePhoto = (event) => {
+    setFile(null);
+  }
 
   const handleDrop = (event) => {
     event.preventDefault();
@@ -59,7 +66,11 @@ const ImageSearch = () => {
     try {
         await Promise.all([dispatch(searchImageURL(URLInput))])
     } catch (err) {
-        setUploadError(err.response.status)
+        if (err.response){
+            setUploadError(err.response.status)
+        } else {
+            setUploadError(1)
+        }
     } 
     dispatch(setUploading(false))
 
@@ -79,6 +90,16 @@ const ImageSearch = () => {
     <div className="imagesearch-page">
       
         <div className="imagesearch-container">
+            {   
+                isLoading &&
+                <div class="loading-overlay">
+                    <div class="loader" 
+                    // style={{ 
+                    //     margin: "auto", 
+                    // }}
+                    />
+                </div>
+            }
             <div className="title">
                AI Product Search
             </div>
@@ -94,9 +115,13 @@ const ImageSearch = () => {
                 {
                     file && 
                     <div className="image-preview-wrapper">
-                    <img src={imgUrl} className="image-preview">
-                    </img>
+                        <button onClick={removePhoto} className="removePhotoButton">
+                            <img className="removePhotoIcon" src={cross_icon} alt=""/>
+                        </button>
+                        <img src={imgUrl} className="image-preview">
+                        </img>
                     </div>
+
                     ||
                     <div className="upload-wrapper">
                     <div className="drop-text-1">Drag and Drop</div>

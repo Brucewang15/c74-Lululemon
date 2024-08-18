@@ -90,6 +90,23 @@ const formatResults = (res) => {
         }
     }
 
+    var topScore = 0
+    var topScoreIndex = -1
+    if (validResults.length == 0) {
+        for (let i = 0; i < res.data.length; i++) {
+            const score = res.data[i].score
+            if (score > 0.3 && score > topScore) {
+                topScoreIndex = i
+                topScore = score
+            }
+        }
+
+        if (topScoreIndex >= 0) {
+            const id = res.data[topScoreIndex].product.name.split('/').at(-1)
+            validResults.push(id)
+        }
+    }
+
     return validResults
 }
 
