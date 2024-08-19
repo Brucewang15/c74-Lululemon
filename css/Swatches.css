@@ -1,0 +1,28 @@
+.swatchesContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.swatchButton {
+  border: none;
+  background: none;
+  margin: 5px;
+}
+
+.swatch {
+  outline: 1px solid #e0e0e0;
+  border: 2px solid white;
+  width: 35px;
+  height: 35px;
+}
+
+.selected {
+  outline: 2px solid black;
+}
+
+.swatchButton:hover .swatch {
+  outline: 3px solid grey;
+}/*# sourceMappingURL=Swatches.css.map */

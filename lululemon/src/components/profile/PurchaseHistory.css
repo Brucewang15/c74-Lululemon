@@ -1,0 +1,113 @@
+.container {
+  font-family: Arial, sans-serif;
+  width: 60vw;
+  padding: 20px;
+  background-color: #fafafa;
+  text-align: left;
+}
+
+.container h1 {
+  margin: 0;
+}
+
+.tabs {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.tab {
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+  position: relative;
+}
+
+.tab:not(:last-child) {
+  margin-right: 20px;
+}
+
+.tab::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #e0e0e0;
+}
+
+.tab.activeTab {
+  font-weight: 600;
+}
+
+.tab.activeTab::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #d31334;
+}
+
+.message {
+  margin-bottom: 20px;
+}
+
+.ctaButton {
+  display: inline-block;
+  padding: 15px 30px;
+  border: 2px solid #000;
+  background-color: transparent;
+  color: #000;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 40px;
+  cursor: pointer;
+}
+
+.contactor {
+  background-color: #fff;
+  padding: 1.75rem;
+}
+
+.helpSection {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.helpBox {
+  width: 45%;
+  display: flex;
+}
+
+.helpBox h2 {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+.arrow {
+  color: #ef4444;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  font-size: 1.75rem;
+  padding: 0 20px;
+}
+
+.contactMessage {
+  margin-top: 20px;
+}
+
+.email {
+  display: flex;
+}
+
+.emailLink {
+  color: #d31334;
+  text-decoration: none;
+  font-weight: bold;
+}
