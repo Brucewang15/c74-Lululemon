@@ -1,5 +1,6 @@
 import "./App.css";
 import { WhatsNewPage } from "./pages/WhatsNewPage";
+import { SuggestionsPage } from "./pages/SuggestionsPage";
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import { ProductPage } from "./pages/ProductPage";
 import { WrongPage } from "./components/productpage/WrongPage";
@@ -84,6 +85,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<WhatsNewPage />} />
+          <Route path="/suggested" element={<SuggestionsPage />} />
           <Route path="/product/:productID" element={<ProductPage />} />
           <Route path="/wrong-product" element={<WrongProductPage />} />
           <Route path="/shop/mybag" element={<ShoppingCart />} />

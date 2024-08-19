@@ -1,25 +1,80 @@
 
 .welcomePage {
 
-    .button {
-        top: 50%;
+    height: 100%;
+    width: 100%;
+    padding: 0;
 
-        width: 150px;
-        height: 50px;
+    .welcomePageContainer{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center; 
+        gap: 20px;
+    }
+
+    .lululemonWelcomeLogo {
+        margin-top: 20px;
+        height: 80px;
+    }
+
+    .description {
+        font-size: 20px;
+        font-weight: 100;
+        line-height: 1.5;
+    }
+
+    .warning {
+        font-size: 16px;
+        font-weight: 100;
+        line-height: 1.5;
+    }
+    
+    .border{
+        border-bottom: 1px solid lightgray;
+        width: 500px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+
+
+
+
+
+    .buttonsContainer{
+        margin-top: 10px;
+        display: flex;
+        flex-direction: row;
+    }
+
+    .button {
+        font-size: 20px;
+        background-color: #262626;
+        color:white;
+
+        width: 260px;
+        height: 70px;
         
         margin: 2px;
     
         border: 0;
     }
+    .button:hover{
+        background-color: #505050;
+    }
+    .button:disabled{
+        background-color: lightgray;
+    }
 
     .photoButton {
-        border-top-left-radius: 10px;
-        border-bottom-left-radius: 10px;
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
     }
 
     .chatButton {
-        border-top-right-radius: 10px;
-        border-bottom-right-radius: 10px;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
     }
 
 }
