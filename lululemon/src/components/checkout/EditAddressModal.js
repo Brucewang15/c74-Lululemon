@@ -4,34 +4,50 @@ import CloseIcon from "@mui/icons-material/Close";
 import { useDispatch, useSelector } from "react-redux";
 import { editAddress } from "../../redux/actions/authAction";
 
-export const EditAddressModal = ({ selectedAddress, handleCloseModal }) => {
+export const EditAddressModal = ({
+  selectedAddress,
+  handleCloseModal,
+  formData,
+  updateFormData,
+}) => {
   const dispatch = useDispatch();
   const userId =
     useSelector((state) => state.authReducer.userId) ||
     localStorage.getItem("userId");
 
-  const [formData, updateFormData] = useState({
-    country: "",
-    province: "",
-    city: "",
-    postalCode: "",
-    address: "",
-    email: "",
-    phoneNumber: "",
-    firstName: "",
-    lastName: "",
-  });
+  // const [formData, updateFormData] = useState({
+  //   country: "",
+  //   province: "",
+  //   city: "",
+  //   postalCode: "",
+  //   address: "",
+  //   email: "",
+  //   phoneNumber: "",
+  //   firstName: "",
+  //   lastName: "",
+  // });
 
   useEffect(() => {
     if (selectedAddress) {
+      // updateFormData({
+      //   country: selectedAddress.country || "",
+      //   province: selectedAddress.province || "",
+      //   city: selectedAddress.city || "",
+      //   postalCode: selectedAddress.postalCode || "",
+      //   address: selectedAddress.address || "",
+      //   email: selectedAddress.email || "",
+      //   phoneNumber: selectedAddress.phoneNumber || "",
+      //   firstName: selectedAddress.firstName || "",
+      //   lastName: selectedAddress.lastName || "",
+      // });
       updateFormData({
         country: selectedAddress.country || "",
-        province: selectedAddress.province || "",
+        state: selectedAddress.province || "",
         city: selectedAddress.city || "",
-        postalCode: selectedAddress.postalCode || "",
-        address: selectedAddress.address || "",
+        zipCode: selectedAddress.postalCode || "",
+        streetAddress: selectedAddress.address || "",
         email: selectedAddress.email || "",
-        phoneNumber: selectedAddress.phoneNumber || "",
+        phone: selectedAddress.phoneNumber || "",
         firstName: selectedAddress.firstName || "",
         lastName: selectedAddress.lastName || "",
       });
@@ -49,7 +65,16 @@ export const EditAddressModal = ({ selectedAddress, handleCloseModal }) => {
   };
 
   const handleEditAddress = () => {
-    dispatch(editAddress(userId, selectedAddress.id, formData));
+    const newAddress = {
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      phoneNumber: formData.phone,
+      address: formData.streetAddress,
+      city: formData.city,
+      province: formData.state,
+      postalCode: formData.zipCode,
+    };
+    dispatch(editAddress(userId, selectedAddress.id, newAddress));
     handleCloseModal();
   };
 
@@ -83,12 +108,12 @@ export const EditAddressModal = ({ selectedAddress, handleCloseModal }) => {
           />
         </div>
         <div className="input-group">
-          <label htmlFor="phoneNumber">Phone number</label>
+          <label htmlFor="phone">Phone number</label>
           <input
             type="text"
-            id="phoneNumber"
-            name="phoneNumber"
-            value={formData.phoneNumber}
+            id="phone"
+            name="phone"
+            value={formData.phone}
             onChange={handleInputChange}
           />
         </div>
@@ -96,9 +121,9 @@ export const EditAddressModal = ({ selectedAddress, handleCloseModal }) => {
           <label htmlFor="address">Address</label>
           <input
             type="text"
-            id="address"
-            name="address"
-            value={formData.address}
+            id="streetAddress"
+            name="streetAddress"
+            value={formData.streetAddress}
             onChange={handleInputChange}
           />
         </div>
@@ -117,21 +142,21 @@ export const EditAddressModal = ({ selectedAddress, handleCloseModal }) => {
           />
         </div>
         <div className="input-group">
-          <label htmlFor="province">Province</label>
+          <label htmlFor="state">Province</label>
           <input
-            id="province"
-            name="province"
-            value={formData.province}
+            id="state"
+            name="state"
+            value={formData.state}
             onChange={handleInputChange}
           ></input>
         </div>
         <div className="input-group">
-          <label htmlFor="postalCode">Postal code</label>
+          <label htmlFor="zipCode">Postal code</label>
           <input
             type="text"
-            id="postalCode"
-            name="postalCode"
-            value={formData.postalCode}
+            id="zipCode"
+            name="zipCode"
+            value={formData.zipCode}
             onChange={handleInputChange}
           />
         </div>

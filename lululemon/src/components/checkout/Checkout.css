@@ -356,9 +356,14 @@
     align-items: center;
     margin-bottom: 8px;
 
+    .radioInput {
+        accent-color: #c6102e;
+    }
+
     .addressRadio {
         margin-left: 8px;
         font-weight: bold;
+
     }
 }
 

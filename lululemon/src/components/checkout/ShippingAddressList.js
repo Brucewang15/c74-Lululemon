@@ -7,7 +7,11 @@ import {
 } from "../../redux/actions/authAction";
 import { useState } from "react";
 
-export const ShippingAddressList = ({ addressList }) => {
+export const ShippingAddressList = ({
+  addressList,
+  formData,
+  updateFormData,
+}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const dispatch = useDispatch();
@@ -17,7 +21,9 @@ export const ShippingAddressList = ({ addressList }) => {
   const selectedAddress = useSelector(
     (state) => state.authReducer.selectedAddress,
   );
-
+  const shippingMethod = useSelector(
+    (state) => state.shoppingCartReducer.shippingMethod,
+  );
   const handleSelectAddress = (addressId) => {
     dispatch(selectAnAddress(addressId));
     dispatch(fetchAddressList(userId));
@@ -67,6 +73,7 @@ export const ShippingAddressList = ({ addressList }) => {
                 Edit
               </div>
               {/*<div>{selectedAddress && JSON.stringify(selectedAddress)}</div>*/}
+              {/*<div>{shippingMethod}</div>*/}
             </div>
           );
         })}
@@ -74,6 +81,8 @@ export const ShippingAddressList = ({ addressList }) => {
         <EditAddressModal
           selectedAddress={selectedAddress}
           handleCloseModal={handleCloseEditModal}
+          formData={formData}
+          updateFormData={updateFormData}
         />
       )}
     </div>

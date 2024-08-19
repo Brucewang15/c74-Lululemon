@@ -96,7 +96,7 @@ export const Checkout = () => {
 
   // address and google map related
   const [formData, updateFormData] = useState({
-    country: "CA",
+    country: "",
     state: "",
     city: "",
     zipcode: "",
@@ -121,49 +121,140 @@ export const Checkout = () => {
   };
   // console.log(selectedCountry, states, whichState, 2);
 
-  // get total amount before tax, and tax rate and calculate tax amount and save in useState & Redux ----
+  // get total price before tax when the page loads
   useEffect(() => {
-    const calculateTotalAndTax = () => {
-      const total = shoppingCart.reduce((total, item) => {
+    let total = 0;
+    if (shoppingCart.length !== 0) {
+      total = shoppingCart.reduce((total, item) => {
         return total + item.price * item.quantity;
       }, 0);
       setTotalBeforeTax(total);
       dispatch(setTotalBeforeTaxRedux(total));
+    } else {
+      setTotalBeforeTax(0);
+      dispatch(setTotalBeforeTaxRedux(0));
+    }
+    console.log("total price before tax:", total);
+  }, [shoppingCart]);
 
+  useEffect(() => {
+    const calculateTotalAndTax = () => {
       if (totalBeforeTax !== 0) {
         let taxRate = 0;
-        if (
-          selectedCountry === "Canada" ||
-          selectedCountry === "United States"
-        ) {
-          if (formData.state) {
-            taxRate = taxRateData.taxRates[selectedCountry][formData.state];
-            console.log(
-              `Tax rate for ${selectedCountry}, ${formData.state}:`,
-              taxRate,
-            );
-          }
-        } else if (selectedCountry && selectedCountry !== "") {
-          taxRate = taxRateData.defaultTaxRate;
-          console.log("Tax rate for other countries (default):", taxRate);
-        } else {
-          console.log("No country selected, tax rate is 0");
-        }
-        // setInitialTaxRate(taxRate);
-        dispatch(setTaxRate(taxRate));
-        const taxAmount = taxRate * totalBeforeTax;
-        console.log("Calculated Tax Amount:", taxAmount);
-        dispatch(setTaxAmount(taxAmount));
-      }
 
-      if (totalBeforeTax === 0) {
+        if (isNewAddress) {
+          if (selectedCountry) {
+            if (
+              selectedCountry === "Canada" ||
+              selectedCountry === "United States"
+            ) {
+              if (formData.state) {
+                taxRate =
+                  taxRateData.taxRates[selectedCountry][formData.state] ||
+                  taxRateData.defaultTaxRate;
+                console.log(
+                  `Tax rate for ${selectedCountry}, ${formData.state}:`,
+                  taxRate,
+                );
+              }
+            } else {
+              taxRate = taxRateData.defaultTaxRate;
+              console.log("Tax rate for other countries (default):", taxRate);
+            }
+          }
+        } else if (selectedAddress) {
+          if (selectedAddress.country) {
+            if (
+              selectedAddress.country === "Canada" ||
+              selectedAddress.country === "United States"
+            ) {
+              if (selectedAddress.province) {
+                taxRate =
+                  taxRateData.taxRates[selectedAddress.country][
+                    selectedAddress.province
+                  ] || taxRateData.defaultTaxRate;
+                console.log(
+                  `Tax rate for ${selectedAddress.country}, ${selectedAddress.province}:`,
+                  taxRate,
+                );
+              }
+            } else {
+              taxRate = taxRateData.defaultTaxRate;
+              console.log("Tax rate for other countries (default):", taxRate);
+            }
+          }
+        }
+
+        const taxAmount = taxRate * totalBeforeTax;
+        dispatch(setTaxRate(taxRate));
+        dispatch(setTaxAmount(taxAmount));
+        console.log("Calculated Tax Amount:", taxAmount);
+      } else {
         dispatch(setTaxRate(0));
         dispatch(setTaxAmount(0));
       }
     };
 
     calculateTotalAndTax();
-  }, [selectedCountry, formData.state, shoppingCart, totalBeforeTax]);
+  }, [
+    isNewAddress,
+    formData.country,
+    formData.state,
+    selectedAddress,
+    shoppingCart,
+    totalBeforeTax,
+    dispatch,
+  ]);
+
+  // get total amount before tax, and tax rate and calculate tax amount and save in useState & Redux ----
+  // useEffect(() => {
+  //   const calculateTotalAndTaxForNewAddress = () => {
+  //     const total = shoppingCart.reduce((total, item) => {
+  //       return total + item.price * item.quantity;
+  //     }, 0);
+  //     setTotalBeforeTax(total);
+  //     dispatch(setTotalBeforeTaxRedux(total));
+  //
+  //     if (totalBeforeTax !== 0) {
+  //       let taxRate = 0;
+  //       if (
+  //         selectedCountry === "Canada" ||
+  //         selectedCountry === "United States"
+  //       ) {
+  //         if (formData.state) {
+  //           taxRate = taxRateData.taxRates[selectedCountry][formData.state];
+  //           console.log(
+  //             `Tax rate for ${selectedCountry}, ${formData.state}:`,
+  //             taxRate,
+  //           );
+  //         }
+  //       } else if (selectedCountry && selectedCountry !== "") {
+  //         taxRate = taxRateData.defaultTaxRate;
+  //         console.log("Tax rate for other countries (default):", taxRate);
+  //       } else {
+  //         console.log("No country selected, tax rate is 0");
+  //       }
+  //       // setInitialTaxRate(taxRate);
+  //       dispatch(setTaxRate(taxRate));
+  //       const taxAmount = taxRate * totalBeforeTax;
+  //       console.log("Calculated Tax Amount:", taxAmount);
+  //       dispatch(setTaxAmount(taxAmount));
+  //     }
+  //
+  //     if (totalBeforeTax === 0) {
+  //       dispatch(setTaxRate(0));
+  //       dispatch(setTaxAmount(0));
+  //     }
+  //   };
+  //
+  //   calculateTotalAndTaxForNewAddress();
+  // }, [
+  //   selectedCountry,
+  //   formData.state,
+  //   shoppingCart,
+  //   totalBeforeTax,
+  //   selectedAddress,
+  // ]);
 
   // useEffects -----
   //get user's shipping Address list
@@ -259,7 +350,7 @@ export const Checkout = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-
+    let newAddress;
     // if the user click on the new shipping address
     if (isNewAddress) {
       const sanitizedData = {
@@ -270,6 +361,7 @@ export const Checkout = () => {
         city: formData.city,
         province: formData.state,
         postalCode: formData.zipcode,
+        country: selectedCountry,
       };
       try {
         const res = await axios.post(
@@ -290,7 +382,7 @@ export const Checkout = () => {
           res.data.data.newAddress,
         );
 
-        const newAddress = res.data.data.newAddress;
+        newAddress = res.data.data.newAddress;
         dispatch(selectAnAddress(newAddress.id));
         console.log("Address added successfully.");
       } catch (e) {
@@ -298,7 +390,7 @@ export const Checkout = () => {
       }
     }
     console.log(selectedAddress);
-    if (Object.keys(selectedAddress).length === 0) {
+    if (Object.keys(selectedAddress).length === 0 && !isNewAddress) {
       alert("You must choose an address or enter a new one");
       return;
     }
@@ -306,7 +398,7 @@ export const Checkout = () => {
     const orderData = {
       taxAmount,
       totalBeforeTax,
-      shippingAddressId: selectedAddress.id,
+      shippingAddressId: selectedAddress.id || newAddress.id,
       shippingFee: shippingCost,
       isGift: isGift,
       giftTo: giftTo,
@@ -427,13 +519,21 @@ export const Checkout = () => {
               <div className="shippingAddress" id="container">
                 <div className="title">Shipping Address</div>
                 <div onClick={() => setIsNewAddress(false)}>
-                  <ShippingAddressList addressList={addressList} />
+                  <ShippingAddressList
+                    addressList={addressList}
+                    formData={formData}
+                    updateFormData={updateFormData}
+                  />
                 </div>
                 <label
                   className="newAddress"
                   onClick={() => setIsNewAddress(true)}
                 >
-                  <input type="radio" name="shippingAddress" />
+                  <input
+                    type="radio"
+                    className="radioInput"
+                    name="shippingAddress"
+                  />
                   <div className="addressRadio">New shipping address</div>
                 </label>
                 {isNewAddress && (

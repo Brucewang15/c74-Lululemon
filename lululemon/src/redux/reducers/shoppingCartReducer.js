@@ -9,6 +9,7 @@ const initialState = {
   taxRate: 0,
   taxAmount: 0,
   totalBeforeTax: 0,
+  shippingMethod: "Standard Shipping",
 };
 
 export const shoppingCartReducer = (state = initialState, action) => {
@@ -95,7 +96,21 @@ export const shoppingCartReducer = (state = initialState, action) => {
     case actionTypes.LOGOUT:
       return { ...state, savedItems: [] };
     case actionTypes.SET_SHIPPING_COST:
-      return { ...state, shippingCost: action.payload };
+      let shippingMethod;
+      if (action.payload === 0) {
+        shippingMethod = "Standard Shipping (FREE)";
+      }
+      if (action.payload === 20) {
+        shippingMethod = "Express Shipping ($20.00)";
+      }
+      if (action.payload === 30) {
+        shippingMethod = "Priority Shipping ($30.00)";
+      }
+      return {
+        ...state,
+        shippingCost: action.payload,
+        shippingMethod: shippingMethod,
+      };
     case actionTypes.SET_TAX_RATE:
       return {
         ...state,
