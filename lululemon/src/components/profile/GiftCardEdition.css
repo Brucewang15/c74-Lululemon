@@ -30,7 +30,7 @@
   cursor: pointer;
 }
 
-h2 {
+.gift-card-content h2 {
   margin-top: 0;
   margin-bottom: 10px;
 }
@@ -44,7 +44,7 @@ h2 {
   margin-bottom: 15px;
 }
 
-label {
+.form-group label {
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
@@ -61,7 +61,7 @@ label {
   align-self: flex-start; /* Ensure the icon aligns to the start of the label */
 }
 
-input {
+.form-group input {
   width: 100%;
   padding: 8px;
   border: 1px solid #ccc;
