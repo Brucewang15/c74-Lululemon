@@ -15,31 +15,8 @@ export const EditAddressModal = ({
     useSelector((state) => state.authReducer.userId) ||
     localStorage.getItem("userId");
 
-  // const [formData, updateFormData] = useState({
-  //   country: "",
-  //   province: "",
-  //   city: "",
-  //   postalCode: "",
-  //   address: "",
-  //   email: "",
-  //   phoneNumber: "",
-  //   firstName: "",
-  //   lastName: "",
-  // });
-
   useEffect(() => {
     if (selectedAddress) {
-      // updateFormData({
-      //   country: selectedAddress.country || "",
-      //   province: selectedAddress.province || "",
-      //   city: selectedAddress.city || "",
-      //   postalCode: selectedAddress.postalCode || "",
-      //   address: selectedAddress.address || "",
-      //   email: selectedAddress.email || "",
-      //   phoneNumber: selectedAddress.phoneNumber || "",
-      //   firstName: selectedAddress.firstName || "",
-      //   lastName: selectedAddress.lastName || "",
-      // });
       updateFormData({
         country: selectedAddress.country || "",
         state: selectedAddress.province || "",
@@ -121,8 +98,9 @@ export const EditAddressModal = ({
           <label htmlFor="address">Address</label>
           <input
             type="text"
-            id="streetAddress"
+            id="address"
             name="streetAddress"
+            className="addressInput"
             value={formData.streetAddress}
             onChange={handleInputChange}
           />
@@ -170,3 +148,27 @@ export const EditAddressModal = ({
     </div>
   );
 };
+// updateFormData({
+//   country: selectedAddress.country || "",
+//   province: selectedAddress.province || "",
+//   city: selectedAddress.city || "",
+//   postalCode: selectedAddress.postalCode || "",
+//   address: selectedAddress.address || "",
+//   email: selectedAddress.email || "",
+//   phoneNumber: selectedAddress.phoneNumber || "",
+//   firstName: selectedAddress.firstName || "",
+//   lastName: selectedAddress.lastName || "",
+// });
+
+
+// const [formData, updateFormData] = useState({
+//   country: "",
+//   province: "",
+//   city: "",
+//   postalCode: "",
+//   address: "",
+//   email: "",
+//   phoneNumber: "",
+//   firstName: "",
+//   lastName: "",
+// });
