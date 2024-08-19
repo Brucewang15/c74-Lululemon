@@ -32,7 +32,7 @@
   cursor: pointer;
 }
 
-h2 {
+.shipping-address-form h2 {
   margin-top: 0;
   margin-bottom: 20px;
 }
@@ -55,7 +55,7 @@ h2 {
   margin-top: 4px;
 }
 
-label {
+.form-group label {
   display: block;
   font-size: 14px;
   font-weight: 500;

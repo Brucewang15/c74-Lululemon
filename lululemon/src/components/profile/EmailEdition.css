@@ -31,7 +31,7 @@
   cursor: pointer;
 }
 
-h2 {
+.change-email-modal h2 {
   margin-top: 0;
   margin-bottom: 20px;
 }

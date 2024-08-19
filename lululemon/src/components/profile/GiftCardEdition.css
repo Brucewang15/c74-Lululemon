@@ -30,9 +30,9 @@
     cursor: pointer;
 }
 
-h2 {
-    margin-top: 0;
-    margin-bottom: 10px;
+.gift-card-content h2 {
+  margin-top: 0;
+  margin-bottom: 10px;
 }
 
 .instruction {
@@ -44,10 +44,10 @@ h2 {
     margin-bottom: 15px;
 }
 
-label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
 }
 
 .info-icon {
@@ -61,11 +61,11 @@ label {
     align-self: flex-start; /* Ensure the icon aligns to the start of the label */
 }
 
-input {
-    /*width: 100%;*/
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+.form-group input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 .info-text {
