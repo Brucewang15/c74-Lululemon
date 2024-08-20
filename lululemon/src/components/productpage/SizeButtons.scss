@@ -48,6 +48,24 @@
       }
     }
 
+    .sizeLettersButton:disabled {
+      border: 0.02px solid #c7c4c4;
+      background: 
+         linear-gradient(to top left,
+             rgba(0,0,0,0) 0%,
+             rgba(0,0,0,0) calc(50% - 0.8px),
+             rgba(#c7c4c4,1) 50%,
+             rgba(0,0,0,0) calc(50% + 0.8px),
+             rgba(0,0,0,0) 100%),
+         linear-gradient(to top right,
+             rgba(0,0,0,0) 0%,
+             rgba(0,0,0,0) calc(50% - 0.8px),
+             rgba(#c7c4c4,1) 50%,
+             rgba(0,0,0,0) calc(50% + 0.8px),
+             rgba(0,0,0,0) 100%);
+            
+    }
+
     .sizeLettersButtonChecked {
       background-color: black;
       color: white;

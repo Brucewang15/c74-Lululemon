@@ -70,7 +70,7 @@ body {
             border: black solid 2px;
             height: 47px;
             width: 189px;
-            padding: 0 36px;
+            padding: 0 62px;
             border-radius: 4px;
             position: relative;
             display: flex;
@@ -79,13 +79,18 @@ body {
             input {
                 border: none;
                 display: flex;
+                z-index: 1;
+            }
+                
+            .imgSearch {
+                left: 5px;
             }
 
             button {
                 background-color: white;
                 border: none;
                 position: absolute;
-                left: 5px;
+                left: 35px;
                 height: 16px;
 
                 img {
@@ -107,7 +112,6 @@ body {
 
             img {
                 height: 25px;
-
             }
 
             > a:nth-child(1) {
