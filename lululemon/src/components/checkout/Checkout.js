@@ -9,12 +9,11 @@ import {useDispatch, useSelector} from "react-redux";
 import axios from "axios";
 import {myKey, serverAPI} from "../../redux/utils/helper";
 import {
-    fetchCartItems,
-    placeOrder,
-    setShippingCost,
-    setTaxAmount,
-    setTaxRate,
-    setTotalBeforeTaxRedux,
+  fetchCartItems, setOrderId,
+  setShippingCost,
+  setTaxAmount,
+  setTaxRate,
+  setTotalBeforeTaxRedux,
 } from "../../redux/actions/shoppingCartActions";
 import {useNavigate} from "react-router-dom";
 import {
@@ -110,16 +109,29 @@ export const Checkout = () => {
 
     const libs = ["core", "maps", "places", "marker"];
 
-    const {isLoaded} = useJsApiLoader({
-        googleMapsApiKey: mapsAPIKey,
-        libraries: libs,
-    });
-    const autoCompleteRef = useRef(null);
-    const placeAutoCompleteRef = useRef(null);
-    const handleCountryChange = (e) => {
-        setSelectedCountry(e.target.value);
-    };
-    // console.log(selectedCountry, states, whichState, 2);
+
+  const { isLoaded } = useJsApiLoader({
+    googleMapsApiKey: mapsAPIKey,
+    libraries: libs,
+  });
+  const autoCompleteRef = useRef(null);
+  const placeAutoCompleteRef = useRef(null);
+
+  const placeOrder = async (userId, orderData) => {
+    try {
+      const response = await axios.post(`http://localhost:3399/order/${userId}`, {orderData})
+      const {orderId} = response.data.data
+      dispatch(setOrderId(orderId))
+    } catch (err) {
+      console.log('Place order failed.', err)
+    }
+
+  }
+
+  const handleCountryChange = (e) => {
+    setSelectedCountry(e.target.value);
+  };
+  // console.log(selectedCountry, states, whichState, 2);
 
     // get total price before tax when the page loads
     useEffect(() => {
@@ -301,6 +313,17 @@ export const Checkout = () => {
             [name]: value,
         }));
     };
+<<<<<<< HEAD
+=======
+    if (shoppingCart.length !== 0) {
+      await placeOrder(userId, orderData);
+      dispatch(fetchCartItems(isLogin));
+      navigator("/shop/checkout/payment");
+    } else {
+      alert("Your shopping cart is empty, cannot place order");
+    }
+  };
+>>>>>>> hangning-w3
 
     const submitHandler = async (e) => {
         e.preventDefault();
@@ -847,24 +870,6 @@ export const Checkout = () => {
 //     .catch((err) => console.error("Order place failed", err));
 // };
 
-{
-    /*<button onClick={handlePlaceOrder}>*/
-}
-{
-    /*  <img*/
-}
-{
-    /*    src="https://i0.wp.com/cypruscomiccon.org/wp-content/uploads/2015/07/Paypal-logo-white.svg1_.png?ssl=1"*/
-}
-{
-    /*    alt=""*/
-}
-{
-    /*  />*/
-}
-{
-    /*</button>*/
-}
 
 
 // get total amount before tax, and tax rate and calculate tax amount and save in useState & Redux ----

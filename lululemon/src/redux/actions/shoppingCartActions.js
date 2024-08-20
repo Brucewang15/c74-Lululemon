@@ -2,7 +2,7 @@
 import {actionTypes} from "./actionTypes";
 import axios from "axios";
 import {useState} from "react";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 // add items to server
 export const addItemToServer = (cartItem, cartId) => async dispatch => {
@@ -287,10 +287,17 @@ export const setTotalBeforeTaxRedux = (totalBeforeTax) => {
     }
 }
 
-// place order api
-export const placeOrder = async (userId, orderData) => {
-    await axios.post(`http://localhost:3399/order/${userId}`, {orderData})
+export const setOrderId = (orderId) => {
+    console.log('ORDER ID ===>', orderId)
+    return {
+        type: actionTypes.SET_ORDER_ID,
+        payload: orderId
+    }
 }
+
+
+// place order api
+
 
 // import {actionTypes} from "./actionTypes";
 // import axios from "axios";
