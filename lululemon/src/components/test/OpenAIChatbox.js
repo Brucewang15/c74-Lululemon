@@ -51,7 +51,7 @@ export const OpenAIChatboxTest = () => {
                 </button>
 
             </div>
-            <div className="productsGrid" style={{width: '90%'}}>
+            <div className="productsGrid" style={{width: '90%', padding: '20px'}}>
                 {products.map((product, index) => (
                     <ProductCard key={`${product.productId}-${index}`} product={product}/>
                 ))}
