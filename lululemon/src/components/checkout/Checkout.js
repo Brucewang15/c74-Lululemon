@@ -206,6 +206,7 @@ export const Checkout = () => {
         shoppingCart,
         totalBeforeTax,
         dispatch,
+        selectedCountry
     ]);
 
 
