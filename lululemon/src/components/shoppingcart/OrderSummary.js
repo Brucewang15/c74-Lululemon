@@ -173,10 +173,8 @@ export const OrderSummary = ({ totalPrice }) => {
               src="https://luxecreative.com/wp-content/uploads/2019/09/lululemon.png"
               alt=""
             />
-            CHECKOUT
           </button>
-          or checkout quickly with
-          {totalPrice > 0 && <Paypal amount={totalPrice} />}
+
           {/*{isLogin === true && <button onClick={handlePlaceOrder}>*/}
           {/*    <img*/}
           {/*        src="https://i0.wp.com/cypruscomiccon.org/wp-content/uploads/2015/07/Paypal-logo-white.svg1_.png?ssl=1"*/}

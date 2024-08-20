@@ -9,8 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { myKey, serverAPI } from "../../redux/utils/helper";
 import {
-  fetchCartItems,
-  placeOrder,
+  fetchCartItems, setOrderId,
   setShippingCost,
   setTaxAmount,
   setTaxRate,
@@ -116,6 +115,18 @@ export const Checkout = () => {
   });
   const autoCompleteRef = useRef(null);
   const placeAutoCompleteRef = useRef(null);
+
+  const placeOrder = async (userId, orderData) => {
+    try {
+      const response = await axios.post(`http://localhost:3399/order/${userId}`, {orderData})
+      const {orderId} = response.data.data
+      dispatch(setOrderId(orderId))
+    } catch (err) {
+      console.log('Place order failed.', err)
+    }
+
+  }
+
   const handleCountryChange = (e) => {
     setSelectedCountry(e.target.value);
   };
@@ -316,7 +327,7 @@ export const Checkout = () => {
     if (shoppingCart.length !== 0) {
       await placeOrder(userId, orderData);
       dispatch(fetchCartItems(isLogin));
-      // navigator("/shop/checkout/payment");
+      navigator("/shop/checkout/payment");
     } else {
       alert("Your shopping cart is empty, cannot place order");
     }

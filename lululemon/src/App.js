@@ -19,6 +19,7 @@ import { SignupPage } from "./components/signup/Signup";
 import { ForgotPassword } from "./components/checkout/ForgotPassword";
 import { SetNewPassword } from "./components/checkout/SetNewPassword";
 import { CheckoutPayment } from "./components/checkout/CheckoutPayment";
+import {CheckoutPaymentPage} from "./components/checkout/CheckoutPaymentPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -88,7 +89,7 @@ function App() {
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/forgotpassword" element={<ForgotPassword />} />
           <Route path="/forgotpassword/:token" element={<SetNewPassword />} />
-          <Route path="/shop/checkout/payment" element={<CheckoutPayment />} />
+          <Route path="/shop/checkout/payment" element={<CheckoutPaymentPage />} />
           <Route path="*" element={<WrongPage />} />
         </Routes>
       </BrowserRouter>
