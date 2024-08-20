@@ -105,7 +105,6 @@ function App() {
           <Route path="/account/wishlist" element={<WishlistPage />} />
           <Route path="/shop/checkout/payment" element={<CheckoutPaymentPage />} />
           <Route path="*" element={<WrongPage />} />
-          <Route path="/shop/checkout/payment" element={<CheckoutPayment />} />
           <Route path="/test/openAI" element={<OpenAIChatboxTest />} />
         </Routes>
       </BrowserRouter>
