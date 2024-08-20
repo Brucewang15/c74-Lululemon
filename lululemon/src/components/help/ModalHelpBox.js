@@ -48,7 +48,7 @@ const ModalHelpBox = () => {
             </button>
         }
         {isHelpOpen && 
-            <div className="helpBox">
+            <div className="helpBoxAI">
                 <div className="helpBoxNavBar">
                     <div className="helpBoxNavBarCell">
                         <img

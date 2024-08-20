@@ -18,6 +18,7 @@ import { EditPopUp } from "./EditPopUp";
 import { LoginModal } from "../checkout/LoginModal";
 import { SavedForLater } from "./SavedForLater";
 import { useNavigate } from "react-router-dom";
+import { fetchInventory } from "../../redux/actions/inventoryActions";
 
 export const ShoppingCartProduct = () => {
   const shoppingCart = useSelector(
@@ -57,6 +58,11 @@ export const ShoppingCartProduct = () => {
     setTotalPrice(total.toFixed(2));
     // console.log("total ori=>", total, "total to fixed", total.toFixed(2));
   }, [shoppingCart]);
+
+  const inv = useSelector(state => state.inventoryReducer.inventory);
+  useEffect(() => {
+    dispatch(fetchInventory());
+  }, []);
 
   const handleCloseOut = (index) => {
     console.log("index", index, "arr", isVisibleEdit);
@@ -119,6 +125,14 @@ export const ShoppingCartProduct = () => {
   const handleToSave = (item) => {
     dispatch(saveForLater(item));
   };
+
+  const isInStock = (item) => {
+    if (inv[item.size] > 0 && item.size != "L"){
+      return true
+    } else {
+      return false
+    }
+  }
 
   const handleSaveForLaterInSaver = (itemId) => {
     dispatch(saveForLaterToServer(itemId));
@@ -193,6 +207,10 @@ export const ShoppingCartProduct = () => {
                     </div>
                   </div>
                 </div>
+                {
+                  !isInStock(item) &&
+                  <h3 className="NotInStockWarning">This item is no longer available.</h3>
+                }
                 <div className="shippingAndReturnContainer">
                   <div>Free Shipping + Free Returns</div>
                   <div className="removeContainer">

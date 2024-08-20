@@ -16,6 +16,9 @@ import { logout } from "../../redux/actions/authAction";
 import { fetchCartItems } from "../../redux/actions/shoppingCartActions";
 import ModalHelpBox from "../help/ModalHelpBox";
 
+import photo_icon from "../../assets/photo.png";
+import { setHelpActivity, setHelpOpen } from "../../redux/actions/helpAction";
+
 export const Header = ({ isSticky }) => {
   const shoppingCart = useSelector(
     (state) => state.shoppingCartReducer.shoppingCart,
@@ -170,6 +173,16 @@ export const Header = ({ isSticky }) => {
 
           <div className="headerRight">
             <div className="input">
+              <button className="imgSearch"
+                  onClick={() => {
+                    dispatch(setHelpOpen(true))
+                    dispatch(setHelpActivity("Photo"))
+                  }}>
+                <img
+                  src={photo_icon}
+                  alt="AI Image Search"
+                />
+              </button>
               <button className="search">
                 <img
                   src="https://static-00.iconduck.com/assets.00/magnifier-left-icon-512x512-vmy8tses.png"
