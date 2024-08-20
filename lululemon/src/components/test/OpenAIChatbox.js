@@ -23,7 +23,7 @@ export const OpenAIChatboxTest = () => {
             const products = productResponse.data.rs.products;
             console.log(products);
             let aiMessage;
-            if (products.length > 1) {
+            if (products.length > 0) {
                 aiMessage = "AI: Here are some product suggestions for you."
             } else {
                 aiMessage = "AI: Sorry, we can't find any products that match your request. Please try again."
