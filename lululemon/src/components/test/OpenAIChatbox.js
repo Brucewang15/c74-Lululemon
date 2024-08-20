@@ -16,11 +16,19 @@ export const OpenAIChatboxTest = () => {
 
         try {
             const response = await axios.post('http://localhost:3399/openAI', { input });
-            const aiMessage = response.data.data;
-            console.log(aiMessage);
-            //setMessages((prevMessages) => [...prevMessages, aiMessage]);
-            const productResponse = await axios.post(productURL, aiMessage);
-            console.log(productResponse.data.rs.products);
+            const responseData= response.data.data;
+            console.log(responseData);
+
+            const productResponse = await axios.post(productURL, responseData);
+            const products = productResponse.data.rs.products;
+            console.log(products);
+            let aiMessage;
+            if (products.length > 1) {
+                aiMessage = "AI: Here are some product suggestions for you."
+            } else {
+                aiMessage = "AI: Sorry, we can't find any products that match your request. Please try again."
+            }
+            setMessages((prevMessages) => [...prevMessages, aiMessage]);
             setProducts(productResponse.data.rs.products);
         } catch (error) {
             console.error('Error communicating with AI assistant:', error);
