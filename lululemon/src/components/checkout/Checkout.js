@@ -9,11 +9,11 @@ import {useDispatch, useSelector} from "react-redux";
 import axios from "axios";
 import {myKey, serverAPI} from "../../redux/utils/helper";
 import {
-  fetchCartItems, setOrderId,
-  setShippingCost,
-  setTaxAmount,
-  setTaxRate,
-  setTotalBeforeTaxRedux,
+    fetchCartItems, setOrderId,
+    setShippingCost,
+    setTaxAmount,
+    setTaxRate,
+    setTotalBeforeTaxRedux,
 } from "../../redux/actions/shoppingCartActions";
 import {useNavigate} from "react-router-dom";
 import {
@@ -110,28 +110,30 @@ export const Checkout = () => {
     const libs = ["core", "maps", "places", "marker"];
 
 
-  const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: mapsAPIKey,
-    libraries: libs,
-  });
-  const autoCompleteRef = useRef(null);
-  const placeAutoCompleteRef = useRef(null);
+    const {isLoaded} = useJsApiLoader({
+        googleMapsApiKey: mapsAPIKey,
+        libraries: libs,
+    });
+    const autoCompleteRef = useRef(null);
+    const placeAutoCompleteRef = useRef(null);
 
-  const placeOrder = async (userId, orderData) => {
-    try {
-      const response = await axios.post(`http://localhost:3399/order/${userId}`, {orderData})
-      const {orderId} = response.data.data
-      dispatch(setOrderId(orderId))
-    } catch (err) {
-      console.log('Place order failed.', err)
+    const placeOrder = async (userId, orderData) => {
+        try {
+            const response = await axios.post(`http://localhost:3399/order/${userId}`, {orderData})
+            const {orderId} = response.data.data
+            console.log(response)
+            localStorage.setItem('orderId', orderId)
+            dispatch(setOrderId(orderId))
+        } catch (err) {
+            console.log('Place order failed.', err)
+        }
+
     }
 
-  }
-
-  const handleCountryChange = (e) => {
-    setSelectedCountry(e.target.value);
-  };
-  // console.log(selectedCountry, states, whichState, 2);
+    const handleCountryChange = (e) => {
+        setSelectedCountry(e.target.value);
+    };
+    // console.log(selectedCountry, states, whichState, 2);
 
     // get total price before tax when the page loads
     useEffect(() => {
@@ -347,6 +349,7 @@ export const Checkout = () => {
                 );
 
                 newAddress = res.data.data.newAddress;
+                dispatch(fetchAddressList(userId))
                 dispatch(selectAnAddress(newAddress.id));
                 console.log("Address added successfully.");
             } catch (e) {
@@ -354,7 +357,7 @@ export const Checkout = () => {
             }
         }
         console.log(selectedAddress);
-        if (Object.keys(selectedAddress).length === 0 && !isNewAddress) {
+        if ((!selectedAddress || Object.keys(selectedAddress).length === 0) && !isNewAddress) {
             alert("You must choose an address or enter a new one");
             return;
         }
@@ -362,7 +365,7 @@ export const Checkout = () => {
         const orderData = {
             taxAmount,
             totalBeforeTax,
-            shippingAddressId: selectedAddress.id || newAddress.id,
+            shippingAddressId: selectedAddress?.id || newAddress?.id,
             shippingFee: shippingCost,
             isGift: isGift,
             giftTo: giftTo,
@@ -857,7 +860,6 @@ export const Checkout = () => {
 //     })
 //     .catch((err) => console.error("Order place failed", err));
 // };
-
 
 
 // get total amount before tax, and tax rate and calculate tax amount and save in useState & Redux ----

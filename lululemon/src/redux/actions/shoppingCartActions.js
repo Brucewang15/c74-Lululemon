@@ -296,6 +296,24 @@ export const setOrderId = (orderId) => {
 }
 
 
+export const getOrderItemsByOrderId = (orderId) => async dispatch => {
+    const res = await axios.get(`http://localhost:3399/order/${orderId}`)
+    const orderItems = res.data.data.order.orderItems
+    dispatch({
+        type: actionTypes.SET_ORDER_ITEMS,
+        payload: orderItems
+    })
+}
+
+export const getOrderAddress = (orderId) => async dispatch => {
+    const res = await axios.get(`http://localhost:3399/order/${orderId}`)
+    const orderAddress = res.data.data.order.shippingAddress
+    dispatch({
+        type: actionTypes.SET_ORDER_ADDRESS,
+        payload: orderAddress
+    })
+}
+
 // place order api
 
 

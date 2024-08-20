@@ -11,6 +11,8 @@ const initialState = {
   totalBeforeTax: 0,
   shippingMethod: "Standard Shipping",
   orderId: null,
+  orderItems: [],
+  orderAddress: null,
 };
 
 export const shoppingCartReducer = (state = initialState, action) => {
@@ -132,8 +134,21 @@ export const shoppingCartReducer = (state = initialState, action) => {
     case actionTypes.SET_ORDER_ID:
       return {
         ...state,
-        orderId: action.payload
-      }
+        orderId: action.payload,
+      };
+
+    case actionTypes.SET_ORDER_ITEMS:
+      const newOrderItems = [...action.payload];
+      return {
+        ...state,
+        orderItems: newOrderItems,
+      };
+
+    case actionTypes.SET_ORDER_ADDRESS:
+      return {
+        ...state,
+        orderAddress: action.payload,
+      };
 
     default:
       return state;
