@@ -245,11 +245,11 @@ export const Checkout = () => {
 
     useEffect(() => {
         if (isLoaded && placeAutoCompleteRef) {
-            const location = new google.maps.LatLng(
-                43.65245414078278,
-                -79.3802615602835,
-            );
-            const radius = 50000;
+            // const location = new google.maps.LatLng(
+            //     43.65245414078278,
+            //     -79.3802615602835,
+            // );
+            // const radius = 50000;
             autoCompleteRef.current = new google.maps.places.Autocomplete(
                 placeAutoCompleteRef.current,
                 {
@@ -265,7 +265,7 @@ export const Checkout = () => {
                     //   center: location,
                     //   radius: radius,
                     // }).getBounds(),
-                    strictBounds: false,
+                    // strictBounds: false,
                 },
             );
             autoCompleteRef.current.addListener("place_changed", onPlaceChanged);
@@ -277,7 +277,6 @@ export const Checkout = () => {
 
         if (place && place.address_components) {
             const addressComponents = place.address_components;
-            console.log("DD===>", addressComponents);
 
             const getComponentName = (type) => {
                 const component = addressComponents.find((component) =>
@@ -313,18 +312,6 @@ export const Checkout = () => {
             [name]: value,
         }));
     };
-<<<<<<< HEAD
-=======
-    if (shoppingCart.length !== 0) {
-      await placeOrder(userId, orderData);
-      dispatch(fetchCartItems(isLogin));
-      navigator("/shop/checkout/payment");
-    } else {
-      alert("Your shopping cart is empty, cannot place order");
-    }
-  };
->>>>>>> hangning-w3
-
     const submitHandler = async (e) => {
         e.preventDefault();
         let newAddress;
@@ -385,7 +372,7 @@ export const Checkout = () => {
         if (shoppingCart.length !== 0) {
             await placeOrder(userId, orderData);
             dispatch(fetchCartItems(isLogin));
-            // navigator("/shop/checkout/payment");
+            navigator("/shop/checkout/payment");
         } else {
             alert("Your shopping cart is empty, cannot place order");
         }
@@ -838,8 +825,9 @@ export const Checkout = () => {
                 />
             )}
         </>
-    );
-};
+    )
+}
+
 
 // const handlePlaceOrder = () => {
 //   const requestBody = {
