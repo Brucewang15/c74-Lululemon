@@ -173,6 +173,7 @@ export const OrderSummary = ({ totalPrice }) => {
               src="https://luxecreative.com/wp-content/uploads/2019/09/lululemon.png"
               alt=""
             />
+            Checkout
           </button>
 
           {/*{isLogin === true && <button onClick={handlePlaceOrder}>*/}
