@@ -5,6 +5,14 @@ const initialState = {
   error: null,
   cartId: localStorage.getItem("cartId") || null,
   savedItems: [],
+  shippingCost: 0,
+  taxRate: 0,
+  taxAmount: 0,
+  totalBeforeTax: 0,
+  shippingMethod: "Standard Shipping",
+  orderId: null,
+  orderItems: [],
+  orderAddress: null,
 };
 
 export const shoppingCartReducer = (state = initialState, action) => {
@@ -90,6 +98,58 @@ export const shoppingCartReducer = (state = initialState, action) => {
       return { ...state, savedItems: action.payload };
     case actionTypes.LOGOUT:
       return { ...state, savedItems: [] };
+    case actionTypes.SET_SHIPPING_COST:
+      let shippingMethod;
+      if (action.payload === 0) {
+        shippingMethod = "Standard Shipping (FREE)";
+      }
+      if (action.payload === 20) {
+        shippingMethod = "Express Shipping ($20.00)";
+      }
+      if (action.payload === 30) {
+        shippingMethod = "Priority Shipping ($30.00)";
+      }
+      return {
+        ...state,
+        shippingCost: action.payload,
+        shippingMethod: shippingMethod,
+      };
+    case actionTypes.SET_TAX_RATE:
+      return {
+        ...state,
+        taxRate: action.payload,
+      };
+    case actionTypes.SET_TAX_AMOUNT:
+      return {
+        ...state,
+        taxAmount: action.payload,
+      };
+
+    case actionTypes.SET_TOTAL_BEFORE_TAX:
+      return {
+        ...state,
+        totalBeforeTax: action.payload,
+      };
+
+    case actionTypes.SET_ORDER_ID:
+      return {
+        ...state,
+        orderId: action.payload,
+      };
+
+    case actionTypes.SET_ORDER_ITEMS:
+      const newOrderItems = [...action.payload];
+      return {
+        ...state,
+        orderItems: newOrderItems,
+      };
+
+    case actionTypes.SET_ORDER_ADDRESS:
+      return {
+        ...state,
+        orderAddress: action.payload,
+      };
+
     default:
       return state;
   }

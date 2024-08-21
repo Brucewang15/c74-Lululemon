@@ -1,23 +1,19 @@
 import { useEffect } from "react";
 import { paypalClientID } from "../../redux/utils/helper";
 import "./Paypal.css";
+import { useSelector } from "react-redux";
 
-const orderDetails = {
-  orderId: "A1",
-  amount: {
-    currency: "USD",
-    total: "1.00",
-  },
-  description: "User order.",
-};
+export const Paypal = ({ orderId, amount }) => {
+  const userId =
+    useSelector((state) => state.authReducer.userId) ||
+    localStorage.getItem("userId");
 
-export const Paypal = ({ amount }) => {
   useEffect(() => {
     const script = document.createElement("script");
     script.src = `https://www.paypal.com/sdk/js?client-id=${paypalClientID}&currency=USD`;
     script.setAttribute("data-namespace", "paypal_sdk");
     script.async = true;
-    console.log("e1");
+
     script.onload = () => {
       window.paypal_sdk
         .Buttons({
@@ -29,12 +25,13 @@ export const Paypal = ({ amount }) => {
             label: "paypal",
           },
           fundingSource: window.paypal.FUNDING.PAYPAL,
+
           createOrder: (data, actions) => {
             return actions.order.create({
               purchase_units: [
                 {
                   amount: {
-                    value: amount, // Change this to the actual amount
+                    value: amount,
                   },
                 },
               ],
@@ -48,10 +45,19 @@ export const Paypal = ({ amount }) => {
                 headers: {
                   "Content-Type": "application/json",
                 },
-                body: JSON.stringify(orderDetails),
+                body: JSON.stringify({
+                  amount,
+                  orderId,
+                  userId,
+                }),
               })
                 .then((response) => response.json())
-                .then((data) => console.log(data))
+                .then((data) => {
+                  console.log(data);
+                  if (data.msg === "Payment Successful") {
+                    window.location.reload();
+                  }
+                })
                 .catch((error) => console.error("Error:", error));
             });
           },

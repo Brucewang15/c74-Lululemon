@@ -34,7 +34,7 @@ export const setUserId = (userId) => {
   };
 };
 
-export const getAddressFromServer = (userId) => async (dispatch) => {
+export const fetchAddressList = (userId) => async (dispatch) => {
   const res = await axios.get(
     `http://localhost:3399/user/userInfo/${userId}/address`,
   );
@@ -44,4 +44,24 @@ export const getAddressFromServer = (userId) => async (dispatch) => {
     type: actionTypes.GET_SHIPPING_ADDRESS,
     payload: shippingAddress,
   });
+};
+
+export const editAddress =
+  (userId, addressId, newAddress) => async (dispatch) => {
+    try {
+      await axios.put(
+        `http://localhost:3399/user/userInfo/${userId}/address/${addressId}`,
+        newAddress,
+      );
+      dispatch(fetchAddressList(userId));
+    } catch (e) {
+      console.log("updating user address failed", e);
+    }
+  };
+
+export const selectAnAddress = (addressId) => {
+  return {
+    type: actionTypes.SELECT_ADDRESS,
+    payload: addressId,
+  };
 };

@@ -6,6 +6,7 @@ import { myKey, serverAPI } from "../../redux/utils/helper";
 import { useDispatch, useSelector } from "react-redux";
 import {
   loginSuccess,
+  logout,
   setToken,
   setUser,
   setUserId,
@@ -40,7 +41,7 @@ export const LoginModal = ({
         console.log(res);
         const token = res.data.token;
         const expirationTime = new Date().getTime() + 2 * 60 * 60 * 1000;
-        // const expirationTime = new Date().getTime() + 2 * 1000
+        // const expirationTime = new Date().getTime() + 5 * 1000;
         const userInfo = res.data.user;
         const cartId = res.data.user.shoppingCart.id;
         const userId = res.data.user.id;
@@ -55,6 +56,18 @@ export const LoginModal = ({
         dispatch(loginSuccess());
         dispatch(getCartId(cartId));
         dispatch(setUserId(userId));
+
+        setTimeout(
+          () => {
+            localStorage.removeItem("token");
+            localStorage.removeItem("tokenExpiration");
+            localStorage.removeItem("userInfo");
+            dispatch(logout()); // Dispatch a logout action
+            alert("Your session has expired. Please log in again.");
+          },
+          2 * 60 * 60 * 1000,
+        ); // 2 hours
+
         setMessage("Login successful");
         setIsSuccess(true);
       })

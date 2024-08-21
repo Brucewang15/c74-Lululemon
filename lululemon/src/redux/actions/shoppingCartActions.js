@@ -2,7 +2,7 @@
 import {actionTypes} from "./actionTypes";
 import axios from "axios";
 import {useState} from "react";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 // add items to server
 export const addItemToServer = (cartItem, cartId) => async dispatch => {
@@ -259,6 +259,63 @@ export const removeSavedItem = (savedItemId) => async dispatch => {
         console.log('deleting saved item failed')
     }
 }
+
+export const setShippingCost = (shippingCost) => {
+    return {
+        type: actionTypes.SET_SHIPPING_COST,
+        payload: shippingCost
+    }
+}
+
+export const setTaxRate = (taxRate) => {
+    return {
+        type: actionTypes.SET_TAX_RATE,
+        payload: taxRate
+    }
+}
+export const setTaxAmount = (taxAmount) => {
+    return {
+        type: actionTypes.SET_TAX_AMOUNT,
+        payload: taxAmount
+    }
+}
+
+export const setTotalBeforeTaxRedux = (totalBeforeTax) => {
+    return {
+        type: actionTypes.SET_TOTAL_BEFORE_TAX,
+        payload: totalBeforeTax
+    }
+}
+
+export const setOrderId = (orderId) => {
+    console.log('ORDER ID ===>', orderId)
+    return {
+        type: actionTypes.SET_ORDER_ID,
+        payload: orderId
+    }
+}
+
+
+export const getOrderItemsByOrderId = (orderId) => async dispatch => {
+    const res = await axios.get(`http://localhost:3399/order/${orderId}`)
+    const orderItems = res.data.data.order.orderItems
+    dispatch({
+        type: actionTypes.SET_ORDER_ITEMS,
+        payload: orderItems
+    })
+}
+
+export const getOrderAddress = (orderId) => async dispatch => {
+    const res = await axios.get(`http://localhost:3399/order/${orderId}`)
+    const orderAddress = res.data.data.order.shippingAddress
+    dispatch({
+        type: actionTypes.SET_ORDER_ADDRESS,
+        payload: orderAddress
+    })
+}
+
+// place order api
+
 
 // import {actionTypes} from "./actionTypes";
 // import axios from "axios";

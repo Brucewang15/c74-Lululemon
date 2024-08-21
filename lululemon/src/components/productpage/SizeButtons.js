@@ -38,7 +38,7 @@ export const SizeButtons = ({
                             {sizeGroup.details.length !== 0 && sizeGroup.details.length > 1 && sizeGroup.details.map((size, i) =>
                                 <button
                                     disabled = {!checkAvailable(product.productID, size)}
-                                    className={`${isSize ? (selectedSizeIndex === i ? 'sizeLettersButtonChecked' : 'sizeLettersButton') : (selectedLengthIndex === i ? 'sizeLettersButtonChecked' : 'sizeLettersButton')} `}
+                                    className={`${isSize ? (selectedSizeIndex === i ? 'sizeLettersButtonChecked' : 'sizeLettersButton') : (selectedLengthIndex === i ? 'sizeLettersButtonChecked' : 'sizeLettersButton')}`}
                                     key={i}
                                     onClick={() => isSize ? handleSizeButtonClick(size, i) : handleLengthButtonClick(size, i)}
                                 >{(size) ? size : 'nosize'}</button>

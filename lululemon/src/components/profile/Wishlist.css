@@ -1,0 +1,146 @@
+.favourites-container {
+  font-family: Arial, sans-serif;
+  width: 60vw;
+  padding: 20px;
+  background-color: #fafafa;
+  text-align: left;
+}
+
+.favourites-container h1 {
+  font-size: 40px;
+  font-weight: bold;
+  margin-right: 10px;
+  margin-top: 0px;
+  margin-bottom: 10px;
+}
+
+.favourites-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 10px 0px;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+.visibility {
+  font-size: 14px;
+  color: #666;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+}
+
+.share-button,
+.settings-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #333;
+  font-size: 14px;
+  text-decoration: underline;
+  text-decoration-color: #6e6e6e;
+  text-underline-offset: 4px;
+}
+
+.share-button:hover,
+.settings-button:hover {
+  text-decoration-color: #d31334;
+}
+
+.share-button {
+  display: flex;
+  align-items: center;
+  margin-right: 15px;
+}
+
+.share-button svg {
+  margin-right: 5px;
+}
+
+.product-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 columns */
+  gap: 20px; /* Adjust gap as needed */
+}
+
+.product-card {
+  max-width: 300px;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+}
+
+.image-container {
+  position: relative;
+}
+
+.product-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.heart-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  padding: 6px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.heart-icon svg {
+  color: #c8102e; /* Red color */
+}
+
+.product-details {
+  padding: 15px;
+}
+
+.product-info-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.product-name {
+  margin: 0;
+}
+
+.product-price {
+  margin: 0;
+}
+
+.product-details-line {
+  display: flex;
+  justify-content: space-between;
+}
+
+.product-color,
+.product-size {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.add-to-bag-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #ffffff;
+  color: #000000;
+  border: 2px solid #000000;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}

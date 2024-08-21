@@ -4,8 +4,9 @@ const initialState = {
   token: "",
   user: null,
   loginStatus: false,
-  shippingAddress: [],
+  addressList: [],
   userId: null,
+  selectedAddress: {},
 };
 
 export const authReducer = (state = initialState, action) => {
@@ -36,7 +37,17 @@ export const authReducer = (state = initialState, action) => {
     case actionTypes.GET_SHIPPING_ADDRESS:
       return {
         ...state,
-        shippingAddress: action.payload,
+        addressList: action.payload,
+      };
+
+    case actionTypes.SELECT_ADDRESS:
+      const newAddressList = [...state.addressList];
+      const newAddress = newAddressList.find(
+        (address) => address.id === action.payload,
+      );
+      return {
+        ...state,
+        selectedAddress: newAddress,
       };
     default:
       return state;
