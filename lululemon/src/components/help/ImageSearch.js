@@ -48,22 +48,27 @@ const ImageSearch = () => {
 
   const handleSearch = async (promise) => {
     setUploadError(0)
+    var hadError = false
     
     dispatch(setUploading(true))
     try {
         await Promise.all([dispatch(promise)])
         dispatch(setHelpOpen(false))
     } catch (err) {
-        if (err.response){
-            setUploadError(err.response.status)
-        } else {
-            console.log(err)
-            setUploadError(1)
-        }
+      hadError = true
+      if (err.response){
+          console.log(err.response.status)
+          setUploadError(err.response.status)
+      } else {
+          console.log(err)
+          setUploadError(1)
+      }
     } 
     dispatch(setUploading(false))
 
-    navigate("/suggested")
+    if (!hadError) {
+      navigate("/suggested")
+    }
   };
 
 
@@ -132,6 +137,7 @@ const ImageSearch = () => {
                 {
                     uploadError == 503 && <div className="warning">There was an error with the search. Please try again.</div>
                     || uploadError == 406 && <div className="warning">The image provided is not appropriate.</div>
+                    || uploadError == 400 && <div className="warning">The image/URL provided was malformed.</div>
                     || uploadError != 0 && <div className="warning">There was an unknown error with code: {uploadError}</div>
                 }
                 <div className="border"/>
