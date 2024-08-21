@@ -5,14 +5,17 @@ import ProductCard from "../whatsnew/ProductCard";
 import "./TextSearch.css";
 import { productURL } from "../../redux/utils/helper";
 import {useNavigate} from "react-router-dom";
+import {setHelpOpen} from "../../redux/actions/helpAction";
+import {useDispatch} from "react-redux";
 
 const TextSearch = () => {
+    const dispatch = useDispatch();
     const [messages, setMessages] = useState([
         { text: 'AI: Hi! Tell us what you want!', sender: "ai" }]);
     const [input, setInput] = useState('');
     const [products, setProducts] = useState([]);
     const navigate = useNavigate();
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    //const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleSendMessage = async () => {
         if (!input.trim()) return;
@@ -28,9 +31,19 @@ const TextSearch = () => {
             const products = productResponse.data.rs.products;
 
             let aiMessage;
+            // if (products.length > 0) {
+            //     aiMessage = { text: "AI: Here are some product suggestions for you.", sender: "ai" };
+            //     setIsModalOpen(true);
+            // } else {
+            //     aiMessage = { text: "AI: Sorry, we can't find any products that match your request. Please try again.", sender: "ai" };
+            // }
             if (products.length > 0) {
-                aiMessage = { text: "AI: Here are some product suggestions for you.", sender: "ai" };
-                setIsModalOpen(true);
+                aiMessage = {
+                    text: "AI: Here are some product suggestions for you.",
+                    sender: "ai",
+                    link: true, // Indicates there's a link associated
+                    products: products // Store the products in the message
+                };
             } else {
                 aiMessage = { text: "AI: Sorry, we can't find any products that match your request. Please try again.", sender: "ai" };
             }
@@ -47,6 +60,13 @@ const TextSearch = () => {
 
         setInput('');
     };
+    const handleViewSuggestions = (products) => {
+        // Navigate to the suggestions page with the products
+        navigate("/suggestion", { state: { products } });
+
+        // Close the chat box
+        dispatch(setHelpOpen(false));
+    };
 
     return (
         <div className="chatContainer">
@@ -58,6 +78,14 @@ const TextSearch = () => {
                         className={`message ${message.sender === "user" ? "userMessage" : "aiMessage"}`}
                     >
                         {message.text}
+                        {message.link && (
+                            <button
+                                onClick={() => handleViewSuggestions(message.products)}
+                                className="viewSuggestionsButton"
+                            >
+                                View Suggestions
+                            </button>
+                        )}
                     </div>
                 ))}
             </div>
@@ -74,14 +102,14 @@ const TextSearch = () => {
                     Send
                 </button>
             </div>
-            <Modal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)}>
-                <div className="productsGrid">
-                    {products.map((product, index) => (
-                        <ProductCard key={`${product.productId}-${index}`} product={product} />
-                    ))}
-                </div>
-                <button onClick={() => setIsModalOpen(false)}>Close</button>
-            </Modal>
+            {/*<Modal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)}>*/}
+            {/*    <div className="productsGrid">*/}
+            {/*        {products.map((product, index) => (*/}
+            {/*            <ProductCard key={`${product.productId}-${index}`} product={product} />*/}
+            {/*        ))}*/}
+            {/*    </div>*/}
+            {/*    <button onClick={() => setIsModalOpen(false)}>Close</button>*/}
+            {/*</Modal>*/}
 
             {/*{products.length > 0 && (*/}
             {/*    <div className="productsGrid" style={{ width: '90%', padding: '20px' }}>*/}
