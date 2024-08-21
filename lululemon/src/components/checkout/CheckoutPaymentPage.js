@@ -35,6 +35,7 @@ export const CheckoutPaymentPage = () => {
     localStorage.getItem("userId");
   const selectedAddress = useSelector(
     (state) => state.authReducer.selectedAddress,
+
   );
 
   // order related redux
