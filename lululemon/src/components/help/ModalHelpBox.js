@@ -47,8 +47,6 @@ const ModalHelpBox = () => {
             setCurrentPageName("Image Search");
         } else if (lastActivity === "Chat") {
             setCurrentPageName("Text Search");
-        } else {
-            setCurrentPageName("Help");
         }
     }, [lastActivity]);
 
@@ -87,7 +85,7 @@ const ModalHelpBox = () => {
                     {/* Rendering components based on lastActivity */}
                     {lastActivity === "Photo" && <ImageSearch />}
                     {lastActivity === "Chat" && <TextSearch />}
-                    {!lastActivity && <WelcomePage />}
+                    {(!lastActivity || lastActivity === "Help") && <WelcomePage />}
 
                 </div>
             }

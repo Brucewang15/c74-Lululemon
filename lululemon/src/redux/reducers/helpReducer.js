@@ -10,7 +10,7 @@ import {
 const initialState = {
     isUploading: false,
     isHelpOpen: false,
-    lastActivity: "Choose",
+    lastActivity: "Help",
     suggestedProducts: [],
     chatInput: "",
 }
