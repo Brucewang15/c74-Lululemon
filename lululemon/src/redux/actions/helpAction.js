@@ -8,6 +8,7 @@ export const SET_UPLOADING = 'SET_UPLOADING'
 export const SET_HELP_OPEN = 'SET_HELP_OPEN'
 export const SET_HELP_ACTIVITY = 'SET_HELP_ACTIVITY'
 export const SET_SUGGESTED_PRODUCTS = 'SET_SUGGESTED_PRODUCTS'
+export const SET_CHAT_INPUT = 'SET_CHAT_INPUT'
 
 export const setUploading = (value) => (dispatch, getState) => {
     dispatch({

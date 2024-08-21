@@ -26,6 +26,8 @@ import WishlistPage from "./components/profile/Wishlist";
 import { OpenAIChatboxTest } from "./components/test/OpenAIChatbox.js";
 import {CheckoutPaymentPage} from "./components/checkout/CheckoutPaymentPage";
 
+import {TextSearchPage} from "./pages/TextSearchPage";
+
 function App() {
   const dispatch = useDispatch();
 
@@ -87,6 +89,7 @@ function App() {
         <Routes>
           <Route path="/" element={<WhatsNewPage />} />
           <Route path="/suggested" element={<SuggestionsPage />} />
+          <Route path="/suggestion" element={<TextSearchPage />} />
           <Route path="/product/:productID" element={<ProductPage />} />
           <Route path="/wrong-product" element={<WrongProductPage />} />
           <Route path="/shop/mybag" element={<ShoppingCart />} />
