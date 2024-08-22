@@ -2,10 +2,14 @@ import React, { useEffect, useState } from "react";
 import "./EditAddressModal.css";
 import CloseIcon from "@mui/icons-material/Close";
 import { useDispatch, useSelector } from "react-redux";
-import { editAddress } from "../../redux/actions/authAction";
+import {
+  getOrderItemsByOrderId,
+  getOrderAddress,
+  updateOrderAddress,
+} from "../../redux/actions/shoppingCartActions";
 
-export const EditAddressModal = ({
-  selectedAddress,
+export const EditOrderAddress = ({
+  orderAddress,
   handleCloseModal,
   formData,
   updateFormData,
@@ -15,21 +19,25 @@ export const EditAddressModal = ({
     useSelector((state) => state.authReducer.userId) ||
     localStorage.getItem("userId");
 
+  const orderId =
+    useSelector((state) => state.shoppingCartReducer.orderId) ||
+    localStorage.getItem("orderId");
+
   useEffect(() => {
-    if (selectedAddress) {
+    if (orderAddress) {
       updateFormData({
-        country: selectedAddress.country || "",
-        state: selectedAddress.province || "",
-        city: selectedAddress.city || "",
-        zipCode: selectedAddress.postalCode || "",
-        streetAddress: selectedAddress.address || "",
-        email: selectedAddress.email || "",
-        phone: selectedAddress.phoneNumber || "",
-        firstName: selectedAddress.firstName || "",
-        lastName: selectedAddress.lastName || "",
+        country: orderAddress.country || "",
+        state: orderAddress.province || "",
+        city: orderAddress.city || "",
+        zipCode: orderAddress.postalCode || "",
+        streetAddress: orderAddress.address || "",
+        email: orderAddress.email || "",
+        phone: orderAddress.phoneNumber || "",
+        firstName: orderAddress.firstName || "",
+        lastName: orderAddress.lastName || "",
       });
     }
-  }, [selectedAddress]);
+  }, [orderAddress]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -41,7 +49,7 @@ export const EditAddressModal = ({
     });
   };
 
-  const handleEditAddress = () => {
+  const handleEditAddress = async () => {
     const newAddress = {
       firstName: formData.firstName,
       lastName: formData.lastName,
@@ -52,7 +60,9 @@ export const EditAddressModal = ({
       postalCode: formData.zipCode,
       country: formData.country,
     };
-    dispatch(editAddress(userId, selectedAddress.id, newAddress));
+    await updateOrderAddress(orderId, userId, newAddress);
+    dispatch(getOrderItemsByOrderId(orderId));
+    dispatch(getOrderAddress(orderId));
     handleCloseModal();
   };
 

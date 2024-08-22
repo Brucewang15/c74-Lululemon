@@ -16,16 +16,31 @@ import {
 } from "../../redux/actions/shoppingCartActions";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { EditOrderAddress } from "./EditOrderAddress";
 
 export const CheckoutPaymentPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [isExpanded, setIsExpanded] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [orderData, setOrderData] = useState({
     taxAmount: 0,
     totalBeforeTax: 0,
     totalAfterTax: 0,
     shippingFee: 0,
     orderStatus: "pending",
+  });
+  const [formData, updateFormData] = useState({
+    country: "",
+    state: "",
+    city: "",
+    zipcode: "",
+    streetAddress: "",
+    fullAddress: "",
+    email: "",
+    phone: "",
+    firstName: "",
+    lastName: "",
   });
 
   // user info related redux
@@ -34,39 +49,38 @@ export const CheckoutPaymentPage = () => {
     useSelector((state) => state.authReducer.userId) ||
     localStorage.getItem("userId");
   const selectedAddress = useSelector(
-    (state) => state.authReducer.selectedAddress,
-
+    (state) => state.authReducer.selectedAddress
   );
 
   // order related redux
   const orderId = useSelector((state) => state.shoppingCartReducer.orderId);
   const orderItems = useSelector(
-    (state) => state.shoppingCartReducer.orderItems,
+    (state) => state.shoppingCartReducer.orderItems
   );
   const orderTotalItems = orderItems.reduce(
     (total, item) => total + item.quantity,
-    0,
+    0
   );
   const orderAddress = useSelector(
-    (state) => state.shoppingCartReducer.orderAddress,
+    (state) => state.shoppingCartReducer.orderAddress
   );
 
   // shopping cart related redux
   const shoppingCart = useSelector(
-    (state) => state.shoppingCartReducer.shoppingCart,
+    (state) => state.shoppingCartReducer.shoppingCart
   );
   const totalItems = shoppingCart.reduce(
     (total, item) => total + item.quantity,
-    0,
+    0
   );
 
   // costs(tax + shipping fee) related redux
   const shippingCost = useSelector(
-    (state) => state.shoppingCartReducer.shippingCost,
+    (state) => state.shoppingCartReducer.shippingCost
   );
   const taxAmount = useSelector((state) => state.shoppingCartReducer.taxAmount);
   const totalBeforeTax = useSelector(
-    (state) => state.shoppingCartReducer.totalBeforeTax,
+    (state) => state.shoppingCartReducer.totalBeforeTax
   );
   const totalPrice = isNaN(orderData.taxAmount)
     ? (orderData.totalBeforeTax + orderData.shippingFee).toFixed(2)
@@ -75,15 +89,6 @@ export const CheckoutPaymentPage = () => {
         orderData.shippingFee +
         orderData.taxAmount
       ).toFixed(2);
-
-  const [isExpanded, setIsExpanded] = useState(true);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const handleExpand = () => {
-    setIsExpanded(!isExpanded);
-  };
-  const handleOpenLoginModal = () => {
-    setIsModalOpen(true);
-  };
 
   //get order id from localStoarge and dispatch it to redux -- just in case we refresh the page
   // get order items and address from db
@@ -117,13 +122,26 @@ export const CheckoutPaymentPage = () => {
         })
         .catch((e) => console.log("fetching order info failed", e));
     }
-  }, [dispatch, orderId, orderData.orderStatus]);
+  }, [dispatch, orderData.orderStatus, orderData.shippingFee, userId]);
 
+  // check if the order is paid, if yes then direct t o thank you page
   useEffect(() => {
     if (orderData.orderStatus === "paid") {
-      setTimeout(() => navigate("/shop/thankyou"), 3000);
+      setTimeout(() => navigate("/shop/thankyou"), 1500);
     }
   }, [orderData.orderStatus]);
+
+  const handleExpand = () => {
+    setIsExpanded(!isExpanded);
+  };
+
+  // handle open edit modal
+  const handleOpenEditModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleCloseEditModal = () => {
+    setIsModalOpen(false);
+  };
   return (
     <>
       <ShoppingCartHeader />
@@ -174,7 +192,9 @@ export const CheckoutPaymentPage = () => {
                   <p>{orderAddress && orderAddress.phoneNumber}</p>
                 </div>
               </div>
-              <div className="infoEdit">Edit</div>
+              <div onClick={() => setIsModalOpen(true)} className="infoEdit">
+                Edit
+              </div>
             </div>
             <div className="infoRow">
               <div className="infoTitle">
@@ -218,7 +238,11 @@ export const CheckoutPaymentPage = () => {
             <div className="orderHeader">
               <div className="orderHeaderLeft">
                 <ShoppingBagOutlinedIcon />
-                <span>{`${orderTotalItems} ${orderTotalItems === 1 && orderTotalItems !== 0 ? "item" : "items"}`}</span>
+                <span>{`${orderTotalItems} ${
+                  orderTotalItems === 1 && orderTotalItems !== 0
+                    ? "item"
+                    : "items"
+                }`}</span>
                 {isExpanded ? (
                   <ExpandLessOutlinedIcon onClick={handleExpand} />
                 ) : (
@@ -274,7 +298,11 @@ export const CheckoutPaymentPage = () => {
               <div className="orderTotalRow">
                 <span>Tax</span>
                 {/*<span>{(initialTaxRate * totalBeforeTax).toFixed(2)}</span>*/}
-                <span>{`$${isNaN(orderData.taxAmount) === true ? (0).toFixed(2) : orderData.taxAmount.toFixed(2)}`}</span>
+                <span>{`$${
+                  isNaN(orderData.taxAmount) === true
+                    ? (0).toFixed(2)
+                    : orderData.taxAmount.toFixed(2)
+                }`}</span>
               </div>
               <div className="orderTotalFinal">
                 <h3>
@@ -294,8 +322,15 @@ export const CheckoutPaymentPage = () => {
           </div>
         </div>
       </div>
-
       <ShoppingCartFooter />
+      {isModalOpen && (
+        <EditOrderAddress
+          orderAddress={orderAddress}
+          formData={formData}
+          updateFormData={updateFormData}
+          handleCloseModal={handleCloseEditModal}
+        />
+      )}
     </>
   );
 };
