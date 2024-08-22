@@ -346,6 +346,12 @@ export const updateOrderAddress = async (orderId, userId, newAddress) => {
   );
 };
 
+export const updateOrderShippingFee = async (orderId, shippingFee) => {
+  await axios.post(`http://localhost:3399/order/${orderId}/updateShippingFee`, {
+    shippingFee,
+  });
+};
+
 // place order api
 
 // import {actionTypes} from "./actionTypes";

@@ -37,7 +37,7 @@ export const EditOrderAddress = ({
         lastName: orderAddress.lastName || "",
       });
     }
-  }, [orderAddress]);
+  }, [orderAddress, updateFormData]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;

@@ -6,6 +6,7 @@ import { ShoppingCartFooter } from "../shoppingcart/ShoppingCartFooter";
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import ExpandLessOutlinedIcon from "@mui/icons-material/ExpandLessOutlined";
 import ExpandMoreOutlinedIcon from "@mui/icons-material/ExpandMoreOutlined";
+import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
 import "./CheckoutPaymentPage.css";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import paypalImage from "../../assets/paypal.jpg";
@@ -13,16 +14,19 @@ import {
   getOrderAddress,
   getOrderItemsByOrderId,
   setOrderId,
+  setShippingCost,
 } from "../../redux/actions/shoppingCartActions";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { EditOrderAddress } from "./EditOrderAddress";
+import { EditShippingFee } from "./EditShippingFee";
 
 export const CheckoutPaymentPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isExpanded, setIsExpanded] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isEditShippingFee, setIsEditShippingFee] = useState(false);
   const [orderData, setOrderData] = useState({
     taxAmount: 0,
     totalBeforeTax: 0,
@@ -122,7 +126,29 @@ export const CheckoutPaymentPage = () => {
         })
         .catch((e) => console.log("fetching order info failed", e));
     }
-  }, [dispatch, orderData.orderStatus, orderData.shippingFee, userId]);
+  }, [
+    dispatch,
+    orderData.orderStatus,
+    orderData.shippingFee,
+    userId,
+    shippingCost,
+  ]);
+
+  // get shipping costs when the page loads
+  useEffect(() => {
+    const orderId = localStorage.getItem("orderId");
+    axios
+      .get(`http://localhost:3399/order/${orderId}`)
+      .then((res) => {
+        const { shippingFee } = res.data.data.order;
+        setOrderData((prevState) => ({
+          ...prevState,
+          shippingFee: shippingFee,
+        }));
+        dispatch(setShippingCost(shippingCost));
+      })
+      .catch((e) => console.log("fetching shipping fee failed", e));
+  }, [orderId, dispatch, shippingCost]);
 
   // check if the order is paid, if yes then direct t o thank you page
   useEffect(() => {
@@ -189,7 +215,16 @@ export const CheckoutPaymentPage = () => {
                     {orderAddress &&
                       `${orderAddress.city}, ${orderAddress.province}, ${orderAddress.postalCode}`}
                   </p>
-                  <p>{orderAddress && orderAddress.phoneNumber}</p>
+                  {/* <p>{orderAddress && orderAddress.phoneNumber}</p> */}
+                  <p>
+                    {orderAddress &&
+                      `(${orderAddress.phoneNumber.slice(
+                        0,
+                        3
+                      )})-${orderAddress.phoneNumber.slice(
+                        3 - 6
+                      )}-${orderAddress.phoneNumber.slice(-4)}`}
+                  </p>
                 </div>
               </div>
               <div onClick={() => setIsModalOpen(true)} className="infoEdit">
@@ -207,11 +242,17 @@ export const CheckoutPaymentPage = () => {
                 Estimated delivery
               </div>
               <div className="infoDetails">
+                <LocalShippingOutlinedIcon className="truckIcon" />
                 {shippingCost === 0 && <p>2-7 business days (FREE)</p>}
                 {shippingCost === 20 && <p>2-4 business days ($20.00)</p>}
                 {shippingCost === 30 && <p>2-3 business days ($30.00)</p>}
               </div>
-              <div className="infoEdit">Edit</div>
+              <div
+                onClick={() => setIsEditShippingFee(true)}
+                className="infoEdit"
+              >
+                Edit
+              </div>
             </div>
           </div>
           <div className="infoCard">
@@ -290,9 +331,7 @@ export const CheckoutPaymentPage = () => {
               <div className="orderTotalRow">
                 <span>Shipping</span>
                 <span>
-                  {orderData.shippingFee === 0
-                    ? "FREE"
-                    : `$${orderData.shippingFee}.00`}
+                  {shippingCost === 0 ? "FREE" : `$${shippingCost}.00`}
                 </span>
               </div>
               <div className="orderTotalRow">
@@ -322,6 +361,14 @@ export const CheckoutPaymentPage = () => {
           </div>
         </div>
       </div>
+      {isEditShippingFee && (
+        <EditShippingFee
+          setIsEditShippingFee={setIsEditShippingFee}
+          setOrderData={setOrderData}
+          orderData={orderData}
+        />
+      )}
+
       <ShoppingCartFooter />
       {isModalOpen && (
         <EditOrderAddress
