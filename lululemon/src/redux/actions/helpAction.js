@@ -2,6 +2,7 @@
 import axios from 'axios'
 import { useDispatch } from 'react-redux';
 import {apiURL, generalURL, myKey} from "../utils/helper";
+import authAxios from '../../utils/AuthAxios';
 
 
 export const SET_UPLOADING = 'SET_UPLOADING'
@@ -50,7 +51,7 @@ export const fetchProductsFromIds = (prodIds) => {
         const promises = []
         for (let i = 0; i < prodIds.length; i++) {
             const prodId = prodIds[i]
-            const promise = axios.get(`http://api-lulu.hibitbyte.com/product/${prodId}?mykey=${myKey}`)
+            const promise = authAxios.get(`http://api-lulu.hibitbyte.com/product/${prodId}?mykey=${myKey}`)
 
             promises.push(promise)
         }
@@ -116,7 +117,7 @@ export const searchImageURL = (url) => {
     const requestBody = {image_uri: url}
 
     return async (dispatch, getState) => {
-        const res = await axios.post(`http://localhost:3399/image-ai/search/uri`, requestBody, {
+        const res = await authAxios.post(`http://localhost:3399/image-ai/search/uri`, requestBody, {
             headers: {
                 "Content-Type": "application/json",
             }
@@ -133,7 +134,7 @@ export const searchImageURL = (url) => {
 
 export const searchImage = (image) => {
     return async (dispatch, getState) => {
-        const res = await axios.post(`http://localhost:3399/image-ai/search/img`, image, {
+        const res = await authAxios.post(`http://localhost:3399/image-ai/search/img`, image, {
             headers: {
                 "Content-Type": "image/png",
             }

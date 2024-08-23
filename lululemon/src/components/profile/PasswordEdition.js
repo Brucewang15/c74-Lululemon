@@ -4,6 +4,11 @@ import { Check } from "../icon/check";
 import { useEffect, useState } from "react";
 import { See } from "../icon/see";
 import { Unseen } from "../icon/unseen";
+import { serverAPI } from "../../redux/utils/helper";
+import authAxios from "../../utils/AuthAxios";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { logout } from "../../redux/actions/authAction";
 
 const PasswordEdition = ({ onClose }) => {
   const [currentPassword, setCurrentPassword] = useState("");
@@ -21,6 +26,9 @@ const PasswordEdition = ({ onClose }) => {
     "current password": "",
     "new password": "",
   });
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleBlur = (e) => {
     const { name, value } = e.target;
@@ -53,9 +61,10 @@ const PasswordEdition = ({ onClose }) => {
   useEffect(() => {
     const result = Object.values(passwordCriteria).every(Boolean);
     setIsPasswordValid(result);
-    const errorMessage = !newPassword ||result
-      ? ""
-      : "Your new password doesn’t meet the requirements.";
+    const errorMessage =
+      !newPassword || result
+        ? ""
+        : "Your new password doesn’t meet the requirements.";
     setErrors((prevErrors) => ({
       ...prevErrors,
       ["new password"]: errorMessage,
@@ -75,6 +84,41 @@ const PasswordEdition = ({ onClose }) => {
     setHideNewPassword(!hideNewPassword);
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await authAxios.post(
+        `${serverAPI}/user/userInfo/updatePassword`,
+        {
+          currentPassword,
+          newPassword,
+        }
+      );
+
+      console.log(response);
+      if (response.status === 200 && response.data.status === 200) {
+        console.log("Password updated successfully");
+        localStorage.removeItem("token");
+        localStorage.removeItem("tokenExpiration");
+        localStorage.removeItem("userInfo");
+        dispatch(logout()); // Dispatch a logout action
+        alert("Your session has expired. Please log in again.");
+
+        onClose();
+        navigate("/login");
+      } else {
+        console.error("Failed to update password");
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          ["current password"]: response.data.msg,
+        }));
+      }
+    } catch (error) {
+      console.error("Error updating password:", error);
+    }
+  };
+
   return (
     <div className="modal-overlay">
       <div class="change-password-modal">
@@ -82,9 +126,9 @@ const PasswordEdition = ({ onClose }) => {
           <Cross width={20} height={20} />
         </button>
         <h2>Change your password</h2>
-        <form class="change-password-form">
+        <form class="change-password-form" onSubmit={handleSubmit}>
           <div class="form-group">
-            <label for="current-password">Current password</label>
+            <label htmlFor="current-password">Current password</label>
             <div class="password-input-wrapper">
               <input
                 type={hideCurrentPassword ? "password" : "text"}
@@ -92,11 +136,12 @@ const PasswordEdition = ({ onClose }) => {
                 name="current password"
                 required
                 onBlur={handleBlur}
+                value={currentPassword}
                 onChange={(e) => setCurrentPassword(e.target.value)}
               />
               <button
                 type="button"
-                class="toggle-password"
+                className="toggle-password"
                 aria-label="Toggle password visibility"
               >
                 <span class="eye-icon" onClick={toggleCurrentPwdShowHide}>
@@ -110,7 +155,7 @@ const PasswordEdition = ({ onClose }) => {
           </div>
 
           <div class="form-group">
-            <label for="new-password">New password</label>
+            <label htmlFor="new-password">New password</label>
             <div class="password-input-wrapper">
               <input
                 type={hideNewPassword ? "password" : "text"}
@@ -118,21 +163,22 @@ const PasswordEdition = ({ onClose }) => {
                 name="new password"
                 required
                 onBlur={handleBlur}
+                value={newPassword}
                 onChange={handleNewPasswordChange}
               />
               <button
                 type="button"
-                class="toggle-password"
+                className="toggle-password"
                 aria-label="Toggle password visibility"
               >
                 <span class="eye-icon" onClick={toggleNewPwdShowHide}>
                   {hideNewPassword ? <See /> : <Unseen />}
                 </span>
               </button>
-              {errors["new password"] && (
-                <p className="error-message">{errors["new password"]}</p>
-              )}
             </div>
+            {errors["new password"] && (
+              <p className="error-message">{errors["new password"]}</p>
+            )}
           </div>
 
           <div className="password-criteria">

@@ -24,6 +24,7 @@ import { Dashboard } from "./components/profile/Dashboard";
 import PurchaseHistory from "./components/profile/PurchaseHistory";
 import Profile from "./components/profile/Profile";
 import WishlistPage from "./components/profile/Wishlist";
+import Login from "./components/login/Login";
 
 function App() {
   const dispatch = useDispatch();
@@ -92,6 +93,7 @@ function App() {
           <Route path="/shop/checkout" element={<Checkout />} />
           <Route path="/shop/thankyou" element={<ThankYou />} />
           <Route path="/signup" element={<SignupPage />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/forgotpassword" element={<ForgotPassword />} />
           <Route path="/forgotpassword/:token" element={<SetNewPassword />} />
           <Route path="/shop/checkout/payment" element={<CheckoutPayment />} />

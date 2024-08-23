@@ -1,3 +1,4 @@
+import authAxios from "../../utils/AuthAxios";
 import { actionTypes } from "./actionTypes";
 import axios from "axios";
 
@@ -35,7 +36,7 @@ export const setUserId = (userId) => {
 };
 
 export const fetchAddressList = (userId) => async (dispatch) => {
-  const res = await axios.get(
+  const res = await authAxios.get(
     `http://localhost:3399/user/userInfo/${userId}/address`,
   );
   const shippingAddress = res.data.data.shippingAddress;
@@ -49,7 +50,7 @@ export const fetchAddressList = (userId) => async (dispatch) => {
 export const editAddress =
   (userId, addressId, newAddress) => async (dispatch) => {
     try {
-      await axios.put(
+      await authAxios.put(
         `http://localhost:3399/user/userInfo/${userId}/address/${addressId}`,
         newAddress,
       );

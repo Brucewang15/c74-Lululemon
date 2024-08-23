@@ -36,6 +36,7 @@ import { Library } from "@googlemaps/js-api-loader";
 
 import taxRateData from "./taxRate.json";
 import { ShippingAddressList } from "./ShippingAddressList";
+import authAxios from "../../utils/AuthAxios";
 
 export const Checkout = () => {
   const navigator = useNavigate();
@@ -272,7 +273,7 @@ export const Checkout = () => {
         postalCode: formData.zipcode,
       };
       try {
-        const res = await axios.post(
+        const res = await authAxios.post(
           `${serverAPI}/user/userInfo/${userInfo.id}/address`,
           sanitizedData,
           // {
