@@ -124,7 +124,7 @@ export const Checkout = () => {
         { orderData }
       );
       const { orderId } = response.data.data;
-      console.log(response);
+      // console.log(response);
       localStorage.setItem("orderId", orderId);
       dispatch(setOrderId(orderId));
     } catch (err) {

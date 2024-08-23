@@ -122,7 +122,9 @@ export const CheckoutPaymentPage = () => {
             totalAfterTax: totalAfterTax,
             orderStatus: orderStatus,
           }));
-          console.log(res);
+          dispatch(setShippingCost(shippingCost));
+
+          // console.log(res);
         })
         .catch((e) => console.log("fetching order info failed", e));
     }
@@ -135,20 +137,20 @@ export const CheckoutPaymentPage = () => {
   ]);
 
   // get shipping costs when the page loads
-  useEffect(() => {
-    const orderId = localStorage.getItem("orderId");
-    axios
-      .get(`http://localhost:3399/order/${orderId}`)
-      .then((res) => {
-        const { shippingFee } = res.data.data.order;
-        setOrderData((prevState) => ({
-          ...prevState,
-          shippingFee: shippingFee,
-        }));
-        dispatch(setShippingCost(shippingCost));
-      })
-      .catch((e) => console.log("fetching shipping fee failed", e));
-  }, [orderId, dispatch, shippingCost]);
+  // useEffect(() => {
+  //   const orderId = localStorage.getItem("orderId");
+  //   axios
+  //     .get(`http://localhost:3399/order/${orderId}`)
+  //     .then((res) => {
+  //       const { shippingFee } = res.data.data.order;
+  //       setOrderData((prevState) => ({
+  //         ...prevState,
+  //         shippingFee: shippingFee,
+  //       }));
+  //       dispatch(setShippingCost(shippingCost));
+  //     })
+  //     .catch((e) => console.log("fetching shipping fee failed", e));
+  // }, [orderId, dispatch, shippingCost]);
 
   // check if the order is paid, if yes then direct t o thank you page
   useEffect(() => {
