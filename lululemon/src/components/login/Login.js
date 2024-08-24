@@ -9,6 +9,7 @@ import {
   loginSuccess,
   setToken,
   setUser,
+  setUserId,
 } from "../../redux/actions/authAction";
 import { getCartId } from "../../redux/actions/shoppingCartActions";
 import { useDispatch } from "react-redux";
@@ -67,11 +68,13 @@ const Login = () => {
       localStorage.setItem("tokenExpiration", expirationTime);
       localStorage.setItem("userInfo", JSON.stringify(user));
       localStorage.setItem("cartId", cartId);
+      localStorage.setItem("userId", userId);
 
       dispatch(setToken(token));
       dispatch(setUser(user));
       dispatch(loginSuccess());
       dispatch(getCartId(cartId));
+      dispatch(setUserId(userId));
 
       navigate("/");
     } catch (e) {

@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { serverAPI } from "../../redux/utils/helper";
 import "./OrderPage.css";
+import authAxios from "../../utils/AuthAxios";
 
 export const OrderPage = () => {
   const [orders, setOrders] = useState([]);
@@ -20,7 +21,7 @@ export const OrderPage = () => {
   useEffect(() => {
     const userId = localStorage.getItem("userId");
     const fetchOrders = async () => {
-      const res = await axios.get(
+      const res = await authAxios.get(
         `${serverAPI}/order/user/${userId}?page=${page}&limit=${limit}`
       );
       console.log(res);
