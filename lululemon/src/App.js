@@ -28,6 +28,7 @@ import { CheckoutPaymentPage } from "./components/checkout/CheckoutPaymentPage";
 
 import { TextSearchPage } from "./pages/TextSearchPage";
 import { OrderPage } from "./components/order-test-purpose/OrderPage.js";
+import Login from "./components/login/Login";
 
 function App() {
   const dispatch = useDispatch();
@@ -97,6 +98,7 @@ function App() {
           <Route path="/shop/checkout" element={<Checkout />} />
           <Route path="/shop/thankyou" element={<ThankYou />} />
           <Route path="/signup" element={<SignupPage />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/forgotpassword" element={<ForgotPassword />} />
           <Route path="/forgotpassword/:token" element={<SetNewPassword />} />
 

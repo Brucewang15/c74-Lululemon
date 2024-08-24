@@ -4,10 +4,11 @@ import axios from "axios";
 import {apiURL, generalURL, myKey} from "../utils/helper";
 
 import {actionTypes} from "./actionTypes";
+import authAxios from "../../utils/AuthAxios";
 
 export const fetchFilterApi = () => {
     return dispatch => {
-        axios.post(`${generalURL}&mykey=${myKey}`)
+        authAxios.post(`${generalURL}&mykey=${myKey}`)
             .then(res => {
                 const filtersData = res.data.rs.filters;
                 const productsData = res.data.rs.products;
@@ -53,7 +54,7 @@ export const fetchMoreProducts = () => {
         console.log(nextPage);
         const requestBody = constructRequestBody(filters);
 
-        axios.post(`${generalURL}page=${nextPage}&mykey=${myKey}`, requestBody)
+        authAxios.post(`${generalURL}page=${nextPage}&mykey=${myKey}`, requestBody)
             .then(res => {
                 const productsData = res.data.rs.products;
                 const newPageParams = res.data.rs.pageParams;
@@ -141,7 +142,7 @@ export const selectTab = (tabName) => {
 export const postFilterRequest = (requestBody) => {
     console.log(requestBody);
     return dispatch => {
-        axios.post(apiURL, requestBody)
+        authAxios.post(apiURL, requestBody)
             .then(res => {
                 const productsData = res.data.rs.products;
                 const newPageParams = res.data.rs.pageParams;
@@ -225,7 +226,7 @@ export const fetchSortedProducts = (sortingOption, filters) => {
         } else {
             const sortingId = getSortingId(sortingOption);
             const requestBody = constructRequestBody(filters);
-            axios.post(`${generalURL}sortingId=${sortingId}&mykey=${myKey}`, requestBody)
+            authAxios.post(`${generalURL}sortingId=${sortingId}&mykey=${myKey}`, requestBody)
                 .then(res => {
                     const productsData = res.data.rs.products;
                     const pageParams = res.data.rs.pageParams;

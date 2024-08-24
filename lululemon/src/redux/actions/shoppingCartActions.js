@@ -3,6 +3,7 @@ import { actionTypes } from "./actionTypes";
 import axios from "axios";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import authAxios from "../../utils/AuthAxios";
 
 // add items to server
 export const addItemToServer = (cartItem, cartId) => async (dispatch) => {
@@ -261,6 +262,7 @@ export const addBackToCartToServer = (savedItemId) => async (dispatch) => {
     console.log("moving item back to cart failed");
   }
 };
+
 export const addBackToCart = (item) => {
   return {
     type: actionTypes.ADD_BACK_TO_CART,
@@ -353,6 +355,9 @@ export const updateOrderShippingFee = async (orderId, shippingFee) => {
 };
 
 // place order api
+export const placeOrder = async (userId, orderData) => {
+  await authAxios.post(`http://localhost:3399/order/${userId}`, { orderData });
+};
 
 // import {actionTypes} from "./actionTypes";
 // import axios from "axios";
