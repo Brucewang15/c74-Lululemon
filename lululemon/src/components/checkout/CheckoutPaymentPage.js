@@ -20,6 +20,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { EditOrderAddress } from "./EditOrderAddress";
 import { EditShippingFee } from "./EditShippingFee";
+import authAxios from "../../utils/AuthAxios";
 
 export const CheckoutPaymentPage = () => {
   const dispatch = useDispatch();
@@ -104,7 +105,7 @@ export const CheckoutPaymentPage = () => {
       dispatch(getOrderAddress(orderId));
 
       // get shipping fee, tax, total from the db
-      axios
+      authAxios
         .get(`http://localhost:3399/order/${orderId}`)
         .then((res) => {
           const {

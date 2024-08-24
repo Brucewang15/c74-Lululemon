@@ -120,7 +120,7 @@ export const Checkout = () => {
 
   const placeOrder = async (userId, orderData) => {
     try {
-      const response = await axios.post(
+      const response = await authAxios.post(
         `http://localhost:3399/order/${userId}`,
         { orderData }
       );

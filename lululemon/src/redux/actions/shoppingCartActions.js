@@ -8,7 +8,7 @@ import authAxios from "../../utils/AuthAxios";
 // add items to server
 export const addItemToServer = (cartItem, cartId) => async (dispatch) => {
   try {
-    const res = await axios.post(
+    const res = await authAxios.post(
       `http://localhost:3399/cart/${cartId}/addItem`,
       cartItem
     );
@@ -61,7 +61,7 @@ export const changeQuantity = (newQuantity, index) => (dispatch, getState) => {
 export const changeServerQuantity =
   (cartId, itemId, newQuantity) => async (dispatch) => {
     try {
-      const res = await axios.put(
+      const res = await authAxios.put(
         `http://localhost:3399/cart/${cartId}/updateQuantity/${itemId}`,
         { quantity: newQuantity }
       );
@@ -92,9 +92,12 @@ export const editCart =
 
 // edit cart item attributes (such as color, size etc) on our db server
 export const editServerCart = (cartId, itemId, newItem) => async (dispatch) => {
-  await axios.put(`http://localhost:3399/cart/${cartId}/updateItem/${itemId}`, {
-    newItem,
-  });
+  await authAxios.put(
+    `http://localhost:3399/cart/${cartId}/updateItem/${itemId}`,
+    {
+      newItem,
+    }
+  );
   dispatch(fetchCartItems(true));
 };
 
@@ -104,7 +107,7 @@ export const removeProduct =
   async (dispatch, getState) => {
     if (isLoggedIn === true) {
       const cartId = localStorage.getItem("cartId");
-      await axios.delete(
+      await authAxios.delete(
         `http://localhost:3399/cart/${cartId}/deleteItem/${itemId}`
       );
       dispatch(fetchCartItems(isLoggedIn));
@@ -139,7 +142,7 @@ export const fetchCartItems = (isLoggedIn) => async (dispatch) => {
           "Syncing cart with:",
           JSON.stringify({ items: cart }, null, 2)
         );
-        const res1 = await axios.post(
+        const res1 = await authAxios.post(
           `http://localhost:3399/cart/${cartId}/syncCart`,
           {
             items: cart,
@@ -154,7 +157,7 @@ export const fetchCartItems = (isLoggedIn) => async (dispatch) => {
         localStorage.removeItem("shoppingCart");
       }
 
-      const res = await axios.get(`http://localhost:3399/cart/${cartId}`);
+      const res = await authAxios.get(`http://localhost:3399/cart/${cartId}`);
       const cartFromServer = res.data.data;
       console.log("cart items from server==>", cartFromServer);
       console.log("cart from localStorage==>", cart);
@@ -208,7 +211,7 @@ export const fetchAllSavedItemsFromServer =
       return;
     }
     try {
-      const res = await axios.get(
+      const res = await authAxios.get(
         `http://localhost:3399/cart/${cartId}/savedItems`
       );
       const savedItems = res.data.data.savedItems;
@@ -229,7 +232,7 @@ export const saveForLaterToServer = (itemId) => async (dispatch) => {
   }
 
   try {
-    const res = await axios.post(
+    const res = await authAxios.post(
       `http://localhost:3399/cart/${cartId}/saveForLater/${itemId}`
     );
 
@@ -253,7 +256,7 @@ export const addBackToCartToServer = (savedItemId) => async (dispatch) => {
     console.log("no cartId and savedItemId, include them to move back to cart");
   }
   try {
-    const res = await axios.post(
+    const res = await authAxios.post(
       `http://localhost:3399/cart/${cartId}/moveBackToCart/${savedItemId}`
     );
     dispatch(fetchCartItems(true));
@@ -278,7 +281,7 @@ export const removeSavedItem = (savedItemId) => async (dispatch) => {
 
   try {
     console.log("cartId", cartId, "itemId", savedItemId);
-    await axios.delete(
+    await authAxios.delete(
       `http://localhost:3399/cart/${cartId}/deleteSavedItem/${savedItemId}`
     );
     dispatch(fetchAllSavedItemsFromServer());
@@ -324,7 +327,7 @@ export const setOrderId = (orderId) => {
 };
 
 export const getOrderItemsByOrderId = (orderId) => async (dispatch) => {
-  const res = await axios.get(`http://localhost:3399/order/${orderId}`);
+  const res = await authAxios.get(`http://localhost:3399/order/${orderId}`);
   const orderItems = res.data.data.order.orderItems;
   dispatch({
     type: actionTypes.SET_ORDER_ITEMS,
@@ -333,7 +336,7 @@ export const getOrderItemsByOrderId = (orderId) => async (dispatch) => {
 };
 
 export const getOrderAddress = (orderId) => async (dispatch) => {
-  const res = await axios.get(`http://localhost:3399/order/${orderId}`);
+  const res = await authAxios.get(`http://localhost:3399/order/${orderId}`);
   const orderAddress = res.data.data.order.shippingAddress;
   dispatch({
     type: actionTypes.SET_ORDER_ADDRESS,
@@ -342,16 +345,19 @@ export const getOrderAddress = (orderId) => async (dispatch) => {
 };
 
 export const updateOrderAddress = async (orderId, userId, newAddress) => {
-  await axios.post(
+  await authAxios.post(
     `http://localhost:3399/order/${orderId}/user/${userId}/updateAddress`,
     newAddress
   );
 };
 
 export const updateOrderShippingFee = async (orderId, shippingFee) => {
-  await axios.post(`http://localhost:3399/order/${orderId}/updateShippingFee`, {
-    shippingFee,
-  });
+  await authAxios.post(
+    `http://localhost:3399/order/${orderId}/updateShippingFee`,
+    {
+      shippingFee,
+    }
+  );
 };
 
 // place order api
