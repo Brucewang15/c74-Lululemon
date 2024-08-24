@@ -88,12 +88,14 @@ export const EditShippingFee = ({
               />
               <div className="method-container">
                 <div>2-3 business days</div>
-                <div>Priority Shipping</div>
+                <div>Priority Shipping ($30.00)</div>
               </div>
             </label>
           </div>
         </div>
-        <button onClick={handleSubmitNewShippingFee}>Confirm</button>
+        <button className="submit-button" onClick={handleSubmitNewShippingFee}>
+          Confirm
+        </button>
       </div>
     </div>
   );

@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -37,22 +38,16 @@
   cursor: pointer;
 }
 
-.modal-body {
-  margin: 0 auto;
-  .shippingMethod-wrapper {
-    display: flex;
-    flex-direction: column;
-    .shippingMethod-container {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: start;
-      margin-bottom: 20px;
-      .method-container {
-        display: flex;
-        flex-direction: column;
-        align-items: start;
-      }
-    }
-  }
+.shippingMethod-wrapper {
+  display: flex;
+  flex-direction: column;
 }
+.shippingMethod-wrapper .shippingMethod-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: start;
+  margin-bottom: 10px;
+}
+
+/*# sourceMappingURL=EditShippingFee.css.map */

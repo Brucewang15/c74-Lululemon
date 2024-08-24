@@ -24,9 +24,10 @@ import PurchaseHistory from "./components/profile/PurchaseHistory";
 import Profile from "./components/profile/Profile";
 import WishlistPage from "./components/profile/Wishlist";
 import { OpenAIChatboxTest } from "./components/test/OpenAIChatbox.js";
-import {CheckoutPaymentPage} from "./components/checkout/CheckoutPaymentPage";
+import { CheckoutPaymentPage } from "./components/checkout/CheckoutPaymentPage";
 
-import {TextSearchPage} from "./pages/TextSearchPage";
+import { TextSearchPage } from "./pages/TextSearchPage";
+import { OrderPage } from "./components/order-test-purpose/OrderPage.js";
 
 function App() {
   const dispatch = useDispatch();
@@ -106,9 +107,13 @@ function App() {
           />
           <Route path="/account/profile" element={<Profile />} />
           <Route path="/account/wishlist" element={<WishlistPage />} />
-          <Route path="/shop/checkout/payment" element={<CheckoutPaymentPage />} />
+          <Route
+            path="/shop/checkout/payment"
+            element={<CheckoutPaymentPage />}
+          />
           <Route path="*" element={<WrongPage />} />
           <Route path="/test/openAI" element={<OpenAIChatboxTest />} />
+          <Route path="/orders" element={<OrderPage />} />
         </Routes>
       </BrowserRouter>
     </div>
