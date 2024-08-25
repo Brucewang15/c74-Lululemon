@@ -29,6 +29,7 @@ import { CheckoutPaymentPage } from "./components/checkout/CheckoutPaymentPage";
 import { TextSearchPage } from "./pages/TextSearchPage";
 import { OrderPage } from "./components/order-test-purpose/OrderPage.js";
 import Login from "./components/login/Login";
+import { OrderDetails } from "./components/order-test-purpose/OrderDetails.js";
 
 function App() {
   const dispatch = useDispatch();
@@ -115,7 +116,8 @@ function App() {
           />
           <Route path="*" element={<WrongPage />} />
           <Route path="/test/openAI" element={<OpenAIChatboxTest />} />
-          <Route path="/orders" element={<OrderPage />} />
+          <Route path="/order" element={<OrderPage />} />
+          <Route path="/order/:orderId" element={<OrderDetails />} />
         </Routes>
       </BrowserRouter>
     </div>

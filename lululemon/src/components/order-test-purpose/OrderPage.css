@@ -1,57 +1,128 @@
-/* page selector  */
+/* 页面选择器样式 */
 .page-selector {
   display: flex;
   flex-direction: row;
   gap: 10px;
   justify-content: center;
-  .page {
-    background-color: #c6102e;
-    width: auto;
-    cursor: pointer;
-    border-radius: 50%;
-    &:hover {
-      background-color: #c8102e;
-    }
-  }
+  margin-top: 20px;
 }
 
-/* Order container */
+.page {
+  background-color: #c6102e;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.page:hover {
+  background-color: #a00d25;
+}
+
+.active-page {
+  background-color: white;
+  color: #c6102e;
+  border: 1px solid #c6102e;
+  padding: 10px 15px;
+  border-radius: 50%;
+  cursor: default;
+}
+
+/* 订单容器样式 */
 .page-container {
   margin: 0 auto;
-  .order-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 0 auto;
-  }
-  .orderDetails-container {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 10px;
-    justify-content: start;
-    margin: 0 auto;
-    width: 50%;
-  }
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.order-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.orderDetails-container {
+  width: 300px;
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.orderDetails-container span {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.orderInfo-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: center;
+}
+
+.orderInfo-container div {
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+.ordered-items {
+  margin-top: 10px;
+  cursor: pointer;
+  color: #007bff;
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.ordered-items button {
+  margin-top: 10px;
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.ordered-items button:hover {
+  background-color: #0056b3;
+}
+
+.product-info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
 }
 
 .hidden {
   display: none;
 }
 
-.product-info {
-  display: flex;
-  align-items: center;
-  gap: 5px;
+.current-page,
+.total-page {
+  margin-left: 20px;
+  font-weight: bold;
 }
 
-.active-page {
-  background-color: #fff;
-  width: auto;
-  cursor: pointer;
-  border-radius: 50%;
+.loading-order {
+  margin: 0 auto;
+  text-align: center;
+  font-size: 18px;
+  color: #666;
 }
 
-.ordered-items {
-  cursor: pointer;
+.loading-order img {
+  margin-top: 20px;
 }
