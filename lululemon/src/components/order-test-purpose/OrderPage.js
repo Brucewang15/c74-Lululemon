@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 export const OrderPage = () => {
   const navigate = useNavigate();
   const [orders, setOrders] = useState([]);
-  const [page, setPage] = useState(2);
+  const [page, setPage] = useState(1);
   const [prevPage, setPrevPage] = useState(page - 1);
   const [nextPage, setNextPage] = useState(page + 1);
   const [totalPages, setTotalPages] = useState(0);

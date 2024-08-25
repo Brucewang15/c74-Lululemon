@@ -43,6 +43,7 @@ export const OrderDetails = () => {
             <div className="item-info">
               <div>Product Id: {item.productId}</div>
               <div>Product Name: {item.name}</div>
+              <div>Size: {item.size}</div>
               <div>Price: ${item.price}</div>
               <div>Quantity: {item.quantity}</div>
               <div>Color: {item.swatchName}</div>
