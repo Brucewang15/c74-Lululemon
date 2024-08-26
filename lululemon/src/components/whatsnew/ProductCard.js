@@ -3,6 +3,7 @@ import './ProductCard.css';
 import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {addToWishlist, fetchWishlist, removeFromWishlist} from "../../redux/actions/wishlistAction";
+import {Like} from "../icon/like"
 
 const ProductCard = ({product}) => {
     const userInfo = useSelector((state) => state.authReducer.user);
@@ -144,6 +145,9 @@ const ProductCard = ({product}) => {
             <button className={`heartButton ${isInWishlist ? 'redHeart' : ''}`} onClick={handleLike}>
                 <div className="heart">&#x2665;</div>
             </button>
+            {/*<div className="heart-icon">*/}
+            {/*    <Like width={24} height={24}/>*/}
+            {/*</div>*/}
             <div className="swatchesContainer">
                 {product.swatches.length > 7 && (
                     <button className="swatchScrollButton left" onClick={() => scrollSwatches(-1)}>{"<"}</button>

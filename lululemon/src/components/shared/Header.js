@@ -34,7 +34,7 @@ export const Header = ({ isSticky }) => {
   const dispatch = useDispatch();
   // markxu@itlab.com
   // ITLabAPI@2024
-
+  const [fullName, setFullName] = useState("Profile");
   const updateHover = (index, newValue) => {
     // Create a new array with the updated element
     const newItems = [...hover];
@@ -61,6 +61,16 @@ export const Header = ({ isSticky }) => {
   const cart = useSelector((state) => state.shoppingCartReducer.shoppingCart);
   // const [cartCount, setCartCount] = useState(0);
 
+  useEffect(() => {
+    if (isLogin) {
+      if (userInfo.firstName && userInfo.lastName) {
+        setFullName(userInfo.firstName + userInfo.lastName)
+      } else {
+        setFullName("Profile");
+      }
+    }
+
+  }, [isLogin, userInfo]);
   useEffect(() => {
     const shoppingCartCount = cart.reduce(
       (total, item) => total + item.quantity,
@@ -206,7 +216,7 @@ export const Header = ({ isSticky }) => {
                   {" "}
                   {!isLogin
                     ? "Sign In"
-                    : `${userInfo.firstName} ${userInfo.lastName}`}
+                    : `${fullName}`}
                 </p>
               </a>
               {isLogin === false ? (
