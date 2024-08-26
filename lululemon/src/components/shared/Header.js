@@ -61,6 +61,10 @@ export const Header = ({ isSticky }) => {
   const cart = useSelector((state) => state.shoppingCartReducer.shoppingCart);
   // const [cartCount, setCartCount] = useState(0);
 
+  const handleProfile = () => {
+    navigate("/account/dashboard");
+  }
+
   useEffect(() => {
     if (isLogin) {
       if (userInfo.firstName && userInfo.lastName) {
@@ -212,12 +216,12 @@ export const Header = ({ isSticky }) => {
                   src="https://cdn-icons-png.flaticon.com/512/1144/1144760.png"
                   alt=""
                 />
-                <p id="miniAnimation">
+                <div id="miniAnimation" onClick={handleProfile}>
                   {" "}
                   {!isLogin
                     ? "Sign In"
                     : `${fullName}`}
-                </p>
+                </div>
               </a>
               {isLogin === false ? (
                 <Link to="/signup">Sign up</Link>

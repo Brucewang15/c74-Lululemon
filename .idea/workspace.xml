@@ -4,13 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="65b2d994-fcb4-4643-a7e6-5e825bfb82d3" name="Changes" comment="product page wishlist">
+    <list default="true" id="65b2d994-fcb4-4643-a7e6-5e825bfb82d3" name="Changes" comment="dashboard wishlist">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lululemon/src/components/profile/Wishlist.css" beforeDir="false" afterPath="$PROJECT_DIR$/lululemon/src/components/profile/Wishlist.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lululemon/src/components/profile/Wishlist.js" beforeDir="false" afterPath="$PROJECT_DIR$/lululemon/src/components/profile/Wishlist.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lululemon/src/components/shared/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/lululemon/src/components/shared/Header.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lululemon/src/components/whatsnew/ProductCard.css" beforeDir="false" afterPath="$PROJECT_DIR$/lululemon/src/components/whatsnew/ProductCard.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lululemon/src/components/whatsnew/ProductCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/lululemon/src/components/whatsnew/ProductCard.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -99,15 +95,7 @@
       <workItem from="1721257800438" duration="24000" />
       <workItem from="1722992870646" duration="3082000" />
       <workItem from="1723000955229" duration="44630000" />
-      <workItem from="1724626779665" duration="18574000" />
-    </task>
-    <task id="LOCAL-00024" summary="fix filter">
-      <option name="closed" value="true" />
-      <created>1718403565479</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1718403565479</updated>
+      <workItem from="1724626779665" duration="19796000" />
     </task>
     <task id="LOCAL-00025" summary="fix filter">
       <option name="closed" value="true" />
@@ -493,7 +481,15 @@
       <option name="project" value="LOCAL" />
       <updated>1724659311827</updated>
     </task>
-    <option name="localTasksCounter" value="73" />
+    <task id="LOCAL-00073" summary="dashboard wishlist">
+      <option name="closed" value="true" />
+      <created>1724660930171</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1724660930171</updated>
+    </task>
+    <option name="localTasksCounter" value="74" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -523,7 +519,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="show everything for shopping cart" />
     <MESSAGE value="add navigate" />
     <MESSAGE value="refactor structure" />
     <MESSAGE value="add to bag modal and duplicated cart item" />
@@ -548,6 +543,7 @@
     <MESSAGE value="add to wishlist work" />
     <MESSAGE value="wishlist work" />
     <MESSAGE value="product page wishlist" />
-    <option name="LAST_COMMIT_MESSAGE" value="product page wishlist" />
+    <MESSAGE value="dashboard wishlist" />
+    <option name="LAST_COMMIT_MESSAGE" value="dashboard wishlist" />
   </component>
 </project>
