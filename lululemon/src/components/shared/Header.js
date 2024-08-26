@@ -34,7 +34,7 @@ export const Header = ({ isSticky }) => {
   const dispatch = useDispatch();
   // markxu@itlab.com
   // ITLabAPI@2024
-  const [fullName, setFullName] = useState("Profile");
+  const [fullName, setFullName] = useState("My Account");
   const updateHover = (index, newValue) => {
     // Create a new array with the updated element
     const newItems = [...hover];
@@ -70,7 +70,7 @@ export const Header = ({ isSticky }) => {
       if (userInfo.firstName && userInfo.lastName) {
         setFullName(userInfo.firstName + userInfo.lastName)
       } else {
-        setFullName("Profile");
+        setFullName("My Account");
       }
     }
 
