@@ -8,16 +8,22 @@ export const REMOVE_FROM_WISHLIST = 'REMOVE_FROM_WISHLIST';
 export const WISHLIST_ERROR = 'WISHLIST_ERROR';
 
 // Action to fetch the wishlist
-export const fetchWishlist = () => async (dispatch, getState) => {
+export const fetchWishlist = (userId) => async (dispatch, getState) => {
     try {
-        const { user } = getState().authReducer;
-        if (user) {
-            const response = await axios.get(`${serverAPI}/wishlist/${user.userId}`);
-            dispatch({
-                type: FETCH_WISHLIST,
-                payload: response.data,
-            });
-        }
+        //const { user } = getState().authReducer;
+        // if (user) {
+        //     const response = await axios.get(`${serverAPI}/wishlist/${user.userId}`);
+        //     dispatch({
+        //         type: FETCH_WISHLIST,
+        //         payload: response.data,
+        //     });
+        // }
+        console.log(userId);
+        const response = await axios.get(`${serverAPI}/wishlist/${userId}`);
+        dispatch({
+            type: FETCH_WISHLIST,
+            payload: response.data,
+        });
     } catch (error) {
         dispatch({
             type: WISHLIST_ERROR,
@@ -33,6 +39,7 @@ export const addToWishlist = (product) => async (dispatch, getState) => {
         console.log(user);
         if (user) {
             const response = await axios.post(`${serverAPI}/wishlist/add/${user.id}`, product);
+            console.log("ADD TO WISHLIST: ", response.data);
             dispatch({
                 type: ADD_TO_WISHLIST,
                 payload: response.data,
@@ -51,7 +58,8 @@ export const removeFromWishlist = (productId) => async (dispatch, getState) => {
     try {
         const { user } = getState().authReducer;
         if (user) {
-            await axios.delete(`/api/wishlist/remove/${user.id}/${productId}`);
+            const response = await axios.delete(`${serverAPI}/wishlist/remove/${user.id}/${productId}`);
+            console.log("REMOVE_FROM_WISHLIST: ", response);
             dispatch({
                 type: REMOVE_FROM_WISHLIST,
                 payload: productId,

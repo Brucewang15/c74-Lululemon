@@ -1,7 +1,10 @@
 import { FETCH_WISHLIST, ADD_TO_WISHLIST, REMOVE_FROM_WISHLIST, WISHLIST_ERROR } from '../actions/wishlistAction';
 
 const initialState = {
-    products: []
+    wishlist: {
+        products: []
+    },
+    error: null
 };
 
 export const wishlistReducer = (state = initialState, action) => {
@@ -9,19 +12,28 @@ export const wishlistReducer = (state = initialState, action) => {
         case FETCH_WISHLIST:
             return {
                 ...state,
-                products: action.payload,
+                wishlist: {
+                    ...state.wishlist,
+                    products: action.payload
+                },
                 error: null,
             };
         case ADD_TO_WISHLIST:
             return {
                 ...state,
-                products: [...state.products, action.payload],
+                wishlist: {
+                    ...state.wishlist,
+                    products: [...state.wishlist.products, action.payload]
+                },
                 error: null,
             };
         case REMOVE_FROM_WISHLIST:
             return {
                 ...state,
-                products: state.products.filter(product => product.id !== action.payload),
+                wishlist: {
+                    ...state.wishlist,
+                    products: state.wishlist.products.filter(product => product.productId !== action.payload)
+                },
                 error: null,
             };
         case WISHLIST_ERROR:
