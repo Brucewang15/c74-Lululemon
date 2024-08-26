@@ -1,8 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import './ProductCard.css';
 import {useNavigate} from "react-router-dom";
+import {useSelector} from "react-redux";
 
 const ProductCard = ({product}) => {
+    const userInfo = useSelector((state) => state.authReducer.user);
+    const isLogin = useSelector((state) => state.authReducer.loginStatus);
     const [currentImage, setCurrentImage] = useState(null);
     const [originalImage, setOriginalImage] = useState(null);
     const [secondImage, setSecondImage] = useState(null);
@@ -85,6 +88,10 @@ const ProductCard = ({product}) => {
         // navigate(`/product/${product.productId}/colorId:${product.swatches[0].colorId}`)
         navigate(`/product/${product.productId}?colorId=${selectedColorId}`)
     }
+
+    const handleLike = () => {
+        console.log("like button clicked with: ", product.productId);
+    }
     return (
         <div className="productCard">
             <img
@@ -95,7 +102,7 @@ const ProductCard = ({product}) => {
                 onMouseEnter={handleMouseEnterImage}
                 onMouseLeave={handleMouseLeaveImage}
             />
-            <button className="heartButton">
+            <button className="heartButton" onClick={handleLike}>
                 <div className="heart">&#x2665;</div>
             </button>
             <div className="swatchesContainer">

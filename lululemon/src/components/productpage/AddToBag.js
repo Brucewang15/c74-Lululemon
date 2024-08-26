@@ -45,11 +45,9 @@ export const AddToBag = ({isExpanded, handleExpand, colorId, product, selectedSi
                 </div>
             </div>
             {isExpanded === true && (
-                <div className='pickUpInfoContainer'>
+                <div className='pickUpInfoContainer' style={{ textAlign: 'left' }}>
                     <div className='pickUpInfo'>
-                        Available for Buy & Pick-Up at these locations in Toronto, Ontario Change
-                        Locations
-                        Pick up in-store within 2 hours.
+                        It looks like we can't find your location. Tell us where you are so we can find stores near you!
                     </div>
                     <label htmlFor="locationInput">
                         <input type="radio" id='locationInput' className='locationInput'/> Sherway
