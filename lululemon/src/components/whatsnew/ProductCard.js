@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import './ProductCard.css';
 import {useNavigate} from "react-router-dom";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {addToWishlist} from "../../redux/actions/wishlistAction";
 
 const ProductCard = ({product}) => {
     const userInfo = useSelector((state) => state.authReducer.user);
@@ -14,6 +15,7 @@ const ProductCard = ({product}) => {
     const [selectedSwatchIndex, setSelectedSwatchIndex] = useState(null);
     const [selectedColorId, setSelectedColorId] = useState(null)
     const navigate = useNavigate()
+    const dispatch = useDispatch();
 
 
     // Initialize state
@@ -90,7 +92,18 @@ const ProductCard = ({product}) => {
     }
 
     const handleLike = () => {
-        console.log("like button clicked with: ", product.productId);
+        //console.log("like button clicked with: ", product.productId);
+        if (!isLogin) {
+            alert("Ready to Wish List it? Sign in to your member account.")
+        } else {
+            dispatch(addToWishlist({
+                productId: product.productId,
+                name: product.name,
+                price: product.price,
+                image: currentImage
+            }));
+            alert("Product added to your wishlist!");
+        }
     }
     return (
         <div className="productCard">
