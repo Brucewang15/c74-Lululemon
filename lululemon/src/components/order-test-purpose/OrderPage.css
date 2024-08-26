@@ -30,8 +30,7 @@
   cursor: default;
 }
 
-/* 订单容器样式 */
-.page-container {
+.orderpage-container {
   margin: 0 auto;
   padding: 20px;
   display: flex;

@@ -91,7 +91,7 @@ export const OrderPage = () => {
   return (
     <>
       <ShoppingCartHeader />
-      <div className="page-container">
+      <div className="orderpage-container">
         <h2 style={{ marginTop: "50px" }}>Orders</h2>
         <>
           <div className="order-container">
