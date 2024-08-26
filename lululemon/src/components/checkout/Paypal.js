@@ -49,6 +49,7 @@ export const Paypal = ({ orderId, amount }) => {
                   amount,
                   orderId,
                   userId,
+                  payType: "paypal",
                 }),
               })
                 .then((response) => response.json())

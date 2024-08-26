@@ -9,6 +9,7 @@ import ExpandMoreOutlinedIcon from "@mui/icons-material/ExpandMoreOutlined";
 import "./CheckoutPaymentPage.css";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import paypalImage from "../../assets/paypal.jpg";
+import stripeImage from "../../assets/stripe_purple.svg";
 import {
   getOrderAddress,
   getOrderItemsByOrderId,
@@ -16,6 +17,7 @@ import {
 } from "../../redux/actions/shoppingCartActions";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Stripe } from "./Stripe";
 
 export const CheckoutPaymentPage = () => {
   const dispatch = useDispatch();
@@ -204,6 +206,17 @@ export const CheckoutPaymentPage = () => {
                 <div className="paypal">
                   {totalPrice > 0 && orderData.orderStatus === "pending" && (
                     <Paypal orderId={orderId} amount={totalPrice} />
+                  )}
+                </div>
+              </div>
+              <div className="paymentRow">
+                <div className="paymentMethod">
+                  <img src={stripeImage} alt="Loading" />
+                  <h3>Pay with Stripe</h3>
+                </div>
+                <div className="paypal">
+                  {totalPrice > 0 && orderData.orderStatus === "pending" && (
+                    <Stripe orderId={orderId} amount={totalPrice} />
                   )}
                 </div>
               </div>
