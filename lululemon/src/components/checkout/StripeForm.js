@@ -133,7 +133,7 @@ export const StripeForm = ({ orderId, amount, paymentId }) => {
         console.log(err)
       }
       if (res && res.status == 200) {
-        // navigate("/shop/thankyou")
+        navigate("/shop/thankyou")
       } else {
         console.error("payment error")
       }
