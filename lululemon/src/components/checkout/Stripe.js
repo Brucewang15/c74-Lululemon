@@ -34,20 +34,19 @@ export const Stripe = ({ orderId, amount }) => {
     })
     .then((response) => response.json())
     .then((data) => {
-      console.log(data.data);
-      console.log(data.data.sessionId)
+      // console.log(data.data);
+      // console.log(data.data.sessionId)
       return data.data.sessionId
     })
     .catch((error) => console.error("Error:", error));
 
-    console.log("dsadadsa");
-    console.log(sessionId);
+    // console.log(sessionId);
 
     const result = await stripe.redirectToCheckout({
       sessionId: sessionId
     })
 
-    console.log(result)
+    // console.log(result)
   }
 
   
