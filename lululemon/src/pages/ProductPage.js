@@ -226,85 +226,10 @@ export const ProductPage = () => {
       dispatch(addItems(cartItem));
     }
 
-    // const existingItemIndex = shoppingCart.findIndex(
-    //   (item) =>
-    //     item.productId === cartItem.productId &&
-    //     item.colorId === cartItem.colorId &&
-    //     item.size === cartItem.size,
-    // );
-    //
-    // if (existingItemIndex !== -1) {
-    //   const updatedItem = {
-    //     ...shoppingCart[existingItemIndex],
-    //     quantity: shoppingCart[existingItemIndex].quantity + 1,
-    //   };
-    //   dispatch(
-    //     changeQuantity(
-    //       updatedItem.quantity,
-    //       existingItemIndex,
-    //       updatedItem._id,
-    //     ),
-    //   );
-    // } else {
-    //   dispatch(addItems(cartItem));
-    // }
     fetchRecommendedProducts();
     setBagModalOpen(true);
   };
 
-  // const handleAddToBag = () => {
-  //     //console.log(product.sizes[0].details !== 0 && !selectedSize);
-  //     if (product.sizes[0].details.length !== 0 && !selectedSize) {
-  //         alert("Please select a size.");
-  //         return;
-  //     }
-  //     const newPrice = product.price.replace('$', '').trim();
-  //     const productPrice = Number(parseInt(newPrice.slice(0, newPrice.indexOf(' '))));
-  //     console.log("product price: ", productPrice);
-  //     const cartItem = {
-  //         productId: productID,
-  //         colorId: selectedColorId,
-  //         size: selectedSize,
-  //         quantity: 1,
-  //         price: productPrice,
-  //         image: images[0],
-  //         name: product.name,
-  //         swatchName: swatchName,
-  //     };
-  //
-  //     axios.post('http://localhost:8000/cart/add', cartItem)
-  //         .then(response => {
-  //             //alert('Item added to cart');
-  //             console.log('Item added to cart:', response.data);
-  //
-  //             const existingItemIndex = shoppingCart.findIndex(item =>
-  //                 item.productId === cartItem.productId &&
-  //                 item.colorId === cartItem.colorId &&
-  //                 item.size === cartItem.size
-  //             );
-  //
-  //             if (existingItemIndex !== -1) {
-  //                 // If item exists, update the quantity in the Redux store
-  //                 const updatedItem = {
-  //                     ...shoppingCart[existingItemIndex],
-  //                     quantity: shoppingCart[existingItemIndex].quantity + 1
-  //                 };
-  //                 dispatch(updateQuantity(updatedItem.quantity, existingItemIndex, updatedItem._id));
-  //             } else {
-  //                 // If item does not exist, add the new item to the Redux store
-  //                 dispatch(addItems(cartItem));
-  //             }
-  //             console.log(shoppingCart)
-  //             dispatch(fetchCartItems())
-  //         })
-  //         .catch(error => {
-  //             console.error('Error adding item to cart:', error);
-  //             //alert('Failed to add item to cart');
-  //         });
-  //     //navigate('/shop/mybag')
-  //     fetchRecommendedProducts();
-  //     setBagModalOpen(true);
-  // };
 
   const fetchRecommendedProducts = async (colorId) => {
     try {
@@ -348,6 +273,7 @@ export const ProductPage = () => {
                 images={images}
                 handleModalOpen={handleModalOpen}
                 alt={alt}
+                product={product}
               />
               {/*<button className="heartButton">*/}
               {/*    <div className="heart">&#x2665;</div>*/}

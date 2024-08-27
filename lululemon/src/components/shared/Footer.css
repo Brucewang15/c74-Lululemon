@@ -1,161 +1,148 @@
 html {
-    color: #262626;
+  color: #262626;
 }
 
 .footer {
-    background-color: white;
-    text-align: left;
-    margin-top: 10px;
-
+  background-color: white;
+  text-align: left;
+  margin-top: 10px;
+  width: 100%;
 }
 
 .gridContainer {
-    height: 700px;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr); /* Creates 4 equal columns */
-    grid-template-rows: repeat(2, auto);
-    padding: 0 76px;
-    max-width: 1440px; /* 增加的部分 */
-    margin-left: auto; /* 增加的部分 */
-    margin-right: auto; /* 增加的部分 */
+  height: 700px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Creates 4 equal columns */
+  grid-template-rows: repeat(2, auto);
+  padding: 0 76px;
+  max-width: 1440px; /* 增加的部分 */
+  margin-left: auto; /* 增加的部分 */
+  margin-right: auto; /* 增加的部分 */
 
-    font-size: 14px;
+  font-size: 14px;
 
-    :nth-child(5) .list {
-        gap: 25px;
+  :nth-child(5) .list {
+    gap: 25px;
+  }
 
+  :nth-child(6) .list {
+    gap: 25px;
+  }
+
+  .container:nth-child(7) {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    a img {
+      height: 20px;
+      filter: brightness(1);
+      transition: all 0.15s linear;
     }
 
-    :nth-child(6) .list {
-        gap: 25px;
+    a img:hover {
+      filter: brightness(2.5);
     }
+  }
 
-    .container:nth-child(7) {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
+  .container:nth-child(n + 4) {
+    height: 200px;
+  }
 
-        a img {
-            height: 20px;
-            filter: brightness(1);
-            transition: all 0.15s linear;
+  .container {
+    padding: 15px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    width: 310px;
+    height: 376px;
+    background-color: #fff;
+  }
 
+  .title {
+    font-weight: bold;
+    margin: 35px 0;
+    position: relative;
 
-        }
-
-        a img:hover {
-            filter: brightness(2.5);
-        }
+    :hover {
+      cursor: pointer;
     }
+  }
 
-    .container:nth-child(n+4) {
-        height: 200px;
+  .list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    a {
+      text-decoration: none;
+      position: relative;
+      display: inline;
+      white-space: nowrap;
+      color: #262626;
     }
-
-    .container {
-        padding: 15px 0;
-        display: flex;
-        flex-direction: column;
-        justify-content: left;
-        width: 310px;
-        height: 376px;
-
-
-    }
-
-    .title {
-        font-weight: bold;
-        margin: 35px 0;
-        position: relative;
-
-        :hover {
-            cursor: pointer;
-        }
-    }
-
-    .list {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-
-
-        a {
-            text-decoration: none;
-            position: relative;
-            display: inline;
-            white-space: nowrap;
-            color: #262626;
-
-        }
-
-
-    }
-
-
+  }
 }
 
 #miniAnimation {
-    display: inline;
-    position: relative;
+  display: inline;
+  position: relative;
+  font-size: 0.8rem;
 }
 
 #miniAnimation::after {
-    content: '';
-    position: absolute;
-    height: 2px;
-    width: 0;
-    background-color: #cc0202;
-    transition: all 0.25s ease;
+  content: "";
+  position: absolute;
+  height: 2px;
+  width: 0;
+  background-color: #cc0202;
+  transition: all 0.25s ease;
 
-    left: 0;
-    bottom: -7px;
-
+  left: 0;
+  bottom: -7px;
 }
 
 #miniAnimation:hover::after {
-    width: 100%;
+  width: 100%;
 }
 
-ul, li {
-    list-style-type: none;
-    margin-left: 0;
-    padding-left: 0;
-    background: none;
-    border: none;
-
+ul,
+li {
+  list-style-type: none;
+  margin-left: 0;
+  padding-left: 0;
+  background: none;
+  border: none;
 }
-
 
 .component2 {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 hr {
-    width: 95%;
-    color: lightgray;
+  width: 95%;
+  color: lightgray;
 }
 
 .legalMenu {
+  display: flex;
+  justify-content: space-between;
+  padding: 25px 76px;
+  font-size: 12px;
+
+  .right {
     display: flex;
-    justify-content: space-between;
-    padding: 25px 76px;
-    font-size: 12px;
+    flex-direction: row;
+    white-space: nowrap;
+    gap: 20px;
 
-    .right {
-        display: flex;
-        flex-direction: row;
-        white-space: nowrap;
-        gap: 20px;
-
-        a {
-            text-decoration: none;
-            color: black;
-
-        }
-
-        .vl {
-            border-left: 1px solid lightgray;
-        }
-
+    a {
+      text-decoration: none;
+      color: black;
     }
+
+    .vl {
+      border-left: 1px solid lightgray;
+    }
+  }
 }

@@ -8,6 +8,7 @@ import PasswordEdition from "./PasswordEdition";
 import ShippingAddressEdition from "./ShippingAddressEdition";
 import GiftCardEdition from "./GiftCardEdition";
 import CreditcardEdition from "./CreditcardEdition";
+import { useSelector } from "react-redux";
 
 const Profile = () => {
   return (
@@ -58,6 +59,8 @@ const Account = () => {
   const [isEmailEditOpen, setIsEmailEditOpen] = useState(false);
   const [isPasswordEditOpen, setIsPasswordEditOpen] = useState(false);
 
+  const user = useSelector((state) => state.authReducer.user);
+  const email = user?.email;
   return (
     <div className="user section">
       <h2 className="subtitle">Account</h2>
@@ -71,7 +74,7 @@ const Account = () => {
             Edit
           </button>
         </div>
-        <div className="input">kidjokerrjerry@duck.com</div>
+        <div className="input">{email}</div>
       </div>
       {isEmailEditOpen && (
         <EmailEdition onClose={() => setIsEmailEditOpen(false)} />

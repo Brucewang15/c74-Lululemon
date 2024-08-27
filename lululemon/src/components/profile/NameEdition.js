@@ -1,11 +1,19 @@
 import "./NameEdition.css"; // Ensure you have a CSS file for styling
 import { Cross } from "../icon/cross";
 import { useState } from "react";
+import axios from "axios";
+import { serverAPI } from "../../redux/utils/helper";
+import authAxios from "../../utils/AuthAxios";
+import { useSelector } from "react-redux";
 
 const NameEdition = ({ onClose }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const userId =
+    useSelector((state) => state.authReducer.user).id ||
+    JSON.parse(localStorage.getItem("userInfo")).id;
 
+  console.log(userId);
   const [errors, setErrors] = useState({
     "first name": "",
   });
@@ -26,6 +34,26 @@ const NameEdition = ({ onClose }) => {
     return "";
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await authAxios.put(`${serverAPI}/user/userInfo/${userId}`, {
+        firstName,
+        lastName,
+      });
+
+      if (response.status === 200) {
+        console.log("Name updated successfully");
+        onClose(); // Close the modal or perform other actions
+      } else {
+        console.error("Failed to update name");
+      }
+    } catch (error) {
+      console.error("Error updating name:", error);
+    }
+  };
+
   const hasErrors = Object.values(errors).some((error) => error !== "");
   const isDisabled = !firstName || hasErrors;
 
@@ -36,7 +64,7 @@ const NameEdition = ({ onClose }) => {
           <Cross width={20} height={20} />
         </button>
         <h2>Edit your name</h2>
-        <form className="edit-name-form">
+        <form className="edit-name-form" onSubmit={handleSubmit}>
           <div className={`form-group ${errors["first name"] ? "error" : ""}`}>
             <label htmlFor="first-name">First name</label>
             <input

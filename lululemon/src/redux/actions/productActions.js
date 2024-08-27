@@ -1,3 +1,4 @@
+import authAxios from "../../utils/AuthAxios";
 import {filterURL, myKey, productURL} from "../utils/helper";
 import {actionTypes} from "./actionTypes";
 import axios from 'axios';
@@ -10,7 +11,7 @@ export const FETCH_FILTERS_SUCCESS = 'FETCH_FILTERS_SUCCESS';
 export const postFilterRequest = (requestBody) => {
     return dispatch => {
         console.log('Request Body : ', JSON.stringify(requestBody))
-        axios.post(productURL, requestBody, {
+        authAxios.post(productURL, requestBody, {
             headers: {
                 'Content-Type': 'application/json'
             }

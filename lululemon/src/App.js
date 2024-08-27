@@ -24,9 +24,12 @@ import PurchaseHistory from "./components/profile/PurchaseHistory";
 import Profile from "./components/profile/Profile";
 import WishlistPage from "./components/profile/Wishlist";
 import { OpenAIChatboxTest } from "./components/test/OpenAIChatbox.js";
-import {CheckoutPaymentPage} from "./components/checkout/CheckoutPaymentPage";
+import { CheckoutPaymentPage } from "./components/checkout/CheckoutPaymentPage";
 
-import {TextSearchPage} from "./pages/TextSearchPage";
+import { TextSearchPage } from "./pages/TextSearchPage";
+import { OrderPage } from "./components/order-test-purpose/OrderPage.js";
+import Login from "./components/login/Login";
+import { OrderDetails } from "./components/order-test-purpose/OrderDetails.js";
 
 function App() {
   const dispatch = useDispatch();
@@ -96,6 +99,7 @@ function App() {
           <Route path="/shop/checkout" element={<Checkout />} />
           <Route path="/shop/thankyou" element={<ThankYou />} />
           <Route path="/signup" element={<SignupPage />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/forgotpassword" element={<ForgotPassword />} />
           <Route path="/forgotpassword/:token" element={<SetNewPassword />} />
 
@@ -106,9 +110,14 @@ function App() {
           />
           <Route path="/account/profile" element={<Profile />} />
           <Route path="/account/wishlist" element={<WishlistPage />} />
-          <Route path="/shop/checkout/payment" element={<CheckoutPaymentPage />} />
+          <Route
+            path="/shop/checkout/payment"
+            element={<CheckoutPaymentPage />}
+          />
           <Route path="*" element={<WrongPage />} />
           <Route path="/test/openAI" element={<OpenAIChatboxTest />} />
+          <Route path="/order" element={<OrderPage />} />
+          <Route path="/order/:orderId" element={<OrderDetails />} />
         </Routes>
       </BrowserRouter>
     </div>

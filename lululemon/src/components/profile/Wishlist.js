@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import "./Wishlist.css";
 import {
   FaListUl,
@@ -9,6 +9,8 @@ import {
 import DashboardLayout from "./DashboardTemplate";
 import { Share } from "../icon/share";
 import { Like } from "../icon/like";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchWishlist} from "../../redux/actions/wishlistAction";
 
 const WishlistPage = () => {
   return (
@@ -20,56 +22,65 @@ const WishlistPage = () => {
 };
 
 const WishlistContent = () => {
-  const products = [
-    {
-      name: "Soft Jersey Jogger",
-      color: "Legacy Green",
-      size: "M",
-      price: 98,
-      image:
-        "https://images.lululemon.com/is/image/lululemon/LM5BBXS_064494_1?wid=1440&op_usm=0.8,1,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",
-    },
-    {
-      name: "Soft Jersey Jogger",
-      color: "Legacy Green",
-      size: "M",
-      price: 98,
-      image:
-        "https://images.lululemon.com/is/image/lululemon/LM5BBXS_064494_1?wid=1440&op_usm=0.8,1,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",
-    },
-    {
-      name: "Soft Jersey Jogger",
-      color: "Legacy Green",
-      size: "M",
-      price: 98,
-      image:
-        "https://images.lululemon.com/is/image/lululemon/LM5BBXS_064494_1?wid=1440&op_usm=0.8,1,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",
-    },
-    {
-      name: "Soft Jersey Jogger",
-      color: "Legacy Green",
-      size: "M",
-      price: 98,
-      image:
-        "https://images.lululemon.com/is/image/lululemon/LM5BBXS_064494_1?wid=1440&op_usm=0.8,1,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",
-    },
-    {
-      name: "Soft Jersey Jogger",
-      color: "Legacy Green",
-      size: "M",
-      price: 98,
-      image:
-        "https://images.lululemon.com/is/image/lululemon/LM5BBXS_064494_1?wid=1440&op_usm=0.8,1,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",
-    },
-    {
-      name: "Soft Jersey Jogger",
-      color: "Legacy Green",
-      size: "M",
-      price: 98,
-      image:
-        "https://images.lululemon.com/is/image/lululemon/LM5BBXS_064494_1?wid=1440&op_usm=0.8,1,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",
-    },
-  ];
+  const products = useSelector((state) => state.wishlistReducer.wishlist.products);
+  const userInfo = useSelector((state) => state.authReducer.user);
+  const isLogin = useSelector((state) => state.authReducer.loginStatus);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (isLogin) {
+      dispatch(fetchWishlist(userInfo.id));
+      //console.log(userInfo);
+    }
+  }, [dispatch, isLogin])// const products = [
+  //   {
+  //     name: "Soft Jersey Jogger",
+  //     color: "Legacy Green",
+  //     size: "M",
+  //     price: 98,
+  //     image:
+  //       "https://images.lululemon.com/is/image/lululemon/LM5BBXS_064494_1?wid=1440&op_usm=0.8,1,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",
+  //   },
+  //   {
+  //     name: "Soft Jersey Jogger",
+  //     color: "Legacy Green",
+  //     size: "M",
+  //     price: 98,
+  //     image:
+  //       "https://images.lululemon.com/is/image/lululemon/LM5BBXS_064494_1?wid=1440&op_usm=0.8,1,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",
+  //   },
+  //   {
+  //     name: "Soft Jersey Jogger",
+  //     color: "Legacy Green",
+  //     size: "M",
+  //     price: 98,
+  //     image:
+  //       "https://images.lululemon.com/is/image/lululemon/LM5BBXS_064494_1?wid=1440&op_usm=0.8,1,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",
+  //   },
+  //   {
+  //     name: "Soft Jersey Jogger",
+  //     color: "Legacy Green",
+  //     size: "M",
+  //     price: 98,
+  //     image:
+  //       "https://images.lululemon.com/is/image/lululemon/LM5BBXS_064494_1?wid=1440&op_usm=0.8,1,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",
+  //   },
+  //   {
+  //     name: "Soft Jersey Jogger",
+  //     color: "Legacy Green",
+  //     size: "M",
+  //     price: 98,
+  //     image:
+  //       "https://images.lululemon.com/is/image/lululemon/LM5BBXS_064494_1?wid=1440&op_usm=0.8,1,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",
+  //   },
+  //   {
+  //     name: "Soft Jersey Jogger",
+  //     color: "Legacy Green",
+  //     size: "M",
+  //     price: 98,
+  //     image:
+  //       "https://images.lululemon.com/is/image/lululemon/LM5BBXS_064494_1?wid=1440&op_usm=0.8,1,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",
+  //   },
+  // ];
 
   return (
     <div className="favourites-container">
@@ -100,15 +111,13 @@ const WishlistContent = () => {
               </div>
             </div>
             <div className="product-details">
-              <div className="product-info-line">
-                <h2 className="product-name">{product.name}</h2>
-                <p className="product-price">${product.price}</p>
-              </div>
-              <div className="product-details-line">
-                <p>Colour: {product.color}</p>
-                <p>Size: {product.size}</p>
-              </div>
-              <button className="add-to-bag-button">ADD TO BAG</button>
+              <h3 className="product-name">{product.name}</h3>
+              <div className="product-price">{product.price}</div>
+              {/*<div className="product-details-line">*/}
+              {/*  <p>Colour: {product.color}</p>*/}
+              {/*  <p>Size: {product.size}</p>*/}
+              {/*</div>*/}
+              {/*<button className="add-to-bag-button">ADD TO BAG</button>*/}
             </div>
           </div>
         ))}

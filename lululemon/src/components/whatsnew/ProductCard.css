@@ -42,6 +42,9 @@
 .heart:hover {
     color: red;
 }
+.heartButton.redHeart .heart {
+    color: red;
+}
 
 .swatchesContainer {
     display: flex;

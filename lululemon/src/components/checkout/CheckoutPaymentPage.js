@@ -6,6 +6,7 @@ import { ShoppingCartFooter } from "../shoppingcart/ShoppingCartFooter";
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import ExpandLessOutlinedIcon from "@mui/icons-material/ExpandLessOutlined";
 import ExpandMoreOutlinedIcon from "@mui/icons-material/ExpandMoreOutlined";
+import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
 import "./CheckoutPaymentPage.css";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import paypalImage from "../../assets/paypal.jpg";
@@ -14,20 +15,39 @@ import {
   getOrderAddress,
   getOrderItemsByOrderId,
   setOrderId,
+  setShippingCost,
 } from "../../redux/actions/shoppingCartActions";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { EditOrderAddress } from "./EditOrderAddress";
+import { EditShippingFee } from "./EditShippingFee";
+import authAxios from "../../utils/AuthAxios";
 import { Stripe } from "./Stripe";
 
 export const CheckoutPaymentPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [isExpanded, setIsExpanded] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isEditShippingFee, setIsEditShippingFee] = useState(false);
   const [orderData, setOrderData] = useState({
     taxAmount: 0,
     totalBeforeTax: 0,
     totalAfterTax: 0,
     shippingFee: 0,
     orderStatus: "pending",
+  });
+  const [formData, updateFormData] = useState({
+    country: "",
+    state: "",
+    city: "",
+    zipcode: "",
+    streetAddress: "",
+    fullAddress: "",
+    email: "",
+    phone: "",
+    firstName: "",
+    lastName: "",
   });
 
   // user info related redux
@@ -36,38 +56,38 @@ export const CheckoutPaymentPage = () => {
     useSelector((state) => state.authReducer.userId) ||
     localStorage.getItem("userId");
   const selectedAddress = useSelector(
-    (state) => state.authReducer.selectedAddress,
+    (state) => state.authReducer.selectedAddress
   );
 
   // order related redux
   const orderId = useSelector((state) => state.shoppingCartReducer.orderId);
   const orderItems = useSelector(
-    (state) => state.shoppingCartReducer.orderItems,
+    (state) => state.shoppingCartReducer.orderItems
   );
   const orderTotalItems = orderItems.reduce(
     (total, item) => total + item.quantity,
-    0,
+    0
   );
   const orderAddress = useSelector(
-    (state) => state.shoppingCartReducer.orderAddress,
+    (state) => state.shoppingCartReducer.orderAddress
   );
 
   // shopping cart related redux
   const shoppingCart = useSelector(
-    (state) => state.shoppingCartReducer.shoppingCart,
+    (state) => state.shoppingCartReducer.shoppingCart
   );
   const totalItems = shoppingCart.reduce(
     (total, item) => total + item.quantity,
-    0,
+    0
   );
 
   // costs(tax + shipping fee) related redux
   const shippingCost = useSelector(
-    (state) => state.shoppingCartReducer.shippingCost,
+    (state) => state.shoppingCartReducer.shippingCost
   );
   const taxAmount = useSelector((state) => state.shoppingCartReducer.taxAmount);
   const totalBeforeTax = useSelector(
-    (state) => state.shoppingCartReducer.totalBeforeTax,
+    (state) => state.shoppingCartReducer.totalBeforeTax
   );
   const totalPrice = isNaN(orderData.taxAmount)
     ? (orderData.totalBeforeTax + orderData.shippingFee).toFixed(2)
@@ -76,15 +96,6 @@ export const CheckoutPaymentPage = () => {
         orderData.shippingFee +
         orderData.taxAmount
       ).toFixed(2);
-
-  const [isExpanded, setIsExpanded] = useState(true);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const handleExpand = () => {
-    setIsExpanded(!isExpanded);
-  };
-  const handleOpenLoginModal = () => {
-    setIsModalOpen(true);
-  };
 
   //get order id from localStoarge and dispatch it to redux -- just in case we refresh the page
   // get order items and address from db
@@ -96,7 +107,7 @@ export const CheckoutPaymentPage = () => {
       dispatch(getOrderAddress(orderId));
 
       // get shipping fee, tax, total from the db
-      axios
+      authAxios
         .get(`http://localhost:3399/order/${orderId}`)
         .then((res) => {
           const {
@@ -114,17 +125,54 @@ export const CheckoutPaymentPage = () => {
             totalAfterTax: totalAfterTax,
             orderStatus: orderStatus,
           }));
-          console.log(res);
+          dispatch(setShippingCost(shippingCost));
+
+          // console.log(res);
         })
         .catch((e) => console.log("fetching order info failed", e));
     }
-  }, [dispatch, orderId, orderData.orderStatus]);
+  }, [
+    dispatch,
+    orderData.orderStatus,
+    orderData.shippingFee,
+    userId,
+    shippingCost,
+  ]);
 
+  // get shipping costs when the page loads
+  // useEffect(() => {
+  //   const orderId = localStorage.getItem("orderId");
+  //   axios
+  //     .get(`http://localhost:3399/order/${orderId}`)
+  //     .then((res) => {
+  //       const { shippingFee } = res.data.data.order;
+  //       setOrderData((prevState) => ({
+  //         ...prevState,
+  //         shippingFee: shippingFee,
+  //       }));
+  //       dispatch(setShippingCost(shippingCost));
+  //     })
+  //     .catch((e) => console.log("fetching shipping fee failed", e));
+  // }, [orderId, dispatch, shippingCost]);
+
+  // check if the order is paid, if yes then direct t o thank you page
   useEffect(() => {
     if (orderData.orderStatus === "paid") {
-      setTimeout(() => navigate("/shop/thankyou"), 3000);
+      setTimeout(() => navigate("/shop/thankyou"), 1500);
     }
   }, [orderData.orderStatus]);
+
+  const handleExpand = () => {
+    setIsExpanded(!isExpanded);
+  };
+
+  // handle open edit modal
+  const handleOpenEditModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleCloseEditModal = () => {
+    setIsModalOpen(false);
+  };
   return (
     <>
       <ShoppingCartHeader />
@@ -172,10 +220,21 @@ export const CheckoutPaymentPage = () => {
                     {orderAddress &&
                       `${orderAddress.city}, ${orderAddress.province}, ${orderAddress.postalCode}`}
                   </p>
-                  <p>{orderAddress && orderAddress.phoneNumber}</p>
+                  {/* <p>{orderAddress && orderAddress.phoneNumber}</p> */}
+                  <p>
+                    {orderAddress &&
+                      `(${orderAddress.phoneNumber.slice(
+                        0,
+                        3
+                      )})-${orderAddress.phoneNumber.slice(
+                        3 - 6
+                      )}-${orderAddress.phoneNumber.slice(-4)}`}
+                  </p>
                 </div>
               </div>
-              <div className="infoEdit">Edit</div>
+              <div onClick={() => setIsModalOpen(true)} className="infoEdit">
+                Edit
+              </div>
             </div>
             <div className="infoRow">
               <div className="infoTitle">
@@ -188,11 +247,17 @@ export const CheckoutPaymentPage = () => {
                 Estimated delivery
               </div>
               <div className="infoDetails">
+                <LocalShippingOutlinedIcon className="truckIcon" />
                 {shippingCost === 0 && <p>2-7 business days (FREE)</p>}
                 {shippingCost === 20 && <p>2-4 business days ($20.00)</p>}
                 {shippingCost === 30 && <p>2-3 business days ($30.00)</p>}
               </div>
-              <div className="infoEdit">Edit</div>
+              <div
+                onClick={() => setIsEditShippingFee(true)}
+                className="infoEdit"
+              >
+                Edit
+              </div>
             </div>
           </div>
           <div className="infoCard">
@@ -230,7 +295,11 @@ export const CheckoutPaymentPage = () => {
             <div className="orderHeader">
               <div className="orderHeaderLeft">
                 <ShoppingBagOutlinedIcon />
-                <span>{`${orderTotalItems} ${orderTotalItems === 1 && orderTotalItems !== 0 ? "item" : "items"}`}</span>
+                <span>{`${orderTotalItems} ${
+                  orderTotalItems === 1 && orderTotalItems !== 0
+                    ? "item"
+                    : "items"
+                }`}</span>
                 {isExpanded ? (
                   <ExpandLessOutlinedIcon onClick={handleExpand} />
                 ) : (
@@ -278,15 +347,17 @@ export const CheckoutPaymentPage = () => {
               <div className="orderTotalRow">
                 <span>Shipping</span>
                 <span>
-                  {orderData.shippingFee === 0
-                    ? "FREE"
-                    : `$${orderData.shippingFee}.00`}
+                  {shippingCost === 0 ? "FREE" : `$${shippingCost}.00`}
                 </span>
               </div>
               <div className="orderTotalRow">
                 <span>Tax</span>
                 {/*<span>{(initialTaxRate * totalBeforeTax).toFixed(2)}</span>*/}
-                <span>{`$${isNaN(orderData.taxAmount) === true ? (0).toFixed(2) : orderData.taxAmount.toFixed(2)}`}</span>
+                <span>{`$${
+                  isNaN(orderData.taxAmount) === true
+                    ? (0).toFixed(2)
+                    : orderData.taxAmount.toFixed(2)
+                }`}</span>
               </div>
               <div className="orderTotalFinal">
                 <h3>
@@ -306,8 +377,23 @@ export const CheckoutPaymentPage = () => {
           </div>
         </div>
       </div>
+      {isEditShippingFee && (
+        <EditShippingFee
+          setIsEditShippingFee={setIsEditShippingFee}
+          setOrderData={setOrderData}
+          orderData={orderData}
+        />
+      )}
 
       <ShoppingCartFooter />
+      {isModalOpen && (
+        <EditOrderAddress
+          orderAddress={orderAddress}
+          formData={formData}
+          updateFormData={updateFormData}
+          handleCloseModal={handleCloseEditModal}
+        />
+      )}
     </>
   );
 };

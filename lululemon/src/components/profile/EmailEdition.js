@@ -1,11 +1,30 @@
-import React, { useState } from "react"; // Import useState
+import React, { useEffect, useState } from "react"; // Import useState
 import "./EmailEdition.css"; // Ensure you have a CSS file for styling
 import { Cross } from "../icon/cross";
+import { useSelector } from "react-redux";
+import authAxios from "../../utils/AuthAxios";
+import { serverAPI } from "../../redux/utils/helper";
+import { useNavigate } from "react-router-dom";
 
 const EmailEdition = ({ onClose }) => {
   const [newEmail, setNewEmail] = useState("");
   const [confirmEmail, setConfirmEmail] = useState("");
   const [errors, setErrors] = useState({ newEmail: "", confirmEmail: "" });
+  const navigate = useNavigate();
+
+  const user =
+    useSelector((state) => state.authReducer.user) ||
+    localStorage.getItem("userInfo");
+    
+  const userId = user?.id;
+  const originalEmail = user?.email;
+
+  useEffect(() => {
+    if (!userId) {
+      console.log("Your session has expired. Do you want to log in again?")
+      navigate("/login");
+    }
+  }, []);
 
   const handleNewEmailChange = (e) => {
     const { name, value } = e.target;
@@ -23,12 +42,10 @@ const EmailEdition = ({ onClose }) => {
     setConfirmEmail(value);
 
     const errorMessage = validateForm(name, value);
-    if (errorMessage) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        [name]: errorMessage,
-      }));
-    }
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: errorMessage,
+    }));
   };
 
   const validateForm = (name, value) => {
@@ -44,6 +61,8 @@ const EmailEdition = ({ onClose }) => {
         errorMessage = "Please enter a valid email format.";
       } else if (newEmail !== confirmEmail) {
         errorMessage = "Your new email doesn’t match.";
+      } else {
+        errorMessage = "";
       }
     }
 
@@ -53,13 +72,11 @@ const EmailEdition = ({ onClose }) => {
   const handleBlur = (e) => {
     const { name, value } = e.target;
     const errorMessage = validateField(name, value);
-    console.log(errorMessage);
-    if (errorMessage) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        [name]: errorMessage,
-      }));
-    }
+
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: errorMessage,
+    }));
   };
 
   const validateField = (name, value) => {
@@ -73,6 +90,28 @@ const EmailEdition = ({ onClose }) => {
     return "";
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await authAxios.put(
+        `${serverAPI}/user/userInfo/${userId}`,
+        {
+          email: confirmEmail,
+        }
+      );
+
+      if (response.status === 200) {
+        console.log("Name updated successfully");
+        onClose();
+      } else {
+        console.error("Failed to update name");
+      }
+    } catch (error) {
+      console.error("Error updating name:", error);
+    }
+  };
+
   const hasErrors = Object.values(errors).some((error) => error !== "");
   const isDisabled = !newEmail || !confirmEmail || hasErrors;
 
@@ -84,13 +123,13 @@ const EmailEdition = ({ onClose }) => {
         </button>
         <h2>Change your email</h2>
 
-        <form className="change-email-form">
+        <form className="change-email-form" onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="current-email">Current email address</label>
             <input
               type="email"
               id="current-email"
-              value="kidjokerjerry@duck.com"
+              value={originalEmail}
               readOnly
             />
           </div>

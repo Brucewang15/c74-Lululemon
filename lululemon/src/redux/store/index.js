@@ -16,6 +16,7 @@ import { shoppingCartReducer } from "../reducers/shoppingCartReducer";
 import { authReducer } from "../reducers/authReducer";
 import { inventoryReducer } from "../reducers/inventoryReducer";
 import { helpReducer } from "../reducers/helpReducer";
+import { wishlistReducer } from "../reducers/wishlistReducer";
 
 const rootReducer = combineReducers({
   filterReducer,
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
   inventoryReducer,
   helpReducer,
   authReducer,
+  wishlistReducer
 });
 
 export const reduxStore = createStore(rootReducer, applyMiddleware(thunk));
