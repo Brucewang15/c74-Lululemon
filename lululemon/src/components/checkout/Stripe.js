@@ -5,8 +5,6 @@ import { useSelector } from "react-redux";
 import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
 
-import {Button} from '@stripe/ui-extension-sdk/ui';
-
 import stripeImageWhite from "../../assets/stripe_white.png";
 
 export const Stripe = ({ orderId, amount }) => {
