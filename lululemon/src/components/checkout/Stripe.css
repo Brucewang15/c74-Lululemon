@@ -1,0 +1,21 @@
+#stripeButtonContainer {
+    width: 100%;
+}
+
+.StripeButton {
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    height: 55px;
+    background-color: #664EFF;
+    cursor: pointer;
+}
+
+.StripeButton:hover {
+    background-color: #5743da;
+}
+
+.StripeLogoButton {
+    margin-top: 4px;
+    height: 28px;
+}

@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import "./ShippingAddressEdition.css";
 import { Cross } from "../icon/cross";
+import authAxios from "../../utils/AuthAxios";
+import { serverAPI } from "../../redux/utils/helper";
+import { useSelector } from "react-redux";
 
 const validateField = (name, value) => {
   if (!value.trim()) {
@@ -19,11 +22,16 @@ const formatPostalCode = (value) => {
 };
 
 const ShippingAddressEdition = ({ onClose }) => {
+  const userId =
+    useSelector((state) => state.authReducer.user).id ||
+    JSON.parse(localStorage.getItem("userInfo")).id;
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
     phoneNumber: "",
     address: "",
+    country: "Canada",
     city: "",
     province: "",
     postalCode: "",
@@ -68,7 +76,9 @@ const ShippingAddressEdition = ({ onClose }) => {
       const postalCodePattern = /^[A-Za-z]\d[A-Za-z] \d[A-Za-z]\d$/;
       setErrors((prevErrors) => ({
         ...prevErrors,
-        [name]: !postalCodePattern.test(value) ? "Please enter a valid postal code in the format." : "",
+        [name]: !postalCodePattern.test(value)
+          ? "Please enter a valid postal code in the format."
+          : "",
       }));
     } else if (name === "phoneNumber") {
       let formattedPhoneNumber = value.replace(/[^\d]/g, ""); // Remove non-digit characters
@@ -95,7 +105,9 @@ const ShippingAddressEdition = ({ onClose }) => {
       const phonePattern = /^\(\d{3}\) \d{3}-\d{4}$/;
       setErrors((prevErrors) => ({
         ...prevErrors,
-        [name]: !phonePattern.test(value) ? "Please enter a valid phone number in the format." : "",
+        [name]: !phonePattern.test(value)
+          ? "Please enter a valid phone number in the format."
+          : "",
       }));
     }
     setFormData((prevData) => ({
@@ -116,21 +128,44 @@ const ShippingAddressEdition = ({ onClose }) => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const validationErrors = {};
     Object.keys(formData).forEach((key) => {
-      const errorMessage = validateField(key, formData[key]);
-      if (errorMessage) {
-        validationErrors[key] = errorMessage;
+      if (key !== "isDefaultAddress") {
+        const errorMessage = validateField(key, formData[key]);
+        if (errorMessage) {
+          validationErrors[key] = errorMessage;
+        }
+      }
+      if (key === "phoneNumber") {
+        let formattedPhoneNumber = formData[key].replace(/[^\d]/g, "");
+        formData[key] = formattedPhoneNumber;
       }
     });
 
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
     } else {
-      console.log("Form submitted:", formData);
-      // Handle form submission logic here
+      try {
+        const response = await authAxios.post(
+          `${serverAPI}/user/userInfo/${userId}/address`,
+          JSON.parse(JSON.stringify(formData))
+        );
+
+        if (response.status === 200) {
+          alert("Address added successfully");
+          onClose();
+        } else {
+          console.error("Failed to add shipping address");
+          setErrors((prevErrors) => ({
+            ...prevErrors,
+            ["current password"]: response.data.msg,
+          }));
+        }
+      } catch (error) {
+        console.error("Error updating password:", error);
+      }
     }
   };
 

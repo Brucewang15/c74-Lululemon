@@ -50,6 +50,7 @@ export const EditAddressModal = ({
       city: formData.city,
       province: formData.state,
       postalCode: formData.zipCode,
+      country: formData.country,
     };
     dispatch(editAddress(userId, selectedAddress.id, newAddress));
     handleCloseModal();
@@ -138,6 +139,16 @@ export const EditAddressModal = ({
             onChange={handleInputChange}
           />
         </div>
+        <div className="input-group">
+          <label htmlFor="country">Country</label>
+          <input
+            type="text"
+            id="country"
+            name="country"
+            value={formData.country}
+            onChange={handleInputChange}
+          />
+        </div>
         <button onClick={handleEditAddress} className="save-button">
           SAVE CHANGES
         </button>
@@ -159,7 +170,6 @@ export const EditAddressModal = ({
 //   firstName: selectedAddress.firstName || "",
 //   lastName: selectedAddress.lastName || "",
 // });
-
 
 // const [formData, updateFormData] = useState({
 //   country: "",

@@ -5,6 +5,7 @@ import axios from "axios";
 import { myKey } from "../../redux/utils/helper";
 import { useSelector } from "react-redux";
 import { Paypal } from "../checkout/Paypal";
+import authAxios from "../../utils/AuthAxios";
 
 export const OrderSummary = ({ totalPrice }) => {
   const navigate = useNavigate();
@@ -49,7 +50,7 @@ export const OrderSummary = ({ totalPrice }) => {
       })
       .then(async (res) => {
         console.log("Order Placed successfully", res.data);
-        await axios.delete(`http://localhost:8000/cart/cleanup`);
+        await authAxios.delete(`http://localhost:8000/cart/cleanup`);
         console.log("Cart cleaned up successfully");
         navigate("/shop/thankyou");
       })
@@ -173,6 +174,7 @@ export const OrderSummary = ({ totalPrice }) => {
               src="https://luxecreative.com/wp-content/uploads/2019/09/lululemon.png"
               alt=""
             />
+            Checkout
           </button>
 
           {/*{isLogin === true && <button onClick={handlePlaceOrder}>*/}

@@ -85,11 +85,11 @@ export const LoginModal = ({
 
   const handleEmailInput = (e) => {
     setEmail(e.target.value);
-    console.log(e.target.value);
+    //console.log(e.target.value);
   };
   const handlePasswordInput = (e) => {
     setPassword(e.target.value);
-    console.log(e.target.value);
+    //console.log(e.target.value);
   };
   return (
     <div className="modal-overlay">

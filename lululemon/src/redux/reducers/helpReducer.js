@@ -3,14 +3,16 @@ import {
     SET_HELP_OPEN,
     SET_HELP_ACTIVITY,
     SET_SUGGESTED_PRODUCTS,
+    SET_CHAT_INPUT
 } from '../actions/helpAction';
 
 
 const initialState = {
     isUploading: false,
     isHelpOpen: false,
-    lastActivity: "Choose",
+    lastActivity: "Help",
     suggestedProducts: [],
+    chatInput: "",
 }
 
 export const helpReducer = (state = initialState, action) => {
@@ -31,6 +33,10 @@ export const helpReducer = (state = initialState, action) => {
             return {
                 ...state, suggestedProducts: action.payload
             };
+        case SET_CHAT_INPUT:
+            return {
+                ...state, chatInput: action.payload
+            }
         default:
             return state
     }

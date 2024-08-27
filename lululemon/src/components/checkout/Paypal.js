@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { paypalClientID } from "../../redux/utils/helper";
 import "./Paypal.css";
 import { useSelector } from "react-redux";
-
+import authAxios from "../../utils/AuthAxios";
 export const Paypal = ({ orderId, amount }) => {
   const userId =
     useSelector((state) => state.authReducer.userId) ||
@@ -40,17 +40,14 @@ export const Paypal = ({ orderId, amount }) => {
           onApprove: (data, actions) => {
             return actions.order.capture().then((details) => {
               // Send payment details to backend
-              fetch("http://localhost:3399/payment", {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
+              authAxios
+                .post("http://localhost:3399/payment", {
                   amount,
                   orderId,
                   userId,
-                }),
-              })
+                  payType: "paypal",
+                })
+
                 .then((response) => response.json())
                 .then((data) => {
                   console.log(data);
