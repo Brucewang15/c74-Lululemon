@@ -45,10 +45,13 @@ export const Paypal = ({ orderId, amount }) => {
                   amount,
                   orderId,
                   userId,
-                })
-                .then((response) => {
-                  console.log(response.data);
-                  if (response.data.msg === "Payment Successful") {
+                  payType: "paypal",
+                }),
+              })
+                .then((response) => response.json())
+                .then((data) => {
+                  console.log(data);
+                  if (data.msg === "Payment Successful") {
                     window.location.reload();
                   }
                 })
