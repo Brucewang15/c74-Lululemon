@@ -28,6 +28,7 @@ export const Stripe = ({ orderId, amount }) => {
         `http://localhost:3399/payment/stripe`,
         { orderId, userId }
       );
+      console.log(response)
       const { clientSecret, paymentId } = response.data.data;
 
       setClientSecret(clientSecret);
@@ -50,6 +51,8 @@ export const Stripe = ({ orderId, amount }) => {
       <Elements options={options} stripe={stripePromise}>
         <StripeForm
           clientSecret={clientSecret}
+          orderId={orderId}
+          userId={userId}
           paymentId={paymentId}
           amount={amount}
         />
