@@ -254,13 +254,54 @@
   margin-top: 1rem;
 }
 
-.view-details-btn,
-.cancel-order-btn {
+.view-details-btn {
   padding: 0.5rem 1rem;
   border-radius: 0.375rem;
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
+}
+
+.generate-pdf-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  background-color: #d31334; /* lululemon红色 */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.generate-pdf-btn:hover {
+  background-color: #b30f2e;
+}
+
+.cancel-order-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  background-color: #ef4444; /* 红色,表示取消操作 */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.cancel-order-btn:hover {
+  background-color: #dc2626;
+}
+
+.pdf-icon {
+  margin-right: 8px;
+}
+
+.cancel-icon {
+  margin-right: 8px;
 }
 
 .view-details-btn {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./PurchaseHistory.css";
 import DashboardLayout from "./DashboardTemplate";
-import { AlertCircle, ChevronDown, ChevronUp, Gift } from "lucide-react";
+import { FileText, XCircle, ChevronDown, ChevronUp, Gift } from "lucide-react";
 
 import { Arrow } from "../icon/arrow";
 import authAxios from "../../utils/AuthAxios";
@@ -45,20 +45,18 @@ const MainContent = () => {
       year: "numeric",
       month: "long",
       day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
     });
   };
 
   const fetchOrders = async () => {
     try {
       const response = await authAxios.get(
-        `${serverAPI}/order/userOrders/8?page=${currentPage}&limit=${pageSize}`
+        `${serverAPI}/order/userOrders/${userId}?page=${currentPage}&limit=${pageSize}`
       );
       setOrders(response.data.data.orders);
       setTotalPages(response.data.data.paginationInfo.totalPages);
 
-      console.log(response.data.data.orders)
+      console.log(response.data.data.orders);
     } catch (error) {
       console.error("Error fetching orders:", error);
     }
@@ -67,13 +65,22 @@ const MainContent = () => {
   const generatePDF = async (order) => {
     try {
       const pdfBytes = await generateInvoicePDF(order);
-      const blob = new Blob([pdfBytes], { type: 'application/pdf' });
-      const link = document.createElement('a');
+      const blob = new Blob([pdfBytes], { type: "application/pdf" });
+      const link = document.createElement("a");
       link.href = URL.createObjectURL(blob);
       link.download = `invoice_${order.id}.pdf`;
       link.click();
     } catch (error) {
-      console.error('Error generating PDF:', error);
+      console.error("Error generating PDF:", error);
+    }
+  };
+
+  const cancelOrder = async (orderId) => {
+    try {
+      //await authAxios.delete(`${serverAPI}/order/${orderId}`);
+      //fetchOrders();
+    } catch (error) {
+      console.error("Error canceling order:", error);
     }
   };
 
@@ -140,7 +147,24 @@ const MainContent = () => {
                   </>
                 )}
               </button>
-              <button onClick={() => generatePDF(order)}>Generate PDF</button>
+              <div className="action-buttons">
+                <button
+                  className="generate-pdf-btn"
+                  onClick={() => generatePDF(order)}
+                >
+                  <FileText className="pdf-icon" />
+                  Generate PDF
+                </button>
+                {order.orderStatus === "pending" && (
+                  <button
+                    className="cancel-order-btn"
+                    onClick={() => cancelOrder(order.id)}
+                  >
+                    <XCircle className="cancel-icon" />
+                    Cancel Order
+                  </button>
+                )}
+              </div>
             </div>
             {expandedOrders.includes(order.id) && (
               <div className="order-details">
