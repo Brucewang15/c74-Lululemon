@@ -63,6 +63,7 @@ const MainContent = () => {
   };
 
   const generatePDF = async (order) => {
+    console.log(order);
     try {
       const pdfBytes = await generateInvoicePDF(order);
       const blob = new Blob([pdfBytes], { type: "application/pdf" });
@@ -120,7 +121,7 @@ const MainContent = () => {
                 <div>
                   <p className="order-status">{order.orderStatus}</p>
                   <p className="order-total">
-                    Total: £{order.totalAfterTax.toFixed(2)}
+                    Total: ${order.totalAfterTax.toFixed(2)}
                   </p>
                 </div>
               </div>
@@ -185,7 +186,7 @@ const MainContent = () => {
                       <p className="item-size">Size: {item.size}</p>
                     </div>
                     <div className="item-price">
-                      <p>£{item.price.toFixed(2)}</p>
+                      <p>${item.price.toFixed(2)}</p>
                     </div>
                   </div>
                 ))}
@@ -206,19 +207,19 @@ const MainContent = () => {
                   <h3 className="section-title">Order Summary</h3>
                   <div className="summary-row">
                     <span>Subtotal:</span>
-                    <span>£{order.totalBeforeTax.toFixed(2)}</span>
+                    <span>${order.totalBeforeTax.toFixed(2)}</span>
                   </div>
                   <div className="summary-row">
                     <span>Shipping:</span>
-                    <span>£{order.shippingFee.toFixed(2)}</span>
+                    <span>${order.shippingFee.toFixed(2)}</span>
                   </div>
                   <div className="summary-row">
                     <span>Tax:</span>
-                    <span>£{order.taxAmount.toFixed(2)}</span>
+                    <span>${order.taxAmount.toFixed(2)}</span>
                   </div>
                   <div className="summary-row summary-total">
                     <span>Total:</span>
-                    <span>£{order.totalAfterTax.toFixed(2)}</span>
+                    <span>${order.totalAfterTax.toFixed(2)}</span>
                   </div>
                 </div>
                 {order.isGift && (
