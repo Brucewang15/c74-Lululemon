@@ -9,6 +9,7 @@ import ShippingAddressEdition from "./ShippingAddressEdition";
 import GiftCardEdition from "./GiftCardEdition";
 import CreditcardEdition from "./CreditcardEdition";
 import { useSelector } from "react-redux";
+import { useAuthGuard } from "../../hook/useAuthGuard";
 
 const Profile = () => {
   return (
@@ -59,6 +60,7 @@ const Account = () => {
   const [isEmailEditOpen, setIsEmailEditOpen] = useState(false);
   const [isPasswordEditOpen, setIsPasswordEditOpen] = useState(false);
 
+  const userId = useAuthGuard();
   const user = useSelector((state) => state.authReducer.user);
   const email = user?.email;
   return (

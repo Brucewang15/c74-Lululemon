@@ -1,17 +1,14 @@
 import "./NameEdition.css"; // Ensure you have a CSS file for styling
 import { Cross } from "../icon/cross";
 import { useState } from "react";
-import axios from "axios";
 import { serverAPI } from "../../redux/utils/helper";
 import authAxios from "../../utils/AuthAxios";
-import { useSelector } from "react-redux";
+import { useAuthGuard } from "../../hook/useAuthGuard";
 
 const NameEdition = ({ onClose }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const userId =
-    useSelector((state) => state.authReducer.user).id ||
-    JSON.parse(localStorage.getItem("userInfo")).id;
+  const userId = useAuthGuard();
 
   console.log(userId);
   const [errors, setErrors] = useState({
@@ -38,10 +35,13 @@ const NameEdition = ({ onClose }) => {
     e.preventDefault();
 
     try {
-      const response = await authAxios.put(`${serverAPI}/user/userInfo/${userId}`, {
-        firstName,
-        lastName,
-      });
+      const response = await authAxios.put(
+        `${serverAPI}/user/userInfo/${userId}`,
+        {
+          firstName,
+          lastName,
+        }
+      );
 
       if (response.status === 200) {
         console.log("Name updated successfully");

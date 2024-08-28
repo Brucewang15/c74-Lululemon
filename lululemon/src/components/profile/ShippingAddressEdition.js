@@ -3,7 +3,7 @@ import "./ShippingAddressEdition.css";
 import { Cross } from "../icon/cross";
 import authAxios from "../../utils/AuthAxios";
 import { serverAPI } from "../../redux/utils/helper";
-import { useSelector } from "react-redux";
+import { useAuthGuard } from "../../hook/useAuthGuard";
 
 const validateField = (name, value) => {
   if (!value.trim()) {
@@ -22,9 +22,7 @@ const formatPostalCode = (value) => {
 };
 
 const ShippingAddressEdition = ({ onClose }) => {
-  const userId =
-    useSelector((state) => state.authReducer.user).id ||
-    JSON.parse(localStorage.getItem("userInfo")).id;
+  const userId = useAuthGuard();
 
   const [formData, setFormData] = useState({
     firstName: "",
