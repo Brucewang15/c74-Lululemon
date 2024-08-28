@@ -3,7 +3,9 @@ import { paypalClientID } from "../../redux/utils/helper";
 import "./Paypal.css";
 import { useSelector } from "react-redux";
 import authAxios from "../../utils/AuthAxios";
+import { useNavigate } from "react-router-dom";
 export const Paypal = ({ orderId, amount }) => {
+  const navigate = useNavigate();
   const userId =
     useSelector((state) => state.authReducer.userId) ||
     localStorage.getItem("userId");
@@ -50,8 +52,8 @@ export const Paypal = ({ orderId, amount }) => {
 
                 .then((data) => {
                   console.log(data);
-                  if (data.msg === "Payment Successful") {
-                    window.location.reload();
+                  if (data.status === 200) {
+                    navigate("/shop/thankyou");
                   }
                 })
                 .catch((error) => console.error("Error:", error));
