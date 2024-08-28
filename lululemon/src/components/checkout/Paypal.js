@@ -47,7 +47,7 @@ export const Paypal = ({ orderId, amount }) => {
                   userId,
                   payType: "paypal",
                 })
-                .then((response) => response.json())
+
                 .then((data) => {
                   console.log(data);
                   if (data.msg === "Payment Successful") {
