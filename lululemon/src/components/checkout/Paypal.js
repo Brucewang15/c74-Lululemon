@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import {useEffect, useState} from "react";
 import { paypalClientID } from "../../redux/utils/helper";
 import "./Paypal.css";
 import { useSelector } from "react-redux";
@@ -30,16 +30,17 @@ export const Paypal = ({ orderId, amount }) => {
 
           createOrder: (data, actions) => {
             return actions.order.create({
-              purchase_units: [
-                {
+              purchase_units: [{
                   amount: {
                     value: amount,
                   },
-                },
-              ],
+                }],
+            }).then(paypalId => {
+              return paypalId
             });
           },
           onApprove: (data, actions) => {
+            console.log(data)
             return actions.order.capture().then((details) => {
               // Send payment details to backend
               authAxios
@@ -48,6 +49,7 @@ export const Paypal = ({ orderId, amount }) => {
                   orderId,
                   userId,
                   payType: "paypal",
+                  paypalId: data.paymentID
                 })
 
                 .then((data) => {
