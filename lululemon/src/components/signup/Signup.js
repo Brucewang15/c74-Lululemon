@@ -26,6 +26,7 @@ export const SignupPage = () => {
     lowercase: false,
     digit: false,
   });
+  const [error, setError] = useState()
 
   const navigate = useNavigate();
 
@@ -47,6 +48,10 @@ export const SignupPage = () => {
           alert("Registered failed");
         }
       } catch (e) {
+        if (e) {
+          setError(e.response.data)
+          alert(error)
+        }
         console.log("Register failed");
       }
     }
