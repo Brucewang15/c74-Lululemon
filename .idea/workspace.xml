@@ -4,16 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="65b2d994-fcb4-4643-a7e6-5e825bfb82d3" name="Changes" comment="product page wishlist">
+    <list default="true" id="65b2d994-fcb4-4643-a7e6-5e825bfb82d3" name="Changes" comment="connect profile dashboard">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lululemon/src/components/shared/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/lululemon/src/components/shared/Header.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lululemon/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/lululemon/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lululemon/src/components/productpage/AddToBagModal.css" beforeDir="false" afterPath="$PROJECT_DIR$/lululemon/src/components/productpage/AddToBagModal.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lululemon/src/components/productpage/AddToBagModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/lululemon/src/components/productpage/AddToBagModal.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/node_modules/.bin/jsesc" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.bin/jsesc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/node_modules/.bin/mime" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.bin/mime" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/node_modules/.bin/parser" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.bin/parser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/node_modules/.bin/semver" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.bin/semver" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/.package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,7 +28,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="whitney_wishlist" />
+        <entry key="$PROJECT_DIR$" value="whitney_final" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -103,22 +101,6 @@
       <workItem from="1722992870646" duration="3082000" />
       <workItem from="1723000955229" duration="44630000" />
       <workItem from="1724626779665" duration="18574000" />
-    </task>
-    <task id="LOCAL-00024" summary="fix filter">
-      <option name="closed" value="true" />
-      <created>1718403565479</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1718403565479</updated>
-    </task>
-    <task id="LOCAL-00025" summary="fix filter">
-      <option name="closed" value="true" />
-      <created>1718408652399</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1718408652399</updated>
     </task>
     <task id="LOCAL-00026" summary="carousel">
       <option name="closed" value="true" />
@@ -496,7 +478,23 @@
       <option name="project" value="LOCAL" />
       <updated>1724659311827</updated>
     </task>
-    <option name="localTasksCounter" value="73" />
+    <task id="LOCAL-00073" summary="connect profile dashboard">
+      <option name="closed" value="true" />
+      <created>1725044861646</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1725044861646</updated>
+    </task>
+    <task id="LOCAL-00074" summary="connect profile dashboard">
+      <option name="closed" value="true" />
+      <created>1725047790666</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1725047790666</updated>
+    </task>
+    <option name="localTasksCounter" value="75" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -507,26 +505,13 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="FILTERS">
-                <map>
-                  <entry key="branch">
-                    <value>
-                      <list>
-                        <option value="whitney_wishlist" />
-                      </list>
-                    </value>
-                  </entry>
-                </map>
-              </option>
-            </State>
+            <State />
           </value>
         </entry>
       </map>
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="show everything for shopping cart" />
     <MESSAGE value="add navigate" />
     <MESSAGE value="refactor structure" />
     <MESSAGE value="add to bag modal and duplicated cart item" />
@@ -551,6 +536,7 @@
     <MESSAGE value="add to wishlist work" />
     <MESSAGE value="wishlist work" />
     <MESSAGE value="product page wishlist" />
-    <option name="LAST_COMMIT_MESSAGE" value="product page wishlist" />
+    <MESSAGE value="connect profile dashboard" />
+    <option name="LAST_COMMIT_MESSAGE" value="connect profile dashboard" />
   </component>
 </project>

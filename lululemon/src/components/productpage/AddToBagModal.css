@@ -1,4 +1,4 @@
-.modal-overlay {
+.modal-cart-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -11,7 +11,7 @@
   z-index: 1000;
 }
 
-.modal-content-bag {
+.modal-cart-content-bag {
   background: white;
   width: 80%;
   max-width: 720px;
@@ -20,7 +20,7 @@
   position: relative;
 }
 
-.close-button {
+.cart-close-button {
   position: absolute;
   top: 10px;
   right: 10px;
@@ -30,7 +30,7 @@
   cursor: pointer;
 }
 
-.modal-header {
+.modal-cart-header {
   display: flex;
   /*justify-content: space-between;*/
   align-items: center;
@@ -52,10 +52,14 @@
   }
 }
 
-.modal-body {
+.modal-cart-body {
   display: flex;
   justify-content: space-between;
   padding-top: 20px;
+  align-items: flex-start;
+  /*flex-wrap: nowrap;*/
+  /*gap: 50px;*/
+  /*flex-direction: column;*/
   /*border-top: 1px solid #e0e0e0;*/
 }
 
@@ -64,6 +68,7 @@
   gap: 20px;
   text-align: left;
   align-items: flex-start;
+  flex: 1;
 }
 
 .product-summary img {
@@ -94,6 +99,8 @@
   align-items: flex-end;
   padding-left: 20px;
   border-left: 1px solid #e0e0e0;
+  min-width: 150px; /* Ensures the cart summary has a minimum width */
+  flex-shrink: 0; /* Prevents shrinking of the cart summary */
 }
 
 .subtotal {
@@ -117,11 +124,13 @@
 .view-bag-button {
   background-color: #c8102e;
   color: white;
+  margin-top: 10px;
   padding: 14px 40px;
   border: none;
   cursor: pointer;
   font-size: 12px;
   border-radius: 3px;
+
 }
 
 .view-bag-button:hover {

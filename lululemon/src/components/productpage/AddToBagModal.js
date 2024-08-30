@@ -52,19 +52,19 @@ const AddToBagModal = ({
   };
 
   return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content-bag" onClick={(e) => e.stopPropagation()}>
-        <button className="close-button" onClick={onClose}>
+    <div className="modal-cart-overlay" onClick={onClose}>
+      <div className="modal-cart-content-bag" onClick={(e) => e.stopPropagation()}>
+        <button className="cart-close-button" onClick={onClose}>
           ×
         </button>
-        <div className="modal-header">
+        <div className="modal-cart-header">
           <h2>Nice Pick!</h2>
           <i className="fas fa-shopping-bag"></i>
           <span>{`${totalItems} ${
             totalItems === 1 && totalItems !== 0 ? "item" : "items"
           }`}</span>
         </div>
-        <div className="modal-body">
+        <div className="modal-cart-body">
           <div className="product-summary">
             <img src={image} alt={product.name} />
             <div>
