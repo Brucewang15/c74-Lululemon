@@ -211,7 +211,9 @@ export const Header = ({ isSticky }) => {
                   src="https://cdn-icons-png.flaticon.com/512/1144/1144760.png"
                   alt=""
                 />
-                <p id="miniAnimation" onClick={() => navigate("/account/dashboard")}>
+                <p
+                    id="miniAnimation"
+                    onClick={() => isLogin && navigate("/account/dashboard")}>
                   {" "}
                   {!isLogin
                     ? "Sign In"
