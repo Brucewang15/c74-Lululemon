@@ -17,7 +17,7 @@ import {
 } from "./redux/actions/authAction";
 import { ThankYou } from "./components/checkout/ThankYou";
 import { SignupPage } from "./components/signup/Signup";
-import { ForgotPassword } from "./components/checkout/ForgotPassword";
+import { ForgotPassword } from "./components/checkout/ForgotPassword.js";
 import { SetNewPassword } from "./components/checkout/SetNewPassword";
 import { Dashboard } from "./components/profile/Dashboard";
 import PurchaseHistory from "./components/profile/PurchaseHistory";

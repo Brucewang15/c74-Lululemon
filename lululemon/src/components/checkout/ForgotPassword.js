@@ -1,13 +1,29 @@
 import { Header } from "../shared/Header";
 import Footer from "../shared/Footer";
 import "./ForgotPassword.css";
-
 import { useState } from "react";
+
+
+import Mailgun from 'mailgun.js'
+import formData from 'form-data'
+
 
 export const ForgotPassword = () => {
   const [email, setEmail] = useState("");
 
   const [resetToken, setResetToken] = useState("");
+
+
+
+
+
+
+
+  // logs any error
+
+
+
+
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -29,6 +45,23 @@ export const ForgotPassword = () => {
         console.log("ok");
         const data = await response.json();
         setResetToken(data.token);
+
+        const mailgun = new Mailgun(formData)
+        const mg = mailgun.client({
+          username: 'api',
+          key: 'bc8f2e60dddd41f487d4b60e80d41b2d-777a617d-97da2d90'
+        })
+
+        mg.messages.create('sandbox151b0eb017d14b21b65e00970ee97aed.mailgun.org', {
+          from: "Excited User <mailgun@sandbox151b0eb017d14b21b65e00970ee97aed.mailgun.org>",
+          to: email,
+          subject: "localhost:3000/forgotpassword/" +data.token,
+          html: "<p>Copy the link in the subject and paste it into your browser to reset your password!</p>"
+
+        })
+            .then(msg => console.log("message", msg)) // logs response data
+            .catch(err => console.log(err));
+
       } else {
         const errorText = await response.text();
         console.log("User Doesn't Exist");
@@ -70,10 +103,14 @@ export const ForgotPassword = () => {
 
         <div className="container">
           <div className="token">
-            <strong>Reset Passsword Link:</strong>{" "}
-            <a href={`forgotpassword/${resetToken}`}>{resetToken}</a>
+
+            {resetToken !== ""
+                ? "check your email!"
+                : ""
+            }
+
           </div>
-        </div>i
+        </div>
       </div>
 
       <Footer />
