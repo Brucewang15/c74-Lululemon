@@ -1,9 +1,11 @@
-import { useEffect } from "react";
+import {useEffect, useState} from "react";
 import { paypalClientID } from "../../redux/utils/helper";
 import "./Paypal.css";
 import { useSelector } from "react-redux";
 import authAxios from "../../utils/AuthAxios";
+import { useNavigate } from "react-router-dom";
 export const Paypal = ({ orderId, amount }) => {
+  const navigate = useNavigate();
   const userId =
     useSelector((state) => state.authReducer.userId) ||
     localStorage.getItem("userId");
@@ -28,16 +30,17 @@ export const Paypal = ({ orderId, amount }) => {
 
           createOrder: (data, actions) => {
             return actions.order.create({
-              purchase_units: [
-                {
+              purchase_units: [{
                   amount: {
                     value: amount,
                   },
-                },
-              ],
+                }],
+            }).then(paypalId => {
+              return paypalId
             });
           },
           onApprove: (data, actions) => {
+            console.log(data)
             return actions.order.capture().then((details) => {
               // Send payment details to backend
               authAxios
@@ -46,13 +49,13 @@ export const Paypal = ({ orderId, amount }) => {
                   orderId,
                   userId,
                   payType: "paypal",
+                  paypalId: data.paymentID
                 })
 
-                .then((response) => response.json())
                 .then((data) => {
                   console.log(data);
-                  if (data.msg === "Payment Successful") {
-                    window.location.reload();
+                  if (data.status === 200) {
+                    navigate("/shop/thankyou");
                   }
                 })
                 .catch((error) => console.error("Error:", error));

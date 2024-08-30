@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import authAxios from "../../utils/AuthAxios";
 import { serverAPI } from "../../redux/utils/helper";
 import { useNavigate } from "react-router-dom";
+import { useAuthGuard } from "../../hook/useAuthGuard";
 
 const EmailEdition = ({ onClose }) => {
   const [newEmail, setNewEmail] = useState("");
@@ -12,16 +13,16 @@ const EmailEdition = ({ onClose }) => {
   const [errors, setErrors] = useState({ newEmail: "", confirmEmail: "" });
   const navigate = useNavigate();
 
+  const userId = useAuthGuard();
   const user =
     useSelector((state) => state.authReducer.user) ||
     localStorage.getItem("userInfo");
-    
-  const userId = user?.id;
+  
   const originalEmail = user?.email;
 
   useEffect(() => {
     if (!userId) {
-      console.log("Your session has expired. Do you want to log in again?")
+      console.log("Your session has expired. Do you want to log in again?");
       navigate("/login");
     }
   }, []);

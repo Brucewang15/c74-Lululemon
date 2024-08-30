@@ -51,6 +51,7 @@ const Login = () => {
         password,
       });
 
+      console.log(res);
       if (res.status !== 200) {
         alert("Login failed");
         return;
@@ -79,6 +80,7 @@ const Login = () => {
       navigate("/");
     } catch (e) {
       console.error("Login failed", e);
+      setPasswordError(e.response.data);
     }
   };
 

@@ -1,94 +1,68 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "./Stripe.css";
 import { useSelector } from "react-redux";
 
 import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
 
-
-
-
-
 import stripeImageWhite from "../../assets/stripe_white.png";
+import { Elements } from "@stripe/react-stripe-js";
+import { StripeForm } from "./StripeForm";
+import authAxios from "../../utils/AuthAxios";
 
 export const Stripe = ({ orderId, amount }) => {
+  const stripePromise = loadStripe(
+    "pk_test_51Pr8iUP1hmPqGb5E80BaSQip23AnQTU3ADvA57Nj5NUoAvyIVe8GnIsjMM49MXdoNl2HWfyndVdlNJRd41iSkpGd00SYwnGZ8x"
+  );
 
-  amount = Math.round(amount)
+  const [clientSecret, setClientSecret] = useState(null);
+  const [paymentId, setPaymentId] = useState(null);
+
   const userId =
     useSelector((state) => state.authReducer.userId) ||
     localStorage.getItem("userId");
 
+  useEffect(() => {
+    const loadStripe = async () => {
+      const response = await authAxios.post(
+        `http://localhost:3399/payment/stripe`,
+        { orderId, userId }
+      );
+      console.log(response)
+      const { clientSecret, paymentId } = response.data.data;
 
-  const makePayment = async () => {
-    const stripe = await loadStripe("pk_test_51PnMZjIsvOFHvBvCO3hpgLRwd5oJSwBsUz0P11DOs3cQsYGMjiFQsdT1opFFeJZmHbxX2eOuWFqT4SAKkINTNJRi00vpdvOXdh")
-    console.log("key is ok")
+      setClientSecret(clientSecret);
+      setPaymentId(paymentId);
+    };
 
+    loadStripe();
+  }, []);
 
+  const appearance = {
+    theme: "stripe",
+  };
+  const options = {
+    clientSecret,
+    appearance,
+  };
 
-    const sessionId = await fetch("http://localhost:3399/payment", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${process.env.STRIPE_SECRERT}`
-      },
-      body: JSON.stringify({
-        amount,
-        orderId,
-        userId,
-        payType: "stripe",
-      }),
-    })
+  return (
+    clientSecret && (
+      <Elements options={options} stripe={stripePromise}>
+        <StripeForm
+          clientSecret={clientSecret}
+          orderId={orderId}
+          userId={userId}
+          paymentId={paymentId}
+          amount={amount}
+        />
+      </Elements>
+    )
+  );
 
-
-        .then((response) => {
-
-          console.log(JSON.stringify(response), "response")
-          return response.json()
-        }
-        )
-        .then((data) => {
-          console.log("first", data.data.sessionId);
-          return data.data.sessionId
-        })
-        .catch((error) => console.error("Error:", error));
-    // .then((response) => {
-    //   console.log(response, "response")
-    //
-    //   if (response.ok) return response.json()
-    //
-    //   return response.json().then(json => Promise.reject(json))})
-    //
-    //
-    //
-    // .then((data) => {
-    //   console.log("first", data.sessionId);
-    //   console.log("second", data.data.sessionId)
-    //   return data.data.sessionId
-    // })
-    //     .then(({ url}) => {
-    //       console.log("url: ", url)
-    //     })
-    // .catch((error) => console.error("Error1:", error));
-
-
-    // console.log(sessionId);
-
-    console.log("sessionId", sessionId)
-    const result = await stripe.redirectToCheckout({
-      sessionId: sessionId
-    })
-
-    if (result.error) {
-      console.error("result error", result.error.message);
-    }
-
-    // console.log(result)
-  }
-
-  
-  return (<div id="stripeButtonContainer">
-    <button className="StripeButton" onClick={makePayment}>
-      <img className="StripeLogoButton" src={stripeImageWhite} alt="" />
-    </button>
-  </div>)
+  // return (<div id="stripeButtonContainer">
+  //   <button className="StripeButton" onClick={makePayment}>
+  //     <img className="StripeLogoButton" src={stripeImageWhite} alt="" />
+  //   </button>
+  // </div>)
 };

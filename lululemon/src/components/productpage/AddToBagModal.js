@@ -16,7 +16,7 @@ const AddToBagModal = ({
   const [totalPrice, setTotalPrice] = useState(0);
   const navigate = useNavigate();
   const shoppingCart = useSelector(
-    (state) => state.shoppingCartReducer.shoppingCart,
+    (state) => state.shoppingCartReducer.shoppingCart
   );
   // const updateTotalPrice = async () => {
   //     const cartItems = await fetchCartItemsFromDB();
@@ -29,7 +29,7 @@ const AddToBagModal = ({
     console.log("UPDATE TOTOAL PRICE", shoppingCart);
     const price = shoppingCart.reduce(
       (total, item) => total + item.price * item.quantity,
-      0,
+      0
     );
     setTotalPrice(price);
   };
@@ -53,14 +53,16 @@ const AddToBagModal = ({
 
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+      <div className="modal-content-bag" onClick={(e) => e.stopPropagation()}>
         <button className="close-button" onClick={onClose}>
           ×
         </button>
         <div className="modal-header">
           <h2>Nice Pick!</h2>
           <i className="fas fa-shopping-bag"></i>
-          <span>{`${totalItems} ${totalItems === 1 && totalItems !== 0 ? "item" : "items"}`}</span>
+          <span>{`${totalItems} ${
+            totalItems === 1 && totalItems !== 0 ? "item" : "items"
+          }`}</span>
         </div>
         <div className="modal-body">
           <div className="product-summary">
