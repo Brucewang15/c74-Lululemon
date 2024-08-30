@@ -41,8 +41,7 @@ export const Header = ({ isSticky }) => {
     newItems[index] = newValue;
     // Update the state with the new array
     setHover(newItems);
-  };
-
+  }
   const handleOpenLoginModal = () => {
     setIsModalOpen(true);
   };
@@ -64,9 +63,9 @@ export const Header = ({ isSticky }) => {
   useEffect(() => {
     if (isLogin) {
       if (userInfo.firstName && userInfo.lastName) {
-        setFullName(userInfo.firstName + userInfo.lastName)
+        setFullName(userInfo.firstName + " " + userInfo.lastName)
       } else {
-        setFullName("Profile");
+        setFullName("My Account");
       }
     }
 
@@ -212,7 +211,7 @@ export const Header = ({ isSticky }) => {
                   src="https://cdn-icons-png.flaticon.com/512/1144/1144760.png"
                   alt=""
                 />
-                <p id="miniAnimation">
+                <p id="miniAnimation" onClick={() => navigate("/account/dashboard")}>
                   {" "}
                   {!isLogin
                     ? "Sign In"

@@ -6,11 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="65b2d994-fcb4-4643-a7e6-5e825bfb82d3" name="Changes" comment="product page wishlist">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lululemon/src/components/profile/Wishlist.css" beforeDir="false" afterPath="$PROJECT_DIR$/lululemon/src/components/profile/Wishlist.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lululemon/src/components/profile/Wishlist.js" beforeDir="false" afterPath="$PROJECT_DIR$/lululemon/src/components/profile/Wishlist.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lululemon/src/components/shared/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/lululemon/src/components/shared/Header.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lululemon/src/components/whatsnew/ProductCard.css" beforeDir="false" afterPath="$PROJECT_DIR$/lululemon/src/components/whatsnew/ProductCard.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lululemon/src/components/whatsnew/ProductCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/lululemon/src/components/whatsnew/ProductCard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lululemon/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/lululemon/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/.bin/jsesc" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.bin/jsesc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/.bin/mime" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.bin/mime" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/.bin/parser" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.bin/parser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/.bin/semver" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.bin/semver" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/.package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,7 +30,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="dempsey-august" />
+        <entry key="$PROJECT_DIR$" value="whitney_wishlist" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -55,7 +58,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "whitney__wishlist",
+    "git-widget-placeholder": "dempsey-august",
     "javascript.nodejs.core.library.configured.version": "21.7.3",
     "javascript.nodejs.core.library.typings.version": "20.14.9",
     "node.js.detected.package.eslint": "true",
