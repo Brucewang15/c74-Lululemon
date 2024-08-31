@@ -1,0 +1,129 @@
+.womenContainer {
+    font-size: 14px;
+    width: 100vw;
+    max-width: 1440px;
+    height: 460px;
+    position: absolute;
+    background-color: white;
+    z-index: 1;
+    text-align: left;
+
+    .womenContainerTop {
+        display: flex;
+        justify-content: space-between;
+        padding-left: 133px;
+        padding-right: 60px;
+
+        .womenContainerIndividual {
+
+
+            .womenList {
+                display: flex;
+                flex-direction: column;
+                gap: 19px;
+
+
+            }
+
+            :nth-child(1).womenList {
+                padding-right: 30px;
+                border-right: 1px solid lightgray;
+            }
+
+
+        }
+
+    }
+}
+
+.womenContainerTop > .womenContainerIndividual:nth-child(2) {
+    position: relative;
+    left: -50px;
+
+    .womenList {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        margin: 0;
+
+    }
+}
+
+.womenContainerTop > .womenContainerIndividual:nth-child(3) {
+    position: relative;
+    left: -30px;
+
+    .womenList {
+
+        margin: 0;
+    }
+}
+
+.womenContainerImage a {
+    text-decoration: none;
+    color: black;
+    width: 300px;
+    display: block;
+
+    img:nth-child(1) {
+        width: 300px;
+        border-radius: 5px;
+    }
+
+    h2, p {
+        margin-top: 10px;
+    }
+
+
+}
+
+.womenContainerTitle {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    font-weight: bold;
+
+    img {
+        height: 20px;
+    }
+
+    p {
+        display: block;
+    }
+
+}
+
+.womenContainerBottom {
+    padding-left: 133px;
+    padding-right: 60px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+    background-color: #f7f7f7;
+
+    .womenContainerBottomLeft {
+        display: flex;
+        flex-direction: row;
+
+        p {
+            padding-right: 123px;
+            border-right: 1px solid lightgray;
+        }
+
+        .womenListBottom {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            width: 600px;
+            padding-left: 50px;
+        }
+    }
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}

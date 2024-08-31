@@ -1,0 +1,162 @@
+.card-details-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  overflow-y: auto;
+}
+
+.card-details-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 400px;
+  max-height: 90vh;
+  position: relative;
+  overflow-y: auto;
+}
+
+.card-number-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.card-number-wrapper input {
+  width: 100%;
+  padding-right: 60px; /* Adjust based on the size of the card type logo */
+}
+
+.card-type {
+  position: absolute;
+  top: 50%;
+  right: 10px; /* Adjust based on your preference */
+  transform: translateY(-50%);
+  display: none;
+  width: 40px; /* Adjust based on the size of the card type logo */
+  height: 25px; /* Adjust based on the size of the card type logo */
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.card-type.Visa {
+  display: inline;
+  background-image: url("https://shop.lululemon.com/static/mybag/_next/static/media/visa.450802c6.svg");
+}
+
+.card-type.Mastercard {
+  display: inline;
+  background-image: url("https://shop.lululemon.com/static/mybag/_next/static/media/mc.86b9f9f6.svg");
+}
+
+.card-type.Amex {
+  display: inline;
+  background-image: url("https://shop.lululemon.com/static/mybag/_next/static/media/amex.5bed0ae0.svg");
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.card-details-content h2 {
+  margin-top: 0;
+}
+
+.card-types {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.card-types img {
+  height: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  input[type="text"],
+  input[type="tel"],
+  select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  input[type="checkbox"] {
+    margin-right: 5px;
+  }
+}
+
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.add-info-button {
+  background: none;
+  border: none;
+  color: blue;
+  cursor: pointer;
+  padding: 0;
+}
+
+.save-button {
+  width: 100%;
+  padding: 12px;
+  background-color: #d31334;
+  border-color: #d31334;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  text-transform: uppercase;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.save-button:disabled {
+  background-color: #8d9196;
+  border-color: #8d9196;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.underline-button {
+  width: 100%;
+  background: none;
+  border: none;
+  color: #000;
+  text-decoration: underline;
+  text-decoration-color: #000;
+  text-underline-offset: 4px;
+  cursor: pointer;
+  padding: 0;
+  margin-top: 20px;
+  font-size: 1rem;
+}
+
+.underline-button:hover {
+  text-decoration-color: #d31334;
+}

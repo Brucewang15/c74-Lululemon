@@ -1,0 +1,69 @@
+.productPageWrapperHidden {
+  display: none;
+}
+
+.productPageWrapperActive {
+  min-width: 1440px;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+.productPageWrapperActive .productPageContainer {
+  width: 80%;
+  margin: 0 auto;
+}
+.productPageWrapperActive .productPageContainer .productInfoContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 50px;
+}
+.productPageWrapperActive .productPageContainer .productInfoContainer .productImagesContainer {
+  position: relative;
+  width: 50%;
+}
+.productPageWrapperActive .productPageContainer .productInfoContainer .productInfo {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-left: 10px;
+}
+.productPageWrapperActive .productPageContainer .productInfoContainer .productInfo h4 {
+  font-size: small;
+  -webkit-text-decoration: underline black;
+          text-decoration: underline black;
+}
+.productPageWrapperActive .productPageContainer .productInfoContainer .productInfo h4:hover {
+  -webkit-text-decoration: underline red;
+          text-decoration: underline red;
+}
+.productPageWrapperActive .productPageContainer .productInfoContainer .productInfo .productName {
+  font-size: 2.05rem;
+  font-weight: 700;
+  font-style: normal;
+  word-break: break-word;
+  white-space: normal;
+  text-align: left;
+  width: 100%;
+}
+.productPageWrapperActive .productPageContainer .productInfoContainer .productInfo .productPrice {
+  font-weight: 300;
+  text-align: left;
+}
+.productPageWrapperActive .productPageContainer .productInfoContainer .productInfo .colorWord {
+  display: flex;
+  flex-direction: row;
+  text-align: left;
+  margin-top: 30px;
+  font-weight: 600;
+  font-size: 15px;
+}
+.productPageWrapperActive .productPageContainer .productInfoContainer .productInfo .colorWord .colorName {
+  margin-left: 5px;
+  font-weight: 300;
+}
+.productPageWrapperActive .productPageContainer .productInfoContainer .productInfo .colorWord .wordStyle {
+  margin-left: 5px;
+  font-weight: 300;
+}/*# sourceMappingURL=ProductPage.css.map */

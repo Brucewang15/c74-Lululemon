@@ -1,0 +1,40 @@
+.whatsNewContainer {
+    padding: 20px;
+
+    flex: 1;
+}
+
+.productsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+@media {
+    .productsGrid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.loadMoreContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.loadMoreContainer p {
+    margin-bottom: 10px;
+}
+
+.loadMoreContainer button {
+    padding: 10px 20px;
+    border: 1px solid black;
+    background-color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.loadMoreContainer button:hover {
+    background-color: #f0f0f0;
+}

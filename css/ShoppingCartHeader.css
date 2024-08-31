@@ -1,0 +1,35 @@
+.shoppingCartHeader {
+  position: fixed;
+  width: 100%;
+  padding: 15px 0;
+  top: 0;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 28%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.shoppingCartHeader img {
+  height: 38px;
+  width: 38px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.shoppingCartHeader .signInContainer {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  text-decoration: none;
+  gap: 15px;
+  font-size: 1rem;
+  font-family: Helvetica;
+}
+.shoppingCartHeader .signInContainer:hover {
+  -webkit-text-decoration: underline #c8102e;
+          text-decoration: underline #c8102e;
+  text-underline-offset: 5px;
+  transition: ease-in-out 0.5s;
+}/*# sourceMappingURL=ShoppingCartHeader.css.map */

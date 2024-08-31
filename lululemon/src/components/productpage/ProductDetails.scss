@@ -1,0 +1,41 @@
+
+.detailsContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0 auto;
+  align-items: start;
+
+  .details {
+    font-weight: 700;
+  }
+
+  .featureTitleContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    margin: 0 auto;
+    justify-content: start;
+    align-items: start;
+
+    .featureIcon {
+      width: 19px;
+
+    }
+
+    .featureTitle {
+      background-color: #ffffff;
+      border: none;
+      text-decoration: underline #989696;
+      text-underline-offset: 5px;
+      margin-bottom: 10px;
+      font-weight: 600;
+      cursor: pointer;
+
+      &:hover {
+        text-decoration-color: #c8102e;
+      }
+
+    }
+  }
+}

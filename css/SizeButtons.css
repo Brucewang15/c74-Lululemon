@@ -1,0 +1,55 @@
+.sizeContainer .soldoutWord {
+  text-align: left;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  font-weight: 600;
+  font-size: 15px;
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+}
+.sizeContainer .selectSizeWord {
+  text-align: left;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  font-weight: 600;
+  font-size: 15px;
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+}
+.sizeContainer .selectSizeWord .wordStyle {
+  margin-left: 5px;
+  font-weight: 300;
+}
+.sizeContainer .sizeButtonsContainer {
+  text-align: left;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  width: 100%;
+}
+.sizeContainer .sizeButtonsContainer .sizeLettersButton {
+  background-color: #fff;
+  border: 0.02px solid #c7c4c4;
+  margin: 5px;
+  height: 2.25rem;
+  width: 18%;
+  font-weight: 800;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.sizeContainer .sizeButtonsContainer .sizeLettersButton:hover {
+  border: 1px solid black;
+}
+.sizeContainer .sizeButtonsContainer .sizeLettersButtonChecked {
+  background-color: black;
+  color: white;
+  border: none;
+  margin: 5px;
+  height: 2.25rem;
+  width: 18%;
+  font-weight: 800;
+  cursor: pointer;
+  border-radius: 5px;
+}/*# sourceMappingURL=SizeButtons.css.map */

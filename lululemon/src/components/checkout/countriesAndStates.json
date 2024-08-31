@@ -1,0 +1,205 @@
+{
+  "countries": [
+    {
+      "name": "American Samoa",
+      "states": []
+    },
+    {
+      "name": "Argentina",
+      "states": []
+    },
+    {
+      "name": "Aruba",
+      "states": []
+    },
+    {
+      "name": "Bahamas",
+      "states": []
+    },
+    {
+      "name": "Bahrain",
+      "states": []
+    },
+    {
+      "name": "Barbados",
+      "states": []
+    },
+    {
+      "name": "Bermuda",
+      "states": []
+    },
+    {
+      "name": "Bolivia",
+      "states": []
+    },
+    {
+      "name": "Brazil",
+      "states": []
+    },
+    {
+      "name": "Canada",
+      "states": [
+        "Alberta",
+        "British Columbia",
+        "Manitoba",
+        "New Brunswick",
+        "Newfoundland and Labrador",
+        "Nova Scotia",
+        "Ontario",
+        "Prince Edward Island",
+        "Quebec",
+        "Saskatchewan",
+        "Northwest Territories",
+        "Nunavut",
+        "Yukon"
+      ]
+    },
+    {
+      "name": "Cayman Islands",
+      "states": []
+    },
+    {
+      "name": "Chile",
+      "states": []
+    },
+    {
+      "name": "Colombia",
+      "states": []
+    },
+    {
+      "name": "Dominican Republic",
+      "states": []
+    },
+    {
+      "name": "Ecuador",
+      "states": []
+    },
+    {
+      "name": "Greenland",
+      "states": []
+    },
+    {
+      "name": "Grenada",
+      "states": []
+    },
+    {
+      "name": "Guam",
+      "states": []
+    },
+    {
+      "name": "Guatemala",
+      "states": []
+    },
+    {
+      "name": "Honduras",
+      "states": []
+    },
+    {
+      "name": "Israel",
+      "states": []
+    },
+    {
+      "name": "Jamaica",
+      "states": []
+    },
+    {
+      "name": "Mexico",
+      "states": []
+    },
+    {
+      "name": "Montserrat",
+      "states": []
+    },
+    {
+      "name": "Panama",
+      "states": []
+    },
+    {
+      "name": "Peru",
+      "states": []
+    },
+    {
+      "name": "Puerto Rico",
+      "states": []
+    },
+    {
+      "name": "South Africa",
+      "states": []
+    },
+    {
+      "name": "Tanzania",
+      "states": []
+    },
+    {
+      "name": "Trinidad and Tobago",
+      "states": []
+    },
+    {
+      "name": "Turkey",
+      "states": []
+    },
+    {
+      "name": "Turks and Caicos Islands",
+      "states": []
+    },
+    {
+      "name": "United States",
+      "states": [
+        "Alabama",
+        "Alaska",
+        "Arizona",
+        "Arkansas",
+        "California",
+        "Colorado",
+        "Connecticut",
+        "Delaware",
+        "Florida",
+        "Georgia",
+        "Hawaii",
+        "Idaho",
+        "Illinois",
+        "Indiana",
+        "Iowa",
+        "Kansas",
+        "Kentucky",
+        "Louisiana",
+        "Maine",
+        "Maryland",
+        "Massachusetts",
+        "Michigan",
+        "Minnesota",
+        "Mississippi",
+        "Missouri",
+        "Montana",
+        "Nebraska",
+        "Nevada",
+        "New Hampshire",
+        "New Jersey",
+        "New Mexico",
+        "New York",
+        "North Carolina",
+        "North Dakota",
+        "Ohio",
+        "Oklahoma",
+        "Oregon",
+        "Pennsylvania",
+        "Rhode Island",
+        "South Carolina",
+        "South Dakota",
+        "Tennessee",
+        "Texas",
+        "Utah",
+        "Vermont",
+        "Virginia",
+        "Washington",
+        "West Virginia",
+        "Wisconsin",
+        "Wyoming"
+      ]
+    },
+    {
+      "name": "Virgin Islands",
+      "states": []
+    }
+  ]
+}

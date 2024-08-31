@@ -9,41 +9,248 @@ body {
 .topHeaderNavigation {
     height: 34px;
     background-color: #fafafa;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    padding-right: 60px;
+    font-size: 13px;
+    gap: 25px;
+
+    .topHeaderNavigationIndividual {
+        a {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: black;
+        }
+
+        img {
+            width: 16px;
+            cursor: pointer;
+        }
+    }
 }
 
 .headerNavigation {
     height: 76px;
     display: flex;
     justify-content: space-between;
-    padding: 0 25px;
+    padding: 0 60px;
     font-size: 14px;
+    background-color: #ffffff;
+
     img {
         height: 34px;
     }
+
     a {
         text-decoration: none;
         color: black;
 
     }
+
     .headerLeft {
         display: flex;
         justify-content: flex-start;
         gap: 40px;
         align-items: center;
         font-weight: bold;
+        position: relative;
+
+
     }
+
     .headerRight {
         display: flex;
         align-items: center;
+
         .input {
             border: black solid 2px;
             height: 47px;
+            width: 189px;
+            padding: 0 62px;
             border-radius: 4px;
+            position: relative;
+            display: flex;
+            align-items: center;
+
             input {
                 border: none;
                 display: flex;
+                z-index: 1;
+            }
+                
+            .imgSearch {
+                left: 5px;
+            }
+
+            button {
+                background-color: white;
+                border: none;
+                position: absolute;
+                left: 35px;
+                height: 16px;
+
+                img {
+                    height: 16px;
+                }
+
+                :hover {
+                    cursor: pointer;
+                }
+            }
+        }
+
+        .threeIcons {
+            display: flex;
+            align-items: center;
+            padding-left: 25px;
+            gap: 20px;
+            cursor: pointer;
+
+            img {
+                height: 25px;
+            }
+
+            > a:nth-child(1) {
+                display: flex;
+                flex-direction: row;
                 align-items: center;
+                gap: 10px;
+
+
+            }
+
+            > a:last-child {
+                position: relative;
+
+                p {
+                    color: red;
+                    position: absolute;
+                    top: -5px;
+                    left: 9px;
+                }
+            }
+
+            .logout {
+                &:hover {
+                    text-decoration: underline #c8102e;
+                    text-underline-offset: 5px;
+                    transition: ease-in-out 0.2s;
+                }
             }
         }
     }
 }
+
+
+#animation {
+    position: relative;
+    display: inline-block;
+}
+
+#animation::after {
+    content: '';
+    width: 0;
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    height: 4px;
+    background-color: #cc0202;
+    transition: all 0.25s ease;
+}
+
+#animation:hover::after {
+    width: 25px;
+}
+
+
+#miniAnimation {
+    display: inline;
+    position: relative;
+}
+
+#miniAnimation::after {
+    content: '';
+    position: absolute;
+    height: 2px;
+    width: 0;
+    background-color: #cc0202;
+    transition: all 0.25s ease;
+
+    left: 0;
+    bottom: -7px;
+
+}
+
+#miniAnimation:hover::after {
+    width: 100%;
+}
+
+
+.content {
+    position: absolute;
+    height: 400px;
+    top: 100px;
+    left: 73px;
+    font-weight: normal;
+    transition: 0.25s ease;
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    white-space: nowrap;
+
+    .whatsNew {
+        border-right: 1px solid gray;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .arrow {
+
+
+        break-inside: auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+
+        :nth-child(1) {
+            font-weight: bold;
+
+        }
+
+    }
+}
+
+
+.dropdownItem {
+    padding: 7px;
+    text-decoration: none;
+
+}
+
+.sticky {
+    /*position: fixed;*/
+    /*top: 0;*/
+    /*left: 0;*/
+    /*right: 0;*/
+    /*z-index: 1000;*/
+    /*background-color: #ffffff;*/
+    /*box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);*/
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 1440px; /* 或者你期望的具体宽度 */
+    z-index: 1000;
+    background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 0 60px; /* 保持与 headerNavigation 一致 */
+}
+
+.sticky .headerContent {
+    max-width: 1440px;
+}
+

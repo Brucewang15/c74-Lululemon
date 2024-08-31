@@ -1,0 +1,71 @@
+.removeModalWrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.removeModalContainer {
+  width: 400px;
+  max-width: 90%;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  text-align: center;
+  position: relative;
+}
+.removeModalContainer .closeModal {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+.removeModalContainer .removeWord {
+  font-size: 1.2rem;
+  font-weight: 800;
+  margin-bottom: 10px;
+  text-align: left;
+}
+.removeModalContainer .removeYes, .removeModalContainer .removeNo {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.removeModalContainer .removeYes {
+  background-color: #c6102e;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.9rem;
+  padding: 20px;
+}
+.removeModalContainer .removeNo {
+  background-color: #ffffff;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline black solid;
+  text-underline-offset: 5px;
+  font-size: 0.9rem;
+}
+.removeModalContainer .removeYes:hover {
+  background-color: #a00d25;
+  border-color: #a00d25;
+}
+.removeModalContainer .removeNo:hover {
+  text-decoration: underline #c6102e;
+}
+
+/*# sourceMappingURL=RemoveItemModal.css.map */

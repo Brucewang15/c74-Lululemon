@@ -1,0 +1,141 @@
+/* LoginModal.css */
+
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 400px;
+    width: 100%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.modal-header h2 {
+    font-size: 18px;
+    margin: 0;
+}
+
+.close-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.modal-content p {
+    margin: 0 0 10px;
+}
+
+.modal-content h3 {
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.input-group input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+.forgot-password {
+    display: block;
+    text-align: right;
+    font-size: 12px;
+    color: #0073e6;
+    text-decoration: none;
+    margin-top: 5px;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+.login-button {
+    width: 100%;
+    padding: 10px;
+    /*background: #333;*/
+    background-color: #c6102e;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.login-button:hover {
+    background-color: #a00d25;
+}
+
+.disclaimer {
+    font-size: 12px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.disclaimer a {
+    color: #0073e6;
+    text-decoration: none;
+}
+
+.disclaimer a:hover {
+    text-decoration: underline;
+}
+
+.guest-button {
+    width: 100%;
+    padding: 10px;
+    background: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.guest-button:hover {
+    background: #e5e5e5;
+}
+
+.loginSuccess {
+    color: #00c46a;
+}
+
+.loginFail {
+    color: red;
+}

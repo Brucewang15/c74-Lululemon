@@ -1,0 +1,122 @@
+.emptyShoppingCartContainer {
+  display: flex;
+  flex-direction: column;
+}
+.emptyShoppingCartContainer .shoppingCartHeader {
+  position: fixed;
+  width: 100%;
+  padding: 15px 0;
+  top: 0;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 28%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.emptyShoppingCartContainer .shoppingCartHeader img {
+  height: 38px;
+  width: 38px;
+  border-radius: 50%;
+}
+.emptyShoppingCartContainer .shoppingCartHeader .signInContainer {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  text-decoration: none;
+  gap: 5px;
+  font-size: 1rem;
+  font-family: Helvetica;
+}
+.emptyShoppingCartContainer .shoppingCartHeader .signInContainer:hover {
+  -webkit-text-decoration: underline #c8102e;
+          text-decoration: underline #c8102e;
+  text-underline-offset: 5px;
+  transition: ease-in-out 0.5s;
+}
+.emptyShoppingCartContainer .emptyShoppingCartBody {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center !important;
+  height: 55vh;
+  padding-top: 40px;
+  margin-top: 7%;
+}
+.emptyShoppingCartContainer .emptyShoppingCartBody h1 {
+  font-size: 3rem;
+  line-height: 0.9824561404;
+  font-weight: 700;
+  text-align: center;
+  font-family: Calibre, Verlag, Helvetica, sans-serif;
+}
+.emptyShoppingCartContainer .emptyShoppingCartBody .whatsNewBtn {
+  background-color: #c8102e;
+  color: #fff;
+  border: 0.0625rem solid;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  padding: 1rem;
+  text-align: center;
+  text-decoration: none;
+  font-weight: 700;
+}
+.emptyShoppingCartContainer .emptyShoppingCartFooter {
+  display: flex;
+  flex-direction: column;
+  height: 10%;
+  margin-bottom: 10%;
+  background-color: white;
+}
+.emptyShoppingCartContainer .emptyShoppingCartFooter .list1 {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  max-width: 85.75rem;
+  color: #53565a;
+  display: flex;
+  padding: 1.5rem 1rem 0.75rem;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.emptyShoppingCartContainer .emptyShoppingCartFooter .list1 ul {
+  flex: 0;
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+  font-size: 13.8px;
+  cursor: pointer;
+}
+.emptyShoppingCartContainer .emptyShoppingCartFooter .list2 {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  max-width: 85.75rem;
+  font-size: 0.875rem;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-weight: 400;
+  line-height: 1.4285714286;
+  color: #53565a;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 1.5rem 1rem;
+  border-top: 0.0625rem solid #d3d5d7;
+}
+.emptyShoppingCartContainer .emptyShoppingCartFooter .list2 ul {
+  flex: 0;
+  margin-bottom: 0.6rem;
+  font-size: 13.8px;
+  cursor: pointer;
+}
+.emptyShoppingCartContainer .emptyShoppingCartFooter .list2 ul:hover {
+  -webkit-text-decoration: underline #c8102e 1px solid;
+          text-decoration: underline #c8102e 1px solid;
+  text-underline-offset: 6px;
+  transition: 0.2s ease-in;
+}/*# sourceMappingURL=EmptyShoppingCart.css.map */
